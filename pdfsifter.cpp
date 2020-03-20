@@ -5,7 +5,8 @@
 using namespace std;
 
 bool subStrValidate(string line){
-    if(line.substr())
+    validKey = line.substr
+    if(line.substr(0, 4) == line.substr(0,4))
 }
 
 
