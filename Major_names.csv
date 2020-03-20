@@ -1,0 +1,168 @@
+1,Accounting,ACCT
+2,"Advertising, PR and Media Design",APRD
+3,Aerospace Engineering,ASEN
+4,Air Force Aerospace Studies - ROTC,AIRR
+5,Anthropology,ANTH
+6,Applied Math,APPM
+7,Arabic Languages,ARAB
+8,Architectural Engineering,AREN
+9,Architecture,ARCH
+10,Art Film Studies,ARTF
+11,Art History,ARTH
+12,Arts and Sciences Courses,ARSC
+13,Art Studio and Non-Studio,ARTS
+14,Asian Studies,ASIA
+15,Astrophysical and Planetary Sciences,ASTR
+16,ATLAS,ATLS
+17,Atmospheric and Oceanic Sciences,ATOC
+18,Baker Residential Academic Program,BAKR
+19,BCOR Applied Semester Experience,BASE
+20,Biochemistry,BCHM
+21,Biomedical Engineering,BMEN
+22,Business Administration,BADM
+23,Business Core,BCOR
+24,Business Environment and Policy,BPOL
+25,Business Law,BSLW
+26,Business Minor,BUSM
+27,Career Services,CSVC
+28,Center for Western Civilization,CWCV
+29,Center of the American West,CAMW
+30,Central and East European Studies,CEES
+31,Chemical Engineering,CHEN
+32,Chemistry,CHEM
+33,Chinese,CHIN
+34,Cinema Studies & Moving Image Arts,CINE
+35,Civil Engineering,CVEN
+36,Classical Greek Language,GREK
+37,Classics,CLAS
+38,College of Engineering and Applied Science,COEN
+39,"College of Media, Communication & Information",CMCI
+40,Communication,COMM
+41,Communication Residential Academic Program,COMR
+42,Comparative Literature,COML
+43,Computer Science,CSCI
+44,Computer Science Post-Baccalaureate,CSPB
+45,Critical Media Practices,CMDP
+46,Curriculum Emphasis in Social Responsibility,CESR
+47,Dance,DNCE
+48,Danish,DANE
+49,Digital Humanities,DHUM
+50,East Asian Languages and Civilizations,EALC
+51,Ecology and Evolutionary Biology,EBIO
+52,Economics,ECON
+53,Education,EDUC
+54,Electrical and Computer Engineering,ECEN
+55,Energy Engineering,ENEN
+56,Engineering for Developing Communities,EDEN
+57,Engineering Honors,EHON
+58,Engineering Management,EMEN
+59,Engineering Plus,GEEN
+60,English as a Second Language,ESLG
+61,English,ENGL
+62,Entrepreneurial and Small Business Management,ESBM
+63,Environmental Design,ENVD
+64,Environmental Engineering,EVEN
+65,Environmental Product of Design,EPOD
+66,Environmental Studies,ENVS
+67,Environment and Sustainability,ENST
+68,Ethnic Studies,ETHN
+69,Experience Design,TDXD
+70,Farrand Residential Academic Program,FARR
+71,Farsi,FRSI
+72,Finance,FNCE
+73,Finnish,FINN
+74,First Year Exploration,FYXP
+75,First Year Seminar,FYSM
+76,French,FREN
+77,Geography,GEOG
+78,Geological Sciences,GEOL
+79,German,GRMN
+80,Germanic and Slavic Languages and Literatures,GSLL
+81,Global Studies Residential Academic Program,GSAP
+82,Graduate School,GRAD
+83,Graduate Teacher Education,GRTE
+84,Hebrew,HEBR
+85,Hindi/Urdu,HIND
+86,History,HIST
+87,Honors,HONR
+88,Humanities for Engineers,HUEN
+89,Humanities,HUMN
+90,Indonesian,INDO
+91,Information Management and Business Analytics,BAIM
+92,Information Science,INFO
+93,Integrative Physiology,IPHY
+94,"Intermedia Art, Writing and Performance",IAWP
+95,International Affairs,IAFS
+96,International Business,INBU
+97,INVST Community Studies,INVS
+98,Italian,ITAL
+99,Japanese,JPNS
+100,Jewish Studies,JWST
+101,Journalism,JRNL
+102,Korean,KREN
+103,Landscape Architecture,LAND
+104,Language Technology,LGTC
+105,Latin American Studies,LAMS
+106,Latin Language,LATN
+107,Law School,LAWS
+108,Leadership Minor,LEAD
+109,"Lesbian, Gay and Bisexual Studies",LGBT
+110,Libby Residential Academic Program,LIBB
+111,Libraries,LIBR
+112,Linguistics,LING
+113,Management,MGMT
+114,Marketing,MKTG
+115,Master of the Environment,ENVM
+116,Materials Science and Engineering,MSEN
+117,Mathematics,MATH
+118,MBA Advanced Electives,MBAX
+119,MBA Core,MBAC
+120,Mechanical Engineering,MCEN
+121,Media Research and Practice,MDRP
+122,Media Studies,MDST
+123,Medieval and Early Modern Studies,MEMS
+124,Military Science - Army ROTC,MILR
+125,"Molecular, Cellular and Developmental Biology",MCDB
+126,MS Business Core,MSBC
+127,MS Business Electives,MSBX
+128,Museum,MUSM
+129,Music Electives,MUEL
+130,Music Ensemble,EMUS
+131,Music,MUSC
+132,Naval Science - ROTC,NAVR
+133,Neuroscience,NRSC
+134,Norlin Scholars,NRLN
+135,Norwegian,NORW
+136,Operations and Information Management,OPIM
+137,Operations Management,OPMG
+138,Organization Management,ORMG
+139,Peace and Conflict Studies,PACS
+140,Performance Music,PMUS
+141,Philosophy,PHIL
+142,Physics,PHYS
+143,Planning and Urban Design,PLAN
+144,Political Science,PSCI
+145,Portuguese,PORT
+146,Presidents Leadership Class,PRLC
+147,Psychology,PSYC
+148,Real Estate,REAL
+149,Religious Studies,RLST
+150,Russian,RUSS
+151,Sanskrit,SNSK
+152,Scandinavian,SCAN
+153,Sewall Residential Academic Program,SEWL
+154,Sociology,SOCY
+155,Spanish,SPAN
+156,"Speech, Language and Hearing Sciences",SLHS
+157,Statistics,STAT
+158,Sustainability and Social Innovation Residential Academic Program,SSIR
+159,Swedish,SWED
+160,"Technology, Cybersecurity & Policy",CYBR
+161,Telecommunications,TLEN
+162,Theatre and Dance,THDN
+163,Theatre,THTR
+164,Thesis Music,TMUS
+165,Tibetan,TBTN
+166,Women and Gender Studies,WGST
+167,Writing and Rhetoric,WRTG
+168,Yiddish,YIDD
