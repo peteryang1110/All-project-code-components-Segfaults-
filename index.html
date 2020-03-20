@@ -1,12 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+  <title>Sexy Schedule</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="index.css">
+    <script>
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+          coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+              content.style.display = "none";
+            } else {
+              content.style.display = "block";
+            }
+          });
+        }
+      </script>
 </head>
-<body>
-    
-</body>
+    <body>
+      <div class="text-center">
+        <img src="img/cu_logo.png" alt="cu logo">
+      </div>
+      <nav>
+          <ul>
+            <li><a href="#">Schedule</a></li>
+            <li><a href="search.html">Search Class</a></li>
+            <li><a href="about.html">About Page</a></li>
+          </ul>
+      </nav>
+        <div class="container">
+            <div class="row">
+                <!-- Monday Card -->
+                <div class="col-sm-4">
+                    <div id="monday" class="card" style="
+                      height: 20rem; width: 25rem; border-style: solid; border-width: 1px; margin: 2%; background-color: white; border-radius: 10px;">
+                      <div class="card-body">
+                        <h5 class="card-title" style="text-align: center;">Monday</h5>
+                        <h6 id="classname" class="card-subtitle mb-2 text-muted">Class Name</h6>
+                        <ul class="list-group list-group-flush">
+                          <li id="professor" class="list-group-item">Professor</li>
+                          <li id="time" class="list-group-item">Time</li>
+                          <li id="section"class="list-group-item">Section</li>
+                        </ul>
+                      </div>
+                    </div>  
+                </div>
+
+                  <!-- Tuesday Card -->
+                <div class= "col-sm-4">
+                    <div id="tuesday" class="card" style="
+                      height: 20rem; width: 25rem; border-style: solid; border-width: 1px; margin: 2%; background-color: white; border-radius: 10px;">
+                      <div class="card-body">
+                        <h5 class="card-title" style="text-align: center;">Tuesday</h5>
+                        <h6 id="classname" class="card-subtitle mb-2 text-muted">Class Name</h6>
+                        <ul class="list-group list-group-flush">
+                          <li id="professor" class="list-group-item">Professor</li>
+                          <li id="time" class="list-group-item">Time</li>
+                          <li id="section"class="list-group-item">Section</li>
+                        </ul>
+                      </div>
+                    </div>
+                </div>
+
+                  <!-- Wednesday Card -->
+                <div class="col-sm-4">
+                    <div id="wednesday" class="card" style="
+                      height: 20rem; width: 25rem; border-style: solid; border-width: 1px; margin: 2%; background-color: white;border-radius: 10px;">
+                      <div class="card-body">
+                        <h5 class="card-title" style="text-align: center;">Wednesday</h5>
+                        <h6 id="classname" class="card-subtitle mb-2 text-muted">Class Name</h6>
+                        <ul class="list-group list-group-flush">
+                          <li id="professor" class="list-group-item">Professor</li>
+                          <li id="time" class="list-group-item">Time</li>
+                          <li id="section"class="list-group-item">Section</li>
+                        </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Thursday Card -->
+                <div class="col-sm-4">
+                  <div id="thursday" class="card" style="
+                    height: 20rem;width: 25rem; border-style: solid; border-width: 1px; margin: 2%; background-color: white; border-radius: 10px;">
+                    <div class="card-body">
+                      <h5 class="card-title" style="text-align: center;">Thursday</h5>
+                      <h6 id="classname" class="card-subtitle mb-2 text-muted">Class Name</h6>
+                      <ul class="list-group list-group-flush">
+                        <li id="professor" class="list-group-item">Professor</li>
+                          <li id="time" class="list-group-item">Time</li>
+                          <li id="section"class="list-group-item">Section</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Friday Card -->
+                <div class="col-sm-4">
+                  <div id="friday" class="card" style="
+                    height: 20rem; width: 25rem; border-style: solid; border-width: 1px; margin: 2%; background-color: white; border-radius: 10px;">
+                    <div class="card-body">
+                      <h5 class="card-title" style="text-align: center;">Friday</h5>
+                      <h6 id="classname" class="card-subtitle mb-2 text-muted">Class Name</h6>
+                      <ul class="list-group list-group-flush">
+                        <li id="professor" class="list-group-item">Professor</li>
+                          <li id="time" class="list-group-item">Time</li>
+                          <li id="section"class="list-group-item">Section</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <!-- Saturday Card -->
+                <div class="col-sm-4">
+                  <div id="saturday" class="card" style="
+                    height: 20rem; width: 25rem; border-style: solid; border-width: 1px; margin: 2%; background-color: white; border-radius: 10px;">
+                    <div class="card-body">
+                      <h5 class="card-title" style="text-align: center;">Saturday</h5>
+                      <h6 id="classname" class="card-subtitle mb-2 text-muted">Class Name</h6>
+                      <ul class="list-group list-group-flush">
+                        <li id="professor" class="list-group-item">Professor</li>
+                          <li id="time" class="list-group-item">Time</li>
+                          <li id="section"class="list-group-item">Section</li>
+                      </ul>
+                    </div>
+                    </div>
+                  </div>
+                <!-- Sunday Card -->
+                <!-- <div class="col-sm-4">
+                  <div id="sunday" class="card" style="
+                    width: 25rem; border-style: solid; border-width: 1px; margin: 2%; background-color: white; border-radius: 10px;">
+                    <div class="card-body">
+                      <h5 class="card-title" style="text-align: center;">Sunday</h5>
+                      <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                  </div>
+                </div> -->
+                <div class="col-sm-4">
+                  <button class="button"> Add Class </button>
+                  <button class="button"> Remove Class </button>
+                </div>
+              </div>
+          </div>
+    </body>
 </html>
+

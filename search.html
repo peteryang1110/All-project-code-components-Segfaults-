@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Sexy Schedule</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+    <div class="text-center">
+      <img src="img/cu_logo.png" alt="cu logo">
+    </div>
+    <nav>
+        <ul>
+          <li><a href="index.html">Schedule</a></li>
+          <li><a href="#">Search Class</a></li>
+          <li><a href="about.html">About Page</a></li>
+        </ul>
+    </nav>
+    <div class="container" style="background-color: white; border-radius: 10px; padding: 5%;">
+        <div class="row">
+            <div class="col-lg-10">
+                <div class="md-form mt-0" style="margin-bottom: 2%;">
+                    <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+                  </div>
+                <div>
+                    <form action="/action_page.php">
+                        <label for="class_id">Class Id: </label>
+                        <input type="text" id="lname" name="class_id"><br><br>
+                        <label for="class_name">Class Name:</label>
+                        <input type="text" id="fname" name="class_name"><br><br>
+                        <label for="section_number">Section: </label>
+                        <input type="text" id="lname" name="section_number"><br><br>
+                        <label for="professor">Professor: </label>
+                        <input type="text" id="lname" name="professor"><br><br>
+                        <label for="date">Date: </label>
+                        <input type="text" id="lname" name="date"><br><br>
+                        <input type="submit" value="Submit">
+                      </form>
+                </div>
+            </div>
+            <div class="col-lg-10" style="margin-top:2%;">
+                <h1 style="">
+                    Class Info:
+                </h1>
+            </div>
+
+        </div>
+
+    </div>
+</body>
+</html>
