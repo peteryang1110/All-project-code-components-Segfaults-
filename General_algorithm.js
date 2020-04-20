@@ -93,11 +93,11 @@ all[0] = [
   { name: "test11", time: "1:00 PM - 2:00 PM", days: "MF" },
 ];
 all[1] = [{ name: "test2", time: "1:00 PM - 2:00 PM", days: "MF" }];
-all[2] = [{ name: "test3", time: "2:00 PM - 2:15 PM", days: "MF" }];
-all[3] = [{ name: "test3", time: "2:00 PM - 2:15 PM", days: "MF" }];
-all[4] = [{ name: "test3", time: "2:00 PM - 2:15 PM", days: "MF" }];
-all[5] = [{ name: "test3", time: "2:00 PM - 2:15 PM", days: "MF" }];
-all[6] = [{ name: "test3", time: "2:00 PM - 2:15 PM", days: "MF" }];
+all[2] = [{ name: "test3", time: "2:00 PM - 3:15 PM", days: "MF" }];
+all[3] = [{ name: "test4", time: "3:00 PM - 3:15 PM", days: "MF" }];
+all[4] = [{ name: "test5", time: "3:00 PM - 3:15 PM", days: "MF" }];
+all[5] = [{ name: "test6", time: "2:00 PM - 2:15 PM", days: "MF" }];
+all[6] = [{ name: "test7", time: "2:00 PM - 2:15 PM", days: "MF" }];
 
 function test(output, cur, allArray, index, set, max) {
   if (cur.length == max) {
@@ -125,7 +125,7 @@ function test(output, cur, allArray, index, set, max) {
 
 var output = [];
 var cur = [];
-var m = 2;
+var m = 4;
 test(output, cur, all, 0, a, m);
 console.log(output);
 // var t = "12:30 PM - 02:01 PM";
