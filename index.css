@@ -108,3 +108,15 @@ div.maindiv{
   overflow: hidden;
   background-color: #f1f1f1;
 }
+.scroller{
+  width:1000px; 
+  height: 500px; 
+  background-color:#e8e6e1; 
+  overflow: scroll; 
+  margin-bottom: 2%;
+  border-radius: 15px; 
+  padding: 2%;
+}
+.listscroller{
+  list-style-type: none;
+}
