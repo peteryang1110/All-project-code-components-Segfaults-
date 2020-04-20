@@ -1,0 +1,8250 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 11.7 (Debian 11.7-0+deb10u1)
+-- Dumped by pg_dump version 11.7 (Debian 11.7-0+deb10u1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: class_info; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.class_info (
+    class_number integer NOT NULL,
+    course_department character varying(4) NOT NULL,
+    course_subject integer NOT NULL,
+    course_section character varying(5),
+    course_start time without time zone,
+    course_end time without time zone,
+    course_days character varying(5),
+    course_location character varying(45),
+    course_instructor character varying(45),
+    course_campus character varying(45)
+);
+
+
+ALTER TABLE public.class_info OWNER TO postgres;
+
+--
+-- Name: completed_courses; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.completed_courses (
+    student_id integer NOT NULL,
+    course_department character varying(4) NOT NULL,
+    course_subject integer NOT NULL
+);
+
+
+ALTER TABLE public.completed_courses OWNER TO postgres;
+
+--
+-- Name: course_info; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.course_info (
+    course_department character varying(4) NOT NULL,
+    course_subject integer NOT NULL,
+    course_description text,
+    course_credits integer,
+    course_name character varying(45)
+);
+
+
+ALTER TABLE public.course_info OWNER TO postgres;
+
+--
+-- Name: major_names; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.major_names (
+    major_id integer NOT NULL,
+    major_name character varying(90) NOT NULL,
+    major_dept character varying(4)
+);
+
+
+ALTER TABLE public.major_names OWNER TO postgres;
+
+--
+-- Name: student_majors; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.student_majors (
+    student_id integer NOT NULL,
+    major_id integer NOT NULL
+);
+
+
+ALTER TABLE public.student_majors OWNER TO postgres;
+
+--
+-- Name: student_names; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.student_names (
+    student_id integer NOT NULL,
+    first_name character varying(45) NOT NULL,
+    last_name character varying(45) NOT NULL
+);
+
+
+ALTER TABLE public.student_names OWNER TO postgres;
+
+--
+-- Data for Name: class_info; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.class_info (class_number, course_department, course_subject, course_section, course_start, course_end, course_days, course_location, course_instructor, course_campus) FROM stdin;
+24637	ANTH	1120	10	10:00:00	10:50:00	MW	HALE 230	Ortman,Scott Graham	Main Campus
+24638	ANTH	1120	11	17:00:00	17:50:00	W	CLRE 209	Ortman,Scott Graham	Main Campus
+24639	ANTH	1120	12	15:00:00	15:50:00	W	CLUB 4	Ortman,Scott Graham	Main Campus
+24640	ANTH	1120	13	08:00:00	08:50:00	F	CLRE 209	Ortman,Scott Graham	Main Campus
+31983	ANTH	1140	100	11:00:00	11:50:00	MW	MCOL W100	Kurnick,Sarah Jill	Main Campus
+25316	ANTH	1145	10	13:00:00	13:50:00	MW	MCOL W100	Gutierrez,Gerardo	Main Campus
+25314	ANTH	1155	40	11:00:00	11:50:00	MWF	HALE 260	Jones,Carla Mae	Main Campus
+22710	ANTH	1170	200	14:00:00	14:50:00	TTH	MUEN E050	Hammons,Christian Stanford	Main Campus
+18366	ANTH	2020	1	09:30:00	10:45:00	TTH	CHEM 140	Leigh,Steven Robert	Main Campus
+19589	ANTH	2040	1	10:00:00	11:50:00	T	HALE 246	Paine,Oliver Charles Colvill	Main Campus
+19617	ANTH	2040	2	12:00:00	13:50:00	T	HALE 246	Paine,Oliver Charles Colvill	Main Campus
+19618	ANTH	2040	3	14:00:00	15:50:00	T	HALE 246	Paine,Oliver Charles Colvill	Main Campus
+19619	ANTH	2040	4	16:00:00	17:50:00	T	HALE 246	Paine,Oliver Charles Colvill	Main Campus
+19620	ANTH	2040	5	09:00:00	10:50:00	W	HALE 246	Paine,Oliver Charles Colvill	Main Campus
+19621	ANTH	2040	6	11:00:00	12:50:00	W	HALE 246	Paine,Oliver Charles Colvill	Main Campus
+19622	ANTH	2040	7	13:00:00	14:50:00	W	HALE 246	Paine,Oliver Charles Colvill	Main Campus
+19623	ANTH	2040	8	15:00:00	16:50:00	W	HALE 246	Paine,Oliver Charles Colvill	Main Campus
+19624	ANTH	2040	9	17:00:00	18:50:00	W	HALE 246	Paine,Oliver Charles Colvill	Main Campus
+19625	ANTH	2040	10	10:00:00	11:50:00	TH	HALE 246	Paine,Oliver Charles Colvill	Main Campus
+19626	ANTH	2040	11	12:00:00	13:50:00	TH	HALE 246	Paine,Oliver Charles Colvill	Main Campus
+19627	ANTH	2040	12	14:00:00	15:50:00	TH	HALE 246	Paine,Oliver Charles Colvill	Main Campus
+19628	ANTH	2040	15	12:00:00	13:50:00	F	HALE 246	Paine,Oliver Charles Colvill	Main Campus
+19629	ANTH	2040	16	14:00:00	15:50:00	F	HALE 246	Paine,Oliver Charles Colvill	Main Campus
+18351	ANTH	2100	10	12:00:00	12:50:00	MW	HUMN 150	Goldfarb,Kathryn	Main Campus
+24429	ANTH	2100	880	11:00:00	11:50:00	MWF	LIBR N424A	Fischer,Katherine Virginia	Main Campus
+18367	ANTH	2200	10	11:00:00	12:15:00	TTH	HALE 270	Bamforth,Douglas	Main Campus
+31994	ANTH	2525	100	12:00:00	12:50:00	MW	HLMS 252	Jacka,Jerry Keith	Main Campus
+31991	ANTH	3010	1	12:30:00	13:45:00	TTH	HALE 230	Covert,Herbert	Main Campus
+24673	ANTH	3119	1	15:30:00	16:45:00	TTH	CLRE 104	Baxter,Leigh Erin	Main Campus
+24674	ANTH	3119	2	17:00:00	18:15:00	TTH	CLRE 104	Baxter,Leigh Erin	Main Campus
+25406	ANTH	4020	4	15:00:00	16:15:00	MW	CLUB 13	Gutierrez,Gerardo	Main Campus
+32007	ANTH	4125	100	12:30:00	13:45:00	TTH	HALE 455	Sauther,Michelle Linda	Main Campus
+25407	ANTH	4180	1	17:00:00	18:15:00	TTH	HALE 240	DeLuca,Laura Marie	Main Campus
+36379	ANTH	4180	2	12:00:00	14:30:00	W	HALE 450	Sponheimer,Matthew James	Main Campus
+24336	ANTH	4580	1	14:00:00	15:15:00	TTH	HUMN 250	Shankman,P	Main Campus
+36347	ANTH	4700	10	15:00:00	16:15:00	MW	HLMS 251	Goldfarb,Kathryn	Main Campus
+18452	ANTH	4720	800	09:00:00	11:30:00	TH	See Academc Dept	Cool,Alison Collier	Main Campus
+22711	ANTH	4730	1	14:00:00	15:15:00	TTH	HALE 455	Goldstein,Donna M	Main Campus
+36383	ANTH	4735	1	13:00:00	13:50:00	MWF	HALE 240	Roland,Lorecia Kaifa-Aliya	Main Campus
+24646	ANTH	4800	1	10:00:00	10:50:00	MWF	HALE 260	\N	Main Campus
+38201	ANTH	2010	300E	18:00:00	19:30:00	TH	\N	Emerson,Cherriethel Kathleen W	Continuing Education
+38203	ANTH	2100	300E	17:30:00	19:00:00	W	\N	Merriman,Danielle Reaney	Continuing Education
+36386	ANTH	5785	1	09:30:00	12:00:00	T	HALE 455	McGranahan,Carole Ann	Main Campus
+23723	ANTH	7000	1	14:00:00	16:30:00	M	HALE 455	Cool,Alison Collier	Main Campus
+36418	ANTH	7000	2	13:00:00	15:30:00	W	HALE 455	Jones,Carla Mae	Main Campus
+36426	ANTH	7000	3	10:00:00	12:30:00	TH	HALE 450	Shannon,Jennifer	Main Campus
+24154	ANTH	7030	1	15:15:00	17:45:00	T	HALE 455	Ortman,Scott Graham	Main Campus
+25465	APPM	1235	120	09:00:00	09:50:00	MWF	KTCH 1B71	\N	Main Campus
+23059	APPM	1235	150	14:00:00	14:50:00	MWF	KTCH 1B71	\N	Main Campus
+25466	APPM	1235	220	09:00:00	09:50:00	TH	\N	\N	Main Campus
+22414	APPM	1345	150	12:00:00	12:50:00	MWF	FLMG 154	\N	Main Campus
+24774	APPM	1345	250	12:00:00	12:50:00	TH	KCEN N101	\N	Main Campus
+22712	APPM	1350	130	10:00:00	10:50:00	MWF	HLMS 201	\N	Main Campus
+23760	APPM	1350	150	12:00:00	12:50:00	MWF	ECCR 135	\N	Main Campus
+22164	APPM	1350	170	14:00:00	14:50:00	MWF	ECCR 135	\N	Main Campus
+23639	APPM	1360	120	09:00:00	09:50:00	MWF	ECCR 245	\N	Main Campus
+22673	APPM	1360	130	10:00:00	10:50:00	MWF	ECCR 245	\N	Main Campus
+25379	APPM	1390	831	11:00:00	11:50:00	F	ECES 1B12	\N	Main Campus
+25380	APPM	1390	842	10:00:00	10:50:00	F	ECES 1B12	\N	Main Campus
+25382	APPM	1390	843	15:00:00	15:50:00	F	ECES 1B12	\N	Main Campus
+25381	APPM	1390	844	16:00:00	16:50:00	F	ECES 1B12	\N	Main Campus
+25378	APPM	1390	852	15:00:00	15:50:00	M	ECES 1B12	\N	Main Campus
+25532	APPM	1390	853	16:00:00	16:50:00	M	ECES 1B12	\N	Main Campus
+22723	APPM	2350	120	09:00:00	09:50:00	MWF	MUEN E113	\N	Main Campus
+17484	APPM	2350	140	11:00:00	11:50:00	MWF	ECCR 1B40	\N	Main Campus
+24745	APPM	2350	290	16:00:00	16:50:00	TH	ECCR 116	\N	Main Campus
+17489	APPM	2360	110	08:00:00	08:50:00	MWF	ECCR 105	\N	Main Campus
+22676	APPM	2360	120	09:00:00	09:50:00	MWF	ECCR 200	\N	Main Campus
+17490	APPM	2360	130	10:00:00	10:50:00	MWF	ECCR 265	\N	Main Campus
+17497	APPM	2360	150	12:00:00	12:50:00	MWF	ECCR 200	\N	Main Campus
+23306	APPM	2360	160	13:00:00	13:50:00	MWF	ECCR 200	\N	Main Campus
+17501	APPM	2360	170	14:00:00	14:50:00	MWF	ECCR 200	\N	Main Campus
+24054	APPM	2360	171	14:30:00	15:20:00	MWF	AERO 111	\N	Main Campus
+23892	APPM	2360	253	12:00:00	12:50:00	TH	CLUB 4	\N	Main Campus
+24746	APPM	2360	282	15:00:00	15:50:00	TH	ECCR 108	\N	Main Campus
+22556	APPM	2360	549R	13:00:00	13:50:00	MWF	ANDS N103	\N	Main Campus
+17506	APPM	2450	2	10:00:00	10:50:00	T	ECCR143	\N	Main Campus
+17507	APPM	2450	3	13:00:00	13:50:00	T	ECCR143	\N	Main Campus
+17508	APPM	2450	4	14:00:00	14:50:00	T	ECCR143	\N	Main Campus
+17509	APPM	2460	1	11:00:00	11:50:00	T	ECCR143	\N	Main Campus
+17510	APPM	2460	2	12:00:00	12:50:00	T	ECCR143	\N	Main Campus
+17511	APPM	2460	3	15:00:00	15:50:00	T	ECCR143	\N	Main Campus
+17512	APPM	2460	4	16:00:00	16:50:00	T	ECCR143	\N	Main Campus
+18311	APPM	3050	10	09:00:00	09:50:00	MWF	FLMG 157	\N	Main Campus
+24155	APPM	3170	1	13:00:00	13:50:00	MWF	ECCR 150	\N	Main Campus
+18194	APPM	3570	1	10:00:00	10:50:00	MWF	FLMG 157	Restrepo,Juan G	Main Campus
+22165	APPM	3570	2	14:00:00	14:50:00	MWF	FLMG 154	Restrepo,Juan G	Main Campus
+22260	APPM	4120	1	11:00:00	11:50:00	MWF	ECCR 135	Vernerey,Divya E.	Main Campus
+18416	APPM	4360	1	12:00:00	12:50:00	MWF	FLMG 156	Ablowitz,Mark J	Main Campus
+18418	APPM	4360	2	13:00:00	13:50:00	MWF	FLMG 157	Ablowitz,Mark J	Main Campus
+30635	APPM	4370	1	11:00:00	11:50:00	MWF	CASE E340	Kilpatrick,Zachary	Main Campus
+30637	APPM	4390	1	15:00:00	16:15:00	MW	ECCR 116	Bortz,David Matthew	Main Campus
+18424	APPM	4450	1	12:00:00	12:50:00	MWF	ECCR 257	\N	Main Campus
+24947	APPM	4560	1	13:00:00	13:50:00	MWF	FLMG 156	Corcoran,Jem	Main Campus
+21394	APPM	4650	1	09:00:00	09:50:00	MWF	ECCR 105	\N	Main Campus
+25531	APPM	4650	2	09:00:00	09:50:00	MWF	ECCR 135	\N	Main Campus
+25464	APPM	4660	2	09:00:00	09:50:00	MWF	ECCR 139	\N	Main Campus
+23452	APPM	4720	2	08:00:00	09:15:00	TTH	\N	Stutzer,Michael J.	Main Campus
+24508	APPM	4720	4	16:00:00	17:15:00	MW	FLMG 156	Appelo,Daniel E	Main Campus
+18429	APPM	5450	1	12:00:00	12:50:00	MWF	ECCR 139	\N	Main Campus
+24752	APPM	5480	1	13:00:00	13:50:00	MWF	ECCR 118	Hoefer,Mark Alan	Main Campus
+18430	APPM	5610	1	15:00:00	16:15:00	MW	STAD 140	Beylkin,Gregory	Main Campus
+30892	APPM	5620	1	10:00:00	10:50:00	MWF	KCEN S163	Grooms,Ian Gregory	Main Campus
+39151	APPM	7100	1	09:00:00	09:50:00	MWF	ECCR 257	Meiss,James	Main Campus
+18451	APPM	8000	1	15:00:00	16:30:00	F	ECCR 265	Gillman,Adrianna Marie	Main Campus
+18892	APPM	8100	1	14:00:00	14:50:00	TH	ECOT 317	Meiss,James	Main Campus
+24253	APPM	8300	1	16:00:00	16:50:00	T	ECOT 317	Ablowitz,Mark J	Main Campus
+24661	APPM	8400	1	16:00:00	16:50:00	F	ECCR 1B08	Bortz,David Matthew	Main Campus
+23984	APPM	8500	1	15:30:00	16:20:00	T	ECCR 257	Becker,Stephen R	Main Campus
+25368	APPM	8600	1	11:00:00	11:50:00	TH	ECCR 257	Appelo,Daniel E	Main Campus
+24266	ARAB	1011	1	09:30:00	10:45:00	TTH	DUAN G125	Thompson,Thomas	Main Campus
+23889	ARAB	1020	2	10:00:00	10:50:00	M-F	CHEM 131	Muhammed,Randa	Main Campus
+17714	ARAB	1020	3	11:00:00	11:50:00	M-F	HALE 236	Muhammed,Randa	Main Campus
+31395	ARAB	2120	1	09:00:00	09:50:00	M-F	HLMS 152	Attwa,Mona Farrag	Main Campus
+24324	ARAB	2120	2	14:00:00	14:50:00	M-F	HLMS 145	Attwa,Mona Farrag	Main Campus
+23757	ARAB	3120	1	12:00:00	12:50:00	MWF	HLMS 145	Attwa,Mona Farrag	Main Campus
+31396	ARAB	3230	1	13:00:00	13:50:00	MWF	ECON 205	Schine,Rachel	Main Campus
+31397	ARAB	3410	1	12:30:00	13:45:00	TTH	HLMS 229	Thompson,Thomas	Main Campus
+23827	ARTF	5000	1	10:00:00	13:50:00	F	ATLS 310	Osborn,Christopher	Main Campus
+31067	ARTF	5003	1	19:00:00	21:50:00	W	ATLS 102	Negri,Sabrina	Main Campus
+23844	ARTF	5024	1	15:30:00	18:45:00	MW	ATLS 1B29	Barlow,Melinda B	Main Campus
+31064	ARTF	5453	1	12:30:00	14:50:00	MW	ATLS 102	Liotta,Jeanne M.	Main Campus
+18229	ARTF	5500	1	13:00:00	15:15:00	MW	ATLS 342	Marslett,Geoffrey C	Main Campus
+31068	ARTF	5604	1	12:30:00	13:45:00	TTH	ATLS 102	Shell,Hanna Rose	Main Campus
+23888	ARTF	5610	1	13:00:00	16:50:00	F	ATLS 102	Gatten,David Edward	Main Campus
+31105	ARTH	1600	100	11:00:00	11:50:00	MWF	MUEN E050	Nauman,Robert Allen	Main Campus
+31106	ARTH	1600	101	08:00:00	08:50:00	TH	VAC 485	\N	Main Campus
+31107	ARTH	1600	102	08:00:00	08:50:00	F	VAC 485	\N	Main Campus
+31108	ARTH	1600	103	09:00:00	09:50:00	TH	VAC 485	\N	Main Campus
+31109	ARTH	1600	104	09:00:00	09:50:00	F	VAC 485	\N	Main Campus
+31110	ARTH	1600	105	10:00:00	10:50:00	TH	VAC 485	\N	Main Campus
+31111	ARTH	1600	106	10:00:00	10:50:00	F	VAC 485	\N	Main Campus
+31112	ARTH	1600	107	11:00:00	11:50:00	TH	VAC 485	\N	Main Campus
+31113	ARTH	1600	108	11:00:00	11:50:00	F	VAC 485	\N	Main Campus
+31114	ARTH	1600	109	12:00:00	12:50:00	TH	VAC 485	\N	Main Campus
+31115	ARTH	1600	110	12:00:00	12:50:00	F	VAC 485	\N	Main Campus
+31116	ARTH	1600	111	13:00:00	13:50:00	TH	VAC 485	\N	Main Campus
+31117	ARTH	1600	112	13:00:00	13:50:00	F	VAC 485	\N	Main Campus
+31118	ARTH	1600	113	14:00:00	14:50:00	TH	VAC 485	\N	Main Campus
+31119	ARTH	1600	114	15:00:00	15:50:00	TH	VAC 485	\N	Main Campus
+31120	ARTH	1600	115	16:00:00	16:50:00	TH	VAC 485	\N	Main Campus
+31121	ARTH	1600	116	14:00:00	14:50:00	F	VAC 485	\N	Main Campus
+31122	ARTH	1600	117	15:00:00	15:50:00	F	VAC 485	\N	Main Campus
+31123	ARTH	1600	118	16:00:00	16:50:00	F	VAC 485	\N	Main Campus
+35628	ARTH	2039	1	09:30:00	10:45:00	TTH	EKLC M203	Rupp,Travis Rick	Main Campus
+24451	ARTH	2049	1	10:00:00	10:50:00	MWF	VAC 1B88	Lansford,Edwin Tyler	Main Campus
+25541	ARTH	3109	2	12:30:00	13:20:00	F	VAC 1B23	Rivera Jr,George F	Main Campus
+31124	ARTH	3419	1	09:00:00	09:50:00	MWF	VAC 308	Alhadeff,Albert	Main Campus
+31125	ARTH	3619	1	13:00:00	13:50:00	MWF	VAC 308	Su,Stephanie	Main Campus
+31126	ARTH	3729	1	10:00:00	10:50:00	MWF	VAC 308	Cordova,James M.	Main Campus
+23203	ARTH	3929	1	14:00:00	14:50:00	MWF	VAC 308	Cohen,Brianne	Main Campus
+35641	ARTH	4119	1	11:00:00	12:15:00	TTH	VAC 1B88	Conlin,Diane L	Main Campus
+35645	ARTH	4139	1	09:30:00	10:45:00	TTH	VAC 1B88	James,Sarah Anne	Main Campus
+31127	ARTH	4919	2	14:00:00	15:15:00	TTH	VAC 308	de Stecher,Annette W	Main Campus
+37522	ARTH	4919	3	15:30:00	16:45:00	TTH	VAC 303	Alhadeff,Albert	Main Campus
+24686	ARTH	4929	1	09:30:00	10:45:00	TTH	VAC 308	Loffredo,Fernando	Main Campus
+24360	ARTH	4929	2	11:00:00	12:15:00	TTH	VAC 308	Su,Stephanie	Main Campus
+24801	ARTH	4929	800	15:00:00	16:50:00	W	VAC 455	Nauman,Robert Allen	Main Campus
+38210	ARTH	2029	300E	18:00:00	20:00:00	T	\N	Rupp,Travis Rick	Continuing Education
+25518	ARTH	6939	2	12:30:00	15:00:00	W	VAC 303	\N	Main Campus
+25517	ARTH	6939	3	09:00:00	11:30:00	T	VAC 303	de Stecher,Annette W	Main Campus
+31323	ARTH	6939	4	12:30:00	15:00:00	M	VAC 303	Loffredo,Fernando	Main Campus
+18350	ARTS	1003	1	12:00:00	14:30:00	TTH	VAC 390	Lacey,Alanna Christianne	Main Campus
+22370	ARTS	1010	1	17:00:00	17:50:00	TH	VAC 1B20	\N	Main Campus
+22371	ARTS	1010	2	17:00:00	17:50:00	TH	VAC 1B20	\N	Main Campus
+23508	ARTS	1010	3	17:00:00	17:50:00	TH	VAC 1B20	\N	Main Campus
+25578	ARTS	1010	4	17:00:00	17:50:00	TH	VAC 1B20	\N	Main Campus
+18215	ARTS	1012	1	10:00:00	15:00:00	F	VAC 471	Yates,Michael Alexander	Main Campus
+23285	ARTS	1012	2	12:30:00	15:00:00	TTH	VAC 474	Frizzell,William Dalton	Main Campus
+18213	ARTS	1020	1	17:00:00	17:50:00	T	VAC 1B20	\N	Main Campus
+18210	ARTS	1020	2	17:00:00	17:50:00	T	VAC 1B20	\N	Main Campus
+18211	ARTS	1020	3	17:00:00	17:50:00	T	VAC 1B20	\N	Main Campus
+18209	ARTS	1020	4	14:00:00	16:20:00	TTH	VAC 172	Smith,Matthew David	Main Campus
+18349	ARTS	1171	1	15:30:00	18:00:00	TTH	VAC 1B03	Taylor,Chelsea Brieanne	Main Campus
+18216	ARTS	1212	1	10:00:00	15:00:00	F	VAC 475	\N	Main Campus
+23215	ARTS	1212	2	16:00:00	18:30:00	MW	VAC 475	Johnson,Samara	Main Campus
+25560	ARTS	1514	1	12:30:00	15:00:00	TTH	VAC 184	Hofer,Brittney Rachelle	Main Campus
+37773	ARTS	1875	2	18:00:00	20:30:00	TTH	VAC 175	\N	Main Campus
+31193	ARTS	2022	1	10:00:00	15:00:00	F	VAC 474	Minyard,Katie L	Main Campus
+23765	ARTS	2085	1	13:00:00	15:30:00	TTH	VAC 175	Chamberlin,Scott H	Main Campus
+23766	ARTS	2095	1	13:00:00	15:30:00	TTH	VAC 171	Bares,Samantha Angelique	Main Campus
+22613	ARTS	2126	1	13:00:00	15:30:00	MW	VAC 1B23	Kim,Laura Hyunjhee	Main Campus
+18455	ARTS	2171	1	12:00:00	14:30:00	MW	VAC 1B03	Colgan,Jasmine Abena	Main Campus
+23958	ARTS	2171	2	09:00:00	11:30:00	MW	VAC 1B03	McAuliffe,Shelby	Main Campus
+18456	ARTS	2191	1	09:00:00	11:30:00	MW	VAC 1B97	Vieira,Mariana	Main Campus
+23959	ARTS	2222	1	13:00:00	15:30:00	MW	VAC 471	Womack,Mike F	Main Campus
+31140	ARTS	2303	1	15:30:00	18:00:00	TTH	VAC 390	Christie,Matt	Main Campus
+23736	ARTS	2413	1	12:30:00	15:00:00	TTH	VAC 395	Christie,Matt	Main Campus
+23740	ARTS	2423	1	09:30:00	12:00:00	MW	VAC 390	Yazzie,Melanie Andrew	Main Campus
+24842	ARTS	2453	1	12:00:00	14:30:00	MW	VAC 390	Yazzie,Melanie Andrew	Main Campus
+21813	ARTS	2504	1	09:00:00	11:30:00	TTH	VAC 184	Guffey,Dallas Lee	Main Campus
+25497	ARTS	3004	1	13:00:00	15:30:00	MW	VAC 277	\N	Main Campus
+31194	ARTS	3017	1	15:30:00	18:00:00	TTH	VAC 1B23	Duresse-Stimilli,Francoise	Main Campus
+23960	ARTS	3022	1	09:30:00	12:00:00	TTH	VAC 474	Gregorio,Alvin P	Main Campus
+24656	ARTS	3054	1	10:00:00	15:00:00	F	VAC 277	\N	Main Campus
+23767	ARTS	3085	1	09:30:00	12:00:00	TTH	VAC 175	Chamberlin,Scott H	Main Campus
+32338	ARTS	3097	3	10:00:00	12:30:00	F	VAC 367	Christie,Matt	Main Campus
+39346	ARTS	3097	4	15:00:00	17:30:00	T	VAC 485	Russo,Martha Louise	Main Campus
+33120	ARTS	3124	1	09:00:00	11:30:00	MW	VAC 277	Roth,Yumi J	Main Campus
+25520	ARTS	3191	1	14:00:00	16:30:00	MW	VAC 1B97	\N	Main Campus
+18218	ARTS	3212	1	12:30:00	15:00:00	TTH	VAC 475	Gregorio,Alvin P	Main Campus
+31195	ARTS	3222	1	09:30:00	12:00:00	MW	VAC 475	Womack,Mike F	Main Campus
+31141	ARTS	3303	1	15:30:00	18:00:00	TTH	VAC 390	Christie,Matt	Main Campus
+23737	ARTS	3413	1	12:30:00	15:00:00	TTH	VAC 395	Christie,Matt	Main Campus
+23741	ARTS	3423	1	09:30:00	12:00:00	MW	VAC 390	Yazzie,Melanie Andrew	Main Campus
+24843	ARTS	3453	1	12:00:00	14:30:00	MW	VAC 390	Yazzie,Melanie Andrew	Main Campus
+31196	ARTS	4002	1	13:00:00	15:30:00	MW	VAC 475	Kassianidou,Marina	Main Campus
+18347	ARTS	4017	1	09:00:00	11:30:00	MW	VAC 1B17	Valdovino,Luis Hector	Main Campus
+24621	ARTS	4017	2	09:00:00	12:00:00	MW	VAC 271	Rumley,William Jude	Main Campus
+31324	ARTS	4017	4	15:30:00	18:00:00	M	VAC 1B23	Amerika,Mark	Main Campus
+37531	ARTS	4017	5	15:30:00	18:00:00	MW	VAC 308	Friedman-Gerlicz,Camila	Main Campus
+21749	ARTS	4085	1	09:30:00	12:00:00	MW	VAC 155	Dickey,Kimberly P	Main Campus
+31138	ARTS	4095	1	13:00:00	15:50:00	TH	VAC 455	Quinn,Jeanne Ellen	Main Campus
+22623	ARTS	4097	1	12:30:00	15:00:00	W	VAC 455	Shell,Hanna Rose	Main Campus
+32339	ARTS	4097	2	10:00:00	12:30:00	F	VAC 367	Christie,Matt	Main Campus
+18345	ARTS	4117	800	17:00:00	19:30:00	M	VAC 455	\N	Main Campus
+23198	ARTS	4118	801	09:00:00	11:30:00	W	VAC 303	Sanford,Jason	Main Campus
+31144	ARTS	4126	2	15:30:00	18:00:00	TTH	VAC 1B23	Duresse-Stimilli,Francoise	Main Campus
+25474	ARTS	4161	1	09:30:00	12:00:00	TTH	VAC 1B03	Walker,Melanie J	Main Campus
+18453	ARTS	4171	1	12:30:00	15:00:00	TTH	VAC 1B03	Walker,Melanie J	Main Campus
+31186	ARTS	4176	1	12:30:00	15:00:00	TTH	VAC 1B23	Duresse-Stimilli,Francoise	Main Campus
+22002	ARTS	4202	1	12:30:00	15:00:00	TTH	VAC 1B23	Duresse-Stimilli,Francoise	Main Campus
+18363	ARTS	4246	1	13:00:00	15:30:00	MW	VAC 1B17	Valdovino,Luis Hector	Main Campus
+31142	ARTS	4303	1	15:30:00	18:00:00	TTH	VAC 390	Christie,Matt	Main Campus
+23738	ARTS	4413	1	12:30:00	15:00:00	TTH	VAC 395	Christie,Matt	Main Campus
+23742	ARTS	4423	1	09:30:00	12:00:00	MW	VAC 390	Yazzie,Melanie Andrew	Main Campus
+24844	ARTS	4453	1	12:00:00	14:30:00	MW	VAC 390	Yazzie,Melanie Andrew	Main Campus
+23962	ARTS	4504	1	13:00:00	15:30:00	MW	VAC 277	Saxton,Richard W	Main Campus
+36053	ARTS	4607	1	15:30:00	18:00:00	F	VAC 1B23	Rivera Jr,George F	Main Campus
+38224	ARTS	1012	300E	16:00:00	18:30:00	MW	\N	\N	Continuing Education
+38226	ARTS	1171	300E	17:00:00	18:15:00	MW	ARMR 211	Anaya,Roman	Continuing Education
+38227	ARTS	1212	300E	16:00:00	18:30:00	TTH	\N	\N	Continuing Education
+38229	ARTS	1514	300E	16:00:00	18:30:00	MW	VAC 184	McCormick,Sarah Jean	Continuing Education
+38230	ARTS	1875	300E	18:00:00	20:30:00	MW	VAC 175	Cicak,Joelle Taylor	Continuing Education
+38232	ARTS	2126	300E	18:00:00	20:30:00	MW	\N	Banks,Cali	Continuing Education
+21750	ARTS	5075	1	13:00:00	15:30:00	MW	VAC 485	Dickey,Kimberly P	Main Campus
+24662	ARTS	5095	1	13:00:00	15:50:00	TH	VAC 455	Quinn,Jeanne Ellen	Main Campus
+23199	ARTS	5118	1	18:00:00	21:00:00	T	VAC 1B20	\N	Main Campus
+31145	ARTS	5126	2	15:30:00	18:00:00	TTH	VAC 1B23	Duresse-Stimilli,Francoise	Main Campus
+31187	ARTS	5176	1	12:30:00	15:00:00	TTH	VAC 1B23	Duresse-Stimilli,Francoise	Main Campus
+18219	ARTS	5202	1	09:30:00	12:00:00	MW	VAC 455	Kassianidou,Marina	Main Campus
+18364	ARTS	5246	1	13:00:00	15:30:00	MW	VAC 1B17	Valdovino,Luis Hector	Main Campus
+31143	ARTS	5303	1	15:30:00	18:00:00	TTH	VAC 390	Christie,Matt	Main Campus
+23739	ARTS	5413	1	12:30:00	15:00:00	TTH	VAC 395	Christie,Matt	Main Campus
+23743	ARTS	5423	1	09:30:00	12:00:00	MW	VAC 390	Yazzie,Melanie Andrew	Main Campus
+24845	ARTS	5453	1	12:00:00	14:30:00	MW	VAC 390	Yazzie,Melanie Andrew	Main Campus
+19187	ARSC	1080	310R	10:00:00	11:15:00	MW	FLMG 294	Miyamoto,Marlene Elsa	Main Campus
+19188	ARSC	1080	311R	13:00:00	13:50:00	F	FLMG 294	Miyamoto,Marlene Elsa	Main Campus
+23094	ARSC	1080	313R	14:00:00	15:15:00	TTH	FLMG 294	Oshetski,Shane Christopher S	Main Campus
+22672	ARSC	1440	310R	12:00:00	12:50:00	MWF	FLMG 294	\N	Main Campus
+22671	ARSC	1440	311R	09:30:00	10:45:00	TTH	FLMG 294	\N	Main Campus
+25383	ARSC	1460	311R	16:00:00	17:15:00	MW	HALE 235	Wettstein,Gretchen Marie	Main Campus
+24582	ARSC	1470	400R	12:30:00	13:45:00	T	STAD 136C	Semsar,Katharine	Main Campus
+39548	ARSC	1490	401R	15:30:00	16:45:00	TH	MUEN E130	Simpson,Michele D	Main Campus
+23770	ARSC	1492	400R	16:00:00	17:15:00	M	KTCH 1B44	Semsar,Katharine	Main Campus
+39549	ARSC	1492	401R	16:00:00	17:15:00	W	HLMS 104	Schneider,Rebecca	Main Campus
+21801	ARSC	1720	310R	12:30:00	13:45:00	TTH	FLMG 265	Moon,Maung Yi	Main Campus
+24658	ARSC	1720	311R	12:30:00	13:45:00	TTH	FLMG 150	\N	Main Campus
+19565	ARSC	2000	310R	13:00:00	13:50:00	MWF	FLMG 241	Jha,Priya	Main Campus
+23349	ARSC	2400	310R	16:00:00	17:15:00	MW	FLMG 150	Ciancanelli,Rebecca Anne	Main Campus
+23134	ARSC	2470	310R	13:00:00	13:50:00	MWF	FLMG 294	Ranaweera,Chamila	Main Campus
+19566	ARSC	3100	311R	11:00:00	12:15:00	TTH	FLMG 294	Buchanan,Angela S	Main Campus
+25564	ARSC	5040	1	12:00:00	14:30:00	W	IBS 150	Irvine,Leslie J	Main Campus
+25566	ARSC	5040	2	14:00:00	16:30:00	TH	LIBR E206	\N	Main Campus
+25565	ARSC	5040	3	13:00:00	15:30:00	TH	IBS 150	Taylor,Bryan Copeland	Main Campus
+23744	ASIA	2000	1	14:00:00	15:15:00	TTH	CLUB 4	Berry,J Colleen	Main Campus
+24157	ASIA	3300	1	09:30:00	10:45:00	TTH	KTCH 1B71	Berry,J Colleen	Main Campus
+25587	ASIA	4001	802	14:00:00	16:00:00	W	See Academc Dept	Parson,Rahul	Main Campus
+24039	ASIA	4830	1	15:00:00	18:00:00	W	CHEM 146	Berry,J Colleen	Main Campus
+18781	ASTR	1000	1	12:30:00	13:45:00	TTH	DUAN G1B20	Schneider,Nicholas M	Main Campus
+22730	ASTR	1000	2	14:00:00	15:15:00	TTH	DUAN G1B30	Brain,David Andrew	Main Campus
+18760	ASTR	1010	100	14:00:00	15:15:00	TTH	DUAN G1B20	Hornstein,Seth D	Main Campus
+19982	ASTR	1010	110	09:00:00	10:45:00	T	OBSV S175	Hornstein,Seth D	Main Campus
+19983	ASTR	1010	111	11:00:00	12:45:00	T	OBSV S175	Hornstein,Seth D	Main Campus
+19984	ASTR	1010	112	09:00:00	10:45:00	W	OBSV S175	Hornstein,Seth D	Main Campus
+19985	ASTR	1010	113	11:00:00	12:45:00	W	OBSV S175	Hornstein,Seth D	Main Campus
+23538	ASTR	1010	114	13:00:00	14:45:00	W	OBSV S175	Hornstein,Seth D	Main Campus
+19986	ASTR	1010	115	15:00:00	16:45:00	W	OBSV S175	Hornstein,Seth D	Main Campus
+25576	ASTR	1010	116	11:00:00	12:45:00	TH	OBSV S175	Hornstein,Seth D	Main Campus
+25179	ASTR	1010	117	09:00:00	10:45:00	F	OBSV S175	Hornstein,Seth D	Main Campus
+18772	ASTR	1020	10	12:30:00	13:45:00	TTH	DUAN G130	Duncan,Douglas K	Main Campus
+20021	ASTR	1020	11	14:00:00	14:50:00	T	OBSV S175	Duncan,Douglas K	Main Campus
+20022	ASTR	1020	12	14:00:00	14:50:00	T	OBSV S125	Duncan,Douglas K	Main Campus
+20023	ASTR	1020	13	09:00:00	09:50:00	TH	OBSV S175	Duncan,Douglas K	Main Campus
+20024	ASTR	1020	14	09:00:00	09:50:00	TH	OBSV S125	Duncan,Douglas K	Main Campus
+20025	ASTR	1020	15	10:00:00	10:50:00	TH	OBSV S175	Duncan,Douglas K	Main Campus
+20028	ASTR	1020	16	10:00:00	10:50:00	TH	OBSV S125	Duncan,Douglas K	Main Campus
+23941	ASTR	1030	100	15:30:00	16:45:00	TTH	DUAN G130	Ergun,Robert E	Main Campus
+24231	ASTR	1030	111	10:00:00	11:45:00	M	OBSV S175	Ergun,Robert E	Main Campus
+23982	ASTR	1030	112	12:00:00	13:45:00	M	OBSV S175	Ergun,Robert E	Main Campus
+23983	ASTR	1030	113	14:00:00	15:45:00	M	OBSV S175	Ergun,Robert E	Main Campus
+24258	ASTR	1030	114	11:00:00	12:45:00	F	OBSV S175	Ergun,Robert E	Main Campus
+24259	ASTR	1030	115	13:00:00	14:45:00	F	OBSV S175	Ergun,Robert E	Main Campus
+18778	ASTR	1040	10	11:00:00	12:15:00	TTH	DUAN G130	Toomre,Juri	Main Campus
+20046	ASTR	1040	11	15:00:00	15:50:00	T	DUAN D142	Toomre,Juri	Main Campus
+20047	ASTR	1040	12	11:00:00	11:50:00	W	DUAN D142	Toomre,Juri	Main Campus
+21350	ASTR	1040	13	12:00:00	12:50:00	W	DUAN D142	Toomre,Juri	Main Campus
+23324	ASTR	1040	14	13:00:00	13:50:00	W	DUAN D142	Toomre,Juri	Main Campus
+23539	ASTR	1040	15	10:00:00	10:50:00	W	DUAN D142	Toomre,Juri	Main Campus
+23940	ASTR	1200	1	09:00:00	09:50:00	MWF	DUAN G1B20	\N	Main Campus
+18782	ASTR	1200	2	11:00:00	12:15:00	TTH	DUAN G1B20	Green,James C	Main Campus
+23519	ASTR	2000	1	14:00:00	15:15:00	TTH	BESC 180	Ellingson,Erica	Main Campus
+18854	ASTR	2010	1	09:30:00	10:45:00	TTH	DUAN G130	Bally,John	Main Campus
+23518	ASTR	2030	1	13:00:00	13:50:00	MWF	DUAN G130	Begelman,Mitchell C	Main Campus
+22615	ASTR	2040	1	15:30:00	16:45:00	TTH	BESC 180	\N	Main Campus
+32317	ASTR	2100	1	11:00:00	12:15:00	TTH	DUAN G131	Cranmer,Steven	Main Campus
+23537	ASTR	2500	1	15:30:00	16:45:00	MW	AERO N100	Rhode,Matthew Edward	Main Campus
+21353	ASTR	2600	1	11:00:00	12:15:00	TTH	OBSV S125	Hornstein,Seth D	Main Campus
+31823	ASTR	3400	1	13:00:00	14:50:00	\N	OBSV S125	Keller,John Michael	Main Campus
+18862	ASTR	3520	100	09:30:00	10:45:00	TTH	DUAN E126	Kowalski,Adam	Main Campus
+21355	ASTR	3520	111	18:30:00	20:20:00	T	OBSV S125	Kowalski,Adam	Main Campus
+18985	ASTR	3720	1	14:00:00	15:15:00	TTH	DUAN G130	Hayne,Paul Ottinger	Main Campus
+23385	ASTR	3740	1	10:00:00	10:50:00	MWF	DUAN G131	Hamilton,Andrew J S	Main Campus
+23180	ASTR	3760	1	09:00:00	09:50:00	MWF	DUAN G131	Ergun,Robert E	Main Campus
+18863	ASTR	3800	1	15:30:00	17:20:00	TTH	OBSV S125	Duncan,Douglas K	Main Campus
+23384	ASTR	3830	1	11:00:00	12:15:00	TTH	FLMG 155	Cash,Webster C	Main Campus
+22409	ASTR	4800	1	12:30:00	13:45:00	TTH	DUAN E126	Esposito,Larry Wayne	Main Campus
+21754	ASTR	5150	1	12:30:00	13:45:00	TTH	DUAN G1B25	Uzdensky,Dmitri	Main Campus
+22482	ASTR	5400	1	10:00:00	10:50:00	MWF	DUAN E126	Brown,Benjamin Paul	Main Campus
+18891	ASTR	5550	1	13:00:00	13:50:00	MWF	DUAN E126	Halverson,Nils W	Main Campus
+32644	ASTR	5700	1	09:00:00	09:50:00	MWF	DUAN E126	Kazachenko,Maria	Main Campus
+32642	ASTR	5810	1	14:00:00	15:15:00	TTH	DUAN E126	Berta-Thompson,Zachory	Main Campus
+23943	ASTR	5830	1	14:00:00	14:50:00	MWF	BESC 1B75	Jakosky,Bruce M	Main Campus
+38890	ASTR	5830	2	14:00:00	14:50:00	MWF	BESC 1B75	Jakosky,Bruce M	Main Campus
+25364	ASTR	5835	1	16:00:00	16:50:00	T	DUAN E126	\N	Main Campus
+22628	ASTR	6000	1	16:00:00	16:50:00	TH	DUAN E126	\N	Main Campus
+35592	ASTR	6630	1	14:00:00	15:15:00	TTH	DUAN G2B41	Zhong,Shijie	Main Campus
+23660	ASTR	7500	1	12:30:00	13:45:00	MW	See Academc Dept	Cranmer,Steven	Main Campus
+17395	ATOC	1050	1	09:30:00	10:45:00	TTH	DUAN G1B30	Schmidt,Sebastian K	Main Campus
+17396	ATOC	1050	2	15:30:00	16:45:00	TTH	CHEM 140	Hager,Carl	Main Campus
+17398	ATOC	1060	1	12:30:00	13:45:00	TTH	DUAN G1B30	Giglio,Donata	Main Campus
+17397	ATOC	1060	10	11:30:00	12:20:00	MW	SEEC N136	Byrd,Gregory	Main Campus
+17399	ATOC	1070	1	09:20:00	11:10:00	M	SEEC S128	\N	Main Campus
+17400	ATOC	1070	2	11:20:00	13:10:00	M	SEEC S128	\N	Main Campus
+17401	ATOC	1070	3	13:20:00	15:10:00	M	SEEC S128	\N	Main Campus
+17402	ATOC	1070	4	15:20:00	17:10:00	M	SEEC S128	\N	Main Campus
+17403	ATOC	1070	5	17:20:00	19:10:00	M	SEEC S128	\N	Main Campus
+17404	ATOC	1070	6	09:20:00	11:10:00	W	SEEC S128	\N	Main Campus
+17405	ATOC	1070	7	11:20:00	13:10:00	W	SEEC S128	\N	Main Campus
+17406	ATOC	1070	8	13:20:00	15:10:00	W	SEEC S128	\N	Main Campus
+17407	ATOC	1070	9	15:20:00	17:10:00	W	SEEC S128	\N	Main Campus
+17408	ATOC	1070	10	17:20:00	19:10:00	W	SEEC S128	\N	Main Campus
+17409	ATOC	1070	11	09:20:00	11:10:00	T	SEEC S128	\N	Main Campus
+17410	ATOC	1070	12	13:00:00	13:50:00	T	SEEC S128	\N	Main Campus
+38618	ATOC	2050	1	10:00:00	11:15:00	TTH	SEEC S126	Nigro,Melissa Ann	Main Campus
+23368	ATOC	3050	10	13:30:00	14:20:00	MW	SEEC N128	Byrd,Gregory	Main Campus
+20520	ATOC	3070	1	11:00:00	12:15:00	TTH	BESC 180	Marchitto,Thomas	Main Campus
+31747	ATOC	3180	1	18:00:00	19:15:00	TTH	SEEC S126	\N	Main Campus
+30558	ATOC	3300	1	11:30:00	12:45:00	MW	SEEC S126	Brown,Derek Philip	Main Campus
+22675	ATOC	3500	1	10:00:00	11:15:00	TTH	SEEC N124	Mukherjee,Anondo Dehan	Main Campus
+21016	ATOC	3600	1	14:00:00	15:15:00	TTH	EDUC 220	Blanken,Peter David	Main Campus
+24021	ATOC	4500	1	09:30:00	10:45:00	MW	SEEC S126	Moriarty,Julia M	Main Campus
+24403	ATOC	4500	2	11:30:00	12:45:00	TTH	SEEC S126	Kingsmill,David	Main Campus
+23443	ATOC	4500	3	15:30:00	16:45:00	MW	SEEC S126	Wang,Zhien	Main Campus
+25035	ATOC	4500	4	13:30:00	14:45:00	MW	SEEC S126	Lenaerts,Jan	Main Campus
+30559	ATOC	4700	1	13:00:00	14:15:00	TTH	SEEC S126	Winters,Andrew	Main Campus
+30560	ATOC	4720	1	16:00:00	17:15:00	TTH	SEEC N126	Seefeldt,Mark William	Main Campus
+23231	ATOC	4770	1	13:00:00	14:15:00	TTH	SEEC N129	Lundquist,Julie Kay	Main Campus
+22679	ATOC	4800	1	15:30:00	16:45:00	MW	SEEC N126	Randall,Cora Einterz	Main Campus
+22680	ATOC	5000	1	15:30:00	16:45:00	MW	SEEC N126	Randall,Cora Einterz	Main Campus
+17411	ATOC	5060	1	10:00:00	11:15:00	TTH	SEEC S125	Weiss,Jeffrey	Main Campus
+30561	ATOC	5061	1	11:30:00	12:45:00	TTH	SEEC N129	Han,Weiqing	Main Campus
+23153	ATOC	5235	1	14:30:00	15:45:00	TTH	SEEC S126	Pilewskie,Peter Andrew	Main Campus
+22697	ATOC	5600	1	13:00:00	14:15:00	TTH	SEEC N125	Kay,Jennifer E	Main Campus
+23230	ATOC	5770	1	13:00:00	14:15:00	TTH	SEEC N129	Lundquist,Julie Kay	Main Campus
+23444	ATOC	7500	1	09:30:00	10:45:00	MW	SEEC S126	Moriarty,Julia M	Main Campus
+23843	ATOC	7500	2	11:30:00	12:45:00	TTH	SEEC S126	Kingsmill,David	Main Campus
+24707	ATOC	7500	3	14:30:00	15:45:00	TTH	SEEC N129	Toohey,Darin W	Main Campus
+24789	ATOC	7500	4	13:30:00	14:45:00	MW	SEEC S126	Lenaerts,Jan	Main Campus
+24226	CWC	2000	1	16:30:00	17:45:00	MW	KTCH 1B60	Presser,Stephen	Main Campus
+36722	CWC	4000	801	11:00:00	12:15:00	TTH	HUMN 270	Doody,John Anthony	Main Campus
+38595	CWC	4000	802	14:00:00	15:15:00	TTH	CLUB 10	Allen,William B	Main Campus
+17519	CAM	2001	1	11:00:00	12:15:00	TTH	HUMN 125	Thomas,Thomas Alexis	Main Campus
+24816	CEES	1623	1	12:00:00	12:50:00	MWF	MUEN E131	Hatch,John B	Main Campus
+17758	CHE	1021	100	12:00:00	12:50:00	MWF	CHEM 140	Kelly,Christine Mina	Main Campus
+23550	CHE	1021	111	13:00:00	15:50:00	M	EKLC M1B50	Kelly,Christine Mina	Main Campus
+23551	CHE	1021	112	13:00:00	15:50:00	M	EKLC M1B60	Kelly,Christine Mina	Main Campus
+17759	CHE	1021	114	16:00:00	18:50:00	M	EKLC M1B50	Kelly,Christine Mina	Main Campus
+22855	CHE	1021	115	16:00:00	18:50:00	M	EKLC M1B60	Kelly,Christine Mina	Main Campus
+17760	CHE	1021	121	08:00:00	10:50:00	T	EKLC M1B50	Kelly,Christine Mina	Main Campus
+17761	CHE	1021	131	11:00:00	13:50:00	T	EKLC M1B50	Kelly,Christine Mina	Main Campus
+23218	CHE	1021	132	11:00:00	13:50:00	T	EKLC M1B60	Kelly,Christine Mina	Main Campus
+22342	CHE	1021	134	14:00:00	16:50:00	T	EKLC M1B50	Kelly,Christine Mina	Main Campus
+17762	CHE	1021	135	14:00:00	16:50:00	T	EKLC M1B60	Kelly,Christine Mina	Main Campus
+23552	CHE	1021	151	13:00:00	15:50:00	W	EKLC M1B50	Kelly,Christine Mina	Main Campus
+23974	CHE	1021	152	13:00:00	15:50:00	W	EKLC M1B60	Kelly,Christine Mina	Main Campus
+22857	CHE	1021	154	16:00:00	18:50:00	W	EKLC M1B50	Kelly,Christine Mina	Main Campus
+17763	CHE	1021	161	08:00:00	10:50:00	TH	EKLC M1B50	Kelly,Christine Mina	Main Campus
+17764	CHE	1021	171	11:00:00	13:50:00	TH	EKLC M1B50	Kelly,Christine Mina	Main Campus
+17766	CHE	1031	10	08:00:00	08:50:00	MWF	EKLC E1B75	Kroll,Jay Arthur	Main Campus
+23238	CHE	1031	74	13:00:00	15:50:00	TH	EKLC M1B60	Kroll,Jay Arthur	Main Campus
+17785	CHE	1031	91	12:00:00	14:50:00	F	EKLC M1B60	Kroll,Jay Arthur	Main Campus
+18051	CHE	1113	100	10:00:00	10:50:00	MWF	CHEM 142	Hendrickson,Susan	Main Campus
+18060	CHE	1113	111	15:00:00	15:50:00	M	EKLC M2B26	Hendrickson,Susan	Main Campus
+22861	CHE	1113	112	16:00:00	16:50:00	M	EKLC M2B26	Hendrickson,Susan	Main Campus
+18072	CHE	1113	121	08:00:00	08:50:00	T	EKLC M2B26	Hendrickson,Susan	Main Campus
+18090	CHE	1113	131	13:00:00	13:50:00	T	EKLC M2B26	Hendrickson,Susan	Main Campus
+18130	CHE	1113	151	13:00:00	13:50:00	W	EKLC M2B26	Hendrickson,Susan	Main Campus
+18183	CHE	1113	152	15:00:00	15:50:00	W	EKLC M2B26	Hendrickson,Susan	Main Campus
+18184	CHE	1113	171	12:00:00	12:50:00	TH	EKLC M2B26	Hendrickson,Susan	Main Campus
+23242	CHE	1113	172	17:00:00	17:50:00	TH	EKLC M2B26	Hendrickson,Susan	Main Campus
+18186	CHE	1113	191	15:00:00	15:50:00	F	EKLC M2B26	Hendrickson,Susan	Main Campus
+22406	CHE	1113	200	11:00:00	11:50:00	MWF	CHEM 140	Hendrickson,Susan	Main Campus
+22472	CHE	1113	211	14:00:00	14:50:00	M	EKLC M2B30	Hendrickson,Susan	Main Campus
+18062	CHE	1113	212	15:00:00	15:50:00	M	EKLC M2B30	Hendrickson,Susan	Main Campus
+18066	CHE	1113	213	16:00:00	16:50:00	M	EKLC M2B30	Hendrickson,Susan	Main Campus
+18073	CHE	1113	214	17:00:00	17:50:00	M	EKLC M2B30	Hendrickson,Susan	Main Campus
+22862	CHE	1113	215	14:00:00	14:50:00	M	EKLC M2B26	Hendrickson,Susan	Main Campus
+23137	CHE	1113	216	17:00:00	17:50:00	M	EKLC M2B26	Hendrickson,Susan	Main Campus
+18079	CHE	1113	221	08:00:00	08:50:00	T	EKLC M2B30	Hendrickson,Susan	Main Campus
+22363	CHE	1113	231	12:00:00	12:50:00	T	EKLC M2B30	Hendrickson,Susan	Main Campus
+18096	CHE	1113	232	13:00:00	13:50:00	T	EKLC M2B30	Hendrickson,Susan	Main Campus
+18129	CHE	1113	233	14:00:00	14:50:00	T	EKLC M2B30	Hendrickson,Susan	Main Campus
+22863	CHE	1113	234	15:00:00	15:50:00	T	EKLC M2B30	Hendrickson,Susan	Main Campus
+22514	CHE	1113	251	13:00:00	13:50:00	W	EKLC M2B30	Hendrickson,Susan	Main Campus
+18181	CHE	1113	252	14:00:00	14:50:00	W	EKLC M2B30	Hendrickson,Susan	Main Campus
+18182	CHE	1113	253	15:00:00	15:50:00	W	EKLC M2B30	Hendrickson,Susan	Main Campus
+22515	CHE	1113	261	08:00:00	08:50:00	TH	EKLC M2B30	Hendrickson,Susan	Main Campus
+22516	CHE	1113	271	13:00:00	13:50:00	TH	EKLC M2B30	Hendrickson,Susan	Main Campus
+18185	CHE	1113	272	14:00:00	14:50:00	TH	EKLC M2B30	Hendrickson,Susan	Main Campus
+18187	CHE	1113	291	13:00:00	13:50:00	F	EKLC M2B30	Hendrickson,Susan	Main Campus
+22659	CHE	1113	292	14:00:00	14:50:00	F	EKLC M2B30	Hendrickson,Susan	Main Campus
+23811	CHE	1113	300	08:00:00	08:50:00	MWF	EKLC E1B20	\N	Main Campus
+23812	CHE	1113	354	17:00:00	17:50:00	W	EKLC M2B30	Khanal,Akhileshwar	Main Campus
+24199	CHE	1113	371	14:00:00	14:50:00	TH	EKLC M2B26	Khanal,Akhileshwar	Main Campus
+23813	CHE	1113	373	15:00:00	15:50:00	TH	EKLC M2B30	Khanal,Akhileshwar	Main Campus
+23814	CHE	1113	374	17:00:00	17:50:00	TH	EKLC M2B30	Khanal,Akhileshwar	Main Campus
+23815	CHE	1113	393	15:00:00	15:50:00	F	EKLC M2B30	Khanal,Akhileshwar	Main Campus
+18188	CHE	1114	111	12:00:00	14:30:00	M	EKLC M173	Khanal,Akhileshwar	Main Campus
+18204	CHE	1114	112	12:00:00	14:30:00	M	EKLC M172	Khanal,Akhileshwar	Main Campus
+22866	CHE	1114	114	15:00:00	17:30:00	M	EKLC M173	Khanal,Akhileshwar	Main Campus
+18191	CHE	1114	121	08:00:00	10:30:00	T	EKLC M173	Khanal,Akhileshwar	Main Campus
+18196	CHE	1114	134	14:00:00	16:30:00	T	EKLC M173	Khanal,Akhileshwar	Main Campus
+18199	CHE	1114	151	12:00:00	14:30:00	W	EKLC M173	Khanal,Akhileshwar	Main Campus
+18207	CHE	1114	152	12:00:00	14:30:00	W	EKLC M175	Khanal,Akhileshwar	Main Campus
+18202	CHE	1114	154	15:00:00	17:30:00	W	EKLC M173	Khanal,Akhileshwar	Main Campus
+18203	CHE	1114	161	08:00:00	10:30:00	TH	EKLC M173	Khanal,Akhileshwar	Main Campus
+18189	CHE	1114	211	12:00:00	14:30:00	M	EKLC M127	Khanal,Akhileshwar	Main Campus
+23245	CHE	1114	212	12:00:00	14:30:00	M	EKLC M175	Khanal,Akhileshwar	Main Campus
+18190	CHE	1114	214	15:00:00	17:30:00	M	EKLC M127	Khanal,Akhileshwar	Main Campus
+23246	CHE	1114	215	15:00:00	17:30:00	M	EKLC M175	Khanal,Akhileshwar	Main Campus
+18192	CHE	1114	221	08:00:00	10:30:00	T	EKLC M127	Khanal,Akhileshwar	Main Campus
+18195	CHE	1114	231	11:00:00	13:30:00	T	EKLC M127	Khanal,Akhileshwar	Main Campus
+22365	CHE	1114	232	11:00:00	13:30:00	T	EKLC M173	Khanal,Akhileshwar	Main Campus
+23251	CHE	1114	233	11:00:00	13:30:00	T	EKLC M175	Khanal,Akhileshwar	Main Campus
+18197	CHE	1114	234	14:00:00	16:30:00	T	EKLC M127	Khanal,Akhileshwar	Main Campus
+18198	CHE	1114	251	12:00:00	14:30:00	W	EKLC M127	Khanal,Akhileshwar	Main Campus
+22519	CHE	1114	254	15:00:00	17:30:00	W	EKLC M127	Khanal,Akhileshwar	Main Campus
+23254	CHE	1114	255	15:00:00	17:30:00	W	EKLC M175	Khanal,Akhileshwar	Main Campus
+22520	CHE	1114	261	08:00:00	10:30:00	TH	EKLC M127	Khanal,Akhileshwar	Main Campus
+22521	CHE	1114	271	11:00:00	13:30:00	TH	EKLC M127	Khanal,Akhileshwar	Main Campus
+24444	CHE	1114	272	11:00:00	13:30:00	TH	EKLC M175	Khanal,Akhileshwar	Main Campus
+22522	CHE	1114	274	14:00:00	16:30:00	TH	EKLC M127	Khanal,Akhileshwar	Main Campus
+22984	CHE	1114	275	14:00:00	16:30:00	TH	EKLC M173	Khanal,Akhileshwar	Main Campus
+18208	CHE	1114	291	13:00:00	15:30:00	F	EKLC M175	Khanal,Akhileshwar	Main Campus
+23300	CHE	1114	292	13:00:00	15:30:00	F	EKLC M173	Khanal,Akhileshwar	Main Campus
+23247	CHE	1114	314	15:00:00	17:30:00	M	EKLC M172	Khanal,Akhileshwar	Main Campus
+23250	CHE	1114	321	08:00:00	10:30:00	T	EKLC M175	Khanal,Akhileshwar	Main Campus
+23253	CHE	1114	334	14:00:00	16:30:00	T	EKLC M172	Khanal,Akhileshwar	Main Campus
+22982	CHE	1114	371	11:00:00	13:30:00	TH	EKLC M173	Khanal,Akhileshwar	Main Campus
+22983	CHE	1114	374	14:00:00	16:30:00	TH	EKLC M175	Khanal,Akhileshwar	Main Campus
+19403	CHE	1133	100	09:00:00	09:50:00	MWF	CHEM 140	Plath,Kathryn Leann	Main Campus
+19402	CHE	1133	111	12:00:00	12:50:00	M	EKLC M2B26	Plath,Kathryn Leann	Main Campus
+20277	CHE	1133	112	13:00:00	13:50:00	M	EKLC M2B26	Plath,Kathryn Leann	Main Campus
+20278	CHE	1133	131	12:00:00	12:50:00	T	EKLC M2B26	Plath,Kathryn Leann	Main Campus
+20279	CHE	1133	151	12:00:00	12:50:00	W	EKLC M2B26	Plath,Kathryn Leann	Main Campus
+20280	CHE	1133	152	12:00:00	12:50:00	W	EKLC M2B30	Plath,Kathryn Leann	Main Campus
+20282	CHE	1133	161	09:00:00	09:50:00	TH	EKLC M2B26	Plath,Kathryn Leann	Main Campus
+20283	CHE	1133	171	12:00:00	12:50:00	TH	EKLC M2B30	Plath,Kathryn Leann	Main Campus
+20284	CHE	1133	172	13:00:00	13:50:00	TH	EKLC M2B26	Plath,Kathryn Leann	Main Campus
+20593	CHE	1133	191	13:00:00	13:50:00	F	EKLC M2B26	Plath,Kathryn Leann	Main Campus
+19404	CHE	1133	200	10:00:00	10:50:00	MWF	CHEM 140	Plath,Kathryn Leann	Main Campus
+20498	CHE	1133	211	12:00:00	12:50:00	M	EKLC M2B30	Plath,Kathryn Leann	Main Campus
+20499	CHE	1133	212	13:00:00	13:50:00	M	EKLC M2B30	Plath,Kathryn Leann	Main Campus
+22657	CHE	1133	213	16:00:00	16:50:00	M	EKLC M2B40	Plath,Kathryn Leann	Main Campus
+20505	CHE	1133	214	14:00:00	14:50:00	M	EKLC M2B40	Plath,Kathryn Leann	Main Campus
+23416	CHE	1133	215	15:00:00	15:50:00	M	EKLC M2B40	Plath,Kathryn Leann	Main Campus
+20500	CHE	1133	221	09:00:00	09:50:00	T	EKLC M2B26	Plath,Kathryn Leann	Main Campus
+20501	CHE	1133	231	15:00:00	15:50:00	T	EKLC M2B26	Plath,Kathryn Leann	Main Campus
+22658	CHE	1133	232	17:00:00	17:50:00	T	EKLC M2B26	Plath,Kathryn Leann	Main Campus
+20502	CHE	1133	251	13:00:00	13:50:00	W	EKLC M2B40	Plath,Kathryn Leann	Main Campus
+20503	CHE	1133	252	16:00:00	16:50:00	W	EKLC M2B40	Plath,Kathryn Leann	Main Campus
+20504	CHE	1133	253	17:00:00	17:50:00	W	EKLC M2B40	Plath,Kathryn Leann	Main Campus
+20506	CHE	1133	271	13:00:00	13:50:00	TH	EKLC M2B40	Plath,Kathryn Leann	Main Campus
+20507	CHE	1133	272	14:00:00	14:50:00	TH	EKLC M2B40	Plath,Kathryn Leann	Main Campus
+20508	CHE	1133	273	16:00:00	16:50:00	TH	EKLC M2B30	Plath,Kathryn Leann	Main Campus
+20509	CHE	1133	291	13:00:00	13:50:00	F	EKLC M2B40	Plath,Kathryn Leann	Main Campus
+20510	CHE	1133	292	14:00:00	14:50:00	F	EKLC M2B40	Plath,Kathryn Leann	Main Campus
+22724	CHE	1133	300	11:00:00	11:50:00	MWF	CHEM 142	Rontu Carlon,Nabilah Arshad	Main Campus
+22725	CHE	1133	311	12:00:00	12:50:00	M	EKLC M2B40	Rontu Carlon,Nabilah Arshad	Main Campus
+22882	CHE	1133	312	13:00:00	13:50:00	M	EKLC M2B40	Rontu Carlon,Nabilah Arshad	Main Campus
+22883	CHE	1133	331	16:00:00	16:50:00	T	EKLC M2B30	Rontu Carlon,Nabilah Arshad	Main Campus
+22884	CHE	1133	332	17:00:00	17:50:00	T	EKLC M2B30	Rontu Carlon,Nabilah Arshad	Main Campus
+22885	CHE	1133	351	12:00:00	12:50:00	W	EKLC M2B40	Rontu Carlon,Nabilah Arshad	Main Campus
+22886	CHE	1133	352	17:00:00	17:50:00	W	EKLC M2B26	Rontu Carlon,Nabilah Arshad	Main Campus
+22887	CHE	1133	361	09:00:00	09:50:00	TH	EKLC M2B30	Rontu Carlon,Nabilah Arshad	Main Campus
+22888	CHE	1133	371	15:00:00	15:50:00	TH	EKLC M2B40	Rontu Carlon,Nabilah Arshad	Main Campus
+22889	CHE	1133	391	14:00:00	14:50:00	F	EKLC M2B26	Rontu Carlon,Nabilah Arshad	Main Campus
+20569	CHE	1134	111	12:00:00	14:30:00	M	EKLC M126	Rontu Carlon,Nabilah Arshad	Main Campus
+20571	CHE	1134	121	08:00:00	10:30:00	T	EKLC M126	Rontu Carlon,Nabilah Arshad	Main Campus
+20572	CHE	1134	131	11:00:00	13:30:00	T	EKLC M126	Rontu Carlon,Nabilah Arshad	Main Campus
+23257	CHE	1134	132	11:00:00	13:30:00	T	EKLC M174	Rontu Carlon,Nabilah Arshad	Main Campus
+20573	CHE	1134	151	12:00:00	14:30:00	W	EKLC M126	Rontu Carlon,Nabilah Arshad	Main Campus
+20574	CHE	1134	154	15:00:00	17:30:00	W	EKLC M126	Rontu Carlon,Nabilah Arshad	Main Campus
+20575	CHE	1134	161	08:00:00	10:30:00	TH	EKLC M126	Rontu Carlon,Nabilah Arshad	Main Campus
+20576	CHE	1134	171	11:00:00	13:30:00	TH	EKLC M126	Rontu Carlon,Nabilah Arshad	Main Campus
+20577	CHE	1134	174	14:00:00	16:30:00	TH	EKLC M126	Rontu Carlon,Nabilah Arshad	Main Campus
+23104	CHE	1134	211	12:00:00	14:30:00	M	EKLC M124	Rontu Carlon,Nabilah Arshad	Main Campus
+20580	CHE	1134	214	15:00:00	17:30:00	M	EKLC M124	Rontu Carlon,Nabilah Arshad	Main Campus
+22911	CHE	1134	215	15:00:00	17:30:00	M	EKLC M174	Rontu Carlon,Nabilah Arshad	Main Campus
+20581	CHE	1134	221	08:00:00	10:30:00	T	EKLC M124	Rontu Carlon,Nabilah Arshad	Main Campus
+18327	CHE	3341	211	13:30:00	16:20:00	T	EKLC M1B20	Zhang,Wei	Main Campus
+24439	CHE	1134	222	08:00:00	10:30:00	T	EKLC M125	Rontu Carlon,Nabilah Arshad	Main Campus
+20582	CHE	1134	231	11:00:00	13:30:00	T	EKLC M124	Rontu Carlon,Nabilah Arshad	Main Campus
+24440	CHE	1134	232	11:00:00	13:30:00	T	EKLC M125	Rontu Carlon,Nabilah Arshad	Main Campus
+22665	CHE	1134	234	14:00:00	16:30:00	T	EKLC M124	Rontu Carlon,Nabilah Arshad	Main Campus
+20583	CHE	1134	251	12:00:00	14:30:00	W	EKLC M124	Rontu Carlon,Nabilah Arshad	Main Campus
+23263	CHE	1134	252	12:00:00	14:30:00	W	EKLC M174	Rontu Carlon,Nabilah Arshad	Main Campus
+23264	CHE	1134	253	12:00:00	14:30:00	W	EKLC M172	Rontu Carlon,Nabilah Arshad	Main Campus
+20584	CHE	1134	254	15:00:00	17:30:00	W	EKLC M124	Rontu Carlon,Nabilah Arshad	Main Campus
+20587	CHE	1134	261	08:00:00	10:30:00	TH	EKLC M124	Rontu Carlon,Nabilah Arshad	Main Campus
+20588	CHE	1134	262	08:00:00	10:30:00	TH	EKLC M125	Rontu Carlon,Nabilah Arshad	Main Campus
+20589	CHE	1134	271	11:00:00	13:30:00	TH	EKLC M124	Rontu Carlon,Nabilah Arshad	Main Campus
+20590	CHE	1134	272	11:00:00	13:30:00	TH	EKLC M174	Rontu Carlon,Nabilah Arshad	Main Campus
+22912	CHE	1134	311	12:00:00	14:30:00	M	EKLC M125	Rontu Carlon,Nabilah Arshad	Main Campus
+22914	CHE	1134	312	12:00:00	14:30:00	M	EKLC M174	Rontu Carlon,Nabilah Arshad	Main Campus
+22913	CHE	1134	314	15:00:00	17:30:00	M	EKLC M125	Rontu Carlon,Nabilah Arshad	Main Campus
+22915	CHE	1134	334	14:00:00	16:30:00	T	EKLC M125	Rontu Carlon,Nabilah Arshad	Main Campus
+22919	CHE	1134	335	14:00:00	16:30:00	T	EKLC M174	Rontu Carlon,Nabilah Arshad	Main Campus
+22916	CHE	1134	351	12:00:00	14:30:00	W	EKLC M125	Rontu Carlon,Nabilah Arshad	Main Campus
+22917	CHE	1134	354	15:00:00	17:30:00	W	EKLC M125	Rontu Carlon,Nabilah Arshad	Main Campus
+22920	CHE	1134	355	15:00:00	17:30:00	W	EKLC M172	Rontu Carlon,Nabilah Arshad	Main Campus
+22918	CHE	1134	374	14:00:00	16:30:00	TH	EKLC M125	Rontu Carlon,Nabilah Arshad	Main Campus
+18223	CHE	1221	161	09:00:00	11:30:00	TH	EKLC M275	Gin,Douglas L.	Main Campus
+18224	CHE	1221	171	12:00:00	14:30:00	TH	EKLC M275	Gin,Douglas L.	Main Campus
+24325	CHE	2100	10	10:00:00	10:50:00	MWF	EKLC E1B50	Browne,Eleanor Carol	Main Campus
+24441	CHE	2100	121	08:00:00	08:50:00	T	EKLC M2B40	Browne,Eleanor Carol	Main Campus
+24326	CHE	2100	131	14:00:00	14:50:00	T	EKLC M2B40	Browne,Eleanor Carol	Main Campus
+24426	CHE	2101	114	15:00:00	17:30:00	M	EKLC M273	Kroll,Jay Arthur	Main Campus
+24329	CHE	2101	154	15:00:00	17:30:00	W	EKLC M273	Kroll,Jay Arthur	Main Campus
+18231	CHE	3311	100	09:00:00	09:50:00	MWF	EKLC E1B20	Wang,Xiang	Main Campus
+22868	CHE	3311	114	12:00:00	12:50:00	M	EKLC M2B36	Wang,Xiang	Main Campus
+18437	CHE	3311	116	14:00:00	14:50:00	M	EKLC M2B36	Wang,Xiang	Main Campus
+18441	CHE	3311	122	10:00:00	10:50:00	T	EKLC M2B36	Wang,Xiang	Main Campus
+18440	CHE	3311	125	13:00:00	13:50:00	T	EKLC M2B36	Wang,Xiang	Main Campus
+22509	CHE	3311	128	16:00:00	16:50:00	T	EKLC M2B36	Wang,Xiang	Main Campus
+18439	CHE	3311	200	09:30:00	10:45:00	TTH	CHEM 142	Luca,Oana	Main Campus
+22645	CHE	3311	211	09:00:00	09:50:00	M	EKLC M2B36	Luca,Oana	Main Campus
+18442	CHE	3311	213	11:00:00	11:50:00	M	EKLC M2B36	Luca,Oana	Main Campus
+22510	CHE	3311	215	13:00:00	13:50:00	M	EKLC M2B36	Luca,Oana	Main Campus
+22869	CHE	3311	217	15:00:00	15:50:00	M	EKLC M2B36	Luca,Oana	Main Campus
+18438	CHE	3311	220	08:00:00	08:50:00	T	EKLC M2B36	Luca,Oana	Main Campus
+22870	CHE	3311	223	11:00:00	11:50:00	T	EKLC M2B36	Luca,Oana	Main Campus
+22871	CHE	3311	226	14:00:00	14:50:00	T	EKLC M2B36	Luca,Oana	Main Campus
+18445	CHE	3321	101	10:00:00	12:50:00	T	EKLC M1B65	Richardson,Jacqueline Mae	Main Campus
+18446	CHE	3321	111	13:30:00	16:20:00	T	EKLC M1B65	Zhang,Wei	Main Campus
+18447	CHE	3321	121	10:00:00	12:50:00	W	EKLC M1B65	Zhang,Wei	Main Campus
+24701	CHE	3321	122	10:00:00	12:50:00	W	EKLC M1B35	Richardson,Jacqueline Mae	Main Campus
+22384	CHE	3321	131	13:30:00	16:20:00	W	EKLC M1B65	Richardson,Jacqueline Mae	Main Campus
+18449	CHE	3321	151	10:00:00	12:50:00	TH	EKLC M1B65	Richardson,Jacqueline Mae	Main Campus
+18450	CHE	3321	161	13:30:00	16:20:00	TH	EKLC M1B65	Richardson,Jacqueline Mae	Main Campus
+22872	CHE	3321	181	10:00:00	12:50:00	F	EKLC M1B65	Richardson,Jacqueline Mae	Main Campus
+31190	CHE	3321	182	10:00:00	12:50:00	F	EKLC M1B35	Richardson,Jacqueline Mae	Main Campus
+23276	CHE	3321	191	13:30:00	16:20:00	F	EKLC M1B65	Zhang,Wei	Main Campus
+18232	CHE	3331	100	09:00:00	09:50:00	MWF	CHEM 142	Walba,David M	Main Campus
+18308	CHE	3331	133	11:00:00	11:50:00	W	EKLC M2B36	Walba,David M	Main Campus
+18234	CHE	3331	134	12:00:00	12:50:00	W	EKLC M2B36	Walba,David M	Main Campus
+22511	CHE	3331	136	14:00:00	14:50:00	W	EKLC M2B36	Walba,David M	Main Campus
+18233	CHE	3331	138	16:00:00	16:50:00	W	EKLC M2B36	Walba,David M	Main Campus
+23280	CHE	3331	141	09:00:00	09:50:00	TH	EKLC M2B36	Walba,David M	Main Campus
+18235	CHE	3331	143	11:00:00	11:50:00	TH	EKLC M2B36	Walba,David M	Main Campus
+18238	CHE	3331	145	13:00:00	13:50:00	TH	EKLC M2B36	Walba,David M	Main Campus
+18237	CHE	3331	147	15:00:00	15:50:00	TH	EKLC M2B36	Walba,David M	Main Campus
+18236	CHE	3331	149	17:00:00	17:50:00	TH	EKLC M2B36	Walba,David M	Main Campus
+18249	CHE	3331	200	11:00:00	11:50:00	MWF	RAMY C250	Walczak,Maciej Andrzej	Main Campus
+22512	CHE	3331	231	09:00:00	09:50:00	W	EKLC M2B36	Walczak,Maciej Andrzej	Main Campus
+24892	CHE	3331	232	10:00:00	10:50:00	W	EKLC M2B36	Walczak,Maciej Andrzej	Main Campus
+18318	CHE	3331	235	13:00:00	13:50:00	W	EKLC M2B36	Walczak,Maciej Andrzej	Main Campus
+18307	CHE	3331	237	15:00:00	15:50:00	W	EKLC M2B36	Walczak,Maciej Andrzej	Main Campus
+18309	CHE	3331	239	17:00:00	17:50:00	W	EKLC M2B36	Walczak,Maciej Andrzej	Main Campus
+22879	CHE	3331	240	08:00:00	08:50:00	TH	EKLC M2B36	Walczak,Maciej Andrzej	Main Campus
+18319	CHE	3331	242	10:00:00	10:50:00	TH	EKLC M2B36	Walczak,Maciej Andrzej	Main Campus
+22146	CHE	3331	244	12:00:00	12:50:00	TH	EKLC M2B36	Walczak,Maciej Andrzej	Main Campus
+22145	CHE	3331	246	14:00:00	14:50:00	TH	EKLC M2B36	Walczak,Maciej Andrzej	Main Campus
+18317	CHE	3331	248	16:00:00	16:50:00	TH	EKLC M2B36	Walczak,Maciej Andrzej	Main Campus
+18326	CHE	3341	201	10:00:00	12:50:00	T	EKLC M1B20	Richardson,Jacqueline Mae	Main Campus
+18320	CHE	3341	202	10:00:00	12:50:00	T	EKLC M1B25	Richardson,Jacqueline Mae	Main Campus
+18323	CHE	3341	212	13:30:00	16:20:00	T	EKLC M1B25	Richardson,Jacqueline Mae	Main Campus
+18328	CHE	3341	221	10:00:00	12:50:00	W	EKLC M1B20	Richardson,Jacqueline Mae	Main Campus
+18321	CHE	3341	222	10:00:00	12:50:00	W	EKLC M1B25	Richardson,Jacqueline Mae	Main Campus
+18322	CHE	3341	231	13:30:00	16:20:00	W	EKLC M1B20	Richardson,Jacqueline Mae	Main Campus
+18329	CHE	3341	232	13:30:00	16:20:00	W	EKLC M1B25	Richardson,Jacqueline Mae	Main Campus
+18331	CHE	3341	251	10:00:00	12:50:00	TH	EKLC M1B20	Richardson,Jacqueline Mae	Main Campus
+18332	CHE	3341	252	10:00:00	12:50:00	TH	EKLC M1B25	Richardson,Jacqueline Mae	Main Campus
+18356	CHE	3341	261	13:30:00	16:20:00	TH	EKLC M1B20	Zhang,Wei	Main Campus
+18325	CHE	3341	262	13:30:00	16:20:00	TH	EKLC M1B25	Richardson,Jacqueline Mae	Main Campus
+22891	CHE	3341	281	10:00:00	12:50:00	F	EKLC M1B20	Richardson,Jacqueline Mae	Main Campus
+23281	CHE	3341	291	13:30:00	16:20:00	F	EKLC M1B20	Richardson,Jacqueline Mae	Main Campus
+24070	CHE	3361	301	10:00:00	12:50:00	TTH	EKLC M1B35	Zhang,Wei	Main Campus
+24069	CHE	3361	311	13:30:00	16:20:00	TTH	EKLC M1B35	Richardson,Jacqueline Mae	Main Campus
+24071	CHE	3361	331	13:30:00	16:20:00	WF	EKLC M1B35	Richardson,Jacqueline Mae	Main Campus
+23928	CHE	3451	100	11:00:00	11:50:00	MWF	EKLC E1B20	Sammakia,Tarek	Main Campus
+23929	CHE	3451	110	08:00:00	08:50:00	M	EKLC M2B36	Sammakia,Tarek	Main Campus
+24075	CHE	3451	112	10:00:00	10:50:00	M	EKLC M2B36	Sammakia,Tarek	Main Campus
+24074	CHE	3451	121	09:00:00	09:50:00	T	EKLC M2B36	Sammakia,Tarek	Main Campus
+24073	CHE	3451	124	12:00:00	12:50:00	T	EKLC M2B36	Sammakia,Tarek	Main Campus
+24072	CHE	3451	127	15:00:00	15:50:00	T	EKLC M2B36	Sammakia,Tarek	Main Campus
+24242	CHE	4011	1	13:00:00	13:50:00	MWF	EKLC E1B50	Damrauer,Niels	Main Campus
+18372	CHE	4021	10	16:00:00	16:50:00	T	EKLC M203	Marshak,Michael Pesek	Main Campus
+18373	CHE	4021	11	08:00:00	10:50:00	TTH	EKLC M272	Marshak,Michael Pesek	Main Campus
+31065	CHE	4021	12	12:00:00	14:50:00	MW	EKLC M272	Marshak,Michael Pesek	Main Campus
+22859	CHE	4141	100	10:00:00	10:50:00	MWF	EKLC M203	Ziemann,Paul Jeffrey	Main Campus
+18374	CHE	4181	10	11:00:00	11:50:00	MWF	EKLC E1B50	de Gouw,Jozef A	Main Campus
+18375	CHE	4181	11	12:00:00	14:50:00	T	EKLC M225	de Gouw,Jozef A	Main Campus
+18376	CHE	4181	12	12:00:00	14:50:00	TH	EKLC M225	de Gouw,Jozef A	Main Campus
+22905	CHE	4181	14	12:00:00	14:50:00	W	EKLC M225	de Gouw,Jozef A	Main Campus
+24248	CHE	4261	1	09:00:00	09:50:00	MWF	EKLC M203	Park,Jihye	Main Campus
+31086	CHE	4271	1	11:00:00	12:15:00	TTH	EKLC W166	Dukovic,Gordana	Main Campus
+18377	CHE	4511	1	10:00:00	10:50:00	MWF	EKLC E1B75	Vaida,Veronica	Main Campus
+18405	CHE	4531	1	09:00:00	09:50:00	MWF	EKLC E1B75	Rontu Carlon,Nabilah Arshad	Main Campus
+31088	CHE	4555	10	11:00:00	11:50:00	MWF	CHEM 133	Eaves,Joel David	Main Campus
+31089	CHE	4555	11	11:00:00	11:50:00	T	EKLC M2B40	Eaves,Joel David	Main Campus
+18406	CHE	4581	20	09:00:00	11:50:00	T	EKLC M224	Cuk,Tanja	Main Campus
+18407	CHE	4581	30	13:00:00	15:50:00	T	EKLC M224	Cuk,Tanja	Main Campus
+18408	CHE	4581	50	14:00:00	16:50:00	W	EKLC M224	Cuk,Tanja	Main Campus
+18409	CHE	4581	70	13:00:00	15:50:00	TH	EKLC M224	Cuk,Tanja	Main Campus
+18410	CHE	4591	20	09:00:00	11:50:00	T	EKLC M224	Cuk,Tanja	Main Campus
+18411	CHE	4591	30	13:00:00	15:50:00	T	EKLC M224	Cuk,Tanja	Main Campus
+18414	CHE	4591	50	14:00:00	16:50:00	W	EKLC M224	Cuk,Tanja	Main Campus
+31202	CHE	4591	70	13:00:00	15:50:00	TH	EKLC M224	Cuk,Tanja	Main Campus
+23624	CHE	5152	100	09:30:00	10:45:00	TTH	EKLC W165	Jimenez,Jose L	Main Campus
+32389	CHE	5161	1	11:00:00	12:15:00	TTH	EKLC W165	Volkamer,Rainer	Main Campus
+24247	CHE	5331	1	10:00:00	11:50:00	MWF	EKLC W166	Michl,Josef	Main Campus
+18457	CHE	5531	1	10:00:00	10:50:00	MWF	EKLC W165	Parson,Robert	Main Campus
+32360	CHE	5571	1	11:00:00	11:50:00	MWF	EKLC W165	George,Steven	Main Campus
+18527	CHE	5591	1	09:00:00	09:50:00	MWF	EKLC W166	Weber,Jorg Mathias	Main Campus
+21637	CHE	6101	1	12:00:00	12:50:00	M	EKLC W166	Sievers,Robert E	Main Campus
+21666	CHE	6301	1	16:00:00	17:30:00	M	EKLC W165	Michl,Josef	Main Campus
+23930	CHE	6321	1	09:00:00	09:50:00	MWF	EKLC W165	Michl,Josef	Main Campus
+21667	CHE	6401	1	15:00:00	16:50:00	F	See Academc Dept	Sharma,Sandeep	Main Campus
+19401	CHE	6801	1	16:00:00	17:50:00	M-F	CHEM 142	\N	Main Campus
+31399	CHIN	1012	10	13:00:00	13:50:00	MWF	HLMS 199	Alexander,Katherine	Main Campus
+31400	CHIN	1012	11	10:00:00	10:50:00	T	MCOL E155	\N	Main Campus
+31401	CHIN	1012	12	09:00:00	09:50:00	M	CLRE 208	\N	Main Campus
+31402	CHIN	1012	13	09:00:00	09:50:00	W	CLRE 208	\N	Main Campus
+31403	CHIN	1012	14	08:00:00	08:50:00	W	CLRE 211	\N	Main Campus
+17684	CHIN	1020	1	10:00:00	10:50:00	M-F	HLMS 191	Li,Yingjie	Main Campus
+17685	CHIN	1020	2	11:00:00	11:50:00	M-F	HLMS 255	Li,Yingjie	Main Campus
+23209	CHIN	1020	3	12:00:00	12:50:00	M-F	HLMS 263	Li,Yingjie	Main Campus
+25279	CHIN	1020	4	13:00:00	13:50:00	M-F	MUEN D144	Li,Yingjie	Main Campus
+17686	CHIN	2120	1	10:00:00	10:50:00	M-F	HALE 236	Chen,Jin	Main Campus
+23512	CHIN	2120	2	14:00:00	14:50:00	M-F	DUAN G1B27	Chen,Jin	Main Campus
+17687	CHIN	3120	1	12:00:00	12:50:00	M-F	MUEN D439	Hsu,Chun-Ling	Main Campus
+23513	CHIN	3120	2	14:00:00	14:50:00	M-F	MUEN D439	Hsu,Chun-Ling	Main Campus
+22618	CHIN	3200	1	10:00:00	10:50:00	MWF	KTCH 1B84	Miao,Xiaojing	Main Campus
+23121	CHIN	3200	2	13:00:00	13:50:00	MWF	HUMN 145	Miao,Xiaojing	Main Campus
+31404	CHIN	3321	1	15:00:00	16:15:00	MW	RAMY N1B31	Richter,Matthias Ludwig	Main Campus
+23915	CHIN	4120	1	12:00:00	12:50:00	MWF	HUMN 245	Miao,Xiaojing	Main Campus
+23497	CHIN	4220	1	11:00:00	11:50:00	MWF	HUMN 245	Richter,Antje	Main Campus
+31405	CHIN	4300	1	12:00:00	12:50:00	MWF	HUMN 125	You,Kun	Main Campus
+25504	CHIN	5070	1	15:00:00	15:50:00	F	HUMN 245	Alexander,Katherine	Main Campus
+39364	CHIN	5130	1	15:00:00	17:30:00	M	HUMN 245	Alexander,Katherine	Main Campus
+31406	CHIN	5280	1	15:30:00	18:00:00	T	HALE 235	Richter,Matthias Ludwig	Main Campus
+39365	CHIN	5410	1	15:00:00	17:30:00	W	HUMN 245	Richter,Antje	Main Campus
+23184	GRE	1023	1	10:00:00	10:50:00	MTTF	CLRE 211	Latham,Brooke Elizabeth	Main Campus
+35648	GRE	3123	1	10:00:00	10:50:00	MWF	HLMS 196	Gibert,John C	Main Campus
+31833	GRE	4093	1	14:00:00	15:15:00	TTH	HUMN 370	Reitzammer,Laurialan Blake	Main Campus
+22547	CLAS	1020	1	13:00:00	13:50:00	MWF	HUMN 370	Hahn,Samuel Timothy	Main Campus
+22548	CLAS	1020	2	14:00:00	14:50:00	MWF	HUMN 370	Hahn,Samuel Timothy	Main Campus
+22022	CLAS	1030	1	15:00:00	16:15:00	MW	HLMS 229	Boespflug,Mark	Main Campus
+23661	CLAS	1030	2	16:30:00	17:45:00	MW	HLMS 255	Boespflug,Mark	Main Campus
+31835	CLAS	1051	100	10:00:00	10:50:00	MW	HUMN 1B50	Hunt,Peter Alan	Main Campus
+35721	CLAS	1051	101	13:00:00	13:50:00	W	CLUB 4	\N	Main Campus
+35722	CLAS	1051	102	11:00:00	11:50:00	W	KTCH 1B71	\N	Main Campus
+35723	CLAS	1051	103	13:00:00	13:50:00	F	KTCH 1B64	\N	Main Campus
+35724	CLAS	1051	104	15:00:00	15:50:00	W	KTCH 1B87	\N	Main Campus
+35725	CLAS	1051	105	09:00:00	09:50:00	TH	CLRE 301	\N	Main Campus
+35726	CLAS	1051	106	10:00:00	10:50:00	TH	MCOL E155	\N	Main Campus
+35727	CLAS	1051	107	16:00:00	16:50:00	W	HLMS 247	\N	Main Campus
+35728	CLAS	1051	108	16:00:00	16:50:00	TH	EKLC M203	\N	Main Campus
+35729	CLAS	1051	109	13:00:00	13:50:00	W	STAD 140	\N	Main Campus
+35730	CLAS	1051	110	10:00:00	10:50:00	F	MUEN E431	\N	Main Campus
+22557	CLAS	1061	1	13:00:00	13:50:00	MWF	HUMN 250	Lansford,Edwin Tyler	Main Campus
+35622	CLAS	1061	2	17:00:00	18:15:00	TTH	KTCH 1B87	Denton,Tyler Andrew	Main Campus
+25178	CLAS	1071	1	08:00:00	09:15:00	TTH	CLRE 104	Rupp,Travis Rick	Main Campus
+22559	CLAS	1100	100	09:00:00	09:50:00	MW	HUMN 1B50	Nakassis,Dimitri	Main Campus
+25213	CLAS	1100	102	12:00:00	12:50:00	W	RAMY N1B31	Nakassis,Dimitri	Main Campus
+24941	CLAS	1100	880	09:00:00	09:50:00	MW	HUMN 1B50	Nakassis,Dimitri	Main Campus
+24949	CLAS	1100	881	11:00:00	11:50:00	W	LIBR M300D	Nakassis,Dimitri	Main Campus
+31826	CLAS	1110	1	14:00:00	15:15:00	TTH	EKLC E1B20	Callier,Reina Erin	Main Campus
+31827	CLAS	1110	2	14:00:00	14:50:00	MWF	HLMS 199	Gibert,John C	Main Campus
+36439	CLAS	1115	880	10:00:00	10:50:00	MWF	LIBR M300D	Pentzer,Mitchell Reece	Main Campus
+31828	CLAS	1120	1	12:00:00	12:50:00	MWF	HLMS 201	Newlands,Carole E	Main Campus
+31829	CLAS	1120	2	09:30:00	10:45:00	TTH	\N	Kindick,Samuel Louis	Main Campus
+35626	CLAS	1140	1	15:30:00	16:45:00	TTH	KTCH 1B71	Denton,Tyler Andrew	Main Campus
+24447	CLAS	2100	1	14:00:00	14:50:00	MWF	HUMN 1B90	Kindick,Samuel Louis	Main Campus
+23517	CLAS	2110	1	14:00:00	15:15:00	TTH	HLMS 201	Herz,Zachary	Main Campus
+35630	CLAS	4081	1	08:00:00	09:15:00	TTH	CLRE 208	Denton,Tyler Andrew	Main Campus
+25193	CLAS	4091	1	09:00:00	09:50:00	MWF	KTCH 1B87	Lansford,Edwin Tyler	Main Campus
+35632	CLAS	4091	2	09:30:00	10:45:00	TTH	GUGG 2	Koster,Isabel	Main Campus
+24452	CLAS	4110	1	14:00:00	15:15:00	TTH	GUGG 2	Chu,David	Main Campus
+35635	CLAS	4110	2	15:30:00	16:45:00	TTH	HLMS 245	Chu,David	Main Campus
+35636	CLAS	4110	3	12:00:00	12:50:00	MWF	VAC 1B90	\N	Main Campus
+35637	CLAS	4120	1	15:30:00	16:45:00	TTH	ECON 117	Callier,Reina Erin	Main Campus
+25197	CLAS	4130	1	09:30:00	10:45:00	TTH	HLMS 237	Cain,Andrew J	Main Campus
+35639	CLAS	4130	2	10:00:00	10:50:00	MWF	HALE 240	Pentzer,Mitchell Reece	Main Campus
+38246	CLAS	1051	300E	18:00:00	20:00:00	M	\N	McMorris,Susan J	Continuing Education
+38220	CLAS	3019	400E	18:00:00	20:00:00	TH	\N	Rupp,Travis Rick	Continuing Education
+31837	CLAS	7012	1	15:30:00	16:45:00	TTH	HUMN 370	Koster,Isabel	Main Campus
+31838	CLAS	7012	2	15:00:00	17:30:00	W	HUMN 370	Nakassis,Dimitri	Main Campus
+20287	DNC	1000	1	08:30:00	09:45:00	MW	THTR W150	Madorin,Megan Rose	Main Campus
+20288	DNC	1000	2	08:30:00	09:45:00	TTH	THTR W350	LaBorwit,Gretchen Copp	Main Campus
+23466	DNC	1000	3	15:30:00	16:45:00	MW	THTR W350	Mauney,Sarah Rose	Main Campus
+20239	DNC	1013	10	12:00:00	12:30:00	MW	CARL E012	Manno,Jesse John	Main Campus
+20838	DNC	1013	11	12:30:00	13:30:00	MW	CARL E012	Manno,Jesse John	Main Campus
+22729	DNC	1017	1	08:00:00	09:15:00	TTH	THTR C340	Samuelson,Laura Ann	Main Campus
+24271	DNC	1017	2	14:00:00	14:50:00	MWF	HUMN 150	Turner,Avery Ryder	Main Campus
+39155	DNC	1100	2	14:00:00	15:15:00	TTH	THTR W350	Walsh,Kelley Ann	Main Campus
+23877	DNC	1220	1	15:45:00	17:00:00	MW	CARL E012	Weller,Monica Rae	Main Campus
+23176	DNC	1301	10	10:00:00	10:30:00	TTH	CARL E012	Southall,Lawrence Todd	Main Campus
+23177	DNC	1301	11	10:30:00	11:30:00	TTH	CARL E012	Southall,Lawrence Todd	Main Campus
+31094	DNC	1301	12	14:30:00	15:30:00	MW	CARL E012	Madgett,Taylor Moriah	Main Campus
+31093	DNC	1301	20	14:00:00	14:30:00	MW	CARL E012	Madgett,Taylor Moriah	Main Campus
+24890	DNC	1401	1	16:00:00	17:15:00	TTH	THTR W350	Harris,Constance	Main Campus
+24900	DNC	1501	1	08:30:00	09:45:00	MW	THTR W150	Manayan,Rick	Main Campus
+20133	DNC	2501	1	12:00:00	13:30:00	MW	THTR W150	Sowah,Nii Armah	Main Campus
+20134	DNC	2501	2	14:00:00	15:30:00	MW	THTR W150	Sowah,Nii Armah	Main Campus
+24272	DNC	2501	3	12:00:00	13:30:00	TTH	THTR W150	Sowah,Nii Armah	Main Campus
+22319	DNC	3001	1	16:00:00	17:15:00	MW	THTR W150	Holleyman,Kristen Nicole	Main Campus
+22311	DNC	3005	1	12:00:00	13:30:00	TTH	THTR W350	Nelson,Christina Lynn	Main Campus
+22436	DNC	3041	801	10:00:00	11:30:00	M-F	THTR W150	Mejia,Donna Leah	Main Campus
+31209	DNC	3043	1	14:00:00	15:30:00	TTH	THTR W150	Nelson,Christina Lynn	Main Campus
+24907	DNC	3901	801	12:00:00	13:30:00	TTH	THTR W325	Diachenko,Nada	Main Campus
+25168	DNC	4012	1	16:00:00	16:50:00	T	THTR W150	Court,Iain Maxwell	Main Campus
+31210	DNC	4046	1	12:00:00	13:50:00	W	THTR W325	Mejia,Donna Leah	Main Campus
+23354	DNC	4047	1	08:00:00	09:15:00	TTH	ECCR 245	Southall,Lawrence Todd	Main Campus
+20837	DNC	5001	1	10:00:00	11:30:00	M-F	THTR W150	Mejia,Donna Leah	Main Campus
+22014	DNC	5001	2	10:00:00	11:30:00	M-F	THTR W350	\N	Main Campus
+24284	DNC	5064	1	13:45:00	15:45:00	TH	THTR W325	Manno,Jesse John	Main Campus
+24436	DNC	5301	1	10:00:00	11:30:00	TTH	CARL E012	Southall,Lawrence Todd	Main Campus
+24376	DNC	5501	1	12:00:00	13:30:00	MW	THTR W150	Sowah,Nii Armah	Main Campus
+24377	DNC	5501	2	14:00:00	15:30:00	MW	THTR W150	Sowah,Nii Armah	Main Campus
+24378	DNC	5501	3	12:00:00	13:30:00	TTH	THTR W150	Sowah,Nii Armah	Main Campus
+24908	DNC	5901	1	12:00:00	13:30:00	TTH	THTR W325	Diachenko,Nada	Main Campus
+31211	DNC	5909	1	13:45:00	15:45:00	T	THTR C342	Wilkins,Helanius J	Main Campus
+22312	DNC	6073	10	12:00:00	12:30:00	MW	THTR W350	Randall,Erika Anne	Main Campus
+22313	DNC	6073	11	12:30:00	13:30:00	MW	THTR W350	Randall,Erika Anne	Main Campus
+23159	EBIO	1010	1	11:00:00	12:15:00	TTH	RAMY N183	Legg,Teresa Marie	Main Campus
+23521	EBIO	1010	2	14:00:00	15:15:00	TTH	RAMY N183	Davies,Kendi F	Main Campus
+31069	EBIO	1100	10	12:30:00	13:45:00	TTH	GOLD A120	Legg,Teresa Marie	Main Campus
+31070	EBIO	1100	20	15:30:00	16:45:00	TTH	GOLD A120	Legg,Teresa Marie	Main Campus
+19050	EBIO	1220	1	12:00:00	12:50:00	MWF	HUMN 1B50	\N	Main Campus
+19051	EBIO	1220	2	13:00:00	13:50:00	MWF	HUMN 1B50	\N	Main Campus
+19052	EBIO	1220	3	12:30:00	13:45:00	TTH	MATH 100	Sweeney,Derek	Main Campus
+19053	EBIO	1220	4	14:00:00	15:15:00	TTH	MATH 100	Sweeney,Derek	Main Campus
+24430	EBIO	1220	880	13:00:00	13:50:00	MWF	LIBR M300D	Buchwald,Robert	Main Campus
+19141	EBIO	1240	1	08:00:00	09:50:00	M	RAMY C147	Basey,John M	Main Campus
+19142	EBIO	1240	2	08:00:00	09:50:00	M	RAMY C148	Basey,John M	Main Campus
+19143	EBIO	1240	3	08:00:00	09:50:00	M	RAMY C151	Basey,John M	Main Campus
+19144	EBIO	1240	4	08:00:00	09:50:00	M	RAMY C159	Basey,John M	Main Campus
+19145	EBIO	1240	5	10:00:00	11:50:00	M	RAMY C147	Basey,John M	Main Campus
+19146	EBIO	1240	6	10:00:00	11:50:00	M	RAMY C148	Basey,John M	Main Campus
+23139	EBIO	1240	7	10:00:00	11:50:00	M	RAMY C151	Basey,John M	Main Campus
+19147	EBIO	1240	8	10:00:00	11:50:00	M	RAMY C159	Basey,John M	Main Campus
+19148	EBIO	1240	9	12:00:00	13:50:00	M	RAMY C147	Basey,John M	Main Campus
+19149	EBIO	1240	10	12:00:00	13:50:00	M	RAMY C148	Basey,John M	Main Campus
+19150	EBIO	1240	11	12:00:00	13:50:00	M	RAMY C151	Basey,John M	Main Campus
+23140	EBIO	1240	12	12:00:00	13:50:00	M	RAMY C159	Basey,John M	Main Campus
+22523	EBIO	1240	13	14:00:00	15:50:00	M	RAMY C147	Basey,John M	Main Campus
+22524	EBIO	1240	14	14:00:00	15:50:00	M	RAMY C148	Basey,John M	Main Campus
+22525	EBIO	1240	15	14:00:00	15:50:00	M	RAMY C151	Basey,John M	Main Campus
+22932	EBIO	1240	16	14:00:00	15:50:00	M	RAMY C159	Basey,John M	Main Campus
+22933	EBIO	1240	17	08:00:00	09:50:00	T	RAMY C147	Basey,John M	Main Campus
+22934	EBIO	1240	18	08:00:00	09:50:00	T	RAMY C148	Basey,John M	Main Campus
+22935	EBIO	1240	19	08:00:00	09:50:00	T	RAMY C151	Basey,John M	Main Campus
+22936	EBIO	1240	20	08:00:00	09:50:00	T	RAMY C159	Basey,John M	Main Campus
+22937	EBIO	1240	21	10:00:00	11:50:00	T	RAMY C147	Basey,John M	Main Campus
+22938	EBIO	1240	22	10:00:00	11:50:00	T	RAMY C148	Basey,John M	Main Campus
+22939	EBIO	1240	23	10:00:00	11:50:00	T	RAMY C151	Basey,John M	Main Campus
+22940	EBIO	1240	24	10:00:00	11:50:00	T	RAMY C159	Basey,John M	Main Campus
+22941	EBIO	1240	25	12:00:00	13:50:00	T	RAMY C147	Basey,John M	Main Campus
+22942	EBIO	1240	26	12:00:00	13:50:00	T	RAMY C148	Basey,John M	Main Campus
+22943	EBIO	1240	27	12:00:00	13:50:00	T	RAMY C151	Basey,John M	Main Campus
+22944	EBIO	1240	28	12:00:00	13:50:00	T	RAMY C159	Basey,John M	Main Campus
+22945	EBIO	1240	29	14:00:00	15:50:00	T	RAMY C147	Basey,John M	Main Campus
+22946	EBIO	1240	30	14:00:00	15:50:00	T	RAMY C148	Basey,John M	Main Campus
+22947	EBIO	1240	31	14:00:00	15:50:00	T	RAMY C151	Basey,John M	Main Campus
+22948	EBIO	1240	32	14:00:00	15:50:00	T	RAMY C159	Basey,John M	Main Campus
+22949	EBIO	1240	33	08:00:00	09:50:00	W	RAMY C147	Basey,John M	Main Campus
+22950	EBIO	1240	34	08:00:00	09:50:00	W	RAMY C148	Basey,John M	Main Campus
+22951	EBIO	1240	35	08:00:00	09:50:00	W	RAMY C151	Basey,John M	Main Campus
+22952	EBIO	1240	36	08:00:00	09:50:00	W	RAMY C159	\N	Main Campus
+22953	EBIO	1240	37	10:00:00	11:50:00	W	RAMY C147	Basey,John M	Main Campus
+22954	EBIO	1240	38	10:00:00	11:50:00	W	RAMY C148	Basey,John M	Main Campus
+22955	EBIO	1240	39	10:00:00	11:50:00	W	RAMY C151	Basey,John M	Main Campus
+22956	EBIO	1240	40	10:00:00	11:50:00	W	RAMY C159	Basey,John M	Main Campus
+22957	EBIO	1240	41	12:00:00	13:50:00	W	RAMY C147	Basey,John M	Main Campus
+22958	EBIO	1240	42	12:00:00	13:50:00	W	RAMY C148	Basey,John M	Main Campus
+22959	EBIO	1240	43	12:00:00	13:50:00	W	RAMY C151	Basey,John M	Main Campus
+22960	EBIO	1240	44	12:00:00	13:50:00	W	RAMY C159	Basey,John M	Main Campus
+22961	EBIO	1240	45	14:00:00	15:50:00	W	RAMY C147	Basey,John M	Main Campus
+22962	EBIO	1240	46	14:00:00	15:50:00	W	RAMY C148	Basey,John M	Main Campus
+22963	EBIO	1240	47	14:00:00	15:50:00	W	RAMY C151	Basey,John M	Main Campus
+22964	EBIO	1240	48	14:00:00	15:50:00	W	RAMY C159	Basey,John M	Main Campus
+22965	EBIO	1240	49	08:00:00	09:50:00	TH	RAMY C147	Basey,John M	Main Campus
+22966	EBIO	1240	50	08:00:00	09:50:00	TH	RAMY C148	Basey,John M	Main Campus
+22967	EBIO	1240	51	08:00:00	09:50:00	TH	RAMY C151	Basey,John M	Main Campus
+22968	EBIO	1240	52	08:00:00	09:50:00	TH	RAMY C159	Basey,John M	Main Campus
+22969	EBIO	1240	53	10:00:00	11:50:00	TH	RAMY C147	Basey,John M	Main Campus
+22970	EBIO	1240	54	10:00:00	11:50:00	TH	RAMY C148	Basey,John M	Main Campus
+22971	EBIO	1240	55	10:00:00	11:50:00	TH	RAMY C151	Basey,John M	Main Campus
+22972	EBIO	1240	56	10:00:00	11:50:00	TH	RAMY C159	Basey,John M	Main Campus
+22973	EBIO	1240	57	12:00:00	13:50:00	TH	RAMY C147	Basey,John M	Main Campus
+22974	EBIO	1240	58	12:00:00	13:50:00	TH	RAMY C148	Basey,John M	Main Campus
+22975	EBIO	1240	59	12:00:00	13:50:00	TH	RAMY C151	Basey,John M	Main Campus
+22976	EBIO	1240	60	12:00:00	13:50:00	TH	RAMY C159	Basey,John M	Main Campus
+23095	EBIO	1940	1	09:30:00	10:45:00	TTH	KTCH 1B20	Renfrow,Stephanie	Main Campus
+19054	EBIO	2040	10	12:30:00	13:45:00	TTH	MUEN E0046	Dee,Laura	Main Campus
+19055	EBIO	2040	11	09:00:00	11:50:00	T	KTCH 1B16	Dee,Laura	Main Campus
+19056	EBIO	2040	12	14:00:00	16:50:00	T	KTCH 1B16	Dee,Laura	Main Campus
+19057	EBIO	2040	13	09:00:00	11:50:00	W	KTCH 1B16	Dee,Laura	Main Campus
+19058	EBIO	2040	14	14:00:00	16:50:00	W	KTCH 1B16	Dee,Laura	Main Campus
+22317	EBIO	2040	15	14:00:00	16:50:00	M	KTCH 1B16	Dee,Laura	Main Campus
+24694	EBIO	2040	16	09:00:00	11:50:00	T	KTCH 1B16	Dee,Laura	Main Campus
+24693	EBIO	2040	17	14:00:00	16:50:00	T	KTCH 1B16	Dee,Laura	Main Campus
+24692	EBIO	2040	18	09:00:00	11:50:00	W	KTCH 1B16	Dee,Laura	Main Campus
+24691	EBIO	2040	19	14:00:00	16:50:00	W	KTCH 1B16	Dee,Laura	Main Campus
+24690	EBIO	2040	21	14:00:00	16:50:00	M	KTCH 1B16	Dee,Laura	Main Campus
+19059	EBIO	2070	10	09:30:00	10:45:00	TTH	HALE 270	Medeiros,Daniel Meulemans	Main Campus
+19060	EBIO	2070	11	08:00:00	09:50:00	M	RAMY N183	Medeiros,Daniel Meulemans	Main Campus
+19061	EBIO	2070	12	13:00:00	14:50:00	M	RAMY N1B75	Medeiros,Daniel Meulemans	Main Campus
+19062	EBIO	2070	13	15:00:00	16:50:00	M	RAMY N1B75	Medeiros,Daniel Meulemans	Main Campus
+19063	EBIO	2070	14	14:00:00	15:50:00	T	RAMY N1B75	Medeiros,Daniel Meulemans	Main Campus
+19064	EBIO	2070	15	16:00:00	17:50:00	T	RAMY N1B75	Medeiros,Daniel Meulemans	Main Campus
+19065	EBIO	2070	16	08:00:00	09:50:00	W	RAMY N183	Medeiros,Daniel Meulemans	Main Campus
+19066	EBIO	2070	17	12:00:00	13:50:00	W	RAMY N1B75	Medeiros,Daniel Meulemans	Main Campus
+19067	EBIO	2070	18	14:00:00	15:50:00	W	RAMY N1B75	Medeiros,Daniel Meulemans	Main Campus
+19068	EBIO	2070	19	16:00:00	17:50:00	W	RAMY N1B75	Medeiros,Daniel Meulemans	Main Campus
+20627	EBIO	3080	10	14:00:00	14:50:00	MWF	GOLD A120	Kane,Nolan Coburn	Main Campus
+20628	EBIO	3080	11	11:00:00	12:50:00	T	RAMY N1B36	Kane,Nolan Coburn	Main Campus
+20629	EBIO	3080	12	13:00:00	14:50:00	T	RAMY N1B36	Kane,Nolan Coburn	Main Campus
+24581	EBIO	3080	13	15:00:00	16:50:00	T	RAMY N1B36	Evans,Luke Mc Lean	Main Campus
+21785	EBIO	3080	14	08:00:00	09:50:00	W	RAMY N1B36	Evans,Luke Mc Lean	Main Campus
+22551	EBIO	3080	15	10:00:00	11:50:00	W	RAMY N1B36	Kane,Nolan Coburn	Main Campus
+22552	EBIO	3080	16	12:00:00	13:50:00	W	RAMY N1B36	Evans,Luke Mc Lean	Main Campus
+23726	EBIO	3080	17	11:00:00	12:50:00	TH	RAMY N1B36	Kane,Nolan Coburn	Main Campus
+23728	EBIO	3080	18	13:00:00	14:50:00	TH	RAMY N1B36	Kane,Nolan Coburn	Main Campus
+23730	EBIO	3080	19	15:00:00	16:50:00	TH	RAMY N1B36	Evans,Luke Mc Lean	Main Campus
+23477	EBIO	3080	20	15:30:00	16:45:00	TTH	HUMN 150	Emery,Nancy Christine	Main Campus
+23711	EBIO	3080	21	11:00:00	12:50:00	T	RAMY N1B36	Kane,Nolan Coburn	Main Campus
+23712	EBIO	3080	22	13:00:00	14:50:00	T	RAMY N1B36	Kane,Nolan Coburn	Main Campus
+23713	EBIO	3080	23	15:00:00	16:50:00	T	RAMY N1B36	Evans,Luke Mc Lean	Main Campus
+23714	EBIO	3080	24	08:00:00	09:50:00	W	RAMY N1B36	Kane,Nolan Coburn	Main Campus
+24724	EBIO	3080	25	10:00:00	11:50:00	W	RAMY N1B36	Evans,Luke Mc Lean	Main Campus
+23715	EBIO	3080	26	12:00:00	13:50:00	W	RAMY N1B36	Evans,Luke Mc Lean	Main Campus
+23727	EBIO	3080	27	11:00:00	12:50:00	TH	RAMY N1B36	Kane,Nolan Coburn	Main Campus
+23729	EBIO	3080	28	13:00:00	14:50:00	TH	RAMY N1B36	Kane,Nolan Coburn	Main Campus
+23731	EBIO	3080	29	15:00:00	16:50:00	TH	RAMY N1B36	Evans,Luke Mc Lean	Main Campus
+19070	EBIO	3400	10	09:30:00	10:45:00	TTH	RAMY C250	\N	Main Campus
+24519	EBIO	3410	11	08:00:00	09:50:00	MW	RAMY N1B24	Basey,John M	Main Campus
+24521	EBIO	3410	12	10:00:00	11:50:00	MW	RAMY N1B24	Basey,John M	Main Campus
+24522	EBIO	3410	13	12:00:00	13:50:00	MW	RAMY N1B24	Basey,John M	Main Campus
+24523	EBIO	3410	14	14:00:00	15:50:00	MW	RAMY N1B24	Basey,John M	Main Campus
+24525	EBIO	3410	15	16:00:00	17:50:00	MW	RAMY N1B24	Basey,John M	Main Campus
+24526	EBIO	3410	16	07:30:00	09:20:00	TTH	RAMY N1B24	Basey,John M	Main Campus
+24527	EBIO	3410	17	11:00:00	12:50:00	TTH	RAMY N1B24	Basey,John M	Main Campus
+24528	EBIO	3410	18	13:00:00	14:50:00	TTH	RAMY N1B24	Basey,John M	Main Campus
+24529	EBIO	3410	19	15:00:00	16:45:00	TTH	RAMY N1B24	Basey,John M	Main Campus
+24530	EBIO	3410	21	17:00:00	18:50:00	TTH	RAMY N1B24	Basey,John M	Main Campus
+20630	EBIO	3630	10	10:00:00	10:50:00	MWF	RAMY N183	Stewart,Tara Elizabeth	Main Campus
+20631	EBIO	3630	11	09:00:00	11:50:00	TH	RAMY N1B76	Stewart,Tara Elizabeth	Main Campus
+20632	EBIO	3630	12	14:00:00	16:50:00	TH	RAMY N1B76	Stewart,Tara Elizabeth	Main Campus
+22865	EBIO	3940	1	10:00:00	10:50:00	MWF	KTCH 1B20	Carpenter,J Harrison	Main Campus
+20633	EBIO	3940	2	12:00:00	12:50:00	MWF	KTCH 1B20	Carpenter,J Harrison	Main Campus
+20634	EBIO	3940	3	12:30:00	13:45:00	TTH	KTCH 1B20	Renfrow,Stephanie	Main Campus
+24056	EBIO	3940	4	14:00:00	15:15:00	TTH	KTCH 1B20	Renfrow,Stephanie	Main Campus
+25048	EBIO	3940	5	11:00:00	12:15:00	TTH	KTCH 1B20	Carpenter,J Harrison	Main Campus
+19160	EBIO	3980	801	16:00:00	16:50:00	TH	RAMY N240	Johnson,Pieter TJ	Main Campus
+20635	EBIO	4030	1	09:00:00	09:50:00	MWF	RAMY N1B23	Lewis,William	Main Campus
+24992	EBIO	4140	1	09:30:00	10:45:00	TTH	PORT B121	Barger,Nichole Nannette	Main Campus
+19069	EBIO	4155	1	10:00:00	10:50:00	MWF	RAMY N1B23	Halward,Tracy	Main Campus
+25049	EBIO	4420	10	11:00:00	11:50:00	MWF	KTCH 1B20	Flaxman,Samuel M	Main Campus
+25050	EBIO	4420	11	12:00:00	13:50:00	F	RAMY N1B75	Flaxman,Samuel M	Main Campus
+22978	EBIO	4500	10	12:30:00	13:45:00	TTH	RAMY N1B23	Mayer,Stephanie Susan	Main Campus
+31344	EBIO	4750	10	13:00:00	13:50:00	MWF	RAMY N183	Taylor,Scott	Main Campus
+31342	EBIO	4800	1	09:30:00	10:45:00	TTH	RAMY N183	Evans,Luke Mc Lean	Main Campus
+23475	EBIO	4800	2	15:30:00	16:45:00	TTH	RAMY N183	Adams,William	Main Campus
+31358	EBIO	4800	3	14:00:00	15:15:00	TTH	RAMY N240	Resasco,Julian	Main Campus
+37590	EBIO	4800	4	12:30:00	13:45:00	TTH	RAMY N183	Demmig-Adams,Barbara	Main Campus
+19161	EBIO	4980	801	16:00:00	16:50:00	TH	RAMY N240	Johnson,Pieter TJ	Main Campus
+38253	EBIO	1210	300E	18:00:00	20:00:00	T	\N	Kelly,Caitlin	Continuing Education
+38254	EBIO	1220	300E	17:00:00	20:00:00	W	\N	Littman,Paige Willever Shilling	Continuing Education
+31343	EBIO	5800	1	09:30:00	10:45:00	TTH	RAMY N183	Evans,Luke Mc Lean	Main Campus
+23476	EBIO	5800	2	15:30:00	16:45:00	TTH	RAMY N183	Adams,William	Main Campus
+33296	EBIO	5800	3	14:00:00	15:15:00	TTH	RAMY N240	Resasco,Julian	Main Campus
+24539	EBIO	6100	1	12:00:00	12:50:00	M	RAMY N240	Resasco,Julian	Main Campus
+25490	EBIO	6100	4	10:00:00	12:00:00	M	RAMY N240	Barger,Nichole Nannette	Main Campus
+25523	EBIO	6100	7	16:30:00	18:30:00	W	RAMY N240	Schmidt,Steve	Main Campus
+22335	EBIO	6200	1	12:00:00	12:50:00	W	RAMY N240	Martin,Andrew	Main Campus
+22592	ECO	1078	2	11:00:00	11:50:00	MWF	ECON 117	\N	Main Campus
+23828	ECO	1078	3	14:00:00	14:50:00	MWF	ECON 119	\N	Main Campus
+24735	ECO	1088	1	10:00:00	10:50:00	MWF	MUEN E131	\N	Main Campus
+21991	ECO	1088	2	12:00:00	12:50:00	MWF	ECON 117	\N	Main Campus
+23759	ECO	1088	3	14:00:00	14:50:00	MWF	ECON 117	\N	Main Campus
+24736	ECO	2010	100	10:00:00	10:50:00	MWF	GOLD A2B70	Keller,Wolfgang	Main Campus
+22649	ECO	2010	200	12:00:00	12:50:00	MWF	GOLD A2B70	Keller,Wolfgang	Main Campus
+23845	ECO	2010	300	13:00:00	13:50:00	MWF	GOLD A2B70	\N	Main Campus
+24012	ECO	2010	400	12:30:00	13:45:00	TTH	HUMN 1B50	\N	Main Campus
+18571	ECO	2020	100	10:00:00	10:50:00	MWF	RAMY C250	\N	Main Campus
+18572	ECO	2020	200	11:00:00	11:50:00	MWF	GOLD A2B70	Peri,Alessandro	Main Campus
+21028	ECO	2020	300	14:00:00	14:50:00	MWF	HUMN 1B50	\N	Main Campus
+23990	ECO	2020	310R	14:00:00	14:50:00	MW	FLMG 241	Van Wyhe,Matthew Mullin	Main Campus
+39178	ECO	2020	311R	15:30:00	16:45:00	TTH	FLMG 241	Van Wyhe,Matthew Mullin	Main Campus
+23407	ECO	2020	400	09:30:00	10:45:00	TTH	MATH 100	Iyigun,Fevzi Murat	Main Campus
+23433	ECO	2020	500	14:00:00	15:15:00	TTH	HUMN 1B50	\N	Main Campus
+20206	ECO	3070	10	10:00:00	10:50:00	MWF	ECON 117	\N	Main Campus
+21993	ECO	3070	20	11:00:00	11:50:00	MWF	ECON 119	De Bartolome,Charles A M	Main Campus
+20208	ECO	3070	30	13:00:00	13:50:00	MWF	ECON 119	De Bartolome,Charles A M	Main Campus
+20207	ECO	3070	40	12:00:00	12:50:00	MWF	HLMS 211	\N	Main Campus
+20209	ECO	3070	50	09:30:00	10:45:00	TTH	HLMS 211	Mertens,William Gregory	Main Campus
+20210	ECO	3080	1	10:00:00	10:50:00	MWF	HUMN 1B90	\N	Main Campus
+20211	ECO	3080	2	11:00:00	11:50:00	MWF	HUMN 150	Kimball,Miles	Main Campus
+24216	ECO	3080	3	12:30:00	13:45:00	TTH	STAD 140	\N	Main Campus
+18573	ECO	3403	1	13:00:00	13:50:00	MWF	RAMY N1B23	Maskus,Keith E	Main Campus
+23580	ECO	3818	10	10:00:00	10:50:00	MWF	HLMS 267	\N	Main Campus
+24217	ECO	3818	20	12:00:00	12:50:00	MWF	ECON 119	\N	Main Campus
+23581	ECO	3818	30	13:00:00	13:50:00	MWF	HLMS 267	\N	Main Campus
+23584	ECO	3818	40	12:30:00	13:45:00	TTH	ECON 119	\N	Main Campus
+33121	ECO	3818	50	09:30:00	10:45:00	TTH	ECON 119	Flores,Nicholas E	Main Campus
+23478	ECO	4050	1	09:30:00	10:45:00	TTH	HLMS 267	Baranov,Oleg	Main Campus
+30874	ECO	4070	1	14:00:00	15:15:00	TTH	EDUC 155	Baranov,Oleg	Main Campus
+24755	ECO	4221	1	14:00:00	15:15:00	TTH	ECON 117	Mertens,William Gregory	Main Campus
+22344	ECO	4231	1	15:30:00	18:00:00	TH	ECON 205	Zax,Jeffrey Stephen	Main Campus
+20289	ECO	4339	801	15:30:00	18:00:00	T	ECON 5	McKinnish-Harllee,Terra Greenw	Main Campus
+22593	ECO	4413	1	11:00:00	11:50:00	MWF	HLMS 211	Maskus,Keith E	Main Campus
+30875	ECO	4514	1	10:00:00	10:50:00	MWF	HLMS 211	Jaworski,Taylor	Main Campus
+24223	ECO	4524	1	12:00:00	12:50:00	MWF	HLMS 267	Jaworski,Taylor	Main Campus
+22016	ECO	4535	1	09:30:00	10:45:00	TTH	GUGG 205	Mertens,William Gregory	Main Campus
+23166	ECO	4626	1	12:30:00	13:45:00	TTH	HLMS 241	Zax,Jeffrey Stephen	Main Campus
+30880	ECO	4717	1	14:00:00	15:15:00	TTH	KTCH 1B87	Kim,Jin-Hyuk	Main Campus
+24222	ECO	4774	1	12:30:00	13:45:00	TTH	DUAN G2B47	Iyigun,Fevzi Murat	Main Campus
+30881	ECO	4784	1	10:00:00	10:50:00	MWF	ECON 119	Antman,Francisca Marie	Main Campus
+30882	ECO	4794	1	12:30:00	13:45:00	TTH	HLMS 141	Shiue,Carol Hua	Main Campus
+23841	ECO	4808	1	11:00:00	12:15:00	TTH	ECON 117	Mertens,William Gregory	Main Campus
+20292	ECO	4818	1	13:00:00	13:50:00	MWF	HLMS 241	Platikanova-Gross,Kremena	Main Campus
+22340	ECO	4818	2	12:30:00	13:45:00	TTH	ECON 117	Liu,Xiaodong	Main Campus
+23167	ECO	4818	3	14:00:00	15:15:00	TTH	HLMS 211	Mc Closkey,Adam Michael	Main Campus
+30883	ECO	4848	1	10:00:00	10:50:00	MWF	HUMN 1B45	\N	Main Campus
+30884	ECO	4848	2	11:00:00	11:50:00	MWF	HUMN 1B45	\N	Main Campus
+22513	ECO	4848	3	14:00:00	14:50:00	MWF	HUMN 1B45	\N	Main Campus
+23168	ECO	4848	4	09:30:00	10:45:00	TTH	HUMN 1B45	Klein,Jennifer Lynn	Main Campus
+38255	ECO	2010	300E	18:00:00	20:00:00	T	\N	Bhatia,Alpna	Continuing Education
+38256	ECO	2020	300E	18:00:00	20:00:00	W	\N	Gebhardt,Karen	Continuing Education
+20305	ECO	7030	800	11:00:00	12:15:00	TTH	ECON 119	Baranov,Oleg	Main Campus
+20306	ECO	7040	800	09:30:00	10:45:00	MW	ECON 5	Peri,Alessandro	Main Campus
+20307	ECO	7828	800	14:00:00	15:15:00	TTH	ECON 119	Liu,Xiaodong	Main Campus
+30886	ECO	8020	1	12:30:00	13:45:00	MW	ECON 5	Kimball,Miles	Main Campus
+20308	ECO	8219	1	09:30:00	10:45:00	TTH	ECON 5	Barham,Tania C.J.	Main Campus
+35843	GEO	3742	1	17:00:00	18:15:00	TTH	HUMN 250	Ranjbar,Azita	Main Campus
+30887	ECO	8784	1	11:00:00	12:15:00	MW	ECON 5	Antman,Francisca Marie	Main Campus
+25540	ECO	8838	1	12:30:00	13:45:00	TTH	ECON 5	Mc Closkey,Adam Michael	Main Campus
+24225	ECO	8848	1	11:00:00	12:15:00	TTH	ECON 5	Cadena,Brian C	Main Campus
+23067	ENGL	1001	1	09:00:00	09:50:00	MWF	CHEM 133	\N	Main Campus
+23068	ENGL	1001	2	14:00:00	14:50:00	MWF	CHEM 133	\N	Main Campus
+24067	ENGL	1001	3	11:00:00	12:15:00	TTH	CHEM 133	Anderman,Elizabeth Quainton	Main Campus
+25149	ENGL	1191	1	09:00:00	09:50:00	MWF	HLMS 259	Albert,Cara Lynn	Main Campus
+24025	ENGL	1191	2	10:00:00	10:50:00	MWF	CHEM 133	Canepa,Sabrina	Main Campus
+24026	ENGL	1191	3	11:00:00	11:50:00	MWF	DUAN G1B25	Sedor,Kate Elizabeth Lu	Main Campus
+24027	ENGL	1191	4	11:00:00	11:50:00	MWF	HLMS 104	Chowdhury,Shirin	Main Campus
+24028	ENGL	1191	5	12:00:00	12:50:00	MWF	ECON 16	Bainbridge,Alaina	Main Campus
+24029	ENGL	1191	6	12:00:00	12:50:00	MWF	CHEM 133	Wood,Rachel	Main Campus
+24030	ENGL	1191	7	13:00:00	13:50:00	MWF	CHEM 131	\N	Main Campus
+25150	ENGL	1191	8	14:00:00	14:50:00	MWF	CHEM 131	\N	Main Campus
+24031	ENGL	1191	9	09:30:00	10:45:00	TTH	HLMS 104	Kaczmarick,Kyle Joseph	Main Campus
+24534	ENGL	1191	10	11:00:00	12:15:00	TTH	DUAN G1B35	Cruea,Rachel Lauren	Main Campus
+24032	ENGL	1191	11	12:00:00	12:50:00	MWF	DUAN G1B27	Coffman,Gabriel	Main Campus
+25151	ENGL	1191	12	14:00:00	15:15:00	TTH	HLMS 185	Kaczmarick,Kyle Joseph	Main Campus
+32439	ENGL	1191	13	11:00:00	12:15:00	TTH	DUAN G1B39	Vuong,Phuong Thao	Main Campus
+32440	ENGL	1191	14	15:30:00	16:45:00	TTH	KCEN S163	\N	Main Campus
+32441	ENGL	1191	15	15:30:00	16:45:00	TTH	CHEM 131	\N	Main Campus
+32861	ENGL	1191	16	09:30:00	10:45:00	TTH	HUMN 370	DeVries,Lukas Jedediah	Main Campus
+32862	ENGL	1191	17	11:00:00	12:15:00	TTH	MUEN E114	\N	Main Campus
+32863	ENGL	1191	18	12:30:00	13:45:00	TTH	CHEM 133	Vuong,Phuong Thao	Main Campus
+23682	ENGL	1220	1	09:30:00	10:45:00	TTH	HLMS 137	Neimann,Paul G	Main Campus
+25198	ENGL	1220	2	11:00:00	12:15:00	TTH	HLMS 137	Neimann,Paul G	Main Campus
+24078	ENGL	1230	1	10:00:00	10:50:00	MWF	HLMS 137	Gladstone,Jason Daniel	Main Campus
+39162	ENGL	1230	4	08:00:00	09:15:00	TTH	KTCH 1B60	Gersie,Jenna	Main Campus
+25227	ENGL	1240	1	12:00:00	12:50:00	MWF	HLMS 137	Gladstone,Jason Daniel	Main Campus
+25228	ENGL	1240	2	13:00:00	13:50:00	MWF	HLMS 137	Gladstone,Jason Daniel	Main Campus
+32503	ENGL	1250	1	14:00:00	15:15:00	TTH	HLMS 193	Hurtado,Amanda	Main Campus
+25171	ENGL	1250	2	15:30:00	16:45:00	TTH	HLMS 263	Hurtado,Amanda	Main Campus
+32505	ENGL	1270	1	09:00:00	09:50:00	MWF	HLMS 193	Klages,Mary	Main Campus
+32506	ENGL	1270	2	11:00:00	11:50:00	MWF	MCOL E186	\N	Main Campus
+24532	ENGL	1420	1	09:00:00	09:50:00	MWF	HLMS 137	Little,Katherine C	Main Campus
+24533	ENGL	1420	2	14:00:00	15:15:00	TTH	HLMS 137	Hasan,Raza Ali	Main Campus
+25141	ENGL	1420	3	12:30:00	13:45:00	TTH	HLMS 137	Brylowe,Thora	Main Campus
+23066	ENGL	1500	1	17:00:00	18:15:00	TTH	HLMS 193	\N	Main Campus
+32149	ENGL	1500	3	11:00:00	12:15:00	TTH	DUAN G2B21	\N	Main Campus
+17951	ENGL	1600	1	08:00:00	09:15:00	TTH	EKLC M203	\N	Main Campus
+32152	ENGL	1600	3	14:00:00	14:50:00	MWF	EDUC 143	Couey,Stephanie Lynne	Main Campus
+32153	ENGL	1600	4	15:00:00	15:50:00	MWF	CHEM 145	Couey,Stephanie Lynne	Main Campus
+25308	ENGL	1800	100	11:00:00	11:50:00	MW	ECCR 200	Bradley,Adam	Main Campus
+32510	ENGL	1800	101	14:00:00	14:50:00	TH	HLMS 245	Bradley,Adam	Main Campus
+32511	ENGL	1800	102	15:00:00	15:50:00	W	LIBR N424B	Bradley,Adam	Main Campus
+32512	ENGL	1800	103	14:00:00	14:50:00	W	LIBR N424B	Bradley,Adam	Main Campus
+32513	ENGL	1800	104	17:00:00	17:50:00	TH	CHEM 145	Bradley,Adam	Main Campus
+17982	ENGL	2021	1	13:00:00	13:50:00	MWF	MCOL E186	Karimi,Nilufar	Main Campus
+17983	ENGL	2021	2	14:00:00	14:50:00	MWF	EKLC M203	Coffman,Gabriel	Main Campus
+17984	ENGL	2021	3	11:00:00	12:15:00	TTH	LIBR N424B	White,Leah	Main Campus
+32444	ENGL	2021	4	08:00:00	09:15:00	TTH	HLMS 196	White,Leah	Main Campus
+17985	ENGL	2051	1	09:00:00	09:50:00	MWF	KTCH 1B84	Daniel,Alexander Giles	Main Campus
+17986	ENGL	2051	2	11:00:00	11:50:00	MWF	KCEN S163	Biggs,Garrett	Main Campus
+17987	ENGL	2051	3	15:30:00	16:45:00	TTH	HUMN 145	\N	Main Campus
+17988	ENGL	2051	4	12:30:00	13:45:00	TTH	EKLC E1B75	Mruzik,Stephen	Main Campus
+32680	ENGL	2058	1	16:30:00	17:45:00	MW	KTCH 1B84	Winkiel,Laura Ann	Main Campus
+17979	ENGL	2102	1	13:00:00	13:50:00	MWF	HLMS 245	Rivers,Julius Edwin	Main Campus
+17980	ENGL	2102	2	14:00:00	14:50:00	MWF	HLMS 245	Rivers,Julius Edwin	Main Campus
+17981	ENGL	2102	3	09:30:00	10:45:00	TTH	EKLC E1B75	Beechy,Tiffany R	Main Campus
+22017	ENGL	2102	4	11:00:00	11:50:00	MWF	DUAN G1B35	\N	Main Campus
+32413	ENGL	2102	5	12:00:00	12:50:00	MWF	KCEN S163	\N	Main Campus
+22543	ENGL	2112	1	14:00:00	14:50:00	MWF	HUMN 190	Winokur,Mark	Main Campus
+24998	ENGL	2112	2	09:30:00	10:45:00	TTH	CLRE 212	Mattar,Karim	Main Campus
+24999	ENGL	2112	3	12:30:00	13:45:00	TTH	CLRE 104	Green,Jeremy	Main Campus
+25000	ENGL	2112	4	08:00:00	09:15:00	TTH	HUMN 180	Neimann,Paul G	Main Campus
+36119	ENGL	2503	1	09:30:00	10:45:00	TTH	KTCH 1B84	\N	Main Campus
+24535	ENGL	2504	1	14:00:00	15:15:00	TTH	HLMS 251	Wright,Nicole M	Main Campus
+33285	ENGL	2504	880	14:00:00	15:15:00	TTH	LIBR N424A	Wright,Nicole M	Main Campus
+35895	ENGL	2717	1	14:00:00	15:15:00	TTH	DUAN G2B21	Lawson,Angelica Marie	Main Campus
+18732	ENGL	3000	1	09:00:00	09:50:00	MWF	DUAN G2B21	Miller,Alyssa	Main Campus
+18733	ENGL	3000	2	11:00:00	11:50:00	MWF	ECON 205	Miller,Alyssa	Main Campus
+18735	ENGL	3000	3	12:00:00	12:50:00	MWF	ECON 2	Collins,Shawn Thomas	Main Campus
+32539	ENGL	3000	4	14:00:00	14:50:00	MWF	HLMS 237	Collins,Shawn Thomas	Main Campus
+18738	ENGL	3000	5	08:00:00	09:15:00	TTH	HLMS 229	\N	Main Campus
+18739	ENGL	3000	6	16:30:00	17:45:00	MW	HLMS 193	\N	Main Campus
+21793	ENGL	3000	7	08:00:00	09:15:00	TTH	HLMS 193	\N	Main Campus
+23065	ENGL	3000	8	17:00:00	18:15:00	TTH	MUEN E431	\N	Main Campus
+24151	ENGL	3000	9	14:00:00	15:15:00	TTH	ECON 2	\N	Main Campus
+32540	ENGL	3000	10	15:30:00	16:45:00	TTH	DUAN G2B21	\N	Main Campus
+18742	ENGL	3000	100	12:00:00	12:50:00	MW	VAC 1B20	Nugent,Teresa Lanpher	Main Campus
+18743	ENGL	3000	101	17:00:00	17:50:00	W	HUMN 180	Nugent,Teresa Lanpher	Main Campus
+18745	ENGL	3000	102	16:00:00	16:50:00	W	DUAN G2B21	Nugent,Teresa Lanpher	Main Campus
+18744	ENGL	3000	103	15:00:00	15:50:00	W	DUAN G2B21	Nugent,Teresa Lanpher	Main Campus
+23920	ENGL	3000	104	14:00:00	14:50:00	W	HLMS 181	Nugent,Teresa Lanpher	Main Campus
+19289	ENGL	3000	105	17:00:00	17:50:00	W	STAD 136C	Nugent,Teresa Lanpher	Main Campus
+24349	ENGL	3000	106	15:00:00	15:50:00	W	ECCR 131	Nugent,Teresa Lanpher	Main Campus
+24350	ENGL	3000	107	15:00:00	15:50:00	W	HLMS 259	Nugent,Teresa Lanpher	Main Campus
+23921	ENGL	3000	108	14:00:00	14:50:00	W	HLMS 259	Nugent,Teresa Lanpher	Main Campus
+32649	ENGL	3005	1	10:00:00	10:50:00	MWF	HLMS 259	Kelsey,Penelope	Main Campus
+24128	ENGL	3021	1	14:00:00	15:15:00	TTH	HLMS 259	Gordon,Noah Eli	Main Campus
+32446	ENGL	3021	2	12:30:00	13:45:00	TTH	HLMS 259	Queen,Khadijah	Main Campus
+31322	ENGL	3025	100	14:00:00	14:50:00	MW	HLMS 201	Goodman,Nan	Main Campus
+32856	ENGL	3025	101	17:00:00	17:50:00	W	DUAN G2B60	\N	Main Campus
+32858	ENGL	3025	102	17:00:00	17:50:00	TH	CLRE 211	\N	Main Campus
+32859	ENGL	3025	103	15:00:00	15:50:00	W	KCEN S163	\N	Main Campus
+32860	ENGL	3025	104	17:00:00	17:50:00	TH	CLRE 212	\N	Main Campus
+32652	ENGL	3026	1	11:00:00	11:50:00	MWF	HLMS 137	Harrington,Emily Marie	Main Campus
+23768	ENGL	3041	1	12:30:00	13:45:00	TTH	EKLC M203	Douglas,Marcia B	Main Campus
+21740	ENGL	3051	1	14:00:00	15:15:00	TTH	STAD 136C	Jones,Stephen Graham	Main Campus
+18748	ENGL	3051	2	09:30:00	10:45:00	TTH	LIBR N424B	\N	Main Campus
+18749	ENGL	3060	1	09:30:00	10:45:00	TTH	ECON 13	Hasan,Raza Ali	Main Campus
+18750	ENGL	3060	2	11:00:00	12:15:00	TTH	HALE 260	Hasan,Raza Ali	Main Campus
+18752	ENGL	3060	4	11:00:00	12:15:00	TTH	MCOL E186	Labio,Catherine	Main Campus
+18753	ENGL	3060	5	15:00:00	16:15:00	MW	HLMS 255	Carson,James Roland	Main Campus
+18754	ENGL	3060	6	14:00:00	15:15:00	TTH	ECON 205	Tettleton,Matthew Scott	Main Campus
+18755	ENGL	3060	7	15:30:00	16:45:00	TTH	CHEM 145	Tettleton,Matthew Scott	Main Campus
+24033	ENGL	3060	8	17:00:00	18:15:00	TTH	HLMS 263	\N	Main Campus
+18756	ENGL	3060	9	09:00:00	09:50:00	MWF	HLMS 251	Ryan Burchfield,Renata Larissa	Main Campus
+18757	ENGL	3060	10	10:00:00	10:50:00	MWF	ECON 2	Ryan Burchfield,Renata Larissa	Main Campus
+18758	ENGL	3060	11	11:00:00	11:50:00	MWF	DUAN G2B41	\N	Main Campus
+22367	ENGL	3060	12	12:00:00	12:50:00	MWF	ECON 205	\N	Main Campus
+32158	ENGL	3060	13	13:00:00	13:50:00	MWF	EKLC M203	Roschman,Melodie Anne	Main Campus
+32159	ENGL	3060	14	14:00:00	14:50:00	MWF	HLMS 137	Roschman,Melodie Anne	Main Campus
+32160	ENGL	3060	15	15:00:00	15:50:00	MWF	CLRE 302	\N	Main Campus
+32161	ENGL	3060	16	16:00:00	16:50:00	MWF	EKLC E1B75	\N	Main Campus
+33761	ENGL	3060	17	16:00:00	16:50:00	MWF	MCOL E186	\N	Main Campus
+32681	ENGL	3088	1	09:30:00	10:45:00	TTH	CHEM 145	Green,Jeremy	Main Campus
+25158	ENGL	3116	1	14:00:00	15:15:00	TTH	EKLC E1B75	Glimp,David Randall	Main Campus
+24094	ENGL	3164	1	15:30:00	16:45:00	TTH	HLMS 137	Heydt-Stevenson,Jillian	Main Campus
+32651	ENGL	3245	1	12:00:00	12:50:00	MWF	HLMS 259	Bickman,Martin	Main Campus
+18759	ENGL	3246	2	15:00:00	15:50:00	MWF	HUMN 190	Winokur,Mark	Main Campus
+32657	ENGL	3267	1	17:00:00	18:15:00	TTH	HLMS 191	Heydt-Stevenson,Jillian	Main Campus
+39131	ENGL	3523	1	12:30:00	13:45:00	TTH	DUAN G1B27	Mitchell,Dianne	Main Campus
+32648	ENGL	3544	1	09:30:00	10:45:00	TTH	CLRE 104	Stevenson,John	Main Campus
+32647	ENGL	3564	1	11:00:00	12:15:00	TTH	GUGG 206	Brylowe,Thora	Main Campus
+32646	ENGL	3583	1	11:00:00	12:15:00	TTH	HLMS 245	Mitchell,Dianne	Main Campus
+33611	ENGL	3796	1	12:30:00	13:45:00	TTH	RAMY N1B31	Soares,Kristie	Main Campus
+32653	ENGL	3856	1	11:00:00	11:50:00	MWF	HLMS 259	Little,Katherine C	Main Campus
+36390	ENGL	3856	2	12:30:00	13:45:00	TTH	LIBR N424B	Kuskin,William	Main Campus
+23927	ENGL	4021	1	12:30:00	13:45:00	TTH	STAD 135	Gordon,Noah Eli	Main Campus
+39129	ENGL	4023	1	12:30:00	13:45:00	TTH	HLMS 245	Beechy,Tiffany R	Main Campus
+24115	ENGL	4026	880	15:30:00	16:45:00	TTH	HLMS 193	Jacobs,Karen Susan	Main Campus
+22587	ENGL	4039	2	12:30:00	13:45:00	TTH	HUMN 245	Ho,Janice Chiew Ling	Main Campus
+22588	ENGL	4039	3	12:30:00	13:45:00	TTH	HLMS 193	Jacobs,Karen Susan	Main Campus
+22589	ENGL	4039	4	17:00:00	18:15:00	TTH	HLMS 137	Wright,Nicole M	Main Campus
+25190	ENGL	4039	5	15:00:00	16:15:00	MW	HLMS 137	Youngquist,Paul Bruce	Main Campus
+18787	ENGL	4051	1	09:30:00	10:45:00	TTH	HLMS 259	DE Shell,Jeffrey G	Main Campus
+32684	ENGL	4071	1	11:00:00	12:15:00	TTH	HLMS 259	Jones,Stephen Graham	Main Campus
+32682	ENGL	4098	1	15:00:00	16:15:00	MW	HLMS 193	Winkiel,Laura Ann	Main Campus
+32645	ENGL	4368	1	09:30:00	10:45:00	TTH	HUMN 190	Cox,Jeffrey N	Main Campus
+32683	ENGL	4468	1	13:00:00	13:50:00	MWF	EKLC E1B75	Bickman,Martin	Main Campus
+32650	ENGL	4514	1	11:00:00	12:15:00	TTH	HLMS 251	Stevenson,John	Main Campus
+32679	ENGL	4697	1	11:00:00	12:15:00	TTH	EKLC E1B75	Mattar,Karim	Main Campus
+25160	ENGL	4717	1	09:00:00	09:50:00	MWF	MCOL E186	Kelsey,Penelope	Main Campus
+23704	ENGL	5029	1	10:00:00	12:30:00	W	LIBR M549	Glimp,David Randall	Main Campus
+32500	ENGL	5059	1	13:00:00	15:30:00	W	LIBR M549	Harrington,Emily Marie	Main Campus
+25145	ENGL	5059	2	09:00:00	11:30:00	T	LIBR M549	Ho,Janice Chiew Ling	Main Campus
+25147	ENGL	5169	1	11:00:00	13:30:00	F	LIBR N424B	Rivera,John-Michael	Main Campus
+25148	ENGL	5229	1	15:30:00	18:00:00	TH	HLMS 259	Queen,Khadijah	Main Campus
+18864	ENGL	5239	1	15:30:00	18:00:00	T	HLMS 259	Douglas,Marcia B	Main Campus
+22003	ENGL	5459	1	13:00:00	15:30:00	T	LIBR M549	Labio,Catherine	Main Campus
+23229	ENGL	5459	2	16:00:00	18:30:00	T	LIBR M549	Labio,Catherine	Main Campus
+23064	ENGL	5529	1	10:00:00	10:50:00	MWF	HALE 235	Klages,Mary	Main Campus
+32685	ENGL	5559	1	17:00:00	19:30:00	TH	LIBR N424B	DE Shell,Jeffrey G	Main Campus
+36270	ENGL	5000	570	15:00:00	17:30:00	F	HUMN 1B90	Glimp,David Randall	Continuing Education
+17964	ENVS	1000	10	11:00:00	12:15:00	TTH	MATH 100	Collinge,Sharon Kay	Main Campus
+23969	ENVS	1001	10	08:00:00	09:15:00	TTH	CHEM 142	Burgess,Matthew	Main Campus
+30842	ENVS	1001	20	09:30:00	10:45:00	TTH	ECCR 200	Burgess,Matthew	Main Campus
+23638	ENVS	1150	1	13:30:00	14:20:00	MWF	SEEC N129	Vodehnal,Carrie	Main Campus
+23972	ENVS	1150	2	13:00:00	14:15:00	TTH	SEEC S125	Miller,Dale Lee	Main Campus
+24864	ENVS	1150	3	14:00:00	15:15:00	TTH	RAMY N1B31	Dupler,Douglas Jay	Main Campus
+22620	ENVS	2000	10	10:00:00	11:15:00	TTH	SEEC N136	Doak,Daniel Forest	Main Campus
+20669	ENVS	3020	1	08:30:00	09:45:00	TTH	SEEC N126	Miller,Dale Lee	Main Campus
+22322	ENVS	3020	2	15:30:00	16:20:00	MW	SEEC N129	Vodehnal,Carrie	Main Campus
+22638	ENVS	3020	3	11:30:00	12:45:00	TTH	SEEC S125	Dupler,Douglas Jay	Main Campus
+23093	ENVS	3020	4	14:30:00	15:20:00	MWF	SEEC N129	Vodehnal,Carrie	Main Campus
+32312	ENVS	3031	10	12:30:00	13:20:00	MW	SEEC N136	Carrico,Amanda R.	Main Campus
+21812	ENVS	3070	1	09:00:00	09:50:00	MWF	DUAN G130	Wagner,Stephen R	Main Campus
+18353	ENVS	3140	1	11:00:00	12:15:00	TTH	HALE 230	Youkey,David Allen	Main Campus
+19318	ENVS	3140	2	12:30:00	13:45:00	TTH	CLRE 207	Youkey,David Allen	Main Campus
+32636	ENVS	3140	3	09:00:00	09:50:00	MWF	VAC 1B90	Chamorro,Martin Alberto	Main Campus
+23169	ENVS	3140	4	13:00:00	14:15:00	TTH	SEEC N128	Hale,Benjamin S	Main Campus
+23358	ENVS	3173	1	09:00:00	10:45:00	TTH	THTR C240	Osnes,Mary Beth	Main Campus
+25108	ENVS	3525	1	12:30:00	13:20:00	MWF	SEEC N129	Vodehnal,Carrie	Main Campus
+33201	ENVS	3525	2	09:30:00	10:20:00	MWF	SEEC N136	Miller,Steven James	Main Campus
+25509	ENVS	4100	1	15:30:00	18:00:00	M	SEEC N124	Lambert,Joanna E	Main Campus
+25107	ENVS	4100	2	13:00:00	14:15:00	TTH	SEEC N124	Burgess,Matthew	Main Campus
+32774	ENVS	4100	3	14:30:00	15:45:00	TTH	SEEC S125	Carrico,Amanda R.	Main Campus
+24732	ENVS	4800	1	10:00:00	11:15:00	TTH	SEEC N126	Bailey,Karen	Main Campus
+24861	ENVS	4800	2	14:30:00	15:45:00	TTH	SEEC N128	Pielke Jr,Roger Alvin	Main Campus
+24647	ENVS	4800	3	10:00:00	11:15:00	TTH	SEEC N129	Brooks,Cassandra	Main Campus
+23549	ENVS	5003	1	15:30:00	18:00:00	TH	SEEC C315	Hale,Benjamin S	Main Campus
+20286	ENVS	5100	1	16:00:00	18:30:00	M	SEEC N128	Ciplet,David Michael	Main Campus
+22336	ENVS	5100	2	15:30:00	18:00:00	W	SEEC S125	Pielke Jr,Roger Alvin	Main Campus
+23282	ENVS	5510	1	15:30:00	16:20:00	W	See Academc Dept	Doak,Daniel Forest	Main Campus
+24863	ENVS	5702	1	14:30:00	15:45:00	TTH	SEEC N126	Brooks,Cassandra	Main Campus
+31890	ETHN	1022	100	11:00:00	11:50:00	MW	HLMS 199	Atuire,Martin	Main Campus
+31891	ETHN	1022	101	13:00:00	13:50:00	F	ENVD 120	Atuire,Martin	Main Campus
+31892	ETHN	1022	102	12:00:00	12:50:00	F	ENVD 120	Atuire,Martin	Main Campus
+31893	ETHN	1022	103	11:00:00	11:50:00	F	ENVD 120	Atuire,Martin	Main Campus
+35878	ETHN	1025	1	14:00:00	14:50:00	MWF	MUEN E417	Upadhyay,Nishant	Main Campus
+19139	ETHN	2001	1	12:30:00	13:45:00	TTH	GUGG 205	Aldama,Arturo James	Main Campus
+31054	ETHN	2203	1	11:00:00	12:15:00	TTH	ATLS 1B29	Lawson,Angelica Marie	Main Campus
+35900	ETHN	2536	1	16:30:00	17:45:00	MW	HLMS 267	Sepulveda,Enrique	Main Campus
+25069	ETHN	3015	1	11:00:00	12:15:00	TTH	EKLC E1B50	Sohi,Seema	Main Campus
+23372	ETHN	3024	100	12:00:00	12:50:00	MW	CHEM 142	Villanueva,Nicholas	Main Campus
+23373	ETHN	3024	101	13:00:00	13:50:00	F	CASE E230	Villanueva,Nicholas	Main Campus
+23374	ETHN	3024	102	15:00:00	15:50:00	TH	ECON 13	Villanueva,Nicholas	Main Campus
+23375	ETHN	3024	103	15:00:00	15:50:00	F	ECON 119	Villanueva,Nicholas	Main Campus
+24331	ETHN	3024	104	14:00:00	14:50:00	TH	HALE 260	Villanueva,Nicholas	Main Campus
+23926	ETHN	3101	1	16:30:00	17:45:00	MW	CLRE 208	Upadhyay,Nishant	Main Campus
+35902	ETHN	3136	800	15:30:00	16:45:00	TTH	ATLS 1B29	Ordaz,Jessica	Main Campus
+31895	ETHN	3212	1	12:30:00	13:45:00	TTH	HLMS 201	Rabaka,Reiland Devaun	Main Campus
+23922	ETHN	3314	1	15:00:00	16:15:00	MW	HUMN 250	Sewell,CheyOnna	Main Campus
+36116	ETHN	3314	2	16:30:00	17:45:00	MW	HLMS 141	Sewell,CheyOnna	Main Campus
+21855	ETHN	3501	1	15:00:00	16:15:00	MW	ECON 205	Atuire,Martin	Main Campus
+37519	ETHN	3707	1	15:00:00	17:30:00	M	CASE E250	Villanueva,Nicholas	Main Campus
+25027	ETHN	4102	1	15:30:00	18:00:00	T	KTCH 277	Rabaka,Reiland Devaun	Main Campus
+19140	ETHN	4951	1	11:00:00	12:15:00	TTH	HALE 240	Ordaz,Jessica	Main Campus
+38260	ETHN	3024	300E	18:00:00	21:00:00	T	\N	Freeman,Wayne Martin	Continuing Education
+36045	ETHN	6100	1	16:00:00	18:30:00	W	KTCH 277	Sohi,Seema	Main Campus
+36049	ETHN	6101	1	15:30:00	18:00:00	M	KTCH 277	Carroll,Clinton R	Main Campus
+25492	FARR	2002	251R	10:00:00	10:50:00	MWF	See Academc Dept	Maier,Edward Karl	Main Campus
+17823	FREN	1010	1	10:00:00	10:50:00	M-F	HUMN 180	\N	Main Campus
+17824	FREN	1010	2	11:00:00	11:50:00	M-F	HUMN 180	\N	Main Campus
+17825	FREN	1010	3	12:00:00	12:50:00	M-F	MCOL E158	\N	Main Campus
+17826	FREN	1010	4	14:00:00	14:50:00	M-F	HUMN 145	\N	Main Campus
+23780	FREN	1010	5	13:00:00	13:50:00	MWF	HUMN 335	\N	Main Campus
+17827	FREN	1020	1	11:00:00	11:50:00	M-F	DUAN G1B27	\N	Main Campus
+17828	FREN	1020	2	13:00:00	13:50:00	M-F	HUMN 1B70	\N	Main Campus
+23781	FREN	1020	4	10:00:00	10:50:00	MWF	MKNA 204	\N	Main Campus
+24675	FREN	1020	5	09:00:00	09:50:00	M-F	LIBR M498	\N	Main Campus
+17829	FREN	1050	1	14:00:00	14:50:00	M-F	HALE 236	\N	Main Campus
+23359	FREN	1880	1	12:00:00	12:50:00	MWF	CASE E240	Murphy,Kieran Marcellin	Main Campus
+23627	FREN	1900	1	11:00:00	11:50:00	MWF	HUMN 135	Kilbane,Aimee	Main Campus
+17842	FREN	2110	1	12:00:00	12:50:00	MWF	STAD 135	\N	Main Campus
+17843	FREN	2110	2	14:00:00	14:50:00	MWF	HUMN 270	\N	Main Campus
+23399	FREN	2110	3	09:00:00	09:50:00	MWF	HUMN 245	\N	Main Campus
+23783	FREN	2110	4	10:00:00	10:50:00	MW	LIBR M498	\N	Main Campus
+17844	FREN	2120	1	10:00:00	10:50:00	MWF	HUMN 270	\N	Main Campus
+24178	FREN	2120	3	11:00:00	11:50:00	MW	HUMN 335	\N	Main Campus
+25127	FREN	2120	4	13:00:00	13:50:00	MWF	HUMN 270	\N	Main Campus
+17846	FREN	3010	1	10:00:00	10:50:00	MWF	HUMN 245	\N	Main Campus
+17847	FREN	3010	2	12:00:00	12:50:00	MWF	HUMN 370	\N	Main Campus
+17848	FREN	3060	1	12:00:00	12:50:00	MWF	HUMN 335	\N	Main Campus
+24510	FREN	3060	2	10:00:00	10:50:00	MWF	HLMS 220	\N	Main Campus
+24511	FREN	3060	3	14:00:00	14:50:00	MWF	LIBR M498	\N	Main Campus
+17849	FREN	3100	1	14:00:00	15:15:00	TTH	HUMN 1B70	Bloomfield,Elisabeth M	Main Campus
+22617	FREN	3120	1	09:30:00	10:45:00	TTH	MKNA 204	Motte,Warren	Main Campus
+21871	FREN	3500	1	14:00:00	14:50:00	MWF	MUEN E114	Kilbane,Aimee	Main Campus
+21752	FREN	3600	1	12:00:00	12:50:00	MWF	HUMN 270	Vandermarliere,Sandrine Florence	Main Campus
+24798	FREN	3700	1	13:00:00	13:50:00	MWF	MUEN E130	Kilbane,Aimee	Main Campus
+36315	FREN	4250	1	12:00:00	12:50:00	MWF	EKLC E1B75	Samuelson,Charles	Main Campus
+36314	FREN	4600	1	09:30:00	10:45:00	TTH	HUMN 270	Yamashita,Masano	Main Campus
+24385	FREN	4700	1	15:30:00	16:45:00	TTH	LIBR M498	Bloomfield,Elisabeth M	Main Campus
+23846	FREN	5120	1	14:00:00	16:30:00	W	HUMN 335	Murphy,Kieran Marcellin	Main Campus
+31855	FREN	5330	1	14:00:00	16:30:00	TH	HUMN 335	Braider,Christopher	Main Campus
+38826	FREN	5350	1	14:00:00	16:30:00	T	HUMN 335	Yamashita,Masano	Main Campus
+18314	GEO	1001	10	11:00:00	12:15:00	TTH	CHEM 142	Serreze,Mark C	Main Campus
+19669	GEO	1001	11	09:00:00	10:50:00	F	GUGG 3	\N	Main Campus
+19670	GEO	1001	12	13:00:00	14:50:00	W	GUGG 3	\N	Main Campus
+19672	GEO	1001	14	09:00:00	10:50:00	W	GUGG 3	\N	Main Campus
+19673	GEO	1001	15	11:00:00	12:50:00	F	GUGG 3	\N	Main Campus
+19674	GEO	1001	16	13:00:00	14:50:00	TH	GUGG 3	\N	Main Campus
+18316	GEO	1011	10	14:00:00	14:50:00	MWF	MCOL W100	Lininger,Katherine Blom	Main Campus
+19675	GEO	1011	11	11:00:00	12:50:00	TH	GUGG 3	\N	Main Campus
+19676	GEO	1011	12	09:00:00	10:50:00	TH	GUGG 3	\N	Main Campus
+19677	GEO	1011	13	15:00:00	16:50:00	TH	GUGG 3	\N	Main Campus
+19678	GEO	1011	14	09:00:00	10:50:00	T	GUGG 3	\N	Main Campus
+19679	GEO	1011	15	11:00:00	12:50:00	W	GUGG 3	\N	Main Campus
+19680	GEO	1011	16	11:00:00	12:50:00	T	GUGG 3	\N	Main Campus
+23938	GEO	1962	100	13:00:00	13:50:00	MW	HALE 270	Travis,William R	Main Campus
+23952	GEO	1962	101	11:00:00	11:50:00	T	ECON 205	\N	Main Campus
+23954	GEO	1962	103	10:00:00	10:50:00	W	STAD 140	\N	Main Campus
+23955	GEO	1962	104	14:00:00	14:50:00	F	GUGG 3	\N	Main Campus
+23956	GEO	1962	105	10:00:00	10:50:00	W	STAD 136C	\N	Main Campus
+23957	GEO	1962	106	14:00:00	14:50:00	T	CLUB 13	\N	Main Campus
+24352	GEO	1962	109	13:00:00	13:50:00	TH	ECON 2	\N	Main Campus
+23470	GEO	1972	880	11:00:00	12:15:00	TTH	LIBR N424A	Hickcox,Abby Lynn	Main Campus
+22830	GEO	1982	100	12:30:00	13:20:00	TTH	HLMS 252	O'Loughlin,John	Main Campus
+31840	GEO	1982	102	11:00:00	11:50:00	F	ATLS 1B25	\N	Main Campus
+22929	GEO	1982	104	09:00:00	09:50:00	M	GUGG 3	\N	Main Campus
+22928	GEO	1982	105	09:30:00	10:20:00	T	VAC 1B90	\N	Main Campus
+23946	GEO	1982	106	15:00:00	15:50:00	W	GUGG 3	\N	Main Campus
+25173	GEO	1982	107	12:00:00	12:50:00	W	HUMN 1B70	\N	Main Campus
+23939	GEO	1982	200	11:00:00	11:50:00	TTH	CASE E240	O'Loughlin,John	Main Campus
+23948	GEO	1982	203	10:00:00	10:50:00	W	CLRE 211	\N	Main Campus
+23950	GEO	1982	204	15:00:00	15:50:00	M	GUGG 3	\N	Main Campus
+31832	GEO	1982	205	10:00:00	10:50:00	W	CLRE 301	\N	Main Campus
+24538	GEO	2092	1	17:00:00	18:15:00	TTH	GUGG 2	Oakes,Timothy S	Main Campus
+23615	GEO	3023	10	14:00:00	15:15:00	TTH	GUGG 205	Karimzadeh,Morteza	Main Campus
+23617	GEO	3023	12	11:00:00	12:50:00	TH	GUGG 6	\N	Main Campus
+19836	GEO	3053	10	11:00:00	12:15:00	TTH	GUGG 205	Kelly,Sarah	Main Campus
+19837	GEO	3053	11	12:00:00	14:50:00	F	GUGG 6	Kelly,Sarah	Main Campus
+21745	GEO	3053	12	16:00:00	18:50:00	TH	GUGG 6	Kelly,Sarah	Main Campus
+37745	GEO	3351	1	12:00:00	12:50:00	MWF	KTCH 1B71	Chapman,Teresa B	Main Campus
+23612	GEO	3422	1	15:00:00	16:15:00	MW	GUGG 205	Bruckner,Heide	Main Campus
+37680	GEO	3511	10	09:30:00	10:45:00	TTH	HLMS 193	Barnard,Holly	Main Campus
+25477	GEO	3612	1	08:00:00	09:15:00	TTH	ENVD 120	Bruckner,Heide	Main Campus
+23527	GEO	3692	100	12:30:00	13:45:00	TTH	MCOL W100	Reid,Colleen Elizabeth	Main Campus
+24015	GEO	3692	101	17:00:00	17:50:00	TH	HUMN 186	\N	Main Campus
+24016	GEO	3692	102	14:00:00	14:50:00	F	ECCR 110	\N	Main Campus
+24019	GEO	3692	105	08:00:00	08:50:00	T	HLMS 263	\N	Main Campus
+24020	GEO	3692	106	15:30:00	16:20:00	TH	HALE 260	\N	Main Campus
+31849	GEO	3692	107	09:00:00	09:50:00	W	HLMS 185	\N	Main Campus
+23367	GEO	3742	880	14:00:00	15:15:00	TTH	LIBR M300D	Hickcox,Abby Lynn	Main Campus
+23618	GEO	3812	1	09:30:00	10:45:00	TTH	ECON 2	Bryan,Joseph Henry	Main Campus
+25167	GEO	3862	1	11:00:00	12:15:00	TTH	EDUC 155	Goldman,Mara Jill	Main Campus
+37746	GEO	4003	10	11:00:00	12:15:00	TTH	See Academc Dept	Abdalati,Waleed	Main Campus
+35346	GEO	4023	10	09:30:00	10:45:00	TTH	CASE E250	Reid,Colleen Elizabeth	Main Campus
+18315	GEO	4093	10	08:00:00	09:15:00	TTH	HLMS 141	Adler,John Jay	Main Campus
+19838	GEO	4103	10	12:30:00	13:45:00	TTH	HLMS 267	Buttenfield,Barbara	Main Campus
+19839	GEO	4103	11	15:30:00	18:20:00	T	GUGG 6	Buttenfield,Barbara	Main Campus
+21748	GEO	4103	12	11:00:00	13:50:00	W	GUGG 6	Buttenfield,Barbara	Main Campus
+22634	GEO	4241	10	09:30:00	10:45:00	TTH	BESC 265	Anderson,Suzanne Prestrud	Main Campus
+22635	GEO	4241	11	14:00:00	16:50:00	TH	BESC 1B75	Anderson,Suzanne Prestrud	Main Campus
+23606	GEO	4303	10	16:00:00	18:50:00	M	GUGG 2	Leyk,Stefan	Main Campus
+23607	GEO	4303	11	12:30:00	15:20:00	T	GUGG 6	\N	Main Campus
+35846	GEO	4321	10	15:00:00	16:15:00	MW	GUGG 206	Molotch,Noah Paul	Main Campus
+21746	GEO	4501	1	13:00:00	13:50:00	MWF	GUGG 205	Lander,Paul Wesley	Main Campus
+24396	GEO	4503	1	13:00:00	15:50:00	W	GUGG 201E	Kelly,Sarah	Main Campus
+33757	GEO	4563	1	15:00:00	17:30:00	W	SEEC N125	Wasser,Leah Anne	Main Campus
+36011	GEO	4742	1	10:00:00	10:50:00	MWF	CLUB 13	Marini,Daniela Ayelen	Main Campus
+38251	GEO	1001	300E	18:00:00	20:00:00	T	\N	Welter,Steven Paul	Continuing Education
+38249	GEO	1011	300E	18:00:00	20:00:00	TH	\N	Welter,Steven Paul	Continuing Education
+35845	GEO	5100	1	16:00:00	18:50:00	W	GUGG 201E	Fluri,Jennifer L	Main Campus
+35854	GEO	5100	2	16:00:00	18:50:00	W	See Academc Dept	Barnard,Holly	Main Campus
+35855	GEO	5100	3	12:00:00	14:50:00	TH	GUGG 201E	Balch,Jennifer Kakareka	Main Campus
+23621	GEO	5100	10	11:00:00	12:15:00	TTH	See Academc Dept	Abdalati,Waleed	Main Campus
+23109	GEO	5161	1	13:00:00	15:50:00	M	GUGG 201E	Veblen,Thomas T	Main Campus
+23136	GEO	5161	2	10:00:00	12:50:00	F	GUGG 201E	Yeh,Emily Ting	Main Campus
+24591	GEO	5241	1	14:00:00	16:50:00	T	GUGG 201E	Lininger,Katherine Blom	Main Campus
+35844	GEO	5662	1	16:00:00	18:50:00	M	GUGG 201E	Bryan,Joseph Henry	Main Campus
+17656	GEOL	1010	2	12:30:00	13:45:00	TTH	BESC 180	Overeem,Irina	Main Campus
+24985	GEOL	1012	1	09:30:00	10:45:00	TTH	BESC 185	Mueller,Karl Jules	Main Campus
+17657	GEOL	1020	1	12:00:00	12:50:00	MWF	BESC 180	Eberle,Jaelyn J	Main Campus
+17730	GEOL	1030	1	14:00:00	16:50:00	W	BESC 155	Abbott,Lon	Main Campus
+17731	GEOL	1030	2	11:00:00	13:50:00	M	BESC 145	Abbott,Lon	Main Campus
+17742	GEOL	1030	3	14:00:00	16:50:00	M	BESC 155	Abbott,Lon	Main Campus
+17743	GEOL	1030	4	11:00:00	13:50:00	W	BESC 155	Abbott,Lon	Main Campus
+17744	GEOL	1030	5	14:00:00	16:50:00	T	BESC 155	Abbott,Lon	Main Campus
+17776	GEOL	1030	7	11:00:00	13:50:00	T	BESC 155	Abbott,Lon	Main Campus
+17777	GEOL	1030	8	14:00:00	16:50:00	T	BESC 145	Abbott,Lon	Main Campus
+17778	GEOL	1030	9	14:00:00	16:50:00	M	BESC 145	Abbott,Lon	Main Campus
+23706	GEOL	1030	10	11:00:00	13:50:00	W	BESC 145	Abbott,Lon	Main Campus
+23707	GEOL	1030	11	11:00:00	13:50:00	T	BESC 145	Abbott,Lon	Main Campus
+17779	GEOL	1030	12	08:00:00	10:50:00	T	BESC 145	Abbott,Lon	Main Campus
+17780	GEOL	1030	13	14:00:00	16:50:00	TH	BESC 145	Abbott,Lon	Main Campus
+17781	GEOL	1030	14	11:00:00	13:50:00	TH	BESC 145	Abbott,Lon	Main Campus
+24185	GEOL	1030	15	14:00:00	16:50:00	TH	BESC 155	Abbott,Lon	Main Campus
+24572	GEOL	1030	16	14:00:00	16:50:00	W	BESC 145	Abbott,Lon	Main Campus
+24982	GEOL	1030	17	11:00:00	13:50:00	TH	BESC 155	Abbott,Lon	Main Campus
+23879	GEOL	1040	1	10:00:00	10:50:00	MWF	BESC 180	Stephens,Pamela Anne	Main Campus
+25006	GEOL	1150	10	11:00:00	11:50:00	MW	BESC 180	Arthurs,Leilani A	Main Campus
+25007	GEOL	1150	11	11:00:00	11:50:00	F	BESC 155	Arthurs,Leilani A	Main Campus
+25009	GEOL	1150	13	08:25:00	09:15:00	TH	BESC 155	Arthurs,Leilani A	Main Campus
+25010	GEOL	1150	14	09:30:00	10:20:00	TH	BESC 155	Arthurs,Leilani A	Main Campus
+25012	GEOL	1150	16	13:00:00	13:50:00	F	BESC 155	Arthurs,Leilani A	Main Campus
+39567	GEOL	1150	17	14:00:00	14:50:00	W	See Academc Dept	Arthurs,Leilani A	Main Campus
+39566	GEOL	1150	18	15:30:00	16:20:00	W	See Academc Dept	Arthurs,Leilani A	Main Campus
+24984	GEOL	1170	1	09:30:00	10:45:00	TTH	BESC 180	Clark,Alisha	Main Campus
+32394	GEOL	1180	1	13:00:00	13:50:00	MWF	BESC 1B75	Kopf,Sebastian H	Main Campus
+23514	GEOL	2001	10	08:00:00	09:15:00	TTH	BESC 1B75	Stempien,Jennifer	Main Campus
+23515	GEOL	2001	11	13:00:00	15:50:00	W	BESC 385	Stempien,Jennifer	Main Campus
+23516	GEOL	2001	13	14:00:00	16:50:00	F	BESC 385	Stempien,Jennifer	Main Campus
+23072	GEOL	2005	10	12:00:00	12:50:00	MWF	BESC 1B75	Flowers,Rebecca M	Main Campus
+23073	GEOL	2005	11	14:00:00	16:50:00	M	BESC 455	Flowers,Rebecca M	Main Campus
+23074	GEOL	2005	12	14:00:00	16:50:00	TH	BESC 455	Flowers,Rebecca M	Main Campus
+21765	GEOL	2700	1	12:00:00	17:50:00	TTH	BESC 1B81	Abbott,Lon	Main Campus
+17782	GEOL	3020	100	09:30:00	10:45:00	TTH	BESC 1B75	Stern,Charles R	Main Campus
+17783	GEOL	3020	101	14:00:00	16:45:00	T	BESC 455	Stern,Charles R	Main Campus
+17784	GEOL	3020	102	14:00:00	16:45:00	W	BESC 455	Stern,Charles R	Main Campus
+24518	GEOL	3050	1	11:00:00	12:50:00	TTH	BESC 385	Hynek,Brian Michael	Main Campus
+17788	GEOL	3320	1	11:00:00	11:50:00	MWF	BESC 185	\N	Main Campus
+33215	GEOL	3320	10	16:00:00	16:50:00	M	BESC 265	\N	Main Campus
+33216	GEOL	3320	11	16:00:00	16:50:00	M	BESC 1B75	\N	Main Campus
+17811	GEOL	3330	1	11:00:00	12:15:00	TTH	BESC 185	Schulte-Pelkum,Vera	Main Campus
+17789	GEOL	3430	10	10:00:00	10:50:00	MWF	BESC 185	Budd,David A	Main Campus
+27355	CSCI	3403	105	15:00:00	15:50:00	F	\N	\N	Main Campus
+17790	GEOL	3430	11	14:00:00	16:50:00	TH	BESC 265	Budd,David A	Main Campus
+17793	GEOL	3430	12	14:00:00	16:50:00	W	BESC 265	Budd,David A	Main Campus
+25357	GEOL	3540	1	12:30:00	13:45:00	TTH	BESC 1B75	Patterson,Penny Ellen	Main Campus
+24986	GEOL	3720	1	12:00:00	12:50:00	MWF	BESC 185	Stempien,Jennifer	Main Campus
+32464	GEOL	3910	10	12:00:00	12:50:00	MWF	BESC 265	Wing,Boswell	Main Campus
+32466	GEOL	3910	11	14:00:00	16:50:00	T	BESC 385	Wing,Boswell	Main Campus
+32216	GEOL	3950	1	14:00:00	14:50:00	MWF	BESC 180	Willis,Michael John	Main Campus
+36266	GEOL	4380	1	11:00:00	12:15:00	TTH	BESC 355	Snell,Kathryn Elaine	Main Campus
+32704	GEOL	4611	1	10:00:00	11:15:00	TTH	SEEC N128	Sepulveda Arellano,Julio Cesar	Main Campus
+25506	GEOL	4700	1	08:00:00	09:00:00	W	BESC 265	Stempien,Jennifer	Main Campus
+24524	GEOL	4715	1	14:00:00	17:00:00	TTH	BESC 355	Mc Curry,Gordon Nichols	Main Campus
+38888	GEOL	5001	1	09:00:00	09:50:00	MWF	BESC 355	Jones,Craig H	Main Campus
+24189	GEOL	5700	1	09:00:00	09:50:00	F	BESC 265	Anderson,Robert S	Main Campus
+36251	GEOL	5700	10	13:00:00	13:50:00	W	BESC 340D	Flowers,Rebecca M	Main Campus
+32792	GEOL	5700	17	11:00:00	12:15:00	TTH	BESC 440E	Mahan,Kevin H	Main Campus
+24365	GEOL	5702	1	11:00:00	11:50:00	W	BESC 240D	Tucker,Gregory E	Main Campus
+36252	GEOL	5775	1	13:00:00	15:50:00	W	BESC 355	Anderson,Robert S	Main Campus
+33223	GEOL	5910	1	09:00:00	10:15:00	MW	BESC 265	Wing,Boswell	Main Campus
+17513	GRM	1010	2	11:00:00	11:50:00	MTTF	CLUB 4	\N	Main Campus
+17514	GRM	1010	3	13:00:00	13:50:00	MTTF	CLUB 4	\N	Main Campus
+17515	GRM	1010	4	09:00:00	09:50:00	MTTF	CHEM 131	\N	Main Campus
+23447	GRM	1010	5	12:00:00	12:50:00	MTTF	HUMN 1B70	\N	Main Campus
+17517	GRM	1020	2	13:00:00	13:50:00	MTTF	HLMS 191	\N	Main Campus
+17518	GRM	1020	3	09:00:00	09:50:00	MTTF	HUMN 145	\N	Main Campus
+23401	GRM	1020	4	12:00:00	12:50:00	MTTF	HLMS 191	\N	Main Campus
+36023	GRM	1601	1	11:00:00	11:50:00	MWF	ECON 16	Gindner,Jette	Main Campus
+17523	GRM	2020	2	10:00:00	10:50:00	MTTF	HUMN 145	Jany,Ursula Berit	Main Campus
+23448	GRM	2301	10	14:00:00	14:50:00	MW	CASE E240	Greaney,Patrick	Main Campus
+31359	GRM	2503	1	12:00:00	12:50:00	MWF	GUGG 205	\N	Main Campus
+17628	GRM	3010	1	11:00:00	11:50:00	MWF	MKNA 112	Hintz,Saskia Barbara	Main Campus
+17629	GRM	3020	1	13:00:00	13:50:00	MWF	MKNA 112	Hintz,Saskia Barbara	Main Campus
+21859	GRM	3030	1	14:00:00	14:50:00	MWF	MKNA 112	Hintz,Saskia Barbara	Main Campus
+32262	GRM	3150	1	09:00:00	09:50:00	MWF	MKNA 112	Gindner,Jette	Main Campus
+32263	GRM	3505	1	14:00:00	15:15:00	TTH	HALE 240	Muller-Sievers,Helmut	Main Campus
+24893	GRM	3513	1	15:00:00	16:15:00	MW	VAC 1B90	Gindner,Jette	Main Campus
+22691	GRM	4051	801	15:30:00	18:00:00	TH	MKNA 112	Hoecker,Arne	Main Campus
+39406	GRM	4231	1	18:00:00	19:15:00	MW	MKNA 112	Stone,Lauren	Main Campus
+39405	GRM	5010	2	15:00:00	17:30:00	M	 MKNA 112	Stone,Lauren	 Main Campus
+31393	GRM	5520	1	15:30:00	18:00:00	T	 MKNA 112	Weber,Beverly	 Main Campus
+23156	GSLL	2350	1	11:00:00	11:50:00	MWF	RAMY N1B31	Wartell,Rebecca	 Main Campus
+36430	GSLL	2350	2	12:00:00	12:50:00	MWF	 GUGG 2	Wartell,Rebecca	 Main Campus
+22393	HEBR	1020	1	13:15:00	14:25:00	MWF	 CLUB 6	 Rivlin,Eyal O	 Main Campus
+36110	HEBR	1020	2	09:40:00	10:50:00	MWF	 CLUB 6	Schank,Rona	 Main Campus
+22574	HEBR	2120	1	12:00:00	13:10:00	MWF	 CLUB 6	 Rivlin,Eyal O	 Main Campus
+22622	HEBR	3020	1	11:00:00	11:50:00	MWF	 CLUB 6	Schank,Rona	 Main Campus
+31408	HIND	1011	1	08:00:00	09:15:00	TTH	HUMN 135	Parson,Rahul	 Main Campus
+17732	HIND	1020	1	10:00:00	10:50:00	M-F	 HLMS 247	Arya,Nidhi	 Main Campus
+17733	HIND	2120	1	11:00:00	11:50:00	M-F	 CHEM 146	Arya,Nidhi	 Main Campus
+24193	HIND	3120	1	13:00:00	13:50:00	MWF	 CHEM 146	Arya,Nidhi	 Main Campus
+23103	HIND	3851	1	15:30:00	16:45:00	TTH	 KTCH 1B60	Parson,Rahul	 Main Campus
+17881	HIST	1011	1	09:30:00	10:45:00	TTH	HLMS 245	Luginbill,Sarah Christine	Main Campus
+30769	HIST	1011	100	14:00:00	14:50:00	MW	HLMS 252	Paradis,David Henry	Main Campus
+17890	HIST	1012	1	12:00:00	12:50:00	MWF	HALE 270	Ciarlo,David M	Main Campus
+22356	HIST	1012	2	09:00:00	09:50:00	MWF	HLMS 245	Flaws,Jacob Allen	Main Campus
+17889	HIST	1015	1	14:00:00	15:15:00	TTH	HUMN 150	Sachs,Honor	Main Campus
+21730	HIST	1015	2	11:00:00	12:15:00	TTH	HUMN 135	Anderson,Virginia D	Main Campus
+17893	HIST	1025	1	14:00:00	15:15:00	TTH	HLMS 255	Clement,Kerri Beth Keller	Main Campus
+24812	HIST	1025	2	09:00:00	09:50:00	MWF	KTCH 1B60	Standish,Sierra	Main Campus
+17902	HIST	1025	100	13:00:00	13:50:00	MW	CHEM 140	Sutter,Paul Shriver	Main Campus
+24234	HIST	1025	107	08:00:00	08:50:00	T	HLMS 191	\N	Main Campus
+24235	HIST	1025	108	09:00:00	09:50:00	T	ECON 205	\N	Main Campus
+33246	HIST	1025	880	13:00:00	13:50:00	MW	CHEM 140	Sutter,Paul Shriver	Main Campus
+33247	HIST	1025	881	15:00:00	15:50:00	W	LIBR M300D	Sutter,Paul Shriver	Main Campus
+24813	HIST	1228	1	14:00:00	15:15:00	TTH	HALE 230	Osborne,Myles Gregory	Main Campus
+24814	HIST	1518	1	15:00:00	16:15:00	MW	HLMS 201	Gautam,Sanjay Kumar	Main Campus
+23453	HIST	1628	1	09:30:00	10:45:00	TTH	HUMN 250	Weston,Timothy B	Main Campus
+21866	HIST	1800	1	15:30:00	16:45:00	TTH	HLMS 237	Willis,John	Main Campus
+30776	HIST	1830	1	10:00:00	10:50:00	MWF	HUMN 150	Shneer,David	Main Campus
+30779	HIST	2015	1	09:00:00	09:50:00	MWF	CLRE 207	Detch,Andrew	Main Campus
+21767	HIST	2100	1	10:00:00	10:50:00	MWF	HLMS 141	Hatch,John B	Main Campus
+23122	HIST	2110	1	12:30:00	13:45:00	TTH	HLMS 211	Dauverd,Celine	Main Campus
+22705	HIST	2220	1	12:00:00	12:50:00	MWF	EKLC E1B20	Paradis,David Henry	Main Campus
+25404	HIST	2220	2	09:00:00	09:50:00	MWF	HALE 230	Wei,William	Main Campus
+23861	HIST	2326	1	11:00:00	11:50:00	MWF	HLMS 251	Brackett Hogstad,Amelia Andrea	Main Campus
+23862	HIST	2516	1	09:00:00	09:50:00	MWF	CASE E240	Babicz,Martin C	Main Campus
+21875	HIST	3020	1	15:00:00	16:15:00	MW	MKNA 204	Lovejoy,Henry Barrett	Main Campus
+24236	HIST	3020	2	15:00:00	16:15:00	MW	HLMS 196	Shneer,David	Main Campus
+22404	HIST	3020	3	17:00:00	18:15:00	TTH	HLMS 104	Hulden,Vilja Paivikki	Main Campus
+30780	HIST	3113	1	15:00:00	17:30:00	W	CHEM 131	Hammer,Paul E. J.	Main Campus
+24820	HIST	3115	1	15:30:00	18:00:00	T	MKNA 204	Anderson,Virginia D	Main Campus
+24821	HIST	3628	1	15:30:00	18:00:00	TH	HLMS 220	Weston,Timothy B	Main Campus
+30781	HIST	4018	1	10:00:00	10:50:00	MWF	KTCH 1B71	Ferry,Robert James	Main Campus
+24823	HIST	4123	1	10:00:00	10:50:00	MWF	EDUC 155	Paradis,David Henry	Main Campus
+24243	HIST	4128	1	09:00:00	09:50:00	MWF	HLMS 237	Yee,David	Main Campus
+30782	HIST	4205	1	11:00:00	11:50:00	MWF	ECON 13	Detch,Andrew	Main Campus
+24826	HIST	4238	1	09:30:00	10:45:00	TTH	RAMY N1B31	Osborne,Myles Gregory	Main Campus
+37692	HIST	4323	1	14:00:00	15:15:00	TTH	FLMG 156	Seno,Cosetta	Main Campus
+30796	HIST	4329	1	11:00:00	12:15:00	TTH	HLMS 229	Willis,John	Main Campus
+30797	HIST	4343	1	17:00:00	18:15:00	TTH	MUEN E123	Dauverd,Celine	Main Campus
+31271	HIST	4349	1	17:00:00	18:15:00	TTH	MUEN E417	Chester,Lucy P	Main Campus
+32195	HIST	4366	1	08:00:00	09:15:00	TTH	HLMS 237	Pittenger,Mark A	Main Campus
+31272	HIST	4423	1	09:00:00	09:50:00	MWF	HUMN 125	Ciarlo,David M	Main Campus
+31273	HIST	4425	1	09:00:00	09:50:00	MWF	HLMS 229	de los Reyes,Vanessa	Main Campus
+24829	HIST	4435	1	08:00:00	09:15:00	TTH	CLRE 209	Hulden,Vilja Paivikki	Main Campus
+31274	HIST	4511	1	10:00:00	10:50:00	MWF	HLMS 251	Upton,Todd Patrick	Main Campus
+23463	HIST	4526	1	15:00:00	16:15:00	MW	HUMN 125	Gutmann,Myron	Main Campus
+31275	HIST	4548	1	12:30:00	13:45:00	TTH	ECON 13	Mukherjee,Mithi	Main Campus
+31276	HIST	4558	1	13:00:00	13:50:00	MWF	HLMS 237	Gautam,Sanjay Kumar	Main Campus
+31277	HIST	4623	1	14:00:00	14:50:00	MWF	HLMS 229	Hatch,John B	Main Campus
+31278	HIST	4626	1	11:00:00	11:50:00	MWF	MUEN E417	de los Reyes,Vanessa	Main Campus
+31279	HIST	4638	1	12:00:00	12:50:00	MWF	HLMS 237	Wei,William	Main Campus
+24244	HIST	4728	1	08:00:00	09:15:00	TTH	GUGG 2	Kadia,Miriam Kingsberg	Main Campus
+31280	HIST	4806	1	17:00:00	18:15:00	TTH	HLMS 211	Sachs,Honor	Main Campus
+24832	HIST	4820	1	15:30:00	16:45:00	TTH	KTCH 1B44	Mukherjee,Mithi	Main Campus
+39127	HIST	4830	1	13:00:00	13:50:00	MWF	CLRE 208	Lovejoy,Henry Barrett	Main Campus
+38248	HIST	1025	300E	17:30:00	20:30:00	M	\N	Morrison,Robert	Continuing Education
+31281	HIST	6019	801	15:30:00	18:00:00	M	HALE 236	Hanna,Martha	Main Campus
+31283	HIST	6326	801	15:30:00	18:00:00	T	CLUB 10	Pittenger,Mark A	Main Campus
+24246	HIST	6800	801	15:30:00	18:00:00	TH	CLUB 10	Kadia,Miriam Kingsberg	Main Campus
+31282	HIST	7415	801	15:00:00	17:30:00	W	LIBR M498	Andrews,Thomas	Main Campus
+20602	HON	3220	880	14:00:00	14:50:00	MWF	LIBR N424A	Feldman,Andrea	Main Campus
+30564	HUM	1110	1	11:00:00	11:50:00	MWF	HLMS 229	Gilbert,Andrew Lawrence	Main Campus
+23151	HUM	1120	1	10:00:00	10:50:00	MWF	HUMN 190	Wiese,Annjeanette Michelle	Main Campus
+24207	HUM	1120	2	09:30:00	10:45:00	TTH	CLRE 209	Burba,Audrey	Main Campus
+25513	HUM	1120	3	12:30:00	13:45:00	TTH	ATLS 1B31	Burba,Audrey	Main Campus
+23152	HUM	1220	1	12:00:00	12:50:00	MWF	ECCR 265	Bernardini,Giulia	Main Campus
+24765	HUM	3093	1	11:00:00	12:15:00	TTH	HUMN 190	Burba,Audrey	Main Campus
+24766	HUM	3093	2	12:00:00	12:50:00	MWF	HALE 240	Gilbert,Andrew Lawrence	Main Campus
+30591	HUM	3500	1	14:00:00	14:50:00	MWF	HLMS 193	Wiese,Annjeanette Michelle	Main Campus
+24768	HUM	3800	1	14:00:00	14:50:00	MWF	HALE 260	Bernardini,Giulia	Main Campus
+30603	HUM	4000	1	12:30:00	13:45:00	TTH	HLMS 251	Cox,Jeffrey N	Main Campus
+24252	HUM	4011	1	14:00:00	15:15:00	TTH	KTCH 1B60	Gordon,Paul	Main Campus
+24205	HUM	4135	1	12:30:00	13:45:00	TTH	HUMN 150	Gordon,Paul	Main Campus
+22544	HUM	4170	1	13:00:00	13:50:00	MWF	CLRE 209	Wiese,Annjeanette Michelle	Main Campus
+30624	HUM	4504	1	11:00:00	12:15:00	TTH	MKNA 112	Muller-Sievers,Helmut	Main Campus
+24772	HUM	4811	1	13:00:00	13:50:00	MWF	HUMN 125	Grove,Vicki	Main Campus
+25505	INDO	1120	1	15:30:00	16:45:00	TTH	HLMS 159	Zavitri,Irma	Main Campus
+36272	IPHY	1950	1	11:00:00	12:15:00	TH	HUMN 1B45	Boyko,Marie Elizabeth	Main Campus
+21867	IPHY	2420	1	11:00:00	11:50:00	MWF	VAC 1B20	Stob,Nicole Rebecca	Main Campus
+21868	IPHY	2420	2	14:00:00	14:50:00	MWF	RAMY C250	Stob,Nicole Rebecca	Main Campus
+17836	IPHY	2800	100	12:30:00	13:45:00	TTH	ECCR 200	Hobbs,Steven Lee	Main Campus
+22594	IPHY	2800	101	08:00:00	08:50:00	F	CLRE 111	Hobbs,Steven Lee	Main Campus
+17837	IPHY	2800	102	09:00:00	09:50:00	F	CLRE 111	Hobbs,Steven Lee	Main Campus
+17838	IPHY	2800	103	10:00:00	10:50:00	F	CLRE 111	Hobbs,Steven Lee	Main Campus
+17839	IPHY	2800	200	15:30:00	16:45:00	TTH	ECCR 245	Alderete,Tanya	Main Campus
+17840	IPHY	2800	201	11:00:00	11:50:00	F	CLRE 111	Alderete,Tanya	Main Campus
+17841	IPHY	2800	202	12:00:00	12:50:00	F	CLRE 111	Alderete,Tanya	Main Campus
+23454	IPHY	2800	203	13:00:00	13:50:00	F	CLRE 111	Alderete,Tanya	Main Campus
+17855	IPHY	3410	1	12:30:00	13:45:00	TTH	MUEN E050	Heisler,Ruth Elizabeth	Main Campus
+22986	IPHY	3410	2	14:00:00	15:15:00	TTH	HALE 270	Saul,Leif J	Main Campus
+24597	IPHY	3410	310R	14:00:00	14:50:00	W	FLMG 150	Akacem,Lameese Dana	Main Campus
+17856	IPHY	3415	1	08:00:00	09:50:00	MW	RAMY N268	\N	Main Campus
+17857	IPHY	3415	2	10:00:00	11:50:00	MW	RAMY N268	\N	Main Campus
+17858	IPHY	3415	3	10:00:00	11:50:00	MW	RAMY N276	Hobbs,Steven Lee	Main Campus
+17859	IPHY	3415	4	12:00:00	13:50:00	MW	RAMY N268	Hobbs,Steven Lee	Main Campus
+17860	IPHY	3415	5	12:00:00	13:50:00	MW	RAMY N276	Thomas,Aimee	Main Campus
+17861	IPHY	3415	6	14:00:00	15:50:00	MW	RAMY N268	Hobbs,Steven Lee	Main Campus
+17862	IPHY	3415	7	14:00:00	15:50:00	MW	RAMY N276	Hobbs,Steven Lee	Main Campus
+17863	IPHY	3415	8	16:00:00	17:50:00	MW	RAMY N268	\N	Main Campus
+21743	IPHY	3415	9	16:00:00	17:50:00	MW	RAMY N276	Hobbs,Steven Lee	Main Campus
+21744	IPHY	3415	10	18:00:00	19:50:00	MW	RAMY N268	Hobbs,Steven Lee	Main Campus
+21770	IPHY	3415	11	08:00:00	09:50:00	TTH	RAMY N268	\N	Main Campus
+21771	IPHY	3415	12	10:00:00	11:50:00	TTH	RAMY N268	\N	Main Campus
+21772	IPHY	3415	13	10:00:00	11:50:00	TTH	RAMY N276	\N	Main Campus
+21800	IPHY	3415	14	12:00:00	13:50:00	TTH	RAMY N268	Hobbs,Steven Lee	Main Campus
+22407	IPHY	3415	15	12:00:00	13:50:00	TTH	RAMY N276	Hobbs,Steven Lee	Main Campus
+22639	IPHY	3415	16	16:00:00	17:50:00	TTH	RAMY N268	\N	 Main Campus
+22640	IPHY	3415	17	16:00:00	17:50:00	TTH	RAMY N276	\N	 Main Campus
+23870	IPHY	3415	18	18:00:00	19:50:00	TTH	RAMY N268	\N	 Main Campus
+24683	IPHY	3415	19	08:00:00	09:50:00	MW	RAMY N276	\N	 Main Campus
+24682	IPHY	3415	20	18:00:00	19:50:00	TTH	RAMY N276	\N	 Main Campus
+17864	IPHY	3430	1	11:00:00	11:50:00	MWF	ATLS 100	Casagrand,Janet L	 Main Campus
+17865	IPHY	3435	1	09:00:00	12:50:00	M	RAMY N168	 Foley,Teresa Eileen	 Main Campus
+17866	IPHY	3435	2	09:00:00	12:50:00	M	RAMY N176	 Foley,Teresa Eileen	 Main Campus
+17867	IPHY	3435	3	13:00:00	16:50:00	M	RAMY N168	 Foley,Teresa Eileen	 Main Campus
+17868	IPHY	3435	4	13:00:00	16:50:00	M	RAMY N176	 Foley,Teresa Eileen	 Main Campus
+17869	IPHY	3435	5	17:00:00	20:50:00	M	RAMY N168	 Foley,Teresa Eileen	 Main Campus
+17870	IPHY	3435	6	17:00:00	20:50:00	M	RAMY N176	\N	 Main Campus
+17871	IPHY	3435	7	09:30:00	13:20:00	T	RAMY N168	 Foley,Teresa Eileen	 Main Campus
+17872	IPHY	3435	8	09:30:00	13:20:00	T	RAMY N176	 Foley,Teresa Eileen	 Main Campus
+17873	IPHY	3435	9	13:30:00	17:20:00	T	RAMY N168	\N	 Main Campus
+17874	IPHY	3435	10	13:30:00	17:20:00	T	RAMY N176	\N	 Main Campus
+17875	IPHY	3435	11	09:00:00	12:50:00	W	RAMY N168	 Foley,Teresa Eileen	 Main Campus
+21762	IPHY	3435	12	09:00:00	12:50:00	W	RAMY N176	 Foley,Teresa Eileen	 Main Campus
+21869	IPHY	3435	13	13:00:00	16:50:00	W	RAMY N168	 Foley,Teresa Eileen	 Main Campus
+22408	IPHY	3435	14	13:00:00	16:50:00	W	RAMY N176	 Foley,Teresa Eileen	 Main Campus
+23872	IPHY	3435	15	09:30:00	13:20:00	TH	RAMY N168	 Foley,Teresa Eileen	 Main Campus
+37513	IPHY	3435	16	09:30:00	13:20:00	TH	RAMY N168	Shi,Jia	 Main Campus
+17876	IPHY	3470	1	12:30:00	13:45:00	TTH	GOLD A2B70	Bustamante,Heidi Margarita	 Main Campus
+17877	IPHY	3480	1	08:00:00	09:15:00	TTH	HUMN 1B50	Bustamante,Heidi Margarita	 Main Campus
+23160	IPHY	3490	1	13:00:00	13:50:00	MWF	 HLMS 252	 Foley,Teresa Eileen	 Main Campus
+23161	IPHY	3700	1	09:30:00	10:45:00	TTH	HUMN 1B35	Maldonado,Tammy Adele	 Main Campus
+23162	IPHY	3700	2	11:00:00	12:15:00	TTH	HUMN 1B35	Maldonado,Tammy Adele	 Main Campus
+23163	IPHY	3700	3	12:30:00	13:45:00	TTH	HUMN 1B35	 Boyko,Marie Elizabeth	 Main Campus
+24810	IPHY	3700	4	14:00:00	15:15:00	TTH	HUMN 1B35	Maldonado,Tammy Adele	 Main Campus
+25371	IPHY	3700	5	15:30:00	16:45:00	TTH	HUMN 1B35	Maldonado,Tammy Adele	 Main Campus
+31596	IPHY	4010	1	14:00:00	15:15:00	TTH	 HLMS 241	Shi,Jia	 Main Campus
+32712	IPHY	4010	2	16:00:00	18:30:00	T	 CLRE 210	Olsen,Gay Lynn	 Main Campus
+24254	IPHY	4010	801	10:00:00	11:15:00	M	 CLRE 111A	Wright,Kenneth P	 Main Campus
+23457	IPHY	4200	10	09:00:00	09:50:00	MWF	MUEN E417	 Stitzel,Jerry Alan	 Main Campus
+17921	IPHY	4440	100	11:00:00	12:15:00	TTH	 HLMS 252	Lowry,Christopher	 Main Campus
+17922	IPHY	4440	101	11:00:00	11:50:00	W	 CLRE 208	Lowry,Christopher	 Main Campus
+23455	IPHY	4440	102	12:00:00	12:50:00	W	 CLRE 104	Lowry,Christopher	 Main Campus
+23785	IPHY	4440	103	08:00:00	08:50:00	W	 CLRE 104	Lowry,Christopher	 Main Campus
+25425	IPHY	4440	104	09:00:00	09:50:00	W	 CLRE 104	Lowry,Christopher	 Main Campus
+25426	IPHY	4440	105	10:00:00	10:50:00	W	RAMY N1B31	Lowry,Christopher	 Main Campus
+24256	IPHY	4580	1	09:30:00	10:45:00	TTH	 HLMS 252	Wright,Kenneth P	 Main Campus
+22709	IPHY	4600	1	14:00:00	15:15:00	TTH	 VAC 1B20	Fleshner,Monika Renee	 Main Campus
+17965	IPHY	4650	100	09:30:00	10:45:00	TTH	ECCR 245	Mazzeo,Robert	 Main Campus
+17967	IPHY	4650	111	09:00:00	10:50:00	M	RAMY C209	Mazzeo,Robert	 Main Campus
+17970	IPHY	4650	211	12:00:00	13:50:00	M	RAMY C209	Mazzeo,Robert	 Main Campus
+17972	IPHY	4650	311	15:00:00	16:50:00	M	RAMY C209	Mazzeo,Robert	 Main Campus
+21798	IPHY	4650	411	18:00:00	19:50:00	M	RAMY C209	Mazzeo,Robert	 Main Campus
+22201	IPHY	4650	511	09:00:00	10:50:00	W	RAMY C209	Mazzeo,Robert	 Main Campus
+23858	IPHY	4650	611	12:00:00	13:50:00	W	RAMY C209	Mazzeo,Robert	 Main Campus
+23860	IPHY	4650	711	15:00:00	16:50:00	W	RAMY C209	Mazzeo,Robert	 Main Campus
+17989	IPHY	4720	10	10:00:00	10:50:00	MWF	ATLS 100	Casagrand,Janet L	 Main Campus
+17990	IPHY	4720	11	08:00:00	09:50:00	T	 CLRE 111	Casagrand,Janet L	 Main Campus
+17991	IPHY	4720	12	10:00:00	11:50:00	T	 CLRE 111	Casagrand,Janet L	 Main Campus
+17992	IPHY	4720	13	12:00:00	13:50:00	T	 CLRE 111	Casagrand,Janet L	 Main Campus
+17993	IPHY	4720	14	14:00:00	15:50:00	T	 CLRE 111	Casagrand,Janet L	 Main Campus
+18016	IPHY	4720	15	16:00:00	17:50:00	T	 CLRE 111	Casagrand,Janet L	 Main Campus
+22728	IPHY	4720	16	18:00:00	19:50:00	T	 CLRE 111	Casagrand,Janet L	 Main Campus
+25562	IPHY	4880	801	15:30:00	16:45:00	TTH	EKLC E1B75	 Harsh,John R	 Main Campus
+38245	IPHY	2420	300E	17:00:00	19:00:00	TH	\N	Schaetzel,Amanda Wayne Spears	Continuing Education
+17994	IPHY	5100	10	12:00:00	12:50:00	M	RAMY C250	Opp,Mark	Main Campus
+25478	IPHY	5262	1	12:30:00	15:00:00	TH	IBG 210	Ehringer,Marissa Aileen	Main Campus
+31603	IPHY	5800	1	13:00:00	13:50:00	MW	CLRE 302	McQueen,Matthew Bruce	Main Campus
+25344	IPHY	6010	1	11:00:00	12:15:00	TTH	CLRE 302	Hoeffer,Charles Albert	Main Campus
+24257	IPHY	6010	801	10:00:00	11:15:00	M	CLRE 111A	Wright,Kenneth P	Main Campus
+18298	IAFS	1000	100	12:30:00	13:45:00	TTH	HALE 270	Young,Gregory Denton	Main Campus
+38630	IAFS	3000	1	15:00:00	18:15:00	T	CLUB 6	Conzelman,Caroline Sommer	Main Campus
+25104	IAFS	3000	2	09:30:00	10:45:00	TTH	HALE 260	Snyder,Douglas Joseph	Main Campus
+23965	IAFS	3631	1	12:00:00	12:50:00	MWF	CLRE 208	Nordvig,Asger M.V.	Main Campus
+20626	IAFS	4500	1	09:30:00	10:45:00	TTH	HUMN 245	Zhang,Shuang	Main Campus
+18803	IAFS	4500	2	11:00:00	12:15:00	TTH	HUMN 245	Young,Gregory Denton	Main Campus
+18842	IAFS	4500	3	12:30:00	13:45:00	TTH	HUMN 145	Wyrod,Robert James	Main Campus
+18843	IAFS	4500	4	11:00:00	12:15:00	TTH	CLUB 6	Zeiler,Thomas	Main Campus
+24433	IAFS	4500	5	15:00:00	16:15:00	MW	KTCH 1B60	Scanlon,Sheila MQ	Main Campus
+36244	IAFS	4500	6	14:00:00	15:15:00	TTH	CLUB 6	Chester,Lucy P	Main Campus
+23099	IAFS	4500	551R	18:00:00	20:30:00	W	Offered through CU in	Zierler,David B	Main Campus
+17745	ITAL	1010	1	11:00:00	11:50:00	M-TH	HUMN 145	\N	Main Campus
+23782	ITAL	1010	2	12:00:00	12:50:00	MTW	HLMS 152	Vasile,Olga	Main Campus
+25133	ITAL	1010	3	13:00:00	13:50:00	M-TH	HLMS 145	\N	Main Campus
+17753	ITAL	1020	1	10:00:00	10:50:00	M-TH	HLMS 181	Vasile,Olga	Main Campus
+17754	ITAL	1020	2	12:00:00	12:50:00	M-TH	HUMN 180	Torriani,Chiara	Main Campus
+23201	ITAL	1020	3	11:00:00	11:50:00	MTW	HLMS 145	Saurini,Susanna	Main Campus
+24053	ITAL	1050	1	10:00:00	10:50:00	M-TH	HLMS 152	Saurini,Susanna	Main Campus
+23626	ITAL	1500	1	12:30:00	13:45:00	TTH	HUMN 135	Craven,Priscilla Call	Main Campus
+17755	ITAL	2110	1	09:00:00	09:50:00	M-TH	HUMN 1B70	Vasile,Olga	Main Campus
+17756	ITAL	2120	1	12:00:00	12:50:00	M-TH	CLRE 301	Saurini,Susanna	Main Campus
+17757	ITAL	2130	1	14:00:00	15:15:00	TTH	HUMN 245	Craven,Priscilla Call	Main Campus
+36225	ITAL	3040	1	13:00:00	13:50:00	MWF	HUMN 245	Ardizzoni,Michela	Main Campus
+24792	ITAL	3160	1	09:30:00	10:45:00	TTH	HALE 240	Magnanini,Suzanne M.	Main Campus
+36226	ITAL	4040	1	11:00:00	12:15:00	TTH	KTCH 1B84	Seno,Cosetta	Main Campus
+31856	ITAL	4500	10	15:00:00	15:50:00	MWF	HUMN 145	Torriani,Chiara	Main Campus
+31857	ITAL	4500	11	16:00:00	16:50:00	W	HUMN 145	Torriani,Chiara	Main Campus
+36228	ITAL	4600	1	12:30:00	13:45:00	TTH	HUMN 125	Magnanini,Suzanne M.	Main Campus
+17695	JPNS	1020	1	10:00:00	10:50:00	M-F	HUMN 186	Husby,Megan Lynn	Main Campus
+24038	JPNS	1020	2	11:00:00	11:50:00	M-F	CHEM 145	Husby,Megan Lynn	Main Campus
+17696	JPNS	1020	3	11:00:00	11:50:00	M-F	HUMN 186	Kawakami,Kiyomi	Main Campus
+21852	JPNS	1020	4	12:00:00	12:50:00	M-F	HUMN 186	Kawakami,Kiyomi	Main Campus
+17697	JPNS	1020	5	13:00:00	13:50:00	M-F	HUMN 186	Kawakami,Kiyomi	Main Campus
+17698	JPNS	1020	6	14:00:00	14:50:00	M-F	HUMN 186	Kawakami,Kiyomi	Main Campus
+32178	JPNS	1051	1	12:00:00	12:50:00	MWF	KTCH 1B87	Burge,Marjorie	Main Campus
+17719	JPNS	2120	1	10:00:00	10:50:00	M-F	HLMS 185	Schibli,Hisako	Main Campus
+17722	JPNS	2120	2	11:00:00	11:50:00	M-F	HLMS 181	Schibli,Hisako	Main Campus
+21853	JPNS	2120	3	12:00:00	12:50:00	M-F	HLMS 181	Schibli,Hisako	Main Campus
+31409	JPNS	3831	1	12:30:00	13:45:00	TTH	EKLC E1B50	Lee,I-Zhuen	Main Campus
+23214	JPNS	3851	1	09:30:00	10:45:00	TTH	HUMN 125	Shouse,Ji Young	Main Campus
+31410	JPNS	3871	1	15:30:00	16:45:00	TTH	MUEN E064	Brown,Janice C	Main Campus
+31411	JPNS	3891	1	17:00:00	18:15:00	TTH	MUEN E126	Brown,Janice C	Main Campus
+23097	JPNS	4120	1	11:00:00	11:50:00	MWF	HUMN 270	Hacke,Mariko	Main Campus
+31412	JPNS	4320	1	15:00:00	16:15:00	MW	HUMN 180	Burge,Marjorie	Main Campus
+31413	JPNS	5320	1	15:00:00	16:15:00	MW	HUMN 180	Burge,Marjorie	Main Campus
+31415	JPNS	5810	1	15:30:00	18:00:00	T	HUMN 245	Lee,I-Zhuen	Main Campus
+38021	JWST	3130	1	15:00:00	15:50:00	MWF	HLMS 104	Wartell,Rebecca	Main Campus
+38849	JWST	3150	1	10:00:00	10:50:00	MWF	DUAN G125	Boyd,Samuel L	Main Campus
+37585	JWST	4200	1	11:00:00	12:15:00	TTH	HLMS 237	Mehta,Samira	Main Campus
+38020	JWST	4524	1	14:00:00	14:50:00	MWF	HLMS 104	Wartell,Rebecca	Main Campus
+31416	KREN	1011	1	12:00:00	12:50:00	MWF	HUMN 135	Yi,Ivanna Sang Een	Main Campus
+17736	KREN	1020	1	09:00:00	09:50:00	M-F	HUMN 186	Kim,Sangbok	Main Campus
+23918	KREN	1020	2	10:00:00	10:50:00	M-F	HLMS 263	Huh,Yoonyung	Main Campus
+24269	KREN	1020	3	13:00:00	13:50:00	M-F	HUMN 180	Suh,Heeseung	Main Campus
+32179	KREN	1020	4	12:00:00	12:50:00	M-F	CHEM 131	Huh,Yoonyung	Main Campus
+17737	KREN	2120	1	10:00:00	10:50:00	M-F	HUMN 1B70	Kim,Sangbok	Main Campus
+17738	KREN	3120	1	11:00:00	11:50:00	M-F	HUMN 1B70	Kim,Sangbok	Main Campus
+24619	KREN	3851	1	14:00:00	14:50:00	MWF	ECON 205	Yi,Ivanna Sang Een	Main Campus
+23035	LGBT	2000	1	15:00:00	16:15:00	MW	HUMN 135	Bowen,Scarlet	Main Campus
+23992	LIBB	1133	285R	15:30:00	16:50:00	MW	LIBY 05E	Alpern,Tyler Jon	Main Campus
+25067	LIBB	2500	280R	15:30:00	17:20:00	TTH	HUMN 1B45	\N	Main Campus
+25066	LIBB	2800	285R	09:30:00	10:45:00	MW	LIBY 103	Lundy,Tiel Louise	Main Campus
+32933	LING	1000	11	16:00:00	16:50:00	F	HLMS 181	\N	Main Campus
+32812	LING	2400	10	11:00:00	11:50:00	MW	HLMS 141	Calder,Jeremy	Main Campus
+32814	LING	2400	11	08:00:00	08:50:00	F	VAC 1B90	\N	Main Campus
+36323	LING	3005	1	08:00:00	09:15:00	TTH	MUEN E0046	Carston,Ronald McKell	Main Campus
+22314	LING	3100	10	13:00:00	13:50:00	MW	BESC 185	Scarborough,Rebecca Anne	Main Campus
+25059	LING	3430	1	14:00:00	14:50:00	MWF	CLRE 301	Hargraves,Orin	Main Campus
+37691	LING	4100	2	11:00:00	12:15:00	TTH	CLRE 209	Frajzyngier,Zygmunt	Main Campus
+37695	LING	4100	3	15:00:00	17:30:00	W	CASE E250	Farrelly,Rachel	Main Campus
+37718	LING	4100	4	09:30:00	10:45:00	TTH	ECON 16	Haynie,Hannah	Main Campus
+38834	LING	4100	10	14:00:00	15:15:00	TTH	DUAN G2B47	Raymond,Chase	Main Campus
+23764	LING	4420	1	12:30:00	13:45:00	TTH	ECON 16	Haynie,Hannah	Main Campus
+23079	LING	4560	1	10:00:00	10:50:00	MWF	SLHS 230	Meyers,Christina Nicole	Main Campus
+24492	LING	4560	2	11:00:00	11:50:00	MWF	SLHS 230	Meyers,Christina Nicole	Main Campus
+19842	LING	4610	1	15:30:00	16:45:00	TTH	MCOL E155	Farrelly,Rachel	Main Campus
+32829	LING	4700	1	11:00:00	12:15:00	TTH	CLRE 208	Fox,Barbara	Main Campus
+25528	LING	4910	2	15:00:00	17:30:00	M	HLMS 285	Farrelly,Rachel	Main Campus
+37641	LING	5140	1	13:30:00	15:30:00	M	FLMG 286	Brown,Susan W	Main Campus
+19840	LING	5410	1	14:00:00	15:15:00	TTH	CLRE 104	Hulden,Mans Elis	Main Campus
+19841	LING	5430	1	12:30:00	13:45:00	TTH	CLRE 208	Narasimhan,Bhuvaneswari	Main Campus
+19843	LING	5610	1	15:30:00	16:45:00	TTH	MCOL E155	Farrelly,Rachel	Main Campus
+37696	LING	5620	1	15:00:00	17:30:00	W	CASE E250	Farrelly,Rachel	Main Campus
+24158	LING	5800	1	09:30:00	10:45:00	TTH	ECON 16	Haynie,Hannah	Main Campus
+23769	LING	5832	1	11:00:00	12:15:00	TTH	HUMN 1B80	Kann,Katharina Lisa Maria	Main Campus
+19999	LING	6200	1	11:00:00	12:15:00	TTH	\N	Martin,James H	Main Campus
+37693	LING	6300	1	11:00:00	12:15:00	TTH	CLRE 209	Frajzyngier,Zygmunt	Main Campus
+32866	LING	7030	1	09:00:00	11:30:00	W	HLMS 285	Scarborough,Rebecca Anne	Main Campus
+32867	LING	7100	1	14:00:00	15:15:00	TTH	HLMS 285	Frajzyngier,Zygmunt	Main Campus
+32868	LING	7565	1	09:30:00	10:45:00	TTH	HUMN 1B90	Hulden,Mans Elis	Main Campus
+32869	LING	7800	3	13:00:00	15:30:00	W	HLMS 285	Calder,Jeremy	Main Campus
+23722	LING	7800	4	16:00:00	17:30:00	MW	CLRE 302	\N	Main Campus
+32882	LING	7800	5	11:00:00	13:30:00	TH	HLMS 285	Michaelis-Cummings,Laura A	Main Campus
+21731	MATH	1012	1	08:00:00	08:50:00	MWF	ECCR 1B51	\N	Main Campus
+21732	MATH	1012	2	09:00:00	09:50:00	MWF	CLUB 4	\N	Main Campus
+21733	MATH	1012	3	09:00:00	09:50:00	MWF	MUEN E131	\N	Main Campus
+21734	MATH	1012	4	11:00:00	11:50:00	MWF	HUMN 190	Pass,Matthew H	Main Campus
+21735	MATH	1012	5	12:00:00	12:50:00	MWF	CLUB 4	Pass,Matthew H	Main Campus
+23207	MATH	1012	6	13:00:00	13:50:00	MWF	DUAN G2B41	\N	Main Campus
+21736	MATH	1012	7	14:00:00	14:50:00	MWF	DUAN G2B47	\N	Main Campus
+21739	MATH	1012	8	15:00:00	15:50:00	MWF	STAD 112	\N	Main Campus
+23208	MATH	1012	9	08:00:00	09:15:00	TTH	FLMG 157	\N	Main Campus
+21756	MATH	1012	10	09:30:00	10:45:00	TTH	ECCR 155	\N	Main Campus
+23082	MATH	1012	11	11:00:00	12:15:00	TTH	ECCR 155	\N	Main Campus
+24062	MATH	1012	12	12:30:00	13:45:00	TTH	FLMG 157	\N	Main Campus
+24063	MATH	1012	13	14:00:00	15:15:00	TTH	ECCR 155	\N	Main Campus
+23683	MATH	1112	1	08:00:00	08:50:00	MTWF	ECCR 131	Manley,Kevin William	Main Campus
+23684	MATH	1112	2	08:00:00	08:50:00	MTWF	ECCR 139	\N	Main Campus
+23685	MATH	1112	3	08:00:00	08:50:00	MTWF	MUEN E123	Harper,Jacob Tyler	Main Campus
+23686	MATH	1112	4	09:00:00	09:50:00	MTWF	MUEN D439	\N	Main Campus
+23687	MATH	1112	5	09:00:00	09:50:00	MTWF	MUEN D144	Harper,Jacob Tyler	Main Campus
+23688	MATH	1112	6	09:00:00	09:50:00	MTWF	MATH 170	\N	Main Campus
+23689	MATH	1112	7	10:00:00	10:50:00	MTWF	MUEN D439	Harper,Jacob Tyler	Main Campus
+23690	MATH	1112	8	10:00:00	10:50:00	MTWF	MATH 170	\N	Main Campus
+23691	MATH	1112	9	11:00:00	11:50:00	MTWF	MATH 170	Grulke,Elizabeth Lee	Main Campus
+23204	MATH	1112	10	11:00:00	11:50:00	MTWF	STAD 112	\N	Main Campus
+23205	MATH	1112	11	11:00:00	11:50:00	MTWF	KCEN N101	\N	Main Campus
+23206	MATH	1112	12	12:00:00	12:50:00	MTWF	MUEN D144	\N	Main Campus
+23789	MATH	1112	13	12:00:00	12:50:00	MTWF	MATH 170	Grulke,Elizabeth Lee	Main Campus
+23809	MATH	1112	14	12:00:00	12:50:00	MTWF	STAD 112	\N	Main Campus
+23820	MATH	1112	15	12:00:00	12:50:00	MTWF	KCEN N101	\N	Main Campus
+24065	MATH	1112	16	13:00:00	13:50:00	MTWF	HLMS 263	\N	Main Campus
+24066	MATH	1112	17	13:00:00	13:50:00	MTWF	MATH 170	\N	Main Campus
+24191	MATH	1112	18	14:00:00	14:50:00	MTWF	FLMG 157	\N	Main Campus
+24196	MATH	1112	19	14:00:00	14:50:00	MTWF	MATH 170	\N	Main Campus
+24494	MATH	1112	20	15:00:00	15:50:00	MTWF	HLMS 247	\N	Main Campus
+24495	MATH	1112	21	15:00:00	15:50:00	MTWF	MUEN D144	\N	Main Campus
+24496	MATH	1112	22	15:00:00	15:50:00	MTWF	MUEN E118	\N	Main Campus
+24684	MATH	1112	23	15:00:00	15:50:00	MTWF	MUEN E123	\N	Main Campus
+24681	MATH	1112	24	16:00:00	16:50:00	MTWF	ECCR 1B55	\N	Main Campus
+25362	MATH	1112	25	16:00:00	16:50:00	MTWF	MUEN D144	\N	Main Campus
+24629	MATH	1112	640R	09:00:00	09:50:00	MTWF	WVN 160	\N	Main Campus
+25359	MATH	1112	641R	10:00:00	10:50:00	MTWF	WVN 160	\N	Main Campus
+25360	MATH	1112	642R	13:00:00	13:50:00	MTWF	WVN 160	Ogaja,James W	Main Campus
+25361	MATH	1112	643R	14:00:00	14:50:00	MTWF	WVN 160	Ogaja,James W	Main Campus
+21249	MATH	1120	1	13:00:00	13:50:00	MWF	ECCR 139	Moritz,Daniel	Main Campus
+19465	MATH	1150	2	09:00:00	09:50:00	MTWF	CLRE 301	\N	Main Campus
+19466	MATH	1150	3	10:00:00	10:50:00	MTWF	ECCR 1B55	\N	Main Campus
+23530	MATH	1150	6	14:00:00	14:50:00	MTWF	STAD 112	\N	Main Campus
+24080	MATH	1151	1	09:00:00	10:50:00	TH	MATH 170	\N	Main Campus
+24081	MATH	1151	2	11:00:00	12:50:00	TH	MATH 170	\N	Main Campus
+24082	MATH	1151	3	13:00:00	14:50:00	TH	MATH 170	\N	Main Campus
+24498	MATH	1212	1	08:00:00	08:50:00	MWF	ECCR 155	\N	Main Campus
+24499	MATH	1212	3	10:00:00	10:50:00	MWF	CLRE 302	\N	Main Campus
+24500	MATH	1212	4	11:00:00	11:50:00	MWF	DUAN G131	\N	Main Campus
+24548	MATH	1212	5	12:00:00	12:50:00	MWF	ECCR 105	\N	Main Campus
+24549	MATH	1212	6	13:00:00	13:50:00	MWF	ECCR 1B51	\N	Main Campus
+24550	MATH	1212	7	14:00:00	14:50:00	MWF	MUEN E113	\N	Main Campus
+24551	MATH	1212	8	15:00:00	15:50:00	MWF	ECCR 151	\N	Main Campus
+21251	MATH	1300	2	08:00:00	08:50:00	M-F	MUEN D144	\N	Main Campus
+21252	MATH	1300	3	10:00:00	10:50:00	M-F	KCEN N101	\N	Main Campus
+21253	MATH	1300	4	10:00:00	10:50:00	M-F	MUEN E118	Stalvey,Harrison	Main Campus
+21256	MATH	1300	7	11:00:00	11:50:00	M-F	KCEN N100	\N	Main Campus
+21257	MATH	1300	8	11:00:00	11:50:00	M-F	MUEN E118	Ogaja,James W	Main Campus
+21259	MATH	1300	10	11:00:00	11:50:00	M-F	MUEN E126	\N	Main Campus
+21260	MATH	1300	11	12:00:00	12:50:00	M-F	KCEN N100	\N	Main Campus
+21261	MATH	1300	12	12:00:00	12:50:00	M-F	MUEN E126	\N	Main Campus
+21262	MATH	1300	13	13:00:00	13:50:00	M-F	KCEN N100	\N	Main Campus
+21263	MATH	1300	14	13:00:00	13:50:00	M-F	MUEN E126	Ogaja,James W	Main Campus
+21264	MATH	1300	15	14:00:00	14:50:00	M-F	HLMS 263	\N	Main Campus
+36248	MATH	1300	18	15:00:00	15:50:00	M-F	CLRE 211	\N	Main Campus
+22619	MATH	2001	1	09:00:00	09:50:00	MWF	ECCR 131	Mayr,Peter	Main Campus
+22332	MATH	2001	2	10:00:00	10:50:00	MWF	ECCR 108	Casalaina-Martin,Sebastian Ben	Main Campus
+22560	MATH	2001	3	12:00:00	12:50:00	MWF	ECCR 108	Nita,Alexander	Main Campus
+23053	MATH	2001	4	13:00:00	13:50:00	MWF	ECCR 108	Stalvey,Harrison	Main Campus
+23054	MATH	2001	5	14:00:00	14:50:00	MWF	ECCR 131	Stange,Katherine E	Main Campus
+25300	MATH	2002	1	10:00:00	10:50:00	MWF	ECCR 131	Pflaum,Markus Josef	Main Campus
+24398	MATH	2130	1	09:00:00	09:50:00	MWF	STAD 135	\N	Main Campus
+24399	MATH	2130	2	10:00:00	10:50:00	MWF	KCEN N252	Manley,Kevin William	Main Campus
+24400	MATH	2130	3	11:00:00	11:50:00	MWF	ECCR 139	Zhang,Yining	Main Campus
+24401	MATH	2130	4	12:00:00	12:50:00	MWF	MUEN E123	Zhang,Zheng	Main Campus
+24657	MATH	2130	5	13:00:00	13:50:00	MWF	RAMY N1B31	\N	Main Campus
+24718	MATH	2130	6	14:00:00	14:50:00	MWF	ECCR 105	Fox,Jeffrey	Main Campus
+24402	MATH	2135	1	09:00:00	09:50:00	MWF	ECCR 151	Wise,Jonathan S	Main Campus
+24554	MATH	2135	2	12:00:00	12:50:00	MWF	MUEN E113	Xu,Tianyuan	Main Campus
+21291	MATH	2300	3	09:00:00	09:50:00	M-F	MUEN E123	\N	Main Campus
+21292	MATH	2300	4	09:00:00	09:50:00	M-F	MUEN E118	\N	Main Campus
+21294	MATH	2300	6	11:00:00	11:50:00	M-F	ECCR 1B55	Berrizbeitia,Pedro Jose	Main Campus
+21295	MATH	2300	7	11:00:00	11:50:00	M-F	MUEN D144	\N	Main Campus
+21296	MATH	2300	8	11:00:00	11:50:00	M-F	MUEN E432	Mishev,Ilia Dimitrov	Main Campus
+22561	MATH	2300	10	12:00:00	12:50:00	M-F	MUEN E118	Mishev,Ilia Dimitrov	Main Campus
+22562	MATH	2300	11	13:00:00	13:50:00	M-F	ECCR 1B55	Bronstein,Albert	Main Campus
+23717	MATH	2300	15	14:00:00	14:50:00	M-F	MUEN E118	\N	Main Campus
+23243	MATH	2300	16	14:00:00	14:50:00	M-F	MUEN E432	Berrizbeitia,Pedro Jose	Main Campus
+24091	MATH	2300	18	15:00:00	15:50:00	M-F	KCEN N101	\N	Main Campus
+24092	MATH	2300	19	15:00:00	15:50:00	M-F	MUEN E126	\N	Main Campus
+21306	MATH	2400	4	09:00:00	09:50:00	M-F	MUEN E432	Berrizbeitia,Pedro Jose	Main Campus
+23718	MATH	2400	7	10:00:00	10:50:00	M-F	MUEN E432	Yang,Xingzhou	Main Campus
+24558	MATH	2400	11	14:00:00	14:50:00	M-F	MUEN E126	Berrizbeitia,Pedro Jose	Main Campus
+24559	MATH	2400	12	15:00:00	15:50:00	M-F	ECCR 1B55	O'Rourke,Sean Daniel	Main Campus
+36299	MATH	2400	14	16:00:00	16:50:00	M-F	MUEN D439	O'Rourke,Sean Daniel	Main Campus
+21308	MATH	2510	1	08:00:00	08:50:00	MWF	ECCR 151	Yacoub,Wafa H	Main Campus
+22642	MATH	2510	2	09:00:00	09:50:00	MWF	ECCR 155	Yacoub,Wafa H	Main Campus
+23118	MATH	2510	3	09:00:00	09:50:00	MWF	ECCR 1B51	\N	Main Campus
+23119	MATH	2510	4	09:00:00	09:50:00	MWF	CLRE 302	\N	Main Campus
+23128	MATH	2510	5	11:00:00	11:50:00	MWF	ECCR 150	\N	Main Campus
+23129	MATH	2510	6	11:00:00	11:50:00	MWF	KCEN N252	\N	Main Campus
+23351	MATH	2510	7	11:00:00	11:50:00	MWF	KTCH 1B87	\N	Main Campus
+23352	MATH	2510	8	12:00:00	12:50:00	MWF	CASE E340	\N	Main Campus
+23353	MATH	2510	9	12:00:00	12:50:00	MWF	ECCR 151	\N	Main Campus
+23371	MATH	2510	10	13:00:00	13:50:00	MWF	ECCR 105	\N	Main Campus
+23405	MATH	2510	11	13:00:00	13:50:00	MWF	KTCH 1B87	\N	Main Campus
+24100	MATH	2510	12	14:00:00	14:50:00	MWF	FLMG 156	\N	Main Campus
+24190	MATH	2510	13	14:00:00	14:50:00	MWF	STAD 140	\N	Main Campus
+24561	MATH	2510	14	15:00:00	15:50:00	MWF	ECCR 155	\N	Main Campus
+25567	MATH	2510	15	16:00:00	16:50:00	MWF	MUEN E432	\N	Main Campus
+24129	MATH	2510	640R	11:00:00	11:50:00	MWF	WVN 160	\N	Main Campus
+24130	MATH	2510	641R	12:00:00	12:50:00	MWF	WVN 160	\N	Main Campus
+24618	MATH	2510	642R	13:00:00	13:50:00	MWF	WVN 107	\N	Main Campus
+24617	MATH	2510	643R	14:00:00	14:50:00	MWF	WVN 107	\N	Main Campus
+24616	MATH	2510	644R	15:00:00	15:50:00	MWF	WVN 181A--181B	\N	Main Campus
+21309	MATH	3001	1	09:00:00	09:50:00	MWF	ECCR 110	Hu,Yuhao	Main Campus
+23058	MATH	3001	2	10:00:00	10:50:00	MWF	ECCR 110	Jesudason,Judith	Main Campus
+24101	MATH	3001	3	12:00:00	12:50:00	MWF	ECCR 110	Walter,Martin Edward	Main Campus
+21753	MATH	3110	1	10:00:00	10:50:00	MWF	ECCR 139	Tubbs,Robert Earl	Main Campus
+21310	MATH	3140	1	09:00:00	09:50:00	MWF	MUEN E130	Grant,David	Main Campus
+25479	MATH	3210	1	13:00:00	13:50:00	MWF	ECCR 131	Szendrei,Agnes Erzsebet	Main Campus
+32616	EME	5005	2	17:30:00	20:00:00	W	ECCR 150	Bailey,Wendy	Main Campus
+21351	MATH	3430	1	09:00:00	09:50:00	MWF	RAMY N1B75	Vernerey,Divya E.	Main Campus
+21352	MATH	3430	2	10:00:00	10:50:00	MWF	ECCR 1B51	Zhang,Yining	Main Campus
+24659	MATH	3430	3	12:00:00	12:50:00	MWF	KCEN N252	Hu,Yuhao	Main Campus
+25575	MATH	3430	4	13:00:00	13:50:00	MWF	KTCH 1B71	Gorokhovsky,Alexander	Main Campus
+23210	MATH	3450	1	14:00:00	14:50:00	MWF	ECCR 116	Zhang,Zheng	Main Campus
+21349	MATH	3510	1	09:00:00	09:50:00	MWF	HLMS 263	Mishev,Ilia Dimitrov	Main Campus
+21766	MATH	4140	1	09:00:00	09:50:00	MWF	ECCR 116	Casalaina-Martin,Sebastian Ben	Main Campus
+25333	MATH	4330	1	13:00:00	13:50:00	MWF	ECCR 110	Fox,Jeffrey	Main Campus
+21386	MATH	4470	1	14:00:00	14:50:00	MWF	ECCR 139	Clelland,Jeanne Nielsen	Main Campus
+21354	MATH	4510	1	10:00:00	10:50:00	MWF	ECCR 135	Timmer,Joseph Benjamin	Main Campus
+24175	MATH	4510	2	12:00:00	12:50:00	MWF	ECCR 116	Bronstein,Albert	Main Campus
+36361	MATH	4510	3	14:00:00	14:50:00	MWF	ECCR 151	\N	Main Campus
+18422	MATH	4520	1	15:00:00	15:50:00	MWF	ECCR 135	Englander,Janos	Main Campus
+21389	MATH	4540	1	10:00:00	10:50:00	MWF	FLMG 156	\N	Main Campus
+25339	MATH	4810	1	18:00:00	19:15:00	MW	STAD 140	\N	Main Campus
+36371	MATH	4810	2	13:00:00	13:50:00	MWF	ECCR 116	Clelland,Jeanne Nielsen	Main Campus
+22268	MATH	4820	1	12:00:00	12:50:00	MWF	ECCR 118	Elliott,Peter D	Main Campus
+38242	MATH	1150	300E	17:30:00	19:30:00	MW	\N	Khalili,Saeed	Continuing Education
+38241	MATH	1300	300E	18:00:00	20:30:00	TTH	\N	Nita,Alexander	Continuing Education
+38239	MATH	2510	300E	18:00:00	21:00:00	M	\N	Eby,Derek J	Continuing Education
+35588	MATH	5040	1	09:30:00	10:45:00	TTH	DUAN G2B21	Hermele,Michael Aaron	Main Campus
+25572	MATH	5905	3	17:00:00	17:50:00	W	ECCR 108	\N	Main Campus
+36384	MATH	6000	1	11:00:00	11:50:00	MWF	MATH 220	Kearnes,Keith	Main Campus
+21358	MATH	6140	1	09:00:00	09:50:00	MWF	ECCR 1B55	Green,Richard Mutegeki	Main Campus
+36387	MATH	6190	1	14:00:00	14:50:00	MWF	MATH 220	Elliott,Peter D	Main Campus
+23061	MATH	6220	1	14:00:00	14:50:00	MWF	ECCR 108	Pflaum,Markus Josef	Main Campus
+21359	MATH	6230	1	12:00:00	12:50:00	MWF	ECCR 131	Czubak,Magda	Main Campus
+36389	MATH	6290	1	10:00:00	10:50:00	MWF	ECCR 118	Wise,Jonathan S	Main Campus
+21361	MATH	6320	1	13:00:00	13:50:00	MWF	KCEN N252	Jesudason,Judith	Main Campus
+36392	MATH	6534	1	13:00:00	13:50:00	MWF	KCEN S163	Englander,Janos	Main Campus
+36394	MATH	8114	1	13:00:00	13:50:00	MWF	MATH 220	Stange,Katherine E	Main Campus
+36395	MATH	8370	1	10:00:00	10:50:00	MWF	MATH 220	Walter,Martin Edward	Main Campus
+25571	MATH	8815	1	09:00:00	09:50:00	TH	MATH 350	\N	Main Campus
+22326	MCD	1150	1	11:00:00	12:15:00	TTH	GOLD A120	Martin,Jennifer Mary	Main Campus
+24341	MCD	1150	800	11:00:00	12:15:00	TTH	GOLD A120	Martin,Jennifer Mary	Main Campus
+24200	MCD	1152	1	11:00:00	11:50:00	M	GOLD A2B07	Martin,Jennifer Mary	Main Campus
+24201	MCD	1152	2	16:30:00	17:20:00	M	GOLD A120	Martin,Jennifer Mary	Main Campus
+24202	MCD	1152	3	11:00:00	11:50:00	W	GOLD A2B07	Martin,Jennifer Mary	Main Campus
+24034	MCD	1161	10	15:00:00	15:50:00	W	GOLD A2B70	Fillman,Christy Lynn	Main Campus
+24014	MCD	1161	11	10:00:00	11:50:00	TTH	MUEN E0040	Fillman,Christy Lynn	Main Campus
+24035	MCD	1161	12	12:00:00	13:50:00	TTH	MUEN E0040	Greening,Megan Lea	Main Campus
+24036	MCD	1161	13	14:00:00	15:50:00	TTH	MUEN E0040	Greening,Megan Lea	Main Campus
+24601	MCD	1161	14	10:00:00	11:50:00	TTH	PORT B0026	Fillman,Christy Lynn	Main Campus
+24602	MCD	1161	15	12:00:00	13:50:00	TTH	PORT B0026	Fillman,Christy Lynn	Main Campus
+24603	MCD	1161	16	14:00:00	15:50:00	TTH	PORT B0026	Greening,Megan Lea	Main Campus
+25363	MCD	1161	17	10:00:00	11:50:00	WF	PORT B0026	Fillman,Christy Lynn	Main Campus
+21884	MCD	2150	1	09:00:00	09:50:00	MWF	MUEN E050	Knight,Jennifer Kirsten	Main Campus
+21885	MCD	2150	2	10:00:00	10:50:00	MWF	MUEN E050	Knight,Jennifer Kirsten	Main Campus
+37551	MCD	2150	214R	11:00:00	12:15:00	TTH	KITW N133	Gorski,Jessica Anne	Main Campus
+24583	MCD	2150	215R	09:00:00	09:50:00	MWF	KITW N133	Avena,Jennifer Susan	Main Campus
+22493	MCD	2150	800	09:00:00	09:50:00	MWF	MUEN E050	Knight,Jennifer Kirsten	Main Campus
+23792	MCD	2152	1	14:00:00	14:50:00	M	GOLD A2B07	Fillman,Christy Lynn	Main Campus
+23793	MCD	2152	2	15:00:00	15:50:00	M	GOLD A2B07	Fillman,Christy Lynn	Main Campus
+23794	MCD	2152	3	16:00:00	16:50:00	M	GOLD A2B07	Fillman,Christy Lynn	Main Campus
+23795	MCD	2152	4	11:00:00	11:50:00	F	GOLD A2B07	Fillman,Christy Lynn	Main Campus
+23796	MCD	2152	6	13:00:00	13:50:00	F	GOLD A2B07	Fillman,Christy Lynn	Main Campus
+24182	MCD	2152	7	14:00:00	14:50:00	F	GOLD A2B07	Fillman,Christy Lynn	Main Campus
+22321	MCD	2161	1	13:00:00	14:50:00	MW	GOLD A1B20	Guild,Nancy A	Main Campus
+23376	MCD	2171	10	12:00:00	12:50:00	W	GOLD A120	Bjerke,Maureen Ann	Main Campus
+24010	MCD	2171	11	10:00:00	11:50:00	MW	PORT B0046	Bjerke,Maureen Ann	Main Campus
+24011	MCD	2171	12	13:00:00	14:50:00	MW	PORT B0046	Harvey,Pamela Ann	Main Campus
+24611	MCD	2171	13	15:00:00	16:50:00	MW	PORT B0046	Bjerke,Maureen Ann	Main Campus
+24612	MCD	2171	14	10:00:00	11:50:00	TTH	PORT B0046	Bjerke,Maureen Ann	Main Campus
+24613	MCD	2171	15	12:00:00	13:50:00	TTH	PORT B0046	Bjerke,Maureen Ann	Main Campus
+24614	MCD	2171	16	14:00:00	15:50:00	TTH	PORT B0046	Harvey,Pamela Ann	Main Campus
+37524	MCD	2200	1	12:30:00	13:45:00	TTH	PORT B121	Stowell,Michael	Main Campus
+37530	MCD	2350	1	10:00:00	10:50:00	MWF	PORT B121	McIntosh,J Richard	Main Campus
+23202	MCD	3135	1	14:00:00	14:50:00	MWF	GOLD A2B70	Kralj,Joel M	Main Campus
+25408	MCD	3140	10	15:00:00	15:50:00	M	GOLD A120	Vigers,Alison Jane	Main Campus
+19568	MCD	3140	11	09:00:00	10:50:00	TTH	GOLD A1B16	Vigers,Alison Jane	Main Campus
+22614	MCD	3140	12	13:00:00	14:50:00	TTH	GOLD A1B16	Vigers,Alison Jane	Main Campus
+22637	MCD	3140	13	15:00:00	16:50:00	TTH	GOLD A1B16	Vigers,Alison Jane	Main Campus
+24660	MCD	3140	14	09:00:00	10:50:00	WF	GOLD A1B16	Vigers,Alison Jane	Main Campus
+31515	MCD	3140	15	11:00:00	12:50:00	WF	GOLD A1B16	Vigers,Alison Jane	Main Campus
+19337	MCD	3145	1	11:00:00	12:15:00	TTH	GOLD A2B70	Niswander,Lee Ann	Main Campus
+24939	MCD	3150	1	10:00:00	11:15:00	MW	GOLD A120	Singh,Ravinder	Main Campus
+39120	MCD	3300	1	12:00:00	13:15:00	MW	GOLD A1B60	Singh,Ravinder	Main Campus
+19569	MCD	3350	1	15:30:00	16:45:00	TTH	PORT B121	Vanblerkom,Jonathan	Main Campus
+39121	MCD	3450	1	10:30:00	11:20:00	MWF	BIOT A108	Dowell-Deen,Robin	Main Campus
+31422	MCD	3700	1	09:30:00	10:45:00	TTH	GOLD A120	Su,Tin Tin	Main Campus
+25437	MCD	4101	10	10:00:00	10:50:00	M	GOLD A350	Birsoy,Bilge	Main Campus
+25438	MCD	4101	11	11:00:00	12:50:00	MW	MUEN E0040	Birsoy,Bilge	Main Campus
+24516	MCD	4310	1	12:30:00	13:45:00	TTH	GOLD A1B20	Copley,Shelley	Main Campus
+39123	MCD	4361	1	11:00:00	12:15:00	TTH	GOLD A1B20	DeDecker,Brian S	Main Campus
+25434	MCD	4420	1	14:00:00	15:15:00	TTH	MUEN E064	Donaldson,Zoe R	Main Campus
+25449	MCD	4425	2	10:00:00	10:50:00	MWF	GOLD A1B60	Shen,Jingshi	Main Campus
+19815	MCD	4426	1	14:00:00	15:15:00	TTH	PORT B121	Xue,Ding	Main Campus
+39543	MCD	4428	1	11:00:00	12:15:00	TTH	PORT B121	Han,Min	Main Campus
+21911	MCD	4444	1	09:30:00	10:45:00	TTH	GOLD A1B60	Martin,Jennifer Mary	Main Campus
+23632	MCD	4520	1	15:30:00	16:45:00	TTH	BIOT B331	Chuong,Edward	Main Campus
+25070	MCD	4650	1	14:00:00	15:15:00	TTH	GOLD A120	Klymkowsky,Michael W	Main Campus
+23634	MCD	4750	1	14:30:00	15:45:00	TTH	BIOT B231	Garcea,Robert L	Main Campus
+23101	MCD	4777	1	14:00:00	14:50:00	MWF	PORT B121	Harvey,Pamela Ann	Main Campus
+38851	MCD	4790	1	14:00:00	15:15:00	TTH	GOLD A1B60	Birsoy,Bilge	Main Campus
+25557	MCD	5210	1	08:40:00	09:55:00	T	GOLD A350	Krauter,Kenneth S	Main Campus
+19288	MCD	7910	1	15:30:00	16:30:00	F	GOLD A2B70	Su,Tin Tin	Main Campus
+30541	MUS	5030	801	13:00:00	15:50:00	T	MCOL E280	Tinianow,Sharon	Main Campus
+30742	MUS	5031	801	09:00:00	11:50:00	W	MCOL E280	McQuade,Caitlin	Main Campus
+31191	MUS	6110	801	12:30:00	15:00:00	W	VAC 455	Shell,Hanna Rose	Main Campus
+37511	MUS	6110	802	17:00:00	19:50:00	M	ATLS 1B25	Taylor,William	Main Campus
+22399	NRS	2100	100	09:30:00	10:45:00	TTH	MCOL W100	Baratta,Michael Vincent	Main Campus
+22400	NRS	2100	101	09:00:00	09:50:00	M	RAMY N1B31	Watkins,Linda R	Main Campus
+22401	NRS	2100	102	10:00:00	10:50:00	M	MUEN E431	Watkins,Linda R	Main Campus
+23331	NRS	2100	103	13:00:00	13:50:00	M	DUAN G131	Watkins,Linda R	Main Campus
+23525	NRS	2100	104	14:00:00	14:50:00	M	DUAN G2B60	Watkins,Linda R	Main Campus
+23332	NRS	2200	100	09:00:00	10:50:00	TTH	MUEN E048	Day,Heidi E W	Main Campus
+23333	NRS	2200	200	11:00:00	12:50:00	TTH	MUEN E048	Day,Heidi E W	Main Campus
+23334	NRS	2200	300	13:00:00	14:50:00	TTH	MUEN E048	Day,Heidi E W	Main Campus
+23335	NRS	2200	400	09:00:00	10:50:00	WF	MUEN E048	Day,Heidi E W	Main Campus
+25111	NRS	4032	1	12:30:00	13:45:00	TTH	EKLC E1B20	Root,David H	Main Campus
+25102	NRS	4042	1	11:00:00	11:50:00	MWF	MUEN E064	Laman-Maharg,Abigail Rose	Main Campus
+24564	NRS	4072	1	13:00:00	13:50:00	MWF	MUEN E431	Vigers,Alison Jane	Main Campus
+23724	NRS	4082	1	11:00:00	12:15:00	TTH	\N	Saddoris,Michael Paul	Main Campus
+25112	NRS	4092	1	15:30:00	16:45:00	TTH	HUMN 125	Laman-Maharg,Abigail Rose	Main Campus
+23774	NRS	4132	1	12:00:00	12:50:00	MWF	MUEN E417	Day,Heidi E W	Main Campus
+31822	NRS	4545	1	09:30:00	10:45:00	TTH	MUEN E064	Bachtell,Ryan Karn	Main Campus
+18362	NRS	5110	800	13:30:00	16:00:00	F	MUEN E317	Campeau,Serge	Main Campus
+18365	NRS	6100	1	15:30:00	17:15:00	T	MUEN E214	Saddoris,Michael Paul	Main Campus
+23339	NRS	6602	800	14:15:00	15:15:00	W	WILD 141	Watkins,Linda R	Main Campus
+32279	NRS	7102	1	15:00:00	16:15:00	M	MCOL W100	Watkins,Linda R	Main Campus
+35834	NRS	7102	2	12:30:00	15:00:00	T	MUEN E214	Hutchison,Kent Edward	Main Campus
+18984	PACS	2500	1	14:00:00	15:15:00	TTH	KTCH 1B71	English,Michael	Main Campus
+24434	PACS	3800	1	11:00:00	12:15:00	TTH	RAMY N1B75	Taylor,Bryan Copeland	Main Campus
+38822	PACS	3850	1	12:30:00	13:45:00	TTH	KTCH 1B71	English,Michael	Main Campus
+24435	PACS	4500	1	15:00:00	17:30:00	W	KTCH 1B71	English,Michael	Main Campus
+23273	PHIL	1000	1	14:00:00	14:50:00	MWF	ECON 2	Smith,Colin C	Main Campus
+24512	PHIL	1000	2	09:00:00	09:50:00	MWF	VAC 1B88	Smith,Colin C	Main Campus
+19389	PHIL	1000	3	11:00:00	11:50:00	MWF	VAC 1B90	Eyestone,Martin Robert	Main Campus
+19390	PHIL	1000	4	12:00:00	12:50:00	MWF	VAC 1B88	Eyestone,Martin Robert	Main Campus
+23397	PHIL	1000	5	15:30:00	16:45:00	TTH	HALE 240	\N	Main Campus
+22486	PHIL	1000	6	17:00:00	18:15:00	TTH	ECON 13	Colvin,Maria	Main Campus
+22487	PHIL	1000	7	15:00:00	16:15:00	MW	MUEN E064	Leland,Patrick R	Main Campus
+22611	PHIL	1000	8	16:30:00	17:45:00	MW	HLMS 237	Leland,Patrick R	Main Campus
+17739	PHIL	1000	100	13:00:00	13:50:00	MW	HALE 230	Demarest,Heather Alison	Main Campus
+22989	PHIL	1020	1	14:00:00	14:50:00	MWF	GUGG 206	Leland,Patrick R	Main Campus
+23664	PHIL	1020	2	13:00:00	13:50:00	MWF	HUMN 190	Leland,Patrick R	Main Campus
+23665	PHIL	1020	3	10:00:00	10:50:00	MWF	VAC 1B90	Smith,Colin C	Main Campus
+19391	PHIL	1100	1	14:00:00	14:50:00	MWF	CLRE 209	Sapkota,Gagan	Main Campus
+19392	PHIL	1100	2	10:00:00	10:50:00	MWF	MUEN E064	Fox,Eric Walter	Main Campus
+23666	PHIL	1100	3	13:00:00	13:50:00	MWF	CLRE 104	Sapkota,Gagan	Main Campus
+19393	PHIL	1100	4	15:00:00	16:15:00	MW	DUAN G2B60	Young,Andrew	Main Campus
+24102	PHIL	1100	5	16:30:00	17:45:00	MW	HLMS 263	Young,Andrew	Main Campus
+24103	PHIL	1100	6	11:00:00	11:50:00	MWF	DUAN G2B60	Sturgis,Daniel Paul	Main Campus
+24355	PHIL	1100	100	12:00:00	12:50:00	MW	MCOL W100	Mills,Claudia	Main Campus
+23668	PHIL	1160	1	15:00:00	16:15:00	MW	ECON 13	Director,Samuel Joseph	Main Campus
+23669	PHIL	1160	2	16:30:00	17:45:00	MW	HUMN 125	Director,Samuel Joseph	Main Campus
+24540	PHIL	1200	1	15:30:00	16:45:00	TTH	CLRE 302	Taylor,Maggie Suzanne	Main Campus
+19394	PHIL	1200	2	17:00:00	18:15:00	TTH	CLRE 208	Taylor,Maggie Suzanne	Main Campus
+26766	APRD	3301	3	18:00:00	20:30:00	M	HALE 240	\N	Main Campus
+19395	PHIL	1200	3	13:00:00	13:50:00	MWF	HLMS 251	Nieblas,Erica Annabella	Main Campus
+19396	PHIL	1200	4	10:00:00	10:50:00	MWF	 DUAN G2B60	\N	 Main Campus
+24541	PHIL	1200	5	09:00:00	09:50:00	MWF	 HALE 260	 Chapman,Andrew David	 Main Campus
+19397	PHIL	1200	6	11:00:00	11:50:00	MWF	MUEN E431	 Chamorro,Martin Alberto	 Main Campus
+23274	PHIL	1200	7	14:00:00	14:50:00	MWF	 CLRE 208	Nieblas,Erica Annabella	 Main Campus
+23670	PHIL	1200	8	15:00:00	16:15:00	MW	MUEN E417	Kopeikin,Zak	 Main Campus
+23671	PHIL	1200	9	16:30:00	17:45:00	MW	STAD 140	Kopeikin,Zak	 Main Campus
+17740	PHIL	1200	100	11:00:00	11:50:00	TTH	HUMN 150	Kaufman,Daniel Patrick	 Main Campus
+25226	PHIL	1200	880	15:30:00	16:45:00	TTH	LIBR N424A	 Heathwood,Christopher Charles	 Main Campus
+32627	PHIL	1250	1	13:00:00	13:50:00	MWF	 VAC 1B90	 Greetis,Edward Andrew	 Main Campus
+32628	PHIL	1250	2	14:00:00	14:50:00	MWF	 GUGG 2	Kang,Hye-Ryoung	 Main Campus
+32629	PHIL	1250	3	10:00:00	10:50:00	MWF	 CLUB 4	Kang,Hye-Ryoung	 Main Campus
+32630	PHIL	1400	1	16:30:00	17:45:00	MW	 HLMS 137	\N	 Main Campus
+23942	PHIL	1400	100	12:00:00	12:50:00	MW	 HALE 230	Cleland,Carol	 Main Campus
+33743	PHIL	1400	880	15:00:00	16:15:00	MW	LIBR N424A	Rupert,Robert D	 Main Campus
+24104	PHIL	1440	1	14:00:00	14:50:00	MWF	ECON 13	\N	 Main Campus
+24105	PHIL	1440	2	12:00:00	12:50:00	MWF	 HALE 260	\N	 Main Campus
+32631	PHIL	1440	3	13:00:00	13:50:00	MWF	 VAC 1B88	\N	 Main Campus
+25413	PHIL	1440	100	15:00:00	15:50:00	MW	MUEN E0046	Bredeson,Garrett Zantow	 Main Campus
+22489	PHIL	1500	1	08:00:00	09:15:00	TTH	 HLMS 177	\N	 Main Campus
+22490	PHIL	1500	2	09:30:00	10:45:00	TTH	 HLMS 220	\N	 Main Campus
+24699	PHIL	1500	3	11:00:00	12:15:00	TTH	 HLMS 220	 Melnitzer,Shane Bodhi	 Main Campus
+25522	PHIL	1500	4	12:30:00	13:45:00	TTH	HUMN 335	 Melnitzer,Shane Bodhi	 Main Campus
+17741	PHIL	1600	1	15:00:00	16:15:00	MW	 DUAN G131	 Eyestone,Martin Robert	 Main Campus
+24542	PHIL	2140	1	15:30:00	16:45:00	TTH	 GUGG 206	Colvin,Maria	 Main Campus
+32632	PHIL	2150	1	14:00:00	14:50:00	MWF	 CLRE 104	\N	 Main Campus
+25206	PHIL	2160	1	15:00:00	16:15:00	MW	MUEN E431	 Wolf-Root,Alexander Evan	 Main Campus
+25207	PHIL	2160	2	16:30:00	17:45:00	MW	 DUAN G2B41	 Wolf-Root,Alexander Evan	 Main Campus
+24125	PHIL	2200	1	15:00:00	16:15:00	MW	MCOL E155	Perl,Caleb	 Main Campus
+19400	PHIL	2220	1	15:00:00	15:50:00	MWF	MUEN E432	Geyer,Jay	 Main Campus
+24109	PHIL	2220	2	14:00:00	14:50:00	MWF	MUEN E431	Geyer,Jay	 Main Campus
+25208	PHIL	2240	1	10:00:00	10:50:00	MWF	ECON 13	Bredeson,Garrett Zantow	 Main Campus
+25209	PHIL	2240	2	12:00:00	12:50:00	MWF	HUMN 190	Dengler,Christopher Ray	 Main Campus
+32633	PHIL	2240	3	14:00:00	14:50:00	MWF	 HLMS 255	Dengler,Christopher Ray	 Main Campus
+23673	PHIL	2270	1	14:00:00	14:50:00	MWF	 HLMS 251	Robinson-Burris,Ajene Nicar	 Main Campus
+23674	PHIL	2270	2	12:00:00	12:50:00	MWF	 DUAN G2B41	Robinson-Burris,Ajene Nicar	 Main Campus
+37554	PHIL	2270	100	11:00:00	11:50:00	MW	HUMN 1B80	Hill,Scott	 Main Campus
+24127	PHIL	2290	1	11:00:00	11:50:00	MWF	HUMN 125	Shields,Matthew	 Main Campus
+25210	PHIL	2290	2	12:00:00	12:50:00	MWF	EKLC E1B50	Shields,Matthew	 Main Campus
+37558	PHIL	2290	100	13:00:00	13:50:00	MW	HUMN 135	Shields,Matthew	 Main Campus
+19299	PHIL	2440	1	15:30:00	16:45:00	TTH	 GUGG 2	 Oddie,Graham James	 Main Campus
+23675	PHIL	2440	2	15:00:00	16:15:00	MW	 HALE 240	 Smith,Colin C	 Main Campus
+32634	PHIL	2750	1	15:30:00	16:45:00	TTH	 CLRE 208	 Fileva,Iskra Nikova	 Main Campus
+19300	PHIL	3000	1	09:30:00	10:45:00	TTH	 CLUB 13	Lee,Mi-Kyoung	 Main Campus
+24108	PHIL	3000	2	15:30:00	16:45:00	TTH	ECON 2	 Bailey,Dominic T. J.	 Main Campus
+19405	PHIL	3010	1	14:00:00	15:15:00	TTH	 HLMS 237	Kaufman,Daniel Patrick	 Main Campus
+23279	PHIL	3010	2	10:00:00	10:50:00	MWF	MCOL E155	Potter,Jason Timothy	Main Campus
+19316	PHIL	3100	1	12:00:00	12:50:00	MWF	GUGG 206	Perl,Caleb	Main Campus
+25211	PHIL	3100	2	13:00:00	13:50:00	MWF	GUGG 2	Perl,Caleb	Main Campus
+32716	PHIL	3110	1	12:00:00	12:50:00	MWF	MUEN E431	Frigault,Joseph Leo	Main Campus
+19406	PHIL	3160	1	15:00:00	16:15:00	MW	HALE 260	Greetis,Edward Andrew	Main Campus
+24543	PHIL	3160	2	16:30:00	17:45:00	MW	CLUB 13	Greetis,Edward Andrew	Main Campus
+24544	PHIL	3190	1	11:00:00	11:50:00	MWF	CLUB 13	Garner,Renaud-Philippe	Main Campus
+25499	PHIL	3190	2	13:00:00	13:50:00	MWF	CLUB 13	Geyer,Jay	Main Campus
+24545	PHIL	3200	1	15:30:00	16:45:00	TTH	CLRE 209	Huemer,Michael	Main Campus
+19338	PHIL	3260	1	13:00:00	13:50:00	MWF	DUAN G2B21	Sturgis,Daniel Paul	Main Campus
+32637	PHIL	3410	1	15:30:00	16:45:00	TTH	CLUB 13	Youkey,David Allen	Main Campus
+24110	PHIL	3430	1	14:00:00	14:50:00	MWF	DUAN G2B21	Zerella,Michael Joseph	Main Campus
+19871	PHIL	3480	1	12:00:00	12:50:00	MWF	HLMS 104	Potter,Jason Timothy	Main Campus
+24172	PHIL	3480	2	13:00:00	13:50:00	MWF	HLMS 196	Potter,Jason Timothy	Main Campus
+32638	PHIL	3600	1	15:00:00	16:15:00	MW	DUAN G2B41	Chapman,Andrew David	Main Campus
+19833	PHIL	4010	1	12:30:00	13:45:00	TTH	MCOL E186	Lee,Mi-Kyoung	Main Campus
+25222	PHIL	4020	1	14:00:00	15:15:00	TTH	HLMS 196	Bailey,Dominic T. J.	Main Campus
+32639	PHIL	4020	2	09:30:00	10:45:00	TTH	HLMS 177	Youkey,David Allen	Main Campus
+32640	PHIL	4150	1	15:30:00	16:45:00	TTH	HLMS 196	Boonin,David Isaac	Main Campus
+24114	PHIL	4260	1	15:00:00	16:15:00	MW	HUMN 1B70	Wingo,Ajume H	Main Campus
+32686	PHIL	4340	1	15:00:00	16:15:00	MW	HLMS 177	Steup,Matthias	Main Campus
+32687	PHIL	4400	1	14:00:00	15:15:00	TTH	HLMS 177	Huemer,Michael	Main Campus
+32395	PHIL	4450	1	11:00:00	12:15:00	TTH	DUAN G2B47	Ritzwoller,Michael H	Main Campus
+32688	PHIL	4490	1	15:30:00	16:45:00	TTH	HLMS 177	Saucedo Ceballos,Raul	Main Campus
+32689	PHIL	4800	1	12:30:00	13:45:00	TTH	HLMS 196	Oddie,Graham James	Main Campus
+38231	PHIL	1000	300E	17:30:00	20:00:00	TH	\N	Mahlberg,Benjamin Francis	Continuing Education
+38228	PHIL	1100	400E	17:30:00	20:00:00	W	\N	Mahlberg,Benjamin Francis	Continuing Education
+32690	PHIL	5800	1	12:30:00	13:45:00	TTH	HLMS 196	Oddie,Graham James	Main Campus
+25469	PHIL	5800	2	17:00:00	19:30:00	TH	HLMS 196	Fileva,Iskra Nikova	Main Campus
+32691	PHIL	6200	1	17:00:00	19:30:00	M	HLMS 177	Wingo,Ajume H	Main Campus
+32692	PHIL	6300	1	17:00:00	19:30:00	W	HLMS 177	Rupert,Robert D	Main Campus
+32693	PHIL	6380	1	17:00:00	19:30:00	T	HLMS 196	Saucedo Ceballos,Raul	Main Campus
+18865	PHYS	1110	100	09:00:00	09:50:00	MWF	DUAN G1B30	Hodby,Eleanor	Main Campus
+18866	PHYS	1110	200	11:00:00	11:50:00	MWF	DUAN G1B30	Hough,Loren Evan	Main Campus
+22467	PHYS	1110	300	13:00:00	13:50:00	MWF	DUAN G1B30	Hough,Loren Evan	Main Campus
+19339	PHYS	1110	401	08:00:00	08:50:00	TH	DUAN G2B60	\N	Main Campus
+19340	PHYS	1110	402	08:00:00	08:50:00	TH	DUAN G2B63	\N	Main Campus
+19343	PHYS	1110	405	09:00:00	09:50:00	TH	DUAN G2B60	\N	Main Campus
+19344	PHYS	1110	406	09:00:00	09:50:00	TH	DUAN G2B63	\N	Main Campus
+19345	PHYS	1110	407	09:00:00	09:50:00	TH	DUAN G2B64	\N	Main Campus
+19346	PHYS	1110	408	09:00:00	09:50:00	TH	DUAN G2B66	\N	Main Campus
+19347	PHYS	1110	409	10:00:00	10:50:00	TH	DUAN G2B60	\N	Main Campus
+19348	PHYS	1110	410	10:00:00	10:50:00	TH	DUAN G2B63	\N	Main Campus
+19349	PHYS	1110	411	10:00:00	10:50:00	TH	DUAN G2B64	\N	Main Campus
+19350	PHYS	1110	412	10:00:00	10:50:00	TH	DUAN G2B66	\N	Main Campus
+19351	PHYS	1110	413	11:00:00	11:50:00	TH	DUAN G2B60	\N	Main Campus
+19352	PHYS	1110	414	11:00:00	11:50:00	TH	DUAN G2B63	\N	Main Campus
+19353	PHYS	1110	415	11:00:00	11:50:00	TH	DUAN G2B64	\N	Main Campus
+19354	PHYS	1110	416	11:00:00	11:50:00	TH	DUAN G2B66	\N	Main Campus
+19355	PHYS	1110	417	12:00:00	12:50:00	TH	DUAN G2B60	\N	Main Campus
+19356	PHYS	1110	418	12:00:00	12:50:00	TH	DUAN G2B63	\N	Main Campus
+19357	PHYS	1110	419	12:00:00	12:50:00	TH	DUAN G2B64	\N	Main Campus
+19358	PHYS	1110	420	12:00:00	12:50:00	TH	DUAN G2B66	\N	Main Campus
+19359	PHYS	1110	421	13:00:00	13:50:00	TH	DUAN G2B60	\N	Main Campus
+19360	PHYS	1110	422	13:00:00	13:50:00	TH	DUAN G2B63	\N	Main Campus
+19361	PHYS	1110	423	13:00:00	13:50:00	TH	DUAN G2B64	\N	Main Campus
+21823	PHYS	1110	424	13:00:00	13:50:00	TH	DUAN G2B66	\N	Main Campus
+22368	PHYS	1110	425	14:00:00	14:50:00	TH	DUAN G2B60	\N	Main Campus
+22600	PHYS	1110	426	14:00:00	14:50:00	TH	DUAN G2B63	\N	Main Campus
+22601	PHYS	1110	427	14:00:00	14:50:00	TH	DUAN G2B64	\N	Main Campus
+22602	PHYS	1110	428	14:00:00	14:50:00	TH	DUAN G2B66	\N	Main Campus
+22603	PHYS	1110	429	15:00:00	15:50:00	TH	DUAN G2B60	\N	Main Campus
+22604	PHYS	1110	430	15:00:00	15:50:00	TH	DUAN G2B63	\N	Main Campus
+23290	PHYS	1110	433	16:00:00	16:50:00	TH	DUAN G2B60	\N	Main Campus
+24408	PHYS	1110	435	16:00:00	16:50:00	TH	DUAN G2B64	\N	Main Campus
+18867	PHYS	1120	100	10:00:00	10:50:00	MWF	DUAN G1B30	Bolton,Daniel Ryan	Main Campus
+18909	PHYS	1120	200	12:00:00	12:50:00	MWF	DUAN G1B30	Bolton,Daniel Ryan	Main Campus
+23175	PHYS	1120	300	14:00:00	14:50:00	MWF	DUAN G1B30	Bolton,Daniel Ryan	Main Campus
+19362	PHYS	1120	401	08:00:00	08:50:00	T	DUAN G2B60	\N	Main Campus
+19363	PHYS	1120	402	08:00:00	08:50:00	T	DUAN G2B63	\N	Main Campus
+19366	PHYS	1120	405	09:00:00	09:50:00	T	DUAN G2B60	\N	Main Campus
+19367	PHYS	1120	406	09:00:00	09:50:00	T	DUAN G2B63	\N	Main Campus
+19368	PHYS	1120	407	09:00:00	09:50:00	T	DUAN G2B64	\N	Main Campus
+19369	PHYS	1120	408	09:00:00	09:50:00	T	DUAN G2B66	\N	Main Campus
+19370	PHYS	1120	409	10:00:00	10:50:00	T	DUAN G2B60	\N	Main Campus
+19371	PHYS	1120	410	10:00:00	10:50:00	T	DUAN G2B63	\N	Main Campus
+19372	PHYS	1120	411	10:00:00	10:50:00	T	DUAN G2B64	\N	Main Campus
+19373	PHYS	1120	412	10:00:00	10:50:00	T	DUAN G2B66	\N	Main Campus
+19374	PHYS	1120	413	11:00:00	11:50:00	T	DUAN G2B60	\N	Main Campus
+19375	PHYS	1120	414	11:00:00	11:50:00	T	DUAN G2B63	\N	Main Campus
+19376	PHYS	1120	415	11:00:00	11:50:00	T	DUAN G2B64	\N	Main Campus
+19377	PHYS	1120	416	11:00:00	11:50:00	T	DUAN G2B66	\N	Main Campus
+22359	PHYS	1120	417	12:00:00	12:50:00	T	DUAN G2B60	\N	Main Campus
+22360	PHYS	1120	418	12:00:00	12:50:00	T	DUAN G2B63	\N	Main Campus
+22605	PHYS	1120	419	12:00:00	12:50:00	T	DUAN G2B64	\N	Main Campus
+22606	PHYS	1120	420	12:00:00	12:50:00	T	DUAN G2B66	\N	Main Campus
+22643	PHYS	1120	421	13:00:00	13:50:00	T	DUAN G2B60	\N	Main Campus
+22644	PHYS	1120	422	13:00:00	13:50:00	T	DUAN G2B63	\N	Main Campus
+22993	PHYS	1120	423	13:00:00	13:50:00	T	DUAN G2B64	\N	Main Campus
+22994	PHYS	1120	424	13:00:00	13:50:00	T	DUAN G2B66	\N	Main Campus
+23307	PHYS	1120	425	14:00:00	14:50:00	T	DUAN G2B60	\N	Main Campus
+23308	PHYS	1120	426	14:00:00	14:50:00	T	DUAN G2B63	\N	Main Campus
+23309	PHYS	1120	427	14:00:00	14:50:00	T	DUAN G2B64	\N	Main Campus
+23310	PHYS	1120	428	14:00:00	14:50:00	T	DUAN G2B66	\N	Main Campus
+23311	PHYS	1120	429	15:00:00	15:50:00	T	DUAN G2B60	\N	Main Campus
+23312	PHYS	1120	430	15:00:00	15:50:00	T	DUAN G2B63	\N	Main Campus
+23314	PHYS	1120	432	15:00:00	15:50:00	T	DUAN G2B66	\N	Main Campus
+24089	PHYS	1120	433	16:00:00	16:50:00	T	DUAN G2B60	\N	Main Campus
+24090	PHYS	1120	434	16:00:00	16:50:00	T	DUAN G2B63	\N	Main Campus
+24227	PHYS	1125	100	09:30:00	10:45:00	TTH	DUAN G1B20	Betterton,Meredith D	Main Campus
+24411	PHYS	1125	111	09:00:00	09:50:00	W	DUAN G2B66	\N	Main Campus
+24412	PHYS	1125	112	10:00:00	10:50:00	W	DUAN G2B66	\N	Main Campus
+24413	PHYS	1125	113	11:00:00	11:50:00	W	DUAN G2B66	\N	Main Campus
+24415	PHYS	1125	115	14:00:00	14:50:00	W	DUAN G2B66	\N	Main Campus
+19183	PHYS	1140	100	16:00:00	16:50:00	M	DUAN G1B30	Cornell,Eric	Main Campus
+19184	PHYS	1140	200	16:00:00	16:50:00	T	DUAN G1B30	Cornell,Eric	Main Campus
+24292	PHYS	1140	300	16:00:00	16:50:00	W	DUAN G1B30	Cornell,Eric	Main Campus
+18997	PHYS	1230	1	11:00:00	12:15:00	TTH	DUAN G1B30	Finkelstein,Noah D	Main Campus
+18998	PHYS	1240	1	15:30:00	16:45:00	TTH	DUAN G1B20	Rankin,Patricia	Main Campus
+25454	PHYS	1580	1	09:30:00	10:45:00	TTH	EDUC 346	\N	Main Campus
+24386	PHYS	1580	2	14:00:00	15:15:00	TTH	EDUC 346	\N	Main Campus
+24387	PHYS	1580	3	15:30:00	16:45:00	TTH	EDUC 346	\N	Main Campus
+36378	PHYS	1580	4	11:00:00	12:15:00	TTH	EDUC 341	\N	Main Campus
+19186	PHYS	2130	1	10:00:00	10:50:00	MWF	DUAN G130	Schibli,Thomas Richard	Main Campus
+19580	PHYS	2150	100	16:00:00	16:50:00	M	DUAN G1B20	Clark,Noel A	Main Campus
+24420	PHYS	2150	106	13:00:00	14:50:00	TH	DUAN G2B87	\N	Main Campus
+19585	PHYS	2170	1	11:00:00	11:50:00	MWF	DUAN G130	Litos,Michael	Main Campus
+21751	PHYS	2210	1	09:00:00	09:50:00	MWF	ECCR 265	Pollock,Steven J	Main Campus
+24423	PHYS	2210	2	10:00:00	10:50:00	MWF	ECCR 200	Becker,Andreas	Main Campus
+24955	PHYS	2600	1	15:30:00	16:45:00	TTH	DUAN G125	Perepelitsa,Dennis	Main Campus
+24631	PHYS	3050	1	15:00:00	16:15:00	MW	DUAN G1B25	Wilkerson,Donald H	Main Campus
+31899	PHYS	3090	1	14:00:00	14:50:00	MWF	DUAN G130	Kolla,Alexandra	Main Campus
+24649	PHYS	3210	1	15:00:00	15:50:00	MWF	DUAN G130	Neil,Ethan	Main Campus
+19189	PHYS	3220	1	13:00:00	13:50:00	MWF	DUAN G1B20	Nagle,James L	Main Campus
+24596	PHYS	3221	1	15:00:00	15:50:00	F	DUAN G2B41	\N	Main Campus
+19190	PHYS	3310	1	12:00:00	12:50:00	MWF	DUAN G130	Wilcox,Bethany Rae	Main Campus
+19681	PHYS	3320	1	10:00:00	10:50:00	MWF	DUAN G1B20	Calkins,Michael Andrew	Main Campus
+19682	PHYS	3330	100	13:00:00	13:50:00	TTH	DUAN G125	Lee,Minhyea	Main Campus
+19683	PHYS	3330	101	14:00:00	16:50:00	T	DUAN G230	\N	Main Campus
+19684	PHYS	3330	102	09:00:00	11:50:00	TH	DUAN G230	\N	Main Campus
+23791	PHYS	3330	103	14:00:00	16:50:00	TH	DUAN G230	\N	Main Campus
+19685	PHYS	4230	1	15:00:00	15:50:00	MWF	DUAN G125	DeWolfe,Oliver M	Main Campus
+22333	PHYS	4340	1	10:00:00	10:50:00	MWF	DUAN G2B47	Cao,Gang	Main Campus
+19686	PHYS	4410	1	14:00:00	14:50:00	MWF	BESC 185	Parker,Scott E	Main Campus
+23100	PHYS	4420	1	12:00:00	12:50:00	MWF	DUAN G2B21	Ulmer,Keith Arthur	Main Campus
+22345	PHYS	4430	100	13:00:00	13:50:00	TTH	DUAN G214	Pappas,Dave Paul	Main Campus
+22346	PHYS	4430	101	14:00:00	16:50:00	T	DUAN G214	Pappas,Dave Paul	Main Campus
+22349	PHYS	4430	200	09:00:00	09:50:00	TTH	DUAN G214	Pappas,Dave Paul	Main Campus
+22350	PHYS	4430	201	10:00:00	12:50:00	T	DUAN G214	Reznik,Dmitry	Main Campus
+20027	PHYS	5260	1	14:00:00	14:50:00	MWF	DUAN G125	Rey,Ana Maria	Main Campus
+23771	PHYS	5606	20	12:00:00	13:50:00	M	ECEE 265	\N	Main Campus
+23720	PHYS	5606	21	17:00:00	21:00:00	T	ECEE 105	\N	Main Campus
+35586	PHYS	5730	1	12:30:00	13:45:00	TTH	DUAN G2B21	Marino,Alysia Diane	Main Campus
+20044	PHYS	5770	1	11:00:00	11:50:00	MWF	DUAN G2B21	De alwis,Senarath	Main Campus
+35594	PHYS	7250	1	09:00:00	09:50:00	MWF	DUAN G1B25	Gurarie,Victor Vladimir	Main Campus
+20045	PHYS	7320	1	13:00:00	13:50:00	MWF	DUAN G125	Degrand,Thomas A	Main Campus
+23520	PHYS	7440	1	10:00:00	10:50:00	MWF	DUAN G2B21	Nandkishore,Rahul Mahajan	Main Campus
+35599	PHYS	7550	1	10:00:00	10:50:00	MWF	DUAN G2B41	Jaron-Becker,Agnieszka Anna	Main Campus
+35596	PHYS	7560	1	12:30:00	13:45:00	TTH	DUAN G131	Kaufman,Adam Micah	Main Campus
+35598	PHYS	7650	1	15:30:00	16:45:00	TTH	DUAN G1B25	Raschke,Markus	Main Campus
+23412	PHYS	7810	1	11:00:00	12:15:00	TTH	DUAN G1B25	Glaser,Matthew Arthur	Main Campus
+24607	PHYS	7810	3	14:00:00	15:15:00	TTH	DUAN G1B25	Milic,Ivan	Main Campus
+19980	PHYS	7820	1	15:30:00	16:45:00	TTH	DUAN G1B35	Wilkerson,Donald H	Main Campus
+17943	PSCI	1101	100	09:30:00	10:20:00	TTH	MUEN E050	Donavan,Janet Lynn	Main Campus
+18018	PSCI	1101	101	12:00:00	12:50:00	M	DUAN G131	Donavan,Janet Lynn	Main Campus
+23663	PSCI	1101	102	12:00:00	12:50:00	W	DUAN G131	Donavan,Janet Lynn	Main Campus
+18019	PSCI	1101	103	12:00:00	12:50:00	T	ECON 2	Donavan,Janet Lynn	Main Campus
+18021	PSCI	1101	104	11:00:00	11:50:00	W	HLMS 263	Donavan,Janet Lynn	Main Campus
+18020	PSCI	1101	105	10:00:00	10:50:00	M	STAD 140	Donavan,Janet Lynn	Main Campus
+23864	PSCI	1101	106	10:00:00	10:50:00	W	MCOL E186	Donavan,Janet Lynn	Main Campus
+23172	PSCI	1101	107	09:00:00	09:50:00	M	HLMS 185	Donavan,Janet Lynn	Main Campus
+22727	PSCI	1101	108	15:30:00	16:20:00	T	DUAN G131	Donavan,Janet Lynn	Main Campus
+21854	PSCI	1101	109	13:00:00	13:50:00	W	HALE 260	Donavan,Janet Lynn	Main Campus
+23865	PSCI	1101	110	14:00:00	14:50:00	T	HALE 260	Donavan,Janet Lynn	Main Campus
+24839	PSCI	1101	111	14:00:00	14:50:00	W	CLUB 13	Donavan,Janet Lynn	Main Campus
+24840	PSCI	1101	112	12:00:00	12:50:00	T	HALE 236	Donavan,Janet Lynn	Main Campus
+18214	PSCI	2004	10	12:30:00	13:20:00	TTH	CHEM 142	Ferguson,Michaele Lynne	Main Campus
+23867	PSCI	2004	11	09:00:00	09:50:00	W	CLUB 13	Ferguson,Michaele Lynne	Main Campus
+18217	PSCI	2004	12	11:00:00	11:50:00	M	MUEN E113	Ferguson,Michaele Lynne	Main Campus
+23868	PSCI	2004	13	15:00:00	15:50:00	M	GUGG 2	Ferguson,Michaele Lynne	Main Campus
+18220	PSCI	2004	14	10:00:00	10:50:00	M	RAMY N1B31	Ferguson,Michaele Lynne	Main Campus
+18221	PSCI	2004	15	12:00:00	12:50:00	W	CLUB 13	Ferguson,Michaele Lynne	Main Campus
+22394	PSCI	2004	16	15:30:00	16:20:00	T	GUGG 205	Ferguson,Michaele Lynne	Main Campus
+35526	PSCI	2004	880	12:30:00	13:45:00	TTH	LIBR N424A	Chadwick,Jeffrey	Main Campus
+18052	PSCI	2012	100	10:00:00	10:50:00	MW	MATH 100	Boulding,Carew Elizabeth	Main Campus
+30933	PSCI	2012	101	11:00:00	11:50:00	M	GUGG 3	Boulding,Carew Elizabeth	Main Campus
+18054	PSCI	2012	102	11:00:00	11:50:00	W	CLUB 4	Boulding,Carew Elizabeth	Main Campus
+18057	PSCI	2012	103	15:00:00	15:50:00	W	MUEN E131	Boulding,Carew Elizabeth	Main Campus
+18058	PSCI	2012	104	09:00:00	09:50:00	M	HALE 240	Boulding,Carew Elizabeth	Main Campus
+18059	PSCI	2012	105	14:00:00	14:50:00	W	DUAN G2B41	Boulding,Carew Elizabeth	Main Campus
+18061	PSCI	2012	106	09:00:00	09:50:00	W	GUGG 2	Boulding,Carew Elizabeth	Main Campus
+23174	PSCI	2012	107	13:00:00	13:50:00	M	ECON 2	Boulding,Carew Elizabeth	Main Campus
+24787	PSCI	2012	108	16:00:00	16:50:00	W	DUAN G2B47	Boulding,Carew Elizabeth	Main Campus
+23869	PSCI	2012	109	15:00:00	15:50:00	M	CLUB 4	\N	Main Campus
+23173	PSCI	2012	110	13:00:00	13:50:00	T	ECON 2	Boulding,Carew Elizabeth	Main Campus
+30932	PSCI	2012	111	10:00:00	10:50:00	F	CASE E220	Boulding,Carew Elizabeth	Main Campus
+18053	PSCI	2012	112	11:00:00	11:50:00	M	CLRE 208	Boulding,Carew Elizabeth	Main Campus
+22385	PSCI	2075	10	13:00:00	13:50:00	MW	VAC 1B20	Philips,Andrew Quayle	Main Campus
+22395	PSCI	2075	11	12:00:00	12:50:00	M	STAD 140	Sokhey,Anand	Main Campus
+22396	PSCI	2075	12	12:00:00	12:50:00	W	STAD 140	Sokhey,Anand	Main Campus
+22397	PSCI	2075	13	15:00:00	15:50:00	W	KTCH 1B44	Sokhey,Anand	Main Campus
+22398	PSCI	2075	14	11:00:00	11:50:00	W	STAD 136C	Sokhey,Anand	Main Campus
+23398	PSCI	2075	15	14:00:00	14:50:00	M	STAD 135	Sokhey,Anand	Main Campus
+23467	PSCI	2075	16	09:00:00	09:50:00	M	STAD 136C	Sokhey,Anand	Main Campus
+23871	PSCI	2075	17	16:00:00	16:50:00	W	KTCH 1B44	Sokhey,Anand	Main Campus
+23876	PSCI	2075	18	11:00:00	11:50:00	M	STAD 136C	Sokhey,Anand	Main Campus
+23378	PSCI	2106	1	11:00:00	12:15:00	TTH	CLRE 207	Shepherd,Juliemarie Anjali	Main Campus
+25120	PSCI	2116	1	10:00:00	10:50:00	MWF	EDUC 220	Boyes,Christina Anne	Main Campus
+35527	PSCI	2116	880	15:30:00	16:45:00	TTH	LIBR M300D	Chadwick,Jeffrey	Main Campus
+18022	PSCI	2223	100	09:00:00	09:50:00	MW	MATH 100	Chan,Steve S	Main Campus
+18023	PSCI	2223	101	12:00:00	12:50:00	M	CLUB 13	Chan,Steve S	Main Campus
+18024	PSCI	2223	102	10:00:00	10:50:00	W	MUEN E431	Chan,Steve S	Main Campus
+18025	PSCI	2223	103	10:00:00	10:50:00	M	GUGG 206	Chan,Steve S	Main Campus
+18026	PSCI	2223	104	10:00:00	10:50:00	M	GUGG 3	Chan,Steve S	Main Campus
+18030	PSCI	2223	105	16:00:00	16:50:00	T	HLMS 247	\N	Main Campus
+23171	PSCI	2223	106	12:00:00	12:50:00	M	CLRE 104	Chan,Steve S	Main Campus
+18027	PSCI	2223	107	14:00:00	14:50:00	M	HALE 240	Chan,Steve S	Main Campus
+18028	PSCI	2223	108	13:00:00	13:50:00	M	HALE 260	Chan,Steve S	Main Campus
+22403	PSCI	2223	109	11:00:00	11:50:00	W	MUEN E113	Chan,Steve S	Main Campus
+18029	PSCI	2223	110	11:00:00	11:50:00	M	KTCH 1B71	Chan,Steve S	Main Campus
+33289	PSCI	2223	111	09:00:00	09:50:00	F	HALE 240	Chan,Steve S	Main Campus
+33290	PSCI	2223	112	08:00:00	08:50:00	F	HALE 260	Chan,Steve S	Main Campus
+35804	PSCI	2223	880	13:00:00	13:50:00	MWF	LIBR N424A	Shannon,Megan	Main Campus
+23170	PSCI	3011	1	15:30:00	16:45:00	TTH	HLMS 201	Kanner,Michael David	Main Campus
+22988	PSCI	3021	1	09:30:00	10:45:00	TTH	MUEN E113	Bickers,Kenneth Norman	Main Campus
+31085	PSCI	3032	1	11:00:00	11:50:00	MWF	RAMY N1B23	Velasco Guachalla,Vania Ximena	Main Campus
+39572	PSCI	3041	3	08:00:00	09:15:00	TTH	HLMS 267	Billica,Nancy	Main Campus
+21870	PSCI	3054	1	14:00:00	15:15:00	TTH	HUMN 135	Killen,Kimberly	Main Campus
+36227	PSCI	3054	2	09:30:00	10:45:00	TTH	KTCH 1B31	Sheehan,Colleen	Main Campus
+24264	PSCI	3061	1	11:00:00	12:15:00	TTH	HLMS 267	Billica,Nancy	Main Campus
+23420	PSCI	3062	1	12:00:00	12:50:00	MWF	HUMN 1B80	Gunes,Erkan	Main Campus
+30795	PSCI	3064	1	12:00:00	12:50:00	MWF	DUAN G125	Emmelhainz,Roger Keith	Main Campus
+25400	PSCI	3075	1	13:00:00	13:50:00	MWF	CLRE 207	Hunter,Sarah	Main Campus
+23778	PSCI	3123	1	12:00:00	12:50:00	MWF	EDUC 220	Aydin,Aysegul	Main Campus
+23244	PSCI	3143	1	15:00:00	16:15:00	MW	HALE 230	Gray,Anna Marie	Main Campus
+24838	PSCI	3143	2	09:00:00	09:50:00	MWF	HLMS 211	\N	Main Campus
+23916	PSCI	3163	1	11:00:00	11:50:00	MWF	EDUC 220	Bearce,David	Main Campus
+22405	PSCI	3172	1	13:00:00	13:50:00	MWF	ECON 117	Derderyan,Svetoslav	Main Campus
+30784	PSCI	3183	1	10:00:00	10:50:00	MWF	CLRE 207	Shannon,Megan	Main Campus
+23360	PSCI	3191	1	09:00:00	09:50:00	MWF	MUEN E431	Kanner,Michael David	Main Campus
+23419	PSCI	3193	1	14:00:00	15:15:00	TTH	DUAN G125	\N	Main Campus
+33167	PSCI	3205	1	11:00:00	11:50:00	MWF	HLMS 237	Hunter,Sarah	Main Campus
+24263	PSCI	3206	1	15:30:00	16:45:00	TTH	HUMN 250	Molina Garzon,Adriana Lizette	Main Campus
+23098	PSCI	3206	551R	18:00:00	20:30:00	W	Offered through CU in	Zierler,David B	Main Campus
+18230	PSCI	3213	1	12:30:00	13:45:00	TTH	BESC 185	Connell,Brendan James	Main Campus
+24504	PSCI	3225	1	15:30:00	16:45:00	TTH	BESC 185	Dorr,Dalton Cunha	Main Campus
+23472	PSCI	3271	1	13:00:00	13:50:00	MWF	MUEN E131	Strayhorn,Joshua Aaron	Main Campus
+31039	PSCI	3281	1	15:00:00	16:15:00	MW	HLMS 199	Shepherd,Juliemarie Anjali	Main Campus
+38846	PSCI	3294	1	16:00:00	17:15:00	MW	HLMS 241	Malloy,Tamar	Main Campus
+24442	PSCI	3301	1	15:00:00	16:15:00	MW	CASE E340	Williams,Josalyn Christine	Main Campus
+31081	PSCI	3301	2	11:00:00	12:15:00	TTH	\N	\N	Main Campus
+18222	PSCI	3774	1	12:00:00	12:50:00	MWF	\N	\N	Main Campus
+31082	PSCI	4002	1	14:00:00	14:50:00	MWF	HUMN 135	Jorde,Christopher	Main Campus
+24148	PSCI	4012	1	15:30:00	16:45:00	TTH	HALE 230	Moya,Samantha Louise	Main Campus
+24807	PSCI	4016	1	11:00:00	12:15:00	TTH	ECCR 135	Shin,Adrian	Main Campus
+19703	PSCI	4173	1	13:00:00	13:50:00	MWF	DUAN G2B47	Kanner,Michael David	Main Campus
+24367	PSCI	4213	1	09:30:00	10:45:00	TTH	HLMS 241	Jupille,Joseph H	Main Campus
+33286	PSCI	4221	1	09:30:00	10:45:00	TTH	CLRE 207	Bacovsky,Pavel	Main Campus
+24796	PSCI	4241	1	13:00:00	13:50:00	MWF	MUEN E113	Baird,Vanessa	Main Campus
+24841	PSCI	4242	2	15:30:00	16:45:00	TTH	CLRE 207	Young,Gregory Denton	Main Campus
+30788	PSCI	4703	1	08:00:00	09:15:00	TTH	GUGG 205	Steinmo,Sven H	Main Campus
+25388	PSCI	4714	1	15:30:00	16:45:00	TTH	CLUB 4	Allen,William B	Main Campus
+24962	PSCI	4792	1	16:30:00	17:45:00	MW	HALE 240	Smith,Peter	Main Campus
+38225	PSCI	1101	300E	17:00:00	19:00:00	TH	\N	Daily,Anna	Continuing Education
+38223	PSCI	2004	300E	17:00:00	19:00:00	M	\N	Daily,Anna	Continuing Education
+25498	PSCI	7012	1	16:45:00	19:15:00	TH	KTCH 1B31	Fitzgerald,Jennifer L	Main Campus
+24251	PSCI	7024	1	13:15:00	15:45:00	F	KTCH 1B31	Ferguson,Michaele Lynne	Main Campus
+30793	PSCI	7055	1	14:00:00	16:30:00	TH	KTCH 1B31	Strayhorn,Joshua Aaron	Main Campus
+30794	PSCI	7071	1	08:30:00	11:00:00	F	KTCH 1B31	Strayhorn,Joshua Aaron	Main Campus
+18313	PSCI	7095	1	16:45:00	19:15:00	M	KTCH 1B31	Philips,Andrew Quayle	Main Campus
+30791	PSCI	7123	1	14:00:00	16:30:00	M	KTCH 1B31	Aydin,Aysegul	Main Campus
+30792	PSCI	7206	1	14:00:00	16:30:00	T	KTCH 1B31	Andersson,Krister Par	Main Campus
+18303	PORT	1020	1	13:00:00	13:50:00	M-F	MUEN D439	\N	Main Campus
+18304	PORT	2120	1	15:00:00	15:50:00	MWF	HLMS 181	\N	Main Campus
+24366	PORT	2350	1	11:00:00	11:50:00	MWF	MKNA 103	\N	Main Campus
+25392	PORT	2800	1	08:00:00	09:15:00	TTH	HUMN 160	\N	Main Campus
+18305	PORT	3220	1	11:00:00	12:15:00	TTH	MKNA 103	\N	Main Campus
+18306	PORT	4110	1	12:00:00	12:50:00	MWF	DUAN G2B60	Schincariol,Marcelo Tadeu	Main Campus
+18131	PSYC	1001	1	11:00:00	12:15:00	TTH	MUEN E050	Stratford,Jennifer Marie	Main Campus
+18132	PSYC	1001	2	13:00:00	13:50:00	MWF	MUEN E050	Curtis,Ryan	Main Campus
+18133	PSYC	1001	3	15:00:00	15:50:00	MWF	CHEM 142	King,D Brett	Main Campus
+24489	PSYC	1001	4	14:00:00	14:50:00	MWF	CHEM 142	King,D Brett	Main Campus
+23028	PSYC	1001	219R	12:30:00	13:45:00	TTH	KITW N132	Ketels,Shaw Lionel	Main Campus
+35808	PSYC	1001	880	12:30:00	13:45:00	TTH	LIBR M300D	Schwartz,Jennifer A. J.	Main Campus
+18150	PSYC	2012	1	12:30:00	13:45:00	TTH	ECCR 265	Allen,David Lehigh	Main Campus
+18151	PSYC	2012	2	13:00:00	13:50:00	MWF	MUEN E0046	Laman-Maharg,Abigail Rose	Main Campus
+24963	PSYC	2012	3	14:00:00	14:50:00	MWF	MUEN E0046	Laman-Maharg,Abigail Rose	Main Campus
+18134	PSYC	2111	100	11:00:00	12:15:00	TTH	MUEN E0046	Keller,Matthew C	Main Campus
+18139	PSYC	2111	200	10:00:00	10:50:00	MWF	CASE E240	Curtis,Ryan	Main Campus
+18144	PSYC	2111	300	11:00:00	11:50:00	MWF	MUEN E0046	Curtis,Ryan	Main Campus
+18145	PSYC	2111	310	13:00:00	14:50:00	M	MUEN E311	Curtis,Ryan	Main Campus
+18146	PSYC	2111	311	15:00:00	16:50:00	M	MUEN E311	Curtis,Ryan	Main Campus
+18147	PSYC	2111	312	08:00:00	09:50:00	T	MUEN E0014	Curtis,Ryan	Main Campus
+23641	PSYC	2111	313	10:00:00	11:50:00	T	MUEN E0014	Curtis,Ryan	Main Campus
+25106	PSYC	2111	314	12:00:00	13:50:00	T	MUEN E0014	Curtis,Ryan	Main Campus
+18152	PSYC	2145	1	12:30:00	13:45:00	TTH	VAC 1B20	Carston,Ronald McKell	Main Campus
+18153	PSYC	2145	2	11:00:00	12:15:00	TTH	RAMY C250	Carston,Karli K	Main Campus
+24438	PSYC	2145	280R	15:30:00	16:45:00	TTH	LIBY 140	Schwikert,Shane Ross	Main Campus
+18148	PSYC	2606	1	15:30:00	16:45:00	TTH	MUEN E0046	Loersch,Christopher Alan	Main Campus
+18149	PSYC	2606	2	12:00:00	12:50:00	MWF	DUAN G1B20	King,D Brett	Main Campus
+23536	PSYC	2606	3	11:00:00	12:15:00	TTH	VAC 1B20	Pedersen,Eric	Main Campus
+24141	PSYC	2606	250R	11:00:00	11:50:00	MWF	FRND CRAV	King,D Brett	Main Campus
+24079	PSYC	2700	1	14:00:00	15:15:00	TTH	HUMN 125	Matic,Dina	Main Campus
+18662	PSYC	3102	1	09:30:00	10:45:00	TTH	MUEN E417	Carey,Gregory	Main Campus
+23775	PSYC	3102	2	12:30:00	13:45:00	TTH	MUEN E417	Huibregtse,Brooke Marie	Main Campus
+25080	PSYC	3102	3	08:00:00	09:15:00	TTH	MUEN E130	Huibregtse,Brooke Marie	Main Campus
+35907	PSYC	3102	4	15:30:00	16:45:00	TTH	HUMN 1B90	Rhee,Soo Hyun	Main Campus
+23526	PSYC	3111	100	15:30:00	16:45:00	TTH	ECCR 1B40	Stratford,Jennifer Marie	Main Campus
+24574	PSYC	3111	110	08:00:00	09:50:00	M	MUEN E311	Stratford,Jennifer Marie	Main Campus
+23642	PSYC	3111	111	10:00:00	11:50:00	M	MUEN E311	Stratford,Jennifer Marie	Main Campus
+23643	PSYC	3111	112	13:00:00	14:50:00	M	MUEN D346	Stratford,Jennifer Marie	Main Campus
+23644	PSYC	3111	113	15:00:00	16:50:00	M	MUEN D346	Stratford,Jennifer Marie	Main Campus
+24606	PSYC	3111	114	08:00:00	09:50:00	T	MUEN E311	Stratford,Jennifer Marie	Main Campus
+23805	PSYC	3111	115	10:00:00	11:50:00	T	MUEN E311	Stratford,Jennifer Marie	Main Campus
+23189	PSYC	3111	200	12:30:00	13:45:00	TTH	HUMN 250	Stratford,Jennifer Marie	Main Campus
+23190	PSYC	3111	210	14:00:00	15:50:00	T	MUEN E0014	Stratford,Jennifer Marie	Main Campus
+23191	PSYC	3111	211	08:00:00	09:50:00	W	MUEN E0014	Stratford,Jennifer Marie	Main Campus
+23192	PSYC	3111	212	10:00:00	11:50:00	W	MUEN E0014	Stratford,Jennifer Marie	Main Campus
+23193	PSYC	3111	213	13:00:00	14:50:00	W	MUEN E0014	Stratford,Jennifer Marie	Main Campus
+23681	PSYC	3111	214	15:00:00	16:50:00	W	MUEN E0014	Stratford,Jennifer Marie	Main Campus
+23194	PSYC	3111	300	11:00:00	12:15:00	TTH	ECCR 1B40	Bryan,Angela	Main Campus
+24045	PSYC	3111	310	12:30:00	14:20:00	TH	MUEN D346	Bryan,Angela	Main Campus
+24046	PSYC	3111	311	14:30:00	16:20:00	TH	MUEN D346	Bryan,Angela	Main Campus
+24047	PSYC	3111	312	08:00:00	09:50:00	M	MUEN E0014	Bryan,Angela	Main Campus
+24048	PSYC	3111	313	10:00:00	11:50:00	M	MUEN E0014	Bryan,Angela	Main Campus
+24575	PSYC	3111	314	13:00:00	14:50:00	M	MUEN E0014	Bryan,Angela	Main Campus
+25109	PSYC	3111	315	15:00:00	16:50:00	M	MUEN E0014	Bryan,Angela	Main Campus
+22419	PSYC	3303	1	09:30:00	10:45:00	TTH	MUEN E0046	Kaiser,Roselinde	Main Campus
+23932	PSYC	3303	2	14:00:00	15:15:00	TTH	ECCR 1B40	Arch,Joanna	Main Campus
+23197	PSYC	3303	3	09:00:00	09:50:00	MWF	HUMN 250	Kaufmann,Vyga Genoveva	Main Campus
+23196	PSYC	3303	4	10:00:00	10:50:00	MWF	HUMN 250	Kaufmann,Vyga Genoveva	Main Campus
+35809	PSYC	3303	880	11:00:00	12:15:00	TTH	LIBR M300D	Schwartz,Jennifer A. J.	Main Campus
+18154	PSYC	3684	1	09:30:00	10:45:00	TTH	ECCR 265	Pierotti,Chelsea	Main Campus
+22402	PSYC	4021	1	10:00:00	10:50:00	MWF	MUEN E417	Allen,David Lehigh	Main Campus
+31689	PSYC	4021	2	13:00:00	13:50:00	MWF	MUEN E417	Allen,David Lehigh	Main Campus
+19199	PSYC	4114	1	14:00:00	15:15:00	TTH	CLRE 302	\N	Main Campus
+23917	PSYC	4114	2	08:00:00	09:15:00	TTH	MUEN E131	\N	Main Campus
+31690	PSYC	4136	100	11:00:00	12:15:00	TTH	MUEN E131	Van Boven,Leaf D	Main Campus
+18355	PSYC	4165	100	11:00:00	12:15:00	TTH	MUEN E064	Harvey,Lewis Orvis	Main Campus
+18357	PSYC	4165	101	13:00:00	14:50:00	T	MUEN D346	Harvey,Lewis Orvis	Main Campus
+18358	PSYC	4165	102	15:00:00	16:50:00	T	MUEN D346	Harvey,Lewis Orvis	Main Campus
+24347	PSYC	4263	1	11:00:00	12:15:00	TTH	MUEN E431	Pittman-Wagers,Justina	Main Campus
+24348	PSYC	4263	2	12:30:00	13:45:00	TTH	MUEN E431	Pittman-Wagers,Justina	Main Campus
+25083	PSYC	4376	100	12:30:00	13:45:00	TTH	MUEN E064	Pierotti,Chelsea	Main Campus
+25086	PSYC	4376	200	14:00:00	15:15:00	TTH	MUEN E131	Pierotti,Chelsea	Main Campus
+21872	PSYC	4443	100	09:30:00	10:45:00	TTH	MUEN E431	Smutzler,Natalie D	Main Campus
+21873	PSYC	4443	101	09:00:00	10:50:00	F	MUEN E311	Smutzler,Natalie D	Main Campus
+21874	PSYC	4443	102	11:00:00	12:50:00	F	MUEN E311	Smutzler,Natalie D	Main Campus
+24143	PSYC	4443	200	11:00:00	12:15:00	TTH	MUEN E417	Smutzler,Natalie D	Main Campus
+24144	PSYC	4443	201	13:00:00	14:50:00	F	MUEN E311	Smutzler,Natalie D	Main Campus
+24145	PSYC	4443	202	15:00:00	16:50:00	F	MUEN E311	Smutzler,Natalie D	Main Campus
+32284	PSYC	4526	1	15:30:00	18:00:00	T	MUEN E131	Ito,Tiffany Anne	Main Campus
+23933	PSYC	4541	1	15:00:00	17:30:00	M	MUEN E131	Freedman,Michael R	Main Campus
+22733	PSYC	4541	2	11:00:00	11:50:00	MWF	MUEN D346	Harvey,Lewis Orvis	Main Campus
+23195	PSYC	4541	3	12:00:00	12:50:00	MWF	MUEN E064	Carston,Karli K	Main Campus
+25115	PSYC	4541	4	15:30:00	16:45:00	TTH	RAMY N1B31	Hutchison,Kent Edward	Main Campus
+23934	PSYC	4553	1	14:00:00	15:15:00	TTH	MUEN E431	Pittman-Wagers,Justina	Main Campus
+38222	PSYC	1001	300E	18:30:00	21:30:00	W	\N	Freedman,Michael R	Continuing Education
+38221	PSYC	2012	300E	18:00:00	20:00:00	M	\N	Yankovich,Helen	Continuing Education
+38218	PSYC	2145	300E	18:00:00	20:00:00	TH	\N	Yankovich,Helen	Continuing Education
+38217	PSYC	3456	300E	18:00:00	20:00:00	M	\N	Urland,Geoffrey Raymond	Continuing Education
+35927	PSYC	5112	1	13:30:00	16:00:00	W	IBG 210	Rhee,Soo Hyun	Main Campus
+25507	PSYC	5541	801	09:30:00	10:45:00	TTH	MUEN E317	Hill,Karl G	Main Campus
+35930	PSYC	5541	802	11:00:00	11:50:00	MWF	MUEN D346	Harvey,Lewis Orvis	Main Campus
+35933	PSYC	5656	1	13:00:00	15:30:00	W	MUEN E317	Bryan,Angela	Main Campus
+21786	PSYC	5751	100	15:30:00	16:45:00	TTH	MUEN E113	Friedman,Naomi Pauline	Main Campus
+21787	PSYC	5751	101	09:00:00	10:50:00	TH	MUEN E311	Friedman,Naomi Pauline	Main Campus
+21788	PSYC	5751	102	11:00:00	12:50:00	TH	MUEN E311	Friedman,Naomi Pauline	Main Campus
+35822	PSYC	5761	1	12:30:00	15:00:00	T	MUEN E311	Friedman,Naomi Pauline	Main Campus
+33202	PSYC	6603	1	12:00:00	13:00:00	M	MUEN E214	Rhee,Soo Hyun	Main Campus
+22820	PSYC	6605	801	12:00:00	13:00:00	M	MUEN D430	Curran,Timothy	Main Campus
+18719	PSYC	6606	801	12:00:00	13:00:00	W	MUEN E214	Loersch,Christopher Alan	Main Campus
+35935	PSYC	7102	1	10:00:00	11:45:00	T	IBG 261	Stallings,Michael C	Main Campus
+37504	PSYC	7102	2	13:00:00	15:30:00	M	IBG 210	Hewitt,John K	Main Campus
+36024	PSYC	7215	1	09:30:00	12:00:00	W	MUEN E317	Miyake,Akira	Main Campus
+37523	PSYC	7673	800	12:00:00	14:30:00	T	MUEN D334	Dimidjian,Sona Armine	Main Campus
+23388	PSYC	7683	800	09:00:00	11:30:00	M	MUEN D334	Richardson,Emily	Main Campus
+23350	PSYC	7793	801	12:00:00	14:00:00	W	MUEN D216A	Chhabildas,Nomita Anne	Main Campus
+35932	PSYC	5835	1	13:15:00	14:50:00	TTH	MUEN E317	Jones,Matthew Carl	Main Campus
+35931	PSYC	5815	1	13:15:00	14:50:00	TTH	MUEN E317	Colunga,Eliana	Main Campus
+32698	RLST	1910	1	12:00:00	12:50:00	MWF	HLMS 141	Lillie,Celene	Main Campus
+24849	RLST	2610	1	13:00:00	13:50:00	MWF	HLMS 141	Biernacki,Loriliai	Main Campus
+25072	RLST	2650	10	11:00:00	11:50:00	MW	HALE 230	Gayley,Antonia	Main Campus
+32278	RLST	2700	10	10:00:00	10:50:00	MW	HLMS 199	\N	Main Campus
+32713	RLST	2700	11	14:00:00	14:50:00	W	STAD 135	\N	Main Campus
+32714	RLST	2700	12	12:00:00	12:50:00	F	HLMS 241	\N	Main Campus
+32715	RLST	2700	13	11:00:00	11:50:00	F	HALE 230	\N	Main Campus
+25091	RLST	2800	1	11:00:00	11:50:00	MWF	HLMS 241	Lillie,Celene	Main Campus
+35537	RLST	3001	1	09:00:00	09:50:00	MWF	HLMS 141	\N	Main Campus
+32701	RLST	3040	1	14:00:00	15:15:00	TTH	HLMS 141	Ali,Aun H	Main Campus
+32702	RLST	3550	1	12:30:00	13:45:00	TTH	CLUB 13	Krug,Adam C	Main Campus
+32280	RLST	4200	1	15:00:00	17:30:00	W	HUMN 270	Biernacki,Loriliai	Main Campus
+24888	RLST	4820	1	15:00:00	17:30:00	M	HUMN 270	Ali,Aun H	Main Campus
+32729	RLST	4820	2	15:30:00	18:00:00	TH	HUMN 270	Gayley,Antonia	Main Campus
+30450	MUS	2131	6	08:00:00	08:50:00	TTH	MUS N1B59	\N	Main Campus
+19412	RLST	4830	1	15:30:00	18:00:00	T	HUMN 270	Whitehead,Deborah Faith	Main Campus
+17747	RUSS	1010	1	14:00:00	14:50:00	M-TH	MCOL E158	Demina,Evangelina	Main Campus
+17749	RUSS	1020	1	11:00:00	11:50:00	M-TH	MCOL E158	Kostoglodova,Elena Yurievna	Main Campus
+17750	RUSS	1020	2	09:00:00	09:50:00	M-TH	MCOL E158	Kostoglodova,Elena Yurievna	Main Campus
+22378	RUSS	2010	1	13:00:00	13:50:00	M-TH	MCOL E158	Schmuck,Laurel	Main Campus
+17748	RUSS	2020	1	13:00:00	13:50:00	M-TH	HALE 236	Gunn,Yuliana	Main Campus
+23883	RUSS	2221	1	11:00:00	11:50:00	MWF	GUGG 205	Grove,Vicki	Main Campus
+23924	RUSS	2231	1	10:00:00	10:50:00	MWF	ECON 205	Grove,Vicki	Main Campus
+17751	RUSS	3020	1	10:00:00	10:50:00	M-TH	HUMN 335	Gunn,Yuliana	Main Campus
+30678	RUSS	3211	1	14:00:00	15:15:00	TTH	MUEN E417	Porter,Jillian E.	Main Campus
+23925	RUSS	3241	10	11:00:00	11:50:00	MW	HUMN 250	Vicks,Meghan Christine	Main Campus
+24212	RUSS	3241	14	10:00:00	10:50:00	F	ATLS 1B25	Vicks,Meghan Christine	Main Campus
+24213	RUSS	3241	15	13:00:00	13:50:00	TH	CLRE 301	Vicks,Meghan Christine	Main Campus
+24214	RUSS	3241	16	14:00:00	14:50:00	F	HALE 240	Vicks,Meghan Christine	Main Campus
+31524	RUSS	3705	1	15:30:00	16:45:00	TTH	MCOL E186	Porter,Jillian E.	Main Campus
+23850	RUSS	4020	1	10:00:00	10:50:00	M-TH	MCOL E158	Kostoglodova,Elena Yurievna	Main Campus
+23851	RUSS	4060	1	10:00:00	10:50:00	M-TH	MCOL E158	Kostoglodova,Elena Yurievna	Main Campus
+32305	RUSS	4471	1	11:00:00	12:15:00	TTH	CLUB 13	Schmuck,Laurel	Main Campus
+24997	RUSS	4831	1	12:00:00	12:50:00	MWF	EDUC 155	Vicks,Meghan Christine	Main Campus
+32308	RUSS	4850	1	17:00:00	18:15:00	MW	HUMN 145	Gunn,Yuliana	Main Campus
+23852	RUSS	5020	1	10:00:00	10:50:00	M-TH	MCOL E158	Kostoglodova,Elena Yurievna	Main Campus
+24261	SCAN	1202	1	08:00:00	09:15:00	TTH	MCOL E186	Raggio,Avedan	Main Campus
+31667	SCAN	1202	2	09:30:00	10:45:00	TTH	GUGG 206	Raggio,Avedan	Main Campus
+24260	SCAN	2202	1	10:00:00	10:50:00	MWF	CLRE 104	Nordvig,Asger M.V.	Main Campus
+22379	SCAN	3202	10	09:00:00	09:50:00	MW	HALE 270	Crawford,Jackson	Main Campus
+22380	SCAN	3202	11	13:00:00	13:50:00	W	ECON 2	Crawford,Jackson	Main Campus
+24321	SCAN	3202	12	08:00:00	08:50:00	F	HLMS 263	Crawford,Jackson	Main Campus
+24322	SCAN	3202	13	12:00:00	12:50:00	W	STAD 136C	Crawford,Jackson	Main Campus
+22381	SCAN	3202	14	09:00:00	09:50:00	F	HALE 270	Crawford,Jackson	Main Campus
+22382	SCAN	3202	15	12:00:00	12:50:00	F	MKNA 112	Crawford,Jackson	Main Campus
+22383	SCAN	3202	16	09:00:00	09:50:00	TH	HALE 236	Crawford,Jackson	Main Campus
+22199	SCAN	3204	1	11:00:00	11:50:00	MWF	ECON 2	Crawford,Jackson	Main Campus
+23964	SCAN	3205	1	15:30:00	16:45:00	TTH	KCEN N252	Raggio,Avedan	Main Campus
+24171	SOCY	1001	1	09:30:00	10:45:00	TTH	HLMS 201	Radelet,Michael L	Main Campus
+22256	SOCY	1001	100	14:00:00	14:50:00	MW	MUEN E050	Wadsworth,Thomas Pearson	Main Campus
+24990	SOCY	1004	100	12:00:00	12:50:00	MW	MUEN E050	Walden,Glenda Danice	Main Campus
+24013	SOCY	1006	1	09:30:00	10:45:00	TTH	CASE E340	Suryawan,Jasmine Louise	Main Campus
+23625	SOCY	1006	100	11:00:00	12:15:00	TTH	HLMS 201	Rowe,Matthew Spencer	Main Campus
+35618	SOCY	1006	101	08:00:00	08:50:00	F	HLMS 229	\N	Main Campus
+35619	SOCY	1006	102	11:00:00	11:50:00	F	ECCR 155	\N	Main Campus
+35621	SOCY	1006	103	12:00:00	12:50:00	F	STAD 140	\N	Main Campus
+35810	SOCY	1006	880	09:00:00	09:50:00	MWF	LIBR N424A	Hatch,Alison Eileen	Main Campus
+35956	SOCY	1016	100	14:00:00	14:50:00	TTH	HLMS 252	Rowe,Matthew Spencer	Main Campus
+31357	SOCY	1016	200	14:00:00	15:15:00	TTH	MUEN E0046	Steinberg,Hillary Rachel	Main Campus
+23266	SOCY	1021	1	11:00:00	12:15:00	TTH	ECCR 245	Downey,Liam C	Main Campus
+24573	SOCY	1021	200	13:00:00	13:50:00	MW	RAMY C250	Sue,Christina Alicia	Main Campus
+22318	SOCY	1022	100	11:00:00	11:50:00	TTH	EKLC E1B20	Pedersen-Gallegos,Liane G	Main Campus
+24620	SOCY	2031	100	10:00:00	10:50:00	MWF	EKLC E1B20	Reiff,Eric A	Main Campus
+22177	SOCY	2031	300	08:00:00	09:15:00	TTH	HLMS 199	Haffey,Michael John	Main Campus
+35754	SOCY	2031	400	09:00:00	09:50:00	MWF	HUMN 1B80	\N	Main Campus
+35755	SOCY	2031	500	11:00:00	11:50:00	MWF	EDUC 155	\N	Main Campus
+35837	SOCY	2044	200	08:00:00	09:15:00	TTH	BESC 185	Sousa,Michael D	Main Campus
+22178	SOCY	2061	100	14:00:00	14:50:00	MW	HALE 270	Masters,Ryan Kelly	Main Campus
+25273	SOCY	2077	100	11:00:00	11:50:00	MW	HLMS 201	Patterson,Laura Robin	Main Campus
+19414	SOCY	3001	100	14:00:00	14:50:00	TTH	HLMS 199	Irvine,Leslie J	Main Campus
+38845	SOCY	3012	1	10:00:00	10:50:00	MWF	HUMN 135	Fehr Sardone,Tracy Danielle	Main Campus
+25175	SOCY	3016	880	09:30:00	10:45:00	TTH	LIBR M300D	Hatch,Alison Eileen	Main Campus
+38690	SOCY	3032	1	15:30:00	16:45:00	TTH	KTCH 1B87	Carias,Jake Edward	Main Campus
+24552	SOCY	3045	1	15:30:00	16:45:00	TTH	HUMN 135	Pedersen-Gallegos,Liane G	Main Campus
+23680	SOCY	3201	100	13:00:00	13:50:00	MWF	EKLC E1B20	Patterson,Laura Robin	Main Campus
+31347	SOCY	4004	1	15:00:00	16:15:00	MW	ECCR 1B40	Pyrooz,David C	Main Campus
+33293	SOCY	4007	1	17:00:00	18:15:00	TTH	HLMS 141	Haffey,Michael John	Main Campus
+21482	SOCY	4014	100	09:00:00	09:50:00	MW	HLMS 199	Thomas,Kyle	Main Campus
+25244	SOCY	4017	1	11:00:00	12:15:00	TTH	MCOL W100	Irvine,Leslie J	Main Campus
+31348	SOCY	4024	100	10:00:00	10:50:00	MW	HLMS 252	Thomas,Kyle	Main Campus
+25245	SOCY	4030	1	11:00:00	12:15:00	TTH	HLMS 241	Haffey,Michael John	Main Campus
+24547	SOCY	4052	1	11:00:00	11:50:00	MWF	DUAN G125	Modile,Adenife Tolani	Main Campus
+23976	SOCY	4063	1	09:30:00	10:45:00	TTH	RAMY N1B23	Pedersen-Gallegos,Liane G	Main Campus
+24546	SOCY	4104	1	08:00:00	09:15:00	TTH	ECON 16	Radelet,Michael L	Main Campus
+38884	SOCY	4117	10	09:00:00	09:50:00	MW	HLMS 252	Reiff,Eric A	Main Campus
+23269	SOCY	4121	1	14:00:00	15:15:00	TTH	ECON 16	Pedersen-Gallegos,Liane G	Main Campus
+33294	SOCY	4131	1	15:30:00	16:45:00	TTH	HLMS 199	Haffey,Michael John	Main Campus
+38844	SOCY	4131	2	11:00:00	12:15:00	TTH	RAMY N1B23	Truong-Vu,Kim-Phuong	Main Campus
+25475	SOCY	4161	1	17:00:00	18:15:00	TTH	KTCH 1B71	Ward,Taber Stark	Main Campus
+25486	SOCY	4451	802	09:30:00	11:00:00	T	See Academc Dept	Hunter,Lori	Main Campus
+38215	SOCY	1001	300E	17:30:00	19:30:00	M	\N	Hoyt,Kristofer Allen	Continuing Education
+38213	SOCY	1004	300E	18:00:00	20:00:00	W	\N	Kaufman,Jeanne	Continuing Education
+39560	SOCY	5071	1	09:00:00	11:30:00	W	KTCH 1B40	Cook-Martín,David	Main Campus
+24168	SOCY	5111	1	15:00:00	17:30:00	M	KTCH 1B40	Boardman,Jason D	Main Campus
+33424	SOCY	5181	1	15:00:00	17:30:00	TH	KTCH 1B40	Cook-Martín,David	Main Campus
+18239	SPAN	1010	1	08:00:00	08:50:00	M-F	HLMS 185	\N	Main Campus
+18240	SPAN	1010	2	09:00:00	09:50:00	M-F	HLMS 247	\N	Main Campus
+18241	SPAN	1010	3	11:00:00	11:50:00	M-F	HLMS 247	\N	Main Campus
+18242	SPAN	1010	4	11:00:00	11:50:00	M-F	MUEN D439	\N	Main Campus
+18246	SPAN	1010	5	11:00:00	11:50:00	M-F	CLRE 211	\N	Main Campus
+18243	SPAN	1010	6	12:00:00	12:50:00	M-F	HLMS 255	\N	Main Campus
+18244	SPAN	1010	7	13:00:00	13:50:00	M-F	HLMS 247	\N	Main Campus
+18245	SPAN	1010	8	13:00:00	13:50:00	M-F	HLMS 255	\N	Main Campus
+18247	SPAN	1010	9	14:00:00	14:50:00	M-F	HLMS 247	\N	Main Campus
+18248	SPAN	1010	10	14:00:00	14:50:00	M-F	CHEM 145	\N	Main Campus
+25462	SPAN	1010	800	11:00:00	11:50:00	M-F	HLMS 152	\N	Main Campus
+18250	SPAN	1020	1	09:00:00	09:50:00	M-F	HLMS 191	\N	Main Campus
+18251	SPAN	1020	2	09:00:00	09:50:00	M-F	MCOL E155	\N	Main Campus
+18252	SPAN	1020	3	11:00:00	11:50:00	M-F	GUGG 2	\N	Main Campus
+18253	SPAN	1020	4	11:00:00	11:50:00	M-F	MCOL E155	\N	Main Campus
+18254	SPAN	1020	5	11:00:00	11:50:00	M-F	HLMS 191	\N	Main Campus
+18255	SPAN	1020	7	12:00:00	12:50:00	M-F	CLRE 211	\N	Main Campus
+18256	SPAN	1020	8	12:00:00	12:50:00	M-F	MCOL E155	\N	Main Campus
+18257	SPAN	1020	9	13:00:00	13:50:00	M-F	CLRE 211	\N	Main Campus
+18259	SPAN	1020	11	14:00:00	14:50:00	M-F	MUEN E123	\N	Main Campus
+18260	SPAN	1020	12	14:00:00	14:50:00	M-F	MCOL E155	\N	Main Campus
+25459	SPAN	1020	800	13:00:00	13:50:00	M-F	HLMS 152	\N	Main Campus
+25445	SPAN	1020	801	13:00:00	13:50:00	M-F	MCOL E155	\N	Main Campus
+24560	SPAN	1150	800	11:00:00	11:50:00	M-F	LIBR M498	\N	Main Campus
+18261	SPAN	2110	1	08:00:00	09:15:00	TTH	CLRE 212	\N	Main Campus
+18262	SPAN	2110	2	09:00:00	09:50:00	MWF	CLRE 212	\N	Main Campus
+18263	SPAN	2110	3	11:00:00	11:50:00	MWF	HALE 240	\N	Main Campus
+18264	SPAN	2110	4	12:00:00	12:50:00	MWF	HLMS 193	\N	Main Campus
+18265	SPAN	2110	5	12:00:00	12:50:00	MWF	MKNA 204	\N	Main Campus
+18266	SPAN	2110	6	12:30:00	13:45:00	TTH	KTCH 1B84	\N	Main Campus
+18267	SPAN	2110	7	13:00:00	13:50:00	MWF	HLMS 185	\N	Main Campus
+18268	SPAN	2110	8	14:00:00	14:50:00	MWF	KTCH 1B84	\N	Main Campus
+18269	SPAN	2110	9	15:00:00	15:50:00	MWF	HLMS 191	\N	Main Campus
+18270	SPAN	2110	10	14:00:00	15:15:00	TTH	EDUC 143	\N	Main Campus
+25461	SPAN	2110	800	14:00:00	14:50:00	MWF	HLMS 152	\N	Main Campus
+18271	SPAN	2120	1	09:00:00	09:50:00	MWF	HUMN 180	\N	Main Campus
+18272	SPAN	2120	2	11:00:00	11:50:00	MWF	MKNA 204	\N	Main Campus
+18273	SPAN	2120	3	11:00:00	12:15:00	TTH	MKNA 204	\N	Main Campus
+18274	SPAN	2120	4	12:00:00	12:50:00	MWF	HUMN 145	\N	Main Campus
+18275	SPAN	2120	5	12:30:00	13:45:00	TTH	KTCH 1B60	\N	Main Campus
+18276	SPAN	2120	6	13:00:00	13:50:00	MWF	CLRE 301	\N	Main Campus
+18277	SPAN	2120	7	10:00:00	10:50:00	MWF	EDUC 143	\N	Main Campus
+21773	SPAN	2150	800	09:00:00	09:50:00	M-F	HUMN 335	\N	Main Campus
+24096	SPAN	2450	1	09:00:00	09:50:00	MWF	MKNA 204	\N	Main Campus
+24747	SPAN	3000	1	08:00:00	08:50:00	M-F	HALE 236	\N	Main Campus
+18279	SPAN	3000	2	09:00:00	09:50:00	M-F	CLRE 211	\N	Main Campus
+18280	SPAN	3000	3	11:00:00	11:50:00	M-F	CLRE 212	\N	Main Campus
+24748	SPAN	3000	4	11:00:00	11:50:00	M-F	CHEM 131	\N	Main Campus
+18281	SPAN	3000	5	12:00:00	12:50:00	M-F	CLRE 212	\N	Main Campus
+18282	SPAN	3000	6	13:00:00	13:50:00	M-F	CLRE 212	\N	Main Campus
+18283	SPAN	3000	7	14:00:00	14:50:00	M-F	CLRE 212	\N	Main Campus
+24749	SPAN	3000	8	14:00:00	14:50:00	M-F	CLRE 211	\N	Main Campus
+24687	SPAN	3000	9	15:00:00	15:50:00	M-F	MUEN D439	\N	Main Campus
+18284	SPAN	3001	1	12:00:00	12:50:00	MWF	HLMS 196	\N	Main Campus
+18286	SPAN	3002	1	09:00:00	09:50:00	MWF	HLMS 196	\N	Main Campus
+23800	SPAN	3002	2	13:00:00	13:50:00	MWF	MKNA 204	\N	Main Campus
+22529	SPAN	3010	1	13:00:00	13:50:00	MWF	HLMS 193	\N	Main Campus
+23808	SPAN	3010	2	11:00:00	11:50:00	MWF	HUMN 370	\N	Main Campus
+18287	SPAN	3050	1	13:00:00	13:50:00	MWF	EDUC 143	\N	Main Campus
+23705	SPAN	3050	2	11:00:00	12:15:00	TTH	EDUC 143	\N	Main Campus
+31437	SPAN	3060	1	14:00:00	14:50:00	MWF	KTCH 1B44	\N	Main Campus
+25458	SPAN	3070	1	09:00:00	09:50:00	MWF	KTCH 1B44	\N	Main Campus
+18288	SPAN	3100	1	11:00:00	11:50:00	MWF	GUGG 206	\N	Main Campus
+18289	SPAN	3100	2	12:00:00	12:50:00	MWF	HLMS 251	\N	Main Campus
+18290	SPAN	3100	3	12:30:00	13:45:00	TTH	MKNA 204	\N	Main Campus
+25644	MKT	3350	2	11:00:00	12:15:00	MW	\N	Koc,Ozlem	Main Campus
+31438	SPAN	3100	4	15:00:00	15:50:00	MWF	EKLC E1B75	\N	Main Campus
+18292	SPAN	3120	1	14:00:00	14:50:00	MWF	HUMN 1B70	\N	Main Campus
+18293	SPAN	3120	2	10:00:00	10:50:00	MWF	CLRE 208	\N	Main Campus
+23745	SPAN	3120	3	09:00:00	09:50:00	MWF	HALE 236	\N	Main Campus
+23069	SPAN	4070	1	13:00:00	13:50:00	MWF	KTCH 1B60	\N	Main Campus
+31439	SPAN	4120	1	13:00:00	13:50:00	MWF	STAD 135	\N	Main Campus
+25463	SPAN	4150	2	14:00:00	14:50:00	MWF	STAD 136C	\N	Main Campus
+31440	SPAN	4170	1	09:00:00	09:50:00	MWF	EDUC 143	\N	Main Campus
+31441	SPAN	4450	1	14:00:00	15:15:00	TTH	MKNA 204	\N	Main Campus
+31442	SPAN	4620	1	11:00:00	11:50:00	MWF	HLMS 196	\N	Main Campus
+18299	SPAN	4650	1	13:00:00	13:50:00	MWF	MKNA 103	\N	Main Campus
+38212	SPAN	1010	300E	17:30:00	19:30:00	MW	\N	Cabeza,Adriana	Continuing Education
+38209	SPAN	1020	300E	18:00:00	20:00:00	MW	\N	Bocanegra,Nancy Zoila	Continuing Education
+38208	SPAN	2110	300E	17:30:00	19:30:00	T	\N	Cabeza,Adriana	Continuing Education
+39409	SPAN	5200	1	15:30:00	18:00:00	W	MKNA 103	\N	Main Campus
+24149	SPAN	5220	1	15:30:00	18:00:00	T	MKNA 103	\N	Main Campus
+25556	SPAN	5300	1	15:30:00	18:00:00	M	MKNA 103	\N	Main Campus
+22530	SPAN	5430	1	14:00:00	15:15:00	TTH	MKNA 103	\N	Main Campus
+31944	SLHS	1010	1	11:00:00	11:50:00	MWF	CASE E240	Damico,Jack S	Main Campus
+19162	SLHS	2000	1	14:00:00	15:15:00	TTH	BESC 185	\N	Main Campus
+19163	SLHS	2010	1	12:30:00	13:45:00	TTH	CASE E240	\N	Main Campus
+23393	SLHS	2305	1	13:00:00	13:50:00	M-TH	KTCH 1B64	Berman,Rachel Gayle	Main Campus
+19165	SLHS	2305	2	15:00:00	16:50:00	MW	HLMS 145	Berman,Rachel Gayle	Main Campus
+31954	SLHS	2305	3	14:00:00	14:50:00	M-TH	KTCH 1B64	Moers,Willard Lee	Main Campus
+24644	SLHS	2305	4	09:00:00	09:50:00	M-TH	KTCH 1B64	Moers,Willard Lee	Main Campus
+19167	SLHS	2315	1	10:00:00	10:50:00	M-TH	KTCH 1B64	Moers,Willard Lee	Main Campus
+31957	SLHS	2315	2	15:00:00	16:50:00	TTH	HLMS 145	Berman,Rachel Gayle	Main Campus
+19168	SLHS	2325	1	11:00:00	11:50:00	M-TH	KTCH 1B64	Berman,Rachel Gayle	Main Campus
+23801	SLHS	2325	2	15:00:00	15:50:00	M-TH	KTCH 1B64	Moers,Willard Lee	Main Campus
+24427	SLHS	3014	1	11:00:00	12:15:00	TTH	RAMY N1B31	Baiduc,Rachael Rebecca	Main Campus
+23075	SLHS	3106	1	12:30:00	13:45:00	TTH	EDUC 155	Arehart,Kathryn H	Main Campus
+23753	SLHS	3116	1	11:00:00	12:15:00	TTH	SLHS 230	Pollard,Ryan Daniel	Main Campus
+22437	SLHS	4502	1	16:00:00	17:15:00	MW	HLMS 211	Kan,Pui Fong	Main Campus
+31967	SLHS	4512	1	12:30:00	13:45:00	TTH	SLHS 230	Pollard,Ryan Daniel	Main Campus
+24389	SLHS	4576	1	09:30:00	10:45:00	TTH	SLHS 230	Brennan,Christine	Main Campus
+31968	SLHS	4704	1	15:30:00	16:45:00	TTH	HLMS 141	Baiduc,Rachael Rebecca	Main Campus
+23748	SLHS	4714	1	14:00:00	15:15:00	TTH	SLHS 230	Langer,Elizabeth Caldwell	Main Campus
+23081	SLHS	4918	1	17:00:00	18:50:00	TH	RAMY N1B31	Langer,Elizabeth Caldwell	Main Campus
+32579	SLHS	5242	1	15:30:00	16:45:00	TTH	SLHS 230	Brennan,Christine	Main Campus
+25372	SLHS	5282	1	17:00:00	19:50:00	TH	SLHS 230	Hardin,Kathryn	Main Campus
+23752	SLHS	5302	1	17:30:00	20:20:00	T	SLHS 230	Schwartz,Scott Evan	Main Campus
+23885	SLHS	5362	1	13:00:00	15:50:00	M	SLHS 230	Pollard,Ryan Daniel	Main Campus
+24186	SLHS	5898	1	12:00:00	12:50:00	W	SLHS 230	Lemke,Alison	Main Campus
+23325	SLHS	5918	801	09:00:00	09:50:00	M	SLHS 217	Sommerfeldt,Kristin Kay	Main Campus
+23327	SLHS	5918	802	15:00:00	15:50:00	T	SLHS 217	Sommerfeldt,Kristin Kay	Main Campus
+23326	SLHS	5918	803	14:00:00	14:50:00	T	SLHS 217	Sommerfeldt,Kristin Kay	Main Campus
+24598	SLHS	6554	1	13:00:00	14:15:00	MW	SLHS 393	Bonino,Angela	Main Campus
+35559	SLHS	6564	1	14:30:00	15:45:00	MW	SLHS 393	Sharma,Anu	Main Campus
+24390	SLHS	6614	1	12:30:00	13:45:00	T	SLHS 393	Sommerfeldt,Kristin Kay	Main Campus
+35571	SLHS	6650	1	09:30:00	11:20:00	T	SLHS 393	\N	Main Campus
+35572	SLHS	6660	1	09:30:00	10:20:00	TH	SLHS 393	\N	Main Campus
+35569	SLHS	6670	1	08:00:00	09:15:00	TTH	SLHS 230	Arehart,Kathryn H	Main Campus
+35570	SLHS	7550	1	16:00:00	17:50:00	M	Meets at Off-Campus	Portnuff,Cory David Farquhar	Main Campus
+35573	SLHS	7554	1	17:00:00	17:50:00	TH	SLHS 393	\N	Main Campus
+35536	SLHS	5272	1	13:30:00	15:20:00	F	SLHS 230	Tennant,Sherri Beth	Main Campus
+23887	SWE	1020	1	14:00:00	14:50:00	M-TH	HLMS 191	Leonhardt-Lupa,Merete A	Main Campus
+19191	THTR	1003	1	11:00:00	12:50:00	MW	THTR C240	Sen,Jashodhara	Main Campus
+22410	THTR	1003	2	15:00:00	16:50:00	TTH	THTR C240	Carey,Nolan	Main Campus
+22411	THTR	1003	3	15:00:00	16:50:00	MW	THTR C1B40	Sen,Jashodhara	Main Campus
+22763	THTR	1003	4	16:00:00	17:50:00	MW	THTR C240	Nogeire,Gillian	Main Campus
+24960	THTR	1003	5	09:00:00	10:50:00	MW	THTR C240	Woodzick,K.	Main Campus
+19192	THTR	1009	1	12:00:00	12:50:00	MWF	HUMN 250	Johnson,Justin Andrew	Main Campus
+19193	THTR	1009	2	12:30:00	13:45:00	TTH	HLMS 199	Villarreal,Amanda Rose Hartley	Main Campus
+25116	THTR	1011	1	11:00:00	12:15:00	TTH	THTR C370	Coleman,Bertram E	Main Campus
+19197	THTR	1105	1	09:30:00	10:45:00	TTH	THTR C190	Feeler,Jordan	Main Campus
+19198	THTR	1115	1	09:30:00	10:45:00	TTH	THTR C370	Stark,Theodore	Main Campus
+19217	THTR	2021	1	09:30:00	10:45:00	TTH	THTR C340	\N	Main Campus
+19194	THTR	3011	1	11:00:00	12:15:00	TTH	HLMS 199	Fahmy,Sarah	Main Campus
+19195	THTR	3011	2	09:30:00	10:45:00	TTH	CASE E240	Fahmy,Sarah	Main Campus
+19196	THTR	3011	3	12:00:00	13:15:00	MW	THTR C340	Woodzick,K.	Main Campus
+31288	THTR	3015	1	09:00:00	11:50:00	WF	THTR C340	Spencer,Jonathan	Main Campus
+22417	THTR	3023	801	13:00:00	15:50:00	MW	THTR C240	Pang,Cecilia J	Main Campus
+19304	THTR	3035	821	10:00:00	11:50:00	WF	THTR C190	\N	 Main Campus
+22412	THTR	3043	801	10:00:00	11:50:00	MW	THTR C1B40	Persons,Charles Howard	 Main Campus
+23548	THTR	3045	1	09:30:00	10:45:00	TTH	THTR C342	 Lane,Constance Irene	 Main Campus
+19319	THTR	3053	1	11:00:00	12:50:00	TTH	THTR C240	 Crowe,Kevin Cristopher	 Main Campus
+23329	THTR	3085	1	11:00:00	12:15:00	TTH	THTR C340	Henry,Mark Allen	 Main Campus
+22147	THTR	4021	1	11:00:00	12:15:00	TTH	THTR C342	Nogeire,Gillian	 Main Campus
+22766	THTR	4023	801	13:00:00	15:50:00	TTH	THTR C1B40	Meneghini-Stalker,Tamara L.	 Main Campus
+31284	THTR	4035	1	13:00:00	15:50:00	M	THTR C190	\N	 Main Campus
+22987	THTR	4039	801	14:00:00	16:50:00	TTH	 CARL E012	 Schulz,Marla Alejandra	 Main Campus
+19446	THTR	4063	801	13:00:00	14:50:00	MW	THTR C1B40	Persons,Charles Howard	 Main Campus
+31289	THTR	4073	1	13:00:00	14:50:00	TTH	THTR C240	Osnes,Mary Beth	 Main Campus
+25078	THTR	4085	1	12:30:00	13:45:00	TTH	THTR C340	 Orr,Timothy Scott	 Main Campus
+19456	THTR	4095	1	09:00:00	11:50:00	M	THTR C190	Wagner,Teri	 Main Campus
+23473	THTR	4105	10	13:00:00	14:00:00	F	THTR C1B74	 Murphy,Anne Marie	 Main Campus
+23554	THTR	4105	11	14:00:00	16:50:00	F	THTR C1B74	 Murphy,Anne Marie	 Main Campus
+39154	THTR	4117	801	12:00:00	14:00:00	F	THTR C1B40	Meneghini-Stalker,Tamara L.	 Main Campus
+31286	THTR	4213	1	09:00:00	10:50:00	TTH	THTR C1B40	Carey,Nolan	 Main Campus
+19448	THTR	4555	800	12:00:00	13:00:00	F	THTR C370	 Court,Iain Maxwell	 Main Campus
+19449	THTR	4555	801	12:00:00	13:00:00	F	THTR C370	\N	 Main Campus
+19450	THTR	4555	802	12:00:00	13:00:00	F	THTR C370	Henry,Mark Allen	 Main Campus
+19451	THTR	4555	803	12:00:00	13:00:00	F	THTR C370	\N	 Main Campus
+19452	THTR	4555	804	12:00:00	13:00:00	F	THTR C370	Stark,Theodore	 Main Campus
+19453	THTR	4555	805	12:00:00	13:00:00	F	THTR C370	Spencer,Jonathan	 Main Campus
+19454	THTR	4555	806	12:00:00	13:00:00	F	THTR C370	 Lane,Constance Irene	 Main Campus
+19455	THTR	4555	807	12:00:00	13:00:00	F	THTR C370	 Bergner,Bruce Alan	 Main Campus
+38207	THTR	3011	300E	18:00:00	21:00:00	M	\N	Schmidt,Heidi	Continuing Education
+23117	THTR	5025	801	09:00:00	10:45:00	MWF	THTR C1B30	Stark,Theodore	Main Campus
+24289	THTR	5049	1	09:00:00	11:50:00	M	THTR C190	Wagner,Teri	Main Campus
+31290	THTR	5049	2	13:00:00	14:50:00	TTH	THTR C240	Osnes,Mary Beth	Main Campus
+31287	THTR	6021	1	14:00:00	16:50:00	W	THTR C342	Gerland,Oliver W	Main Campus
+31285	THTR	6111	1	13:00:00	15:50:00	M	THTR C342	\N	 Main Campus
+37561	WRT	1100	1	10:00:00	10:50:00	MWF	 CLUB 10	 Stillwaggon Swan,Elizabeth Mary	 Main Campus
+31387	WRT	1100	3	12:00:00	12:50:00	MWF	 HALE 235	 Stillwaggon Swan,Elizabeth Mary	 Main Campus
+31388	WRT	1100	5	13:00:00	13:50:00	MWF	 HALE 235	 Stillwaggon Swan,Elizabeth Mary	 Main Campus
+24293	WRT	1100	16	12:30:00	13:45:00	TTH	 HALE 235	Klinger,Eliza Grace	 Main Campus
+24294	WRT	1100	18	14:00:00	15:15:00	TTH	 HALE 235	Klinger,Eliza Grace	 Main Campus
+23181	WRT	1150	1	08:00:00	08:50:00	MWF	 ECCR 1B08	Fernandes,Denise	 Main Campus
+23980	WRT	1150	4	09:00:00	09:50:00	MWF	 HLMS 104	McGee,Jenean Ann Rinnetta	 Main Campus
+23818	WRT	1150	5	09:00:00	09:50:00	MWF	DUAN G1B27	Duhe,Bailey Jude	Main Campus
+19241	WRT	1150	6	09:00:00	09:50:00	MWF	ECON 16	Von Der Nuell,Tobin D	Main Campus
+19570	WRT	1150	7	09:00:00	09:50:00	MWF	DUAN G1B39	Fernandes,Denise	Main Campus
+24592	WRT	1150	8	09:00:00	09:50:00	MWF	DUAN G1B35	Hessel,Kurtis William	Main Campus
+19571	WRT	1150	15	10:00:00	10:50:00	MWF	DUAN G1B35	Rowe,Evan W	Main Campus
+19572	WRT	1150	16	10:00:00	10:50:00	MWF	HLMS 104	McGee,Jenean Ann Rinnetta	Main Campus
+19573	WRT	1150	17	10:00:00	10:50:00	MWF	DUAN G1B27	Duhe,Bailey Jude	Main Campus
+24295	WRT	1150	18	10:00:00	10:50:00	MWF	ECCR 1B08	Hessel,Kurtis William	Main Campus
+19574	WRT	1150	19	10:00:00	10:50:00	MWF	ECON 16	Von Der Nuell,Tobin D	Main Campus
+23822	WRT	1150	20	10:00:00	10:50:00	MWF	CLRE 212	Nolan,Sarah	Main Campus
+24055	WRT	1150	21	10:00:00	10:50:00	MWF	KTCH 1B60	Boatenreiter,Maryana	Main Campus
+24296	WRT	1150	22	10:00:00	10:50:00	MWF	MUEN E130	Lorig,Josette	Main Campus
+21998	WRT	1150	25	11:00:00	11:50:00	MWF	ECCR 110	Rowe,Evan W	Main Campus
+19575	WRT	1150	26	11:00:00	11:50:00	MWF	ECST 1B21	Mason,Myles	Main Campus
+24297	WRT	1150	27	11:00:00	11:50:00	MWF	MUEN E130	Lorig,Josette	Main Campus
+33730	WRT	1150	28	11:00:00	11:50:00	MWF	RAMY N1B75	Zigmond,Rosalyn Hillary	Main Campus
+33731	WRT	1150	29	11:00:00	11:50:00	MWF	KTCH 1B60	Monico,Roberto Antonio	Main Campus
+19576	WRT	1150	32	12:00:00	12:50:00	MWF	ECST 1B21	Mason,Myles	Main Campus
+19577	WRT	1150	33	12:00:00	12:50:00	MWF	CHEM 145	Barnes,Christopher Charles	Main Campus
+19586	WRT	1150	34	12:00:00	12:50:00	MWF	HALE 236	Boatenreiter,Maryana	Main Campus
+19587	WRT	1150	35	12:00:00	12:50:00	MWF	EDUC 143	Khoo Yuan Ling,Velda	Main Campus
+22323	WRT	1150	36	12:00:00	12:50:00	MWF	DUAN G1B39	Daniels,Brandon Matthew	Main Campus
+23754	WRT	1150	37	12:00:00	12:50:00	MWF	KTCH 1B60	Monico,Roberto Antonio	Main Campus
+22358	WRT	1150	39	13:00:00	13:50:00	MWF	ECCR 1B08	Nolan,Sarah	Main Campus
+19630	WRT	1150	40	13:00:00	13:50:00	MWF	CHEM 133	Barnes,Christopher Charles	Main Campus
+19631	WRT	1150	41	13:00:00	13:50:00	MWF	DUAN G1B27	Standen,Alexander	Main Campus
+19632	WRT	1150	42	13:00:00	13:50:00	MWF	HLMS 104	Khoo Yuan Ling,Velda	Main Campus
+24298	WRT	1150	43	13:00:00	13:50:00	MWF	DUAN G1B39	Daniels,Brandon Matthew	Main Campus
+24146	WRT	1150	46	14:00:00	14:50:00	MWF	MUEN E130	Standen,Alexander	Main Campus
+19633	WRT	1150	47	14:00:00	14:50:00	MWF	DUAN G1B25	Barkin,Sarah M	Main Campus
+22324	WRT	1150	48	14:00:00	14:50:00	MWF	ECCR 1B08	Nolan,Sarah	Main Campus
+24299	WRT	1150	49	14:00:00	14:50:00	MWF	EKLC E1B75	Boatenreiter,Maryana	Main Campus
+24703	WRT	1150	50	14:00:00	14:50:00	MWF	HUMN 160	Szuberla,Michael Andrew	Main Campus
+19634	WRT	1150	55	15:00:00	16:15:00	MW	STAD 135	Woodruff,Moria	Main Campus
+32761	EDU	4435	10	14:00:00	16:30:00	TH	EDUC 231	Cortez,Arthur	Main Campus
+19635	WRT	1150	56	15:00:00	16:15:00	MW	ECON 16	Daigle,Andrew Edward	Main Campus
+23413	WRT	1150	57	15:00:00	16:15:00	MW	ECCR 1B08	Hutson,Elizabeth	Main Campus
+19636	WRT	1150	58	15:00:00	16:15:00	MW	MUEN E114	Alber,Catherine Ro Ann	Main Campus
+23380	WRT	1150	59	15:00:00	16:15:00	MW	CLRE 301	Holman,Scott Fredrick	Main Campus
+33732	WRT	1150	64	16:30:00	17:45:00	MW	DUAN G1B39	Woodruff,Moria	Main Campus
+19637	WRT	1150	65	16:30:00	17:45:00	MW	ECCR 1B08	Hutson,Elizabeth	Main Campus
+23524	WRT	1150	66	16:30:00	17:45:00	MW	MUEN E114	Alber,Catherine Ro Ann	Main Campus
+19638	WRT	1150	71	09:30:00	10:45:00	TTH	DUAN G1B35	Adamson,Gloria M	Main Campus
+19639	WRT	1150	72	09:30:00	10:45:00	TTH	DUAN G1B25	Wilson,Andrew	Main Campus
+24301	WRT	1150	73	09:30:00	10:45:00	TTH	DUAN G1B27	Atwell,Justin	Main Campus
+24912	WRT	1150	74	09:30:00	10:45:00	TTH	ECCR 1B08	Drybread,Kristen	Main Campus
+22631	WRT	1150	77	11:00:00	12:15:00	TTH	KTCH 1B44	Atwell,Justin	Main Campus
+24057	WRT	1150	79	11:00:00	12:15:00	TTH	HLMS 104	Ferrell,Tracy Lynn	Main Campus
+24058	WRT	1150	82	12:30:00	13:45:00	TTH	KTCH 1B44	Atwell,Justin	Main Campus
+24059	WRT	1150	83	12:30:00	13:45:00	TTH	ECST 1B21	Schaberg,Petger J	Main Campus
+24303	WRT	1150	87	14:00:00	15:15:00	TTH	HLMS 104	Myers,Seth G	Main Campus
+24304	WRT	1150	89	14:00:00	15:15:00	TTH	ECCR 1B08	Adamson,Gloria M	Main Campus
+21999	WRT	1150	93	15:30:00	16:45:00	TTH	ECCR 1B08	Adamson,Gloria M	Main Campus
+22765	WRT	1150	94	15:30:00	16:45:00	TTH	HLMS 104	Min,Young Kyung	Main Campus
+24161	WRT	1150	95	15:30:00	16:45:00	TTH	DUAN G1B39	Stohlman,Nancy Marie	Main Campus
+24877	WRT	1150	640R	09:30:00	10:45:00	MW	WVN 166A	Henningsen,Matthew S	Main Campus
+35533	WRT	1150	641R	11:00:00	12:15:00	MW	WVN 166A	Henningsen,Matthew S	Main Campus
+35534	WRT	1150	642R	09:00:00	10:15:00	TTH	WVN 166A	Myers,Seth G	Main Campus
+35535	WRT	1150	643R	10:30:00	11:45:00	TTH	WVN 166A	Myers,Seth G	Main Campus
+22001	WRT	1150	802	11:00:00	11:50:00	MWF	CLUB 10	Khlifat,Jamal A.	Main Campus
+25390	WRT	1150	803	12:00:00	12:50:00	MWF	CLUB 10	Khlifat,Jamal A.	Main Campus
+23531	WRT	1150	806	09:30:00	10:45:00	TTH	HALE 235	Min,Young Kyung	Main Campus
+25387	WRT	1150	807	11:00:00	12:15:00	TTH	HALE 235	Min,Young Kyung	Main Campus
+19640	WRT	1150	808	14:00:00	15:15:00	TTH	ENVD 1B62C	Min,Young Kyung	Main Campus
+24874	WRT	1150	860	13:00:00	13:50:00	MWF	ECST 1B21	Dickson,Rebecca Joanne	Main Campus
+33736	WRT	1160	1	09:00:00	09:50:00	MWF	HUMN 270	Pearce,Lonni Dee	Main Campus
+35879	WRT	1160	3	10:00:00	10:50:00	MWF	HLMS 193	Hersh,Orly M	Main Campus
+35880	WRT	1160	5	11:00:00	11:50:00	MWF	HLMS 193	Hersh,Orly M	Main Campus
+33737	WRT	1160	7	12:00:00	12:50:00	MWF	KTCH 1B44	Albert,Michelle Ann	Main Campus
+33738	WRT	1160	9	13:00:00	13:50:00	MWF	KTCH 1B44	Albert,Michelle Ann	Main Campus
+33739	WRT	1160	17	11:00:00	12:15:00	TTH	ECON 16	Lamos,Steven Joseph	Main Campus
+33742	WRT	1160	220R	12:30:00	13:45:00	MW	BUCK N101	Pieplow,Nathan Dickman	Main Campus
+35332	WRT	1250	5	10:00:00	10:50:00	MWF	RAMY N1B75	Zigmond,Rosalyn Hillary	Main Campus
+24307	WRT	1250	7	11:00:00	11:50:00	MWF	KTCH 1B44	Wenger,Paula	Main Campus
+35334	WRT	1250	9	12:00:00	12:50:00	MWF	KTCH 1B84	Wenger,Paula	Main Campus
+24586	WRT	1250	17	09:30:00	10:45:00	TTH	MUEN E114	Kunce,Catherine	Main Campus
+35350	WRT	1250	23	14:00:00	15:15:00	TTH	DUAN G1B39	Kratzke,Peter James	Main Campus
+24392	WRT	2020	1	11:00:00	12:15:00	TTH	CLUB 10	Knowlton,Jennifer Hope	Main Campus
+23678	WRT	2090	1	15:00:00	16:15:00	MW	MCOL E158	Klinger,Eric O	Main Campus
+24229	WRT	3007	7	12:00:00	12:50:00	MWF	EKLC M203	Reilly,Kerry Anne	Main Campus
+24230	WRT	3007	9	14:00:00	15:15:00	TTH	CHEM 133	Abiragi,Anthony	Main Campus
+23083	WRT	3020	2	09:00:00	09:50:00	MWF	HUMN 370	Wenger,Paula	Main Campus
+22771	WRT	3020	3	09:00:00	09:50:00	MWF	CHEM 145	Jacobs,Lara Markward Hellie	Main Campus
+19399	WRT	3020	4	09:00:00	09:50:00	MWF	ECST 1B21	Turk,Mariko	Main Campus
+25055	WRT	3020	5	09:00:00	09:50:00	MWF	MUEN E114	Drybread,Kristen	Main Campus
+35731	WRT	3020	8	10:00:00	10:50:00	MWF	CHEM 145	Jacobs,Lara Markward Hellie	Main Campus
+19834	WRT	3020	9	10:00:00	10:50:00	MWF	MUEN E114	Barkin,Sarah M	Main Campus
+24308	WRT	3020	10	10:00:00	10:50:00	MWF	KTCH 1B44	\N	Main Campus
+24163	WRT	3020	11	10:00:00	10:50:00	MWF	DUAN G1B39	Burger,Eric B	Main Campus
+24705	WRT	3020	12	10:00:00	10:50:00	MWF	DUAN G1B25	Turk,Mariko	Main Campus
+35732	WRT	3020	15	11:00:00	11:50:00	MWF	KTCH 1B84	Szentkiralyi,Levente	Main Campus
+19835	WRT	3020	16	11:00:00	11:50:00	MWF	ECCR 116	Long,Daniel Robert	Main Campus
+20019	WRT	3020	17	11:00:00	11:50:00	MWF	MUEN E114	Barkin,Sarah M	Main Campus
+21994	WRT	3020	19	12:00:00	12:50:00	MWF	MUEN E130	Alber,Catherine Ro Ann	Main Campus
+19911	WRT	3020	20	12:00:00	12:50:00	MWF	HUMN 160	Melgoza,Raul	Main Campus
+19912	WRT	3020	21	12:00:00	12:50:00	MWF	MUEN E114	Daigle,Andrew Edward	Main Campus
+35743	WRT	3020	22	12:00:00	12:50:00	MWF	HLMS 185	Hutson,Elizabeth	Main Campus
+19913	WRT	3020	25	13:00:00	13:50:00	MWF	DUAN G1B25	Barkin,Sarah M	Main Campus
+19914	WRT	3020	26	13:00:00	13:50:00	MWF	DUAN G1B35	Von Der Nuell,Tobin D	Main Campus
+23981	WRT	3020	27	13:00:00	13:50:00	MWF	HUMN 160	Melgoza,Raul	Main Campus
+24587	WRT	3020	28	13:00:00	13:50:00	MWF	KTCH 1B84	Alber,Catherine Ro Ann	Main Campus
+23756	WRT	3020	30	14:00:00	14:50:00	MWF	ECON 16	Long,Daniel Robert	Main Campus
+19916	WRT	3020	31	14:00:00	14:50:00	MWF	DUAN G1B35	Von Der Nuell,Tobin D	Main Campus
+24313	WRT	3020	32	14:00:00	14:50:00	MWF	DUAN G1B39	Burger,Eric B	Main Campus
+23188	WRT	3020	33	14:00:00	14:50:00	MWF	KTCH 1B60	Albert,Michelle Ann	Main Campus
+19917	WRT	3020	35	15:00:00	16:15:00	MW	DUAN G1B27	Colley,Dawn	Main Campus
+19918	WRT	3020	36	15:00:00	16:15:00	MW	CHEM 133	Dickson,Rebecca Joanne	Main Campus
+19915	WRT	3020	37	15:00:00	16:15:00	MW	HUMN 160	Feldman,Andrea	Main Campus
+24159	WRT	3020	38	15:00:00	16:15:00	MW	DUAN G1B39	Henningsen,Matthew S	Main Campus
+35744	WRT	3020	39	15:00:00	16:15:00	MW	ECST 1B21	Reilly,Kerry Anne	Main Campus
+19976	WRT	3020	43	16:30:00	17:45:00	MW	ECST 1B21	Reilly,Kerry Anne	Main Campus
+22772	WRT	3020	44	16:30:00	17:45:00	MW	DUAN G1B27	Wilkerson,Donald H	Main Campus
+25405	WRT	3020	45	16:30:00	17:45:00	MW	CLRE 212	Holman,Scott Fredrick	Main Campus
+37571	WRT	3020	46	16:30:00	17:45:00	MW	DUAN G1B35	Massey-Warren,Sarah M	Main Campus
+19981	WRT	3020	51	09:30:00	10:45:00	TTH	DUAN G1B39	Byrd,Sigman Mercer	Main Campus
+35745	WRT	3020	53	09:30:00	10:45:00	TTH	CHEM 133	Knowlton,Jennifer Hope	Main Campus
+24315	WRT	3020	57	11:00:00	12:15:00	TTH	KTCH 1B60	Kratzke,Peter James	Main Campus
+24316	WRT	3020	58	11:00:00	12:15:00	TTH	CASE E250	Ellis,Jay	Main Campus
+35746	WRT	3020	59	11:00:00	12:15:00	TTH	HUMN 160	Kunce,Catherine	Main Campus
+23522	WRT	3020	65	12:30:00	13:45:00	TTH	DUAN G1B35	Abiragi,Anthony	Main Campus
+23523	WRT	3020	66	12:30:00	13:45:00	TTH	DUAN G1B39	Kratzke,Peter James	Main Campus
+21996	WRT	3020	67	12:30:00	13:45:00	TTH	HLMS 185	Ferrell,Tracy Lynn	Main Campus
+21995	WRT	3020	68	12:30:00	13:45:00	TTH	HUMN 160	Ellis,Jay	Main Campus
+21997	WRT	3020	73	14:00:00	15:15:00	TTH	CHEM 131	Ferrell,Tracy Lynn	Main Campus
+24317	WRT	3020	74	14:00:00	15:15:00	TTH	KTCH 1B84	Stohlman,Nancy Marie	Main Campus
+24164	WRT	3020	75	14:00:00	15:15:00	TTH	MUEN E114	Gries,Laurie Ellen	Main Campus
+19978	WRT	3020	84	15:30:00	16:45:00	TTH	ECST 1B21	Byrd,Sigman Mercer	Main Campus
+24061	WRT	3020	85	15:30:00	16:45:00	TTH	ECON 16	Myers,Seth G	Main Campus
+24588	WRT	3020	86	15:30:00	16:45:00	TTH	HUMN 160	Krywicki,Jarad R	Main Campus
+22438	WRT	3020	91	17:00:00	18:15:00	TTH	ECCR 1B08	House,Veronica Leigh	Main Campus
+19398	WRT	3020	550R	18:30:00	21:00:00	M	Offered through CU in	DeCleene,Randall S	Main Campus
+21062	WRT	3020	800	11:00:00	11:50:00	MWF	HUMN 160	Feldman,Andrea	Main Campus
+21116	WRT	3020	803	11:00:00	12:15:00	TTH	HUMN 335	Green,Sally Edith	Main Campus
+24879	WRT	3020	805	12:30:00	13:45:00	TTH	LIBR M498	Green,Sally Edith	Main Campus
+19688	WRT	3030	1	09:00:00	09:50:00	MWF	HUMN 160	Pieplow,Nathan Dickman	Main Campus
+19689	WRT	3030	3	10:00:00	10:50:00	MWF	ECST 1B21	Long,Daniel Robert	Main Campus
+22653	WRT	3030	4	10:00:00	10:50:00	MWF	HUMN 160	Pieplow,Nathan Dickman	Main Campus
+23755	WRT	3030	6	11:00:00	11:50:00	MWF	DUAN G1B39	Burger,Eric B	Main Campus
+22629	WRT	3030	7	11:00:00	11:50:00	MWF	ECCR 1B08	Hessel,Kurtis William	Main Campus
+24914	WRT	3030	9	12:00:00	12:50:00	MWF	DUAN G1B35	Long,Daniel Robert	Main Campus
+19691	WRT	3030	10	12:00:00	12:50:00	MWF	ECCR 1B08	Nolan,Sarah	Main Campus
+19692	WRT	3030	12	13:00:00	13:50:00	MWF	STAD 136C	Burger,Eric B	Main Campus
+19693	WRT	3030	13	13:00:00	13:50:00	MWF	MUEN E114	Szentkiralyi,Levente	Main Campus
+22630	WRT	3030	15	14:00:00	14:50:00	MWF	ECST 1B21	Hessel,Kurtis William	Main Campus
+22773	WRT	3030	18	15:00:00	16:15:00	MW	EKLC M203	Pearce,Lonni Dee	Main Campus
+23200	WRT	3030	20	16:30:00	17:45:00	MW	HUMN 160	Zizzi,Michael Patrick	Main Campus
+24589	WRT	3030	23	09:30:00	10:45:00	TTH	HUMN 160	Norgaard,Rolf P	Main Campus
+19695	WRT	3030	26	11:00:00	12:15:00	TTH	ECCR 1B08	Krywicki,Jarad R	Main Campus
+19696	WRT	3030	29	12:30:00	13:45:00	TTH	ECCR 1B08	Krywicki,Jarad R	Main Campus
+19697	WRT	3030	32	14:00:00	15:15:00	TTH	HUMN 160	Norgaard,Rolf P	Main Campus
+19694	WRT	3030	34	15:30:00	16:45:00	TTH	STAD 136C	Schaberg,Petger J	Main Campus
+21063	WRT	3030	800	11:00:00	11:50:00	MWF	HUMN 160	Feldman,Andrea	Main Campus
+21118	WRT	3030	803	11:00:00	12:15:00	TTH	HUMN 335	Green,Sally Edith	Main Campus
+24880	WRT	3030	805	12:30:00	13:45:00	TTH	LIBR M498	Green,Sally Edith	Main Campus
+19668	WRT	3035	1	08:00:00	08:50:00	MWF	HUMN 160	Pieplow,Nathan Dickman	Main Campus
+22015	WRT	3035	8	12:00:00	12:50:00	MWF	MCOL E186	Szuberla,Michael Andrew	Main Campus
+24882	WRT	3035	10	14:00:00	14:50:00	MWF	MCOL E186	Wenger,Paula	Main Campus
+24488	WRT	3035	13	15:00:00	16:15:00	MW	ENVD 1B62C	Norgaard,Rolf P	Main Campus
+22775	WRT	3035	16	09:30:00	10:45:00	TTH	ECST 1B21	Fobes,Alexander S	Main Campus
+24881	WRT	3035	18	11:00:00	12:15:00	TTH	ECST 1B21	Fobes,Alexander S	Main Campus
+25205	WRT	3035	22	14:00:00	15:15:00	TTH	DUAN G1B35	Schaberg,Petger J	Main Campus
+22774	WRT	3035	25	15:30:00	16:45:00	TTH	HALE 236	Atwell,Justin	Main Campus
+24706	WRT	3040	5	11:00:00	12:15:00	MW	ENVD 1B62C	Massey-Warren,Sarah M	Main Campus
+24884	WRT	3040	7	12:30:00	13:45:00	MW	ENVD 1B62C	Massey-Warren,Sarah M	Main Campus
+23340	WRT	3040	10	15:00:00	16:15:00	MW	DUAN G1B35	Massey-Warren,Sarah M	Main Campus
+19698	WRT	3040	27	11:00:00	12:15:00	TTH	ENVD 1B62C	Byrd,Sigman Mercer	Main Campus
+19699	WRT	3040	31	12:30:00	13:45:00	TTH	HUMN 270	Wilson,Andrew	Main Campus
+22776	WRT	3040	34	14:00:00	15:15:00	TTH	ECST 1B21	Byrd,Sigman Mercer	Main Campus
+23070	WRT	3040	37	15:30:00	16:45:00	TTH	CHEM 133	Wilson,Andrew	Main Campus
+21064	WRT	3040	800	11:00:00	11:50:00	MWF	HUMN 160	Feldman,Andrea	Main Campus
+21119	WRT	3040	803	11:00:00	12:15:00	TTH	HUMN 335	Green,Sally Edith	Main Campus
+24883	WRT	3040	805	12:30:00	13:45:00	TTH	LIBR M498	Green,Sally Edith	Main Campus
+22819	WRT	3090	1	14:00:00	15:15:00	TTH	CASE E250	Ellis,Jay	Main Campus
+38206	WRT	1150	300E	18:00:00	20:00:00	W	\N	Ostro,Christopher Raymond	Continuing Education
+38202	WRT	3020	300E	18:00:00	19:30:00	M	\N	Daigle,Andrew Edward	Continuing Education
+38204	WRT	3020	400E	16:30:00	18:00:00	T	\N	Hutson,Elizabeth	Continuing Education
+28985	ASEN	1022	1	08:00:00	08:50:00	MWF	MATH 100	Wingate,Kathryn Anne	Main Campus
+29033	ASEN	1969	1	15:30:00	16:45:00	TTH	MUEN E050	Koehler,Christopher John	Main Campus
+28986	ASEN	2003	100	11:00:00	12:15:00	MW	AERO 120	Mc Mahon,Jay Warren	Main Campus
+27712	ASEN	2003	200	12:30:00	13:45:00	MW	AERO 120	Axelrad,Penina	Main Campus
+29094	ASEN	2003	301	12:30:00	14:20:00	TTH	AERO 141	Hodgkinson,Robert F	Main Campus
+29419	ASEN	2003	302	14:30:00	16:20:00	TTH	AERO 141	Hodgkinson,Robert F	Main Campus
+29472	ASEN	2003	303	16:30:00	18:20:00	TTH	AERO 141	Hodgkinson,Robert F	Main Campus
+28987	ASEN	2004	100	08:30:00	09:45:00	TTH	AERO 120	Clark,Torin Kristofer	Main Campus
+27713	ASEN	2004	200	10:00:00	11:15:00	TTH	AERO 120	Clark,Torin Kristofer	Main Campus
+27714	ASEN	2004	301	08:30:00	10:20:00	MW	AERO 141	Mah,John	Main Campus
+29420	ASEN	2004	302	10:30:00	12:20:00	MW	AERO 141	Mah,John	Main Campus
+32052	ASEN	2004	303	12:30:00	14:20:00	MW	AERO 141	Johnson,Aaron	Main Campus
+28689	ASEN	3036	1	11:30:00	12:45:00	TTH	AERO 120	Voss,James Shelton	Main Campus
+29012	ASEN	3046	1	17:00:00	19:50:00	F	RAMY C250	Scott,Frank Matthew	Main Campus
+32057	ASEN	3111	10	09:30:00	10:45:00	MW	AERO 120	Jansen,Kenneth Edward	Main Campus
+32058	ASEN	3111	11	08:30:00	10:20:00	T	AERO N100	Farnsworth,John A.	Main Campus
+32059	ASEN	3111	12	14:30:00	16:20:00	T	AERO N100	Farnsworth,John A.	Main Campus
+32063	ASEN	3112	10	13:00:00	14:15:00	TTH	AERO 120	Hussein,Mahmoud Ismail	Main Campus
+32064	ASEN	3112	11	08:30:00	10:20:00	TH	AERO N100	Hussein,Mahmoud Ismail	Main Campus
+32065	ASEN	3112	12	14:30:00	16:20:00	TH	AERO N100	Hussein,Mahmoud Ismail	Main Campus
+32068	ASEN	3113	10	15:30:00	16:45:00	MW	AERO 120	Jackson,Jelliffe	Main Campus
+32069	ASEN	3113	11	10:30:00	12:20:00	F	AERO 141	Jackson,Jelliffe	Main Campus
+32070	ASEN	3113	12	13:30:00	15:20:00	F	AERO 141	Jackson,Jelliffe	Main Campus
+27715	ASEN	3128	10	14:30:00	15:45:00	TTH	AERO 120	Lawrence,Dale	Main Campus
+28408	ASEN	3128	11	08:30:00	10:20:00	F	AERO N100	Lawrence,Dale	Main Campus
+27716	ASEN	3128	12	10:30:00	12:20:00	F	AERO N100	Lawrence,Dale	Main Campus
+27717	ASEN	3200	10	14:00:00	15:15:00	MW	AERO 120	Bosanac,Natasha	Main Campus
+27718	ASEN	3200	11	08:30:00	10:20:00	F	AERO 141	Scheeres,Daniel J.	Main Campus
+27719	ASEN	3200	12	13:30:00	15:20:00	F	AERO N100	Bosanac,Natasha	Main Campus
+27720	ASEN	3300	10	08:30:00	09:20:00	MW	AERO 120	Morton,Yu	Main Campus
+27721	ASEN	3300	11	08:30:00	10:20:00	TTH	AERO 141	Morton,Yu	Main Campus
+29168	ASEN	3300	12	10:30:00	12:20:00	TTH	AERO 141	Morton,Yu	Main Campus
+32080	ASEN	4013	1	11:30:00	12:45:00	TTH	AERO N240	Nabity,James Allen	Main Campus
+32084	ASEN	4028	10	16:00:00	16:50:00	TTH	AERO 120	Jackson,Jelliffe	Main Campus
+29163	ASEN	4057	10	13:30:00	14:20:00	MW	AERO N100	Matsuo,Tomoko	Main Campus
+29164	ASEN	4057	11	14:30:00	15:20:00	MW	AERO N100	Matsuo,Tomoko	Main Campus
+38603	ASEN	4057	12	14:30:00	15:20:00	MW	AERO 141	Matsuo,Tomoko	Main Campus
+36296	ASEN	4128	1	17:00:00	19:50:00	TH	ECCR 151	Scott,Frank Matthew	Main Campus
+36297	ASEN	4218	1	08:30:00	09:45:00	TTH	AERO N250	Lopez Jimenez,Francisco	Main Campus
+28113	ASEN	5010	1	08:30:00	09:45:00	TTH	 AERO 111	Schaub,Hanspeter	 Main Campus
+29186	ASEN	5016	1	16:00:00	17:15:00	TTH	 AERO 111	 Klaus,David Matthew	 Main Campus
+29417	ASEN	5018	10	17:30:00	18:20:00	M	 AERO 111	Rainville,Nicholas	 Main Campus
+28198	ASEN	5018	11	14:00:00	15:50:00	TTH	See Academc Dept	Voss,James Shelton	 Main Campus
+28199	ASEN	5018	12	11:00:00	12:50:00	MW	See Academc Dept	Axelrad,Penina	 Main Campus
+28513	ASEN	5018	13	13:00:00	14:50:00	MW	See Academc Dept	Marshall,Robert Andrew	 Main Campus
+29543	ASEN	5018	15	13:30:00	15:20:00	WF	 AERO N250	 Pilinski,Marcin Dominik	 Main Campus
+29793	ASEN	5018	17	09:00:00	10:50:00	MW	See Academc Dept	Nabity,James Allen	 Main Campus
+32127	ASEN	5018	19	09:00:00	10:50:00	MW	See Academc Dept	Wingate,Kathryn Anne	 Main Campus
+36460	ASEN	5018	21	15:00:00	16:50:00	MW	See Academc Dept	 Kubitschek,Daniel Gerard	 Main Campus
+28624	ASEN	5022	1	13:00:00	14:15:00	TTH	 AERO 232	Neogi,Sanghamitra	 Main Campus
+32130	ASEN	5044	1	14:30:00	15:45:00	TTH	 AERO N250	Matsuo,Tomoko	 Main Campus
+39375	ASEN	5111	1	16:00:00	17:15:00	TTH	SEEC N125	\N	 Main Campus
+28114	ASEN	5148	1	11:30:00	12:45:00	TTH	 AERO 111	 Kubitschek,Daniel Gerard	 Main Campus
+28382	ASEN	5335	1	17:00:00	19:50:00	W	 AERO 232	Knipp,Delores Jane	 Main Campus
+29701	ASEN	5519	1	11:30:00	12:45:00	MW	 AERO N240	Farnsworth,John A.	 Main Campus
+32140	ASEN	5519	3	10:00:00	11:15:00	TTH	 AERO 232	 Anderson,Allison Paige	 Main Campus
+38899	ASEN	5519	4	11:30:00	12:45:00	TTH	 AERO 232	Maute,Kurt Karl	 Main Campus
+29422	ASEN	6008	1	18:00:00	19:15:00	M	SEEC N125	Davis,Kathryn E	 Main Campus
+29418	ASEN	6028	10	17:30:00	18:20:00	M	AERO 111	Rainville,Nicholas	Main Campus
+28200	ASEN	6028	11	14:00:00	15:50:00	TTH	See Academc Dept	Voss,James Shelton	Main Campus
+32735	ASEN	6028	12	11:00:00	12:50:00	MW	See Academc Dept	Axelrad,Penina	Main Campus
+28201	ASEN	6028	13	13:00:00	14:50:00	MW	See Academc Dept	Marshall,Robert Andrew	Main Campus
+32736	ASEN	6028	15	13:30:00	15:20:00	WF	AERO N250	Pilinski,Marcin Dominik	Main Campus
+32738	ASEN	6028	17	09:00:00	10:50:00	MW	See Academc Dept	Nabity,James Allen	Main Campus
+29512	ASEN	6028	19	09:00:00	10:50:00	MW	See Academc Dept	Wingate,Kathryn Anne	Main Campus
+36462	ASEN	6028	21	15:00:00	16:50:00	MW	See Academc Dept	Kubitschek,Daniel Gerard	Main Campus
+28707	ASEN	6037	1	14:30:00	15:45:00	MW	AERO 232	Evans,John A	Main Campus
+29000	ASEN	6080	1	10:00:00	11:15:00	TTH	AERO N240	Holzinger,Marcus Jorg	Main Campus
+32385	ASEN	6412	1	10:00:00	11:15:00	MW	AERO 232	Doostan,Alireza	Main Campus
+32139	ASEN	5519	2	17:00:00	19:50:00	T	AERO 232	Anderson,Allison Paige	Main Campus
+27591	AREN	1027	10	08:00:00	09:15:00	TTH	ECCR 200	Cayko,Lance Michael	Main Campus
+27592	AREN	1027	11	09:15:00	10:45:00	TTH	ECCE 141	Cayko,Lance Michael	Main Campus
+29040	AREN	1027	12	10:50:00	12:20:00	TTH	ECCE 141	Cayko,Lance Michael	Main Campus
+27593	AREN	2110	1	11:00:00	11:50:00	MWF	FLMG 156	Zuo,Wangda	Main Campus
+28978	AREN	2120	1	11:00:00	12:15:00	TTH	CASE E340	Zhai,Zhiqiang	Main Campus
+35983	AREN	3040	1	14:00:00	14:50:00	MWF	ECCE 1B41	Baker,Kyri	Main Campus
+27594	AREN	3060	1	08:00:00	09:15:00	TTH	ECCR 110	Wujek Jr,Joseph B	Main Campus
+35957	AREN	3540	1	10:00:00	10:50:00	MWF	ECCR 151	\N	Main Campus
+28691	AREN	4110	1	09:30:00	10:45:00	TTH	KCEN N252	Henze,Gregor P	Main Campus
+35965	AREN	4130	1	17:30:00	18:45:00	MW	ECCR 131	Jongewaard,Mark Paul	Main Campus
+35967	AREN	4315	1	09:30:00	10:45:00	TTH	ECCE 1B41	Hubler,Mija Helena	Main Campus
+27595	AREN	4317	1	15:00:00	16:50:00	F	ECCR 1B51	\N	Main Campus
+28744	AREN	4506	1	12:30:00	13:45:00	TTH	ECCR 135	Torres-Machi,Cristina	Main Campus
+28745	AREN	4550	1	10:00:00	11:15:00	MF	ECCE 1B41	Vasconez,Sandra L.	Main Campus
+28747	AREN	4606	1	14:00:00	15:15:00	TTH	FLMG 33	Morris,Matthew Robert	Main Campus
+39278	AREN	5060	1	12:30:00	13:45:00	TTH	ECCR 110	Krarti,Moncef	Main Campus
+30835	ATLS	1100	10	09:30:00	10:45:00	TH	ATLS 100	Bethancourt,Matthew Robert	Main Campus
+30836	ATLS	1100	11	14:00:00	15:15:00	F	ATLS 1B31	\N	Main Campus
+30837	ATLS	1100	12	15:30:00	16:45:00	F	ATLS 1B31	\N	Main Campus
+30838	ATLS	1100	13	17:00:00	18:15:00	F	ATLS 1B31	\N	Main Campus
+29034	ATLS	1300	10	14:00:00	15:15:00	TTH	ATLS 100	\N	Main Campus
+29035	ATLS	1300	11	08:00:00	09:15:00	F	ATLS 1B31	\N	Main Campus
+29548	ATLS	1300	12	09:30:00	10:45:00	F	ATLS 1B31	\N	Main Campus
+29549	ATLS	1300	13	11:00:00	12:15:00	F	ATLS 1B31	\N	Main Campus
+29550	ATLS	1300	14	12:30:00	13:45:00	F	ATLS 1B31	\N	Main Campus
+28604	ATLS	2000	1	15:30:00	16:45:00	TTH	EDUC 220	Bruns,Annie	Main Campus
+29460	ATLS	2001	1	11:00:00	12:15:00	TTH	ATLS 100	Hales,Ian Wright	Main Campus
+29461	ATLS	2002	10	11:00:00	12:50:00	M	ATLS 1B31	Hales,Ian Wright	Main Campus
+29462	ATLS	2002	11	11:00:00	12:50:00	W	ATLS 1B31	Hales,Ian Wright	Main Campus
+29463	ATLS	2002	20	15:30:00	17:20:00	T	ATLS 1B31	\N	Main Campus
+29464	ATLS	2002	21	15:30:00	17:20:00	TH	ATLS 1B31	\N	Main Campus
+37624	ATLS	2002	30	15:00:00	16:50:00	M	ATLS 1B31	\N	Main Campus
+37625	ATLS	2002	31	15:00:00	16:50:00	W	ATLS 1B31	\N	Main Campus
+28818	ATLS	2100	10	15:00:00	16:15:00	M	ATLS 100	Rezvani,Sheiva	Main Campus
+28819	ATLS	2100	11	08:00:00	09:15:00	T	ATLS 1B25	Rezvani,Sheiva	Main Campus
+28820	ATLS	2100	12	09:30:00	10:45:00	T	ATLS 1B25	Rezvani,Sheiva	Main Campus
+28821	ATLS	2100	13	11:00:00	12:15:00	T	ATLS 1B25	Rezvani,Sheiva	Main Campus
+28849	ATLS	2100	14	12:30:00	13:45:00	T	ATLS 1B25	Rezvani,Sheiva	Main Campus
+28850	ATLS	2100	15	14:00:00	15:15:00	T	ATLS 1B25	Rezvani,Sheiva	Main Campus
+28851	ATLS	2100	16	15:30:00	16:45:00	T	ATLS 1B25	Rezvani,Sheiva	Main Campus
+29336	ATLS	2100	17	17:00:00	18:15:00	T	ATLS 1B25	Rezvani,Sheiva	Main Campus
+28856	ATLS	2200	10	09:30:00	10:45:00	T	ATLS 100	Hales,Ian Wright	Main Campus
+28857	ATLS	2200	11	08:00:00	09:15:00	TH	ATLS 1B25	Hales,Ian Wright	Main Campus
+28858	ATLS	2200	12	09:30:00	10:45:00	TH	ATLS 1B25	Hales,Ian Wright	Main Campus
+28859	ATLS	2200	13	11:00:00	12:15:00	TH	ATLS 1B25	Hales,Ian Wright	Main Campus
+28860	ATLS	2200	14	12:30:00	13:45:00	TH	ATLS 1B25	Hales,Ian Wright	Main Campus
+28861	ATLS	2200	15	14:00:00	15:15:00	TH	ATLS 1B25	Hales,Ian Wright	Main Campus
+28862	ATLS	2200	16	15:30:00	16:45:00	TH	ATLS 1B25	Hales,Ian Wright	Main Campus
+29337	ATLS	2200	17	17:00:00	18:15:00	TH	ATLS 1B25	Hales,Ian Wright	Main Campus
+28847	ATLS	2300	10	15:00:00	16:15:00	W	ATLS 100	Rankin,Daniel W	Main Campus
+28848	ATLS	2300	11	08:00:00	09:15:00	F	ATLS 104	Rankin,Daniel W	Main Campus
+28863	ATLS	2300	12	09:30:00	10:45:00	F	ATLS 104	Rankin,Daniel W	Main Campus
+28864	ATLS	2300	13	11:00:00	12:15:00	F	ATLS 104	Rankin,Daniel W	Main Campus
+28865	ATLS	2300	14	12:30:00	13:45:00	F	ATLS 104	Rankin,Daniel W	Main Campus
+28866	ATLS	2300	15	14:00:00	15:15:00	F	ATLS 104	Rankin,Daniel W	Main Campus
+28867	ATLS	2300	16	15:30:00	16:45:00	F	ATLS 104	Rankin,Daniel W	Main Campus
+29338	ATLS	2300	17	17:00:00	18:15:00	F	ATLS 104	Rankin,Daniel W	Main Campus
+30839	ATLS	2519	10	13:00:00	14:15:00	MW	ATLS 1B31	Szafir,Daniel James	Main Campus
+30840	ATLS	2519	11	15:00:00	16:15:00	F	ATLS 1B25	\N	Main Campus
+30841	ATLS	2519	12	17:00:00	18:15:00	F	ATLS 1B25	\N	Main Campus
+28845	ATLS	3100	10	11:00:00	12:15:00	T	ATLS 1B31	\N	Main Campus
+28846	ATLS	3100	11	14:00:00	15:15:00	T	ATLS 104	\N	Main Campus
+30735	ATLS	3100	12	14:00:00	15:15:00	TH	ATLS 104	\N	Main Campus
+28868	ATLS	3200	1	09:00:00	10:15:00	MW	ATLS 104	Schaal,David Andrew	Main Campus
+29450	ATLS	3200	2	11:00:00	12:15:00	MW	ATLS 104	Schaal,David Andrew	Main Campus
+29579	ATLS	3300	10	11:00:00	12:15:00	TH	ATLS 1B31	\N	Main Campus
+29580	ATLS	3300	11	09:00:00	10:15:00	F	ATLS 113	\N	Main Campus
+29581	ATLS	3300	12	11:00:00	12:15:00	F	ATLS 113	\N	Main Campus
+29582	ATLS	3300	13	13:00:00	14:15:00	F	ATLS 113	\N	Main Campus
+29416	ATLS	4010	1	09:00:00	12:50:00	M	ENVD 234A	\N	Main Campus
+36020	ATLS	4010	2	14:00:00	17:50:00	T	ENVD 234A	Do,Yi Luen Ellen	Main Campus
+36021	ATLS	4010	3	09:00:00	12:50:00	W	ENVD 234A	\N	Main Campus
+36022	ATLS	4010	4	13:00:00	16:50:00	TH	ENVD 234A	Rezvani,Sheiva	Main Campus
+29276	ATLS	4040	1	14:00:00	15:15:00	TTH	ATLS 1B31	Rankin,Daniel W	Main Campus
+29019	ATLS	4214	1	16:00:00	17:15:00	MW	DUAN G130	Greenstreet,Gregory Jon	Main Campus
+29272	ATLS	4320	10	09:00:00	10:50:00	T	ATLS 104	\N	Main Campus
+29273	ATLS	4320	11	09:00:00	10:50:00	TH	ATLS 104	\N	Main Campus
+29676	ATLS	4519	4	11:00:00	11:50:00	MWF	ITLL 1B50	Hertzberg,Jean R	Main Campus
+29403	ATLS	4519	8	09:00:00	11:30:00	M	ATLS 113	\N	Main Campus
+39368	ATLS	4519	9	16:30:00	19:00:00	W	ENVD 234A	Cook,Kevin	Main Campus
+28835	ATLS	4519	10	15:30:00	17:20:00	T	ATLS 104	Schaal,David Andrew	Main Campus
+28836	ATLS	4519	11	15:30:00	17:20:00	TH	ATLS 104	Schaal,David Andrew	Main Campus
+29466	ATLS	4519	20	09:00:00	10:50:00	T	ATLS 113	Rankin,Daniel W	Main Campus
+38873	ATLS	4519	21	09:00:00	10:50:00	TH	ATLS 113	Rankin,Daniel W	Main Campus
+29619	ATLS	4519	30	09:00:00	10:50:00	M	ATLS 1B25	Hales,Ian Wright	Main Campus
+29620	ATLS	4519	31	09:00:00	10:50:00	W	ATLS 1B25	Hales,Ian Wright	Main Campus
+36050	ATLS	4519	60	13:00:00	14:50:00	M	ATLS 1B25	\N	Main Campus
+36051	ATLS	4519	61	13:00:00	14:50:00	W	ATLS 1B25	\N	Main Campus
+29156	ATLS	4519	90	15:00:00	16:50:00	M	ATLS 1B25	Bacus,John	Main Campus
+29157	ATLS	4519	91	15:00:00	16:50:00	W	ATLS 1B25	Bacus,John	Main Campus
+30847	ATLS	4529	1	09:30:00	10:45:00	TTH	ATLS 1B31	Bruns,Annie	Main Campus
+38871	ATLS	4529	2	11:00:00	12:15:00	TTH	ATLS 104	Bethancourt,Matthew Robert	Main Campus
+38892	ATLS	4529	3	09:00:00	10:15:00	MW	ATLS 1B31	Rezvani,Sheiva	Main Campus
+29149	ATLS	4809	1	17:00:00	18:15:00	MW	ATLS 1B31	King,Roger A	Main Campus
+30853	ATLS	5240	1	16:00:00	18:30:00	T	See Academc Dept	\N	Main Campus
+38882	ATLS	5250	1	10:00:00	12:30:00	F	See Academc Dept	\N	Main Campus
+28617	ATLS	6910	1	08:00:00	10:50:00	MW	See Academc Dept	Dupre,Jill VanMatre	Main Campus
+29452	ATLS	7000	1	11:30:00	12:30:00	T	ATLS 208	Do,Yi Luen Ellen	Main Campus
+27801	CHE	1211	10	13:00:00	13:50:00	MWF	CHEM 142	Schoenbaum,Carolyn Ann	Main Campus
+28647	CHE	1211	11	12:00:00	12:50:00	F	\N	Schoenbaum,Carolyn Ann	Main Campus
+28648	CHE	1211	12	14:00:00	14:50:00	F	\N	Schoenbaum,Carolyn Ann	Main Campus
+28801	CHE	1211	13	10:00:00	10:50:00	TH	ECCR 1B55	Schoenbaum,Carolyn Ann	Main Campus
+28825	CHE	1310	10	08:00:00	08:50:00	TTH	MATH 100	Nuttelman,Charles Raymond	Main Campus
+28826	CHE	1310	11	15:00:00	16:50:00	T	ECCR 235	Nuttelman,Charles Raymond	Main Campus
+28827	CHE	1310	12	15:00:00	16:50:00	W	ECCR 235	Nuttelman,Charles Raymond	Main Campus
+28828	CHE	1310	13	13:00:00	14:50:00	M	ECCR 235	Nuttelman,Charles Raymond	Main Campus
+28829	CHE	1310	14	15:00:00	16:50:00	M	ECCR 235	Nuttelman,Charles Raymond	Main Campus
+28830	CHE	1310	15	09:00:00	10:50:00	T	ECCR 235	Nuttelman,Charles Raymond	Main Campus
+28831	CHE	1310	16	13:00:00	14:50:00	T	ECCR 235	Nuttelman,Charles Raymond	Main Campus
+28832	CHE	1310	17	09:00:00	10:50:00	TH	ECCR 235	Nuttelman,Charles Raymond	Main Campus
+28833	CHE	1310	18	11:00:00	12:50:00	TH	ECCR 235	Nuttelman,Charles Raymond	Main Campus
+28834	CHE	1310	19	13:00:00	14:50:00	W	ECCR 235	Nuttelman,Charles Raymond	Main Campus
+28327	CHE	2120	1	12:30:00	13:20:00	MWF	BIOT A115	Whitehead,Timothy	Main Campus
+28509	CHE	2810	1	16:00:00	17:15:00	TTH	BIOT A108	Mahoney,Melissa J	Main Campus
+28328	CHE	3200	1	10:00:00	11:15:00	TTH	BIOT A115	Schoenbaum,Carolyn Ann	Main Campus
+27802	CHE	3220	1	09:30:00	10:20:00	MWF	BIOT A108	Young,Wendy Mores	Main Campus
+29430	CHE	3220	2	08:30:00	09:20:00	MWF	BIOT A108	\N	Main Campus
+29431	CHE	3660	1	10:30:00	11:20:00	MWF	BIOT A115	Medlin,James William	Main Campus
+28997	CHE	4090	1	15:30:00	16:20:00	M	BIOT A115	Young,Wendy Mores	Main Campus
+31914	CHE	4090	2	16:30:00	17:20:00	M	BIOT A115	Young,Wendy Mores	Main Campus
+27803	CHE	4330	1	12:30:00	13:20:00	MWF	BIOT A108	Davis,Robert H	Main Campus
+28632	CHE	4440	1	13:30:00	14:20:00	MWF	BIOT A108	Heinz,Hendrik	Main Campus
+28703	CHE	4521	1	11:30:00	12:45:00	TTH	BIOT A115	Nagpal,Prashant	Main Campus
+28728	CHE	4521	2	13:00:00	14:15:00	TTH	BIOT A115	Goodwin,Andrew Pratt	Main Campus
+27804	CHE	4530	1	08:30:00	09:45:00	TTH	BIOT A108	Weimer,Alan Wesley	Main Campus
+28006	CHE	4530	2	10:00:00	11:15:00	TTH	BIOT A108	Weimer,Alan Wesley	Main Campus
+27805	CHE	4570	100	13:00:00	14:15:00	TTH	BIOT A108	Rowe,Scott	Main Campus
+28870	CHE	4570	200	14:30:00	15:45:00	TTH	BIOT A104	Rowe,Scott	Main Campus
+28991	CHE	4570	301	14:30:00	16:50:00	M	BIOT B171	Rowe,Scott	Main Campus
+28992	CHE	4570	302	14:30:00	16:50:00	W	BIOT B171	Rowe,Scott	Main Campus
+28993	CHE	4570	303	14:30:00	16:50:00	T	BIOT B171	Rowe,Scott	Main Campus
+28994	CHE	4570	304	14:30:00	16:50:00	TH	BIOT B171	Rowe,Scott	Main Campus
+29184	CHE	4570	305	14:30:00	16:50:00	F	BIOT B171	Rowe,Scott	Main Campus
+28315	CHE	4630	1	19:00:00	19:50:00	T	FLMG 157	Briggs,Heath Jarrod	Main Campus
+31953	CHE	4802	1	12:30:00	13:20:00	MWF	BIOT A104	Nuttelman,Charles Raymond	Main Campus
+29432	CHE	4805	1	11:30:00	12:45:00	TTH	BIOT A108	Cha,Jennifer N	Main Campus
+27806	CHE	4830	1	11:30:00	12:20:00	MWF	BIOT A108	Davis,Robert H	Main Campus
+31956	CHE	4836	1	14:30:00	15:20:00	MWF	BIOT A104	Shields,Charles	Main Campus
+27807	CHE	5090	1	14:30:00	15:45:00	TTH	BIOT A108	Chatterjee,Anushree	Main Campus
+28316	CHE	5630	1	19:00:00	19:50:00	T	FLMG 157	Briggs,Heath Jarrod	Main Campus
+29473	CVEN	1027	10	14:00:00	15:15:00	T	ECCR 245	Andryauskas,Jeremy John	Main Campus
+29474	CVEN	1027	11	15:30:00	16:45:00	T	ECCE 141	Andryauskas,Jeremy John	Main Campus
+29475	CVEN	1027	12	17:00:00	18:15:00	T	ECCE 141	Andryauskas,Jeremy John	Main Campus
+29496	CVEN	2012	10	12:00:00	12:50:00	MF	ECCE 1B41	Pfeffer,William T	Main Campus
+29497	CVEN	2012	11	14:00:00	16:50:00	M	See Class Notes For	Pfeffer,William T	Main Campus
+29498	CVEN	2012	12	14:00:00	16:50:00	T	See Class Notes For	Pfeffer,William T	Main Campus
+29499	CVEN	2012	13	14:00:00	16:50:00	W	See Class Notes For	Pfeffer,William T	Main Campus
+29500	CVEN	2012	14	14:00:00	16:50:00	TH	See Class Notes For	Pfeffer,William T	Main Campus
+27596	CVEN	2121	1	13:00:00	13:50:00	MWF	FLMG 154	Xi,Yunping	Main Campus
+27597	CVEN	3111	1	11:00:00	11:50:00	MWF	FLMG 157	Song,Jeong-Hoon	Main Campus
+27598	CVEN	3161	10	09:00:00	09:50:00	MWF	FLMG 154	Hubler,Mija Helena	Main Campus
+27599	CVEN	3161	11	14:00:00	15:50:00	W	ECCE 1B52	Hubler,Mija Helena	Main Campus
+27600	CVEN	3161	12	16:00:00	17:50:00	W	ECCE 1B52	Hubler,Mija Helena	Main Campus
+27601	CVEN	3227	1	09:30:00	10:45:00	TTH	ECCR 1B40	Corotis,Ross	Main Campus
+36114	CVEN	3227	400	14:00:00	15:15:00	TTH	Offered at Colorado	Sholtes,Joel Stephen	Main Campus
+27602	CVEN	3246	1	11:00:00	12:15:00	TTH	ECCR 105	Morris,Matthew Robert	Main Campus
+29113	CVEN	3256	1	11:00:00	12:15:00	TTH	FLMG 156	\N	Main Campus
+29570	CVEN	3256	400	09:00:00	09:50:00	MWF	Offered at Colorado	Techera Rocha,Ulises Daniel	Main Campus
+27603	CVEN	3313	10	12:30:00	13:45:00	TTH	ECCR 245	Connor,Erin Grace	Main Campus
+27604	CVEN	3313	11	15:00:00	15:50:00	M	 ECCR 245	Connor,Erin Grace	 Main Campus
+29571	CVEN	3323	400	10:00:00	11:50:00	MW	Offered at Colorado	Sholtes,Joel Stephen	 Main Campus
+27605	CVEN	3414	1	10:00:00	10:50:00	MWF	 FLMG 154	 Miller,Shelly Lynn	 Main Campus
+39367	CVEN	3414	2	14:00:00	14:50:00	MWF	RAMY N1B23	Straub,Anthony Philip	 Main Campus
+27606	CVEN	3424	1	11:00:00	11:50:00	MWF	 ECCR 105	Linden,Karl G.	 Main Campus
+36122	CVEN	3424	400	09:00:00	10:50:00	MW	Offered at Colorado	Sholtes,Kari Autumn	 Main Campus
+27607	CVEN	3434	1	14:30:00	15:20:00	MWF	SEEC N126	 McKnight,Diane Marie	 Main Campus
+27608	CVEN	3525	1	08:00:00	09:15:00	TTH	ECCE 1B41	Saouma,Victor	 Main Campus
+29572	CVEN	3698	10	13:00:00	13:50:00	MWF	ECCE 1B41	 Pfeffer,William T	 Main Campus
+27609	CVEN	3708	10	11:00:00	11:50:00	MWF	 ECCR 131	 Pak,Ronald Y	 Main Campus
+28318	CVEN	3708	11	14:00:00	15:50:00	T	ECCE 1B53	 Pak,Ronald Y	 Main Campus
+27610	CVEN	3708	12	16:00:00	17:50:00	TH	ECCE 1B53	 Pak,Ronald Y	 Main Campus
+28577	CVEN	3718	10	13:00:00	13:50:00	MWF	 ECCR 155	Pourahmadian,Fatemeh	 Main Campus
+28578	CVEN	3718	11	14:00:00	15:50:00	M	ECCE 1B53	Pourahmadian,Fatemeh	 Main Campus
+28579	CVEN	3718	12	14:00:00	15:50:00	W	ECCE 1B53	Pourahmadian,Fatemeh	 Main Campus
+27611	CVEN	4333	1	12:30:00	13:45:00	TTH	 FLMG 156	Kasprzyk,Joseph Robert	 Main Campus
+27612	CVEN	4424	1	11:00:00	12:15:00	TTH	 FLMG 157	 Ryan,Joseph N	 Main Campus
+28548	CVEN	4434	1	15:30:00	17:10:00	TTH	 FLMG 156	Walker,Michael Edward	 Main Campus
+27613	CVEN	4484	1	14:00:00	15:15:00	TTH	 FLMG 154	 Hernandez,Mark T	 Main Campus
+27614	CVEN	4545	1	08:00:00	09:15:00	TTH	 ECCR 151	Hearn,George	 Main Campus
+36123	CVEN	4545	400	11:00:00	12:15:00	MW	Offered at Colorado	 Techera Rocha,Ulises Daniel	 Main Campus
+36127	CVEN	4555	400	11:00:00	12:15:00	TTH	Offered at Colorado	 Techera Rocha,Ulises Daniel	 Main Campus
+29673	CVEN	4897	400	09:00:00	09:50:00	MW	Offered at Colorado	Sholtes,Joel Stephen	 Main Campus
+28924	CVEN	4899	1	15:30:00	17:30:00	TTH	 FLMG 154	Morris,Matthew Robert	 Main Campus
+36124	CVEN	4899	400	09:00:00	10:50:00	TTH	Offered at Colorado	Sholtes,Joel Stephen	 Main Campus
+29503	CVEN	4969	1	15:00:00	16:15:00	MW	 ECCR 110	Linden,Karl G.	 Main Campus
+28329	CVEN	5131	1	09:00:00	09:50:00	MWF	 ECCR 1B08	 Pak,Ronald Y	 Main Campus
+29183	CVEN	5206	1	17:00:00	19:50:00	M	 ECCR 110	\N	 Main Campus
+36016	CVEN	5226	1	15:00:00	17:50:00	M	 ECCR 139	Hallowell,Matthew Ryan	 Main Campus
+36017	CVEN	5286	1	11:00:00	12:15:00	TTH	ECCE 1B47	Goodrum,Paul M	Main Campus
+33199	CVEN	5343	1	15:30:00	16:45:00	MW	SEEC C315	Crimaldi,John	Main Campus
+29253	CVEN	5346	1	11:00:00	14:00:00	M	ECCE 1B47	Javernick-Will,Amy Nicole	Main Campus
+29260	CVEN	5363	10	09:00:00	10:50:00	M	ECCE 1B47	Livneh,Ben	Main Campus
+29261	CVEN	5363	11	09:00:00	10:50:00	W	ECCE 1B47	Livneh,Ben	Main Campus
+29561	CVEN	5393	1	08:30:00	09:45:00	TTH	SEEC N125	Kasprzyk,Joseph Robert	Main Campus
+29176	CVEN	5424	1	10:30:00	11:20:00	MWF	SEEC N129	Rosario-Ortiz,Fernando L.	Main Campus
+28549	CVEN	5434	1	15:30:00	17:10:00	TTH	FLMG 156	Walker,Michael Edward	Main Campus
+27615	CVEN	5454	1	11:00:00	12:15:00	TTH	ECCE 1B41	Balaji,Rajagopalan	Main Campus
+29009	CVEN	5524	1	10:00:00	11:15:00	TTH	SEEC N125	Summers,Scott R	Main Campus
+29256	CVEN	5534	1	13:00:00	14:15:00	TTH	SEEC N126	Silverstein,Joann	Main Campus
+36313	CVEN	5544	1	09:00:00	09:50:00	MWF	ECCE 1B41	Mansfeldt,Cresten Brant	Main Campus
+28636	CVEN	5564	1	15:30:00	18:15:00	W	ECCE 1B41	Kuchenrither,R D	Main Campus
+27617	CVEN	5565	1	15:30:00	16:45:00	TTH	ECCR 155	Corotis,Ross	Main Campus
+29182	CVEN	5585	1	11:00:00	12:15:00	TTH	KCEN S163	Hearn,George	Main Campus
+36018	CVEN	5628	1	16:30:00	17:45:00	TTH	ECCE 1B47	Zhang,Yida	Main Campus
+29257	CVEN	5788	1	12:30:00	13:45:00	TTH	ECCE 1B41	Regueiro,Rich	Main Campus
+27616	CVEN	6393	1	11:00:00	11:50:00	W	ECCE 1B41	Balaji,Rajagopalan	Main Campus
+29254	CVEN	6511	1	09:30:00	10:45:00	TTH	ECCR 110	Song,Jeong-Hoon	Main Campus
+29767	CVEN	6595	1	12:30:00	13:45:00	TTH	ECCE 1B47	Liel,Abbie Boggiano	Main Campus
+36019	CVEN	7161	1	14:00:00	15:15:00	TTH	ECCE 1B47	Saouma,Victor	Main Campus
+29521	CSCI	1300	107	17:00:00	18:15:00	T	ECES 114	Cox,Murray William	Main Campus
+28581	CSCI	1300	108	17:00:00	18:15:00	T	ECES 112	Cox,Murray William	Main Campus
+29522	CSCI	1300	200	15:00:00	15:50:00	MWF	DUAN G1B20	Manikonda Keshavaiah Naidu,Supriy	Main Campus
+28582	CSCI	1300	201	18:00:00	19:15:00	M	ECES 112	Manikonda Keshavaiah Naidu,Supriy	Main Campus
+28723	CSCI	1300	202	08:00:00	09:15:00	T	ECES 114	Manikonda Keshavaiah Naidu,Supriy	Main Campus
+28724	CSCI	1300	203	09:30:00	10:45:00	T	ECES 114	Manikonda Keshavaiah Naidu,Supriy	Main Campus
+28779	CSCI	1300	204	15:30:00	16:45:00	T	ECES 114	Manikonda Keshavaiah Naidu,Supriy	Main Campus
+38879	CSCI	1300	300	10:00:00	10:50:00	MWF	ECES 114	Cox,Murray William	Main Campus
+29305	CSCI	1300	301	08:00:00	09:15:00	T	ECES 112	Cox,Murray William	Main Campus
+28790	CSCI	1320	100	13:00:00	13:50:00	MWF	ECCR 265	Zagrodzki,Maciej	Main Campus
+28791	CSCI	1320	101	11:00:00	11:50:00	T	ECCR 235	Zagrodzki,Maciej	Main Campus
+28792	CSCI	1320	102	12:00:00	12:50:00	T	ECCR 235	Zagrodzki,Maciej	Main Campus
+28793	CSCI	1320	103	17:00:00	17:50:00	T	ECCR 235	Zagrodzki,Maciej	Main Campus
+28794	CSCI	1320	104	09:00:00	09:50:00	W	ECCR 235	Zagrodzki,Maciej	Main Campus
+28837	CSCI	1320	105	10:00:00	10:50:00	W	ECCR 235	Zagrodzki,Maciej	Main Campus
+28838	CSCI	1320	106	11:00:00	11:50:00	W	ECCR 235	Zagrodzki,Maciej	Main Campus
+27417	CSCI	2270	100	10:00:00	10:50:00	MWF	VAC 1B20	Zagrodzki,Maciej	Main Campus
+27418	CSCI	2270	101	08:00:00	09:15:00	TH	ECES 112	Zagrodzki,Maciej	Main Campus
+27419	CSCI	2270	102	09:30:00	10:45:00	TH	ECES 112	Zagrodzki,Maciej	Main Campus
+27420	CSCI	2270	103	15:30:00	16:45:00	TH	ECES 112	Zagrodzki,Maciej	Main Campus
+27421	CSCI	2270	104	17:00:00	18:15:00	TH	ECES 114	Zagrodzki,Maciej	Main Campus
+29188	CSCI	2270	200	14:00:00	14:50:00	MWF	ECCR 1B40	Nath,Sreesha	Main Campus
+29189	CSCI	2270	201	16:30:00	17:45:00	W	ECES 112	Nath,Sreesha	Main Campus
+29190	CSCI	2270	202	08:00:00	09:15:00	TH	MUEN E113	Nath,Sreesha	Main Campus
+27422	CSCI	2270	203	11:00:00	12:15:00	TH	ECES 112	Nath,Sreesha	Main Campus
+29244	CSCI	2270	300	15:00:00	15:50:00	MWF	MUEN E050	Trivedi,Ashutosh	Main Campus
+29308	CSCI	2270	301	18:00:00	19:15:00	W	ECES 112	Trivedi,Ashutosh	Main Campus
+29309	CSCI	2270	302	09:30:00	10:45:00	TH	ECES 114	Trivedi,Ashutosh	Main Campus
+28379	CSCI	2270	303	09:30:00	10:45:00	TH	ECES 114	Trivedi,Ashutosh	Main Campus
+29525	CSCI	2270	304	14:00:00	15:15:00	TH	ECES 112	Trivedi,Ashutosh	Main Campus
+36237	CSCI	2270	305	15:30:00	16:45:00	TH	ECES 114	Trivedi,Ashutosh	Main Campus
+36238	CSCI	2270	306	17:00:00	18:15:00	TH	ECES 112	Trivedi,Ashutosh	Main Campus
+28521	CSCI	2400	100	15:00:00	15:50:00	MWF	HUMN 1B50	Grunwald,Dirk	Main Campus
+28524	CSCI	2400	101	17:00:00	17:50:00	M	ECCR 155	Grunwald,Dirk	Main Campus
+28525	CSCI	2400	102	18:00:00	18:50:00	M	ECCR 151	Grunwald,Dirk	Main Campus
+28526	CSCI	2400	103	08:00:00	08:50:00	T	MUEN E113	Grunwald,Dirk	Main Campus
+28527	CSCI	2400	104	10:00:00	10:50:00	W	ECES 112	Grunwald,Dirk	Main Campus
+28619	CSCI	2400	105	11:00:00	11:50:00	W	ECES 112	Grunwald,Dirk	Main Campus
+29526	CSCI	2400	106	12:00:00	12:50:00	W	ECES 112	Grunwald,Dirk	Main Campus
+28882	CSCI	2820	1	13:00:00	13:50:00	MWF	CASE E240	Zamani,Majid	Main Campus
+28852	CSCI	2824	1	09:00:00	09:50:00	MWF	RAMY C250	Mullen,Zachary	Main Campus
+29245	CSCI	2824	2	11:00:00	11:50:00	MWF	HLMS 252	Mullen,Zachary	Main Campus
+36256	CSCI	2834	1	17:00:00	18:40:00	TH	FLMG 157	\N	Main Campus
+36257	CSCI	2834	2	13:00:00	14:40:00	F	ECES 112	\N	Main Campus
+29173	CSCI	3002	100	12:30:00	13:45:00	TTH	RAMY C250	Leithinger,Daniel	Main Campus
+29468	CSCI	3002	101	16:00:00	16:50:00	TH	ECCR 1B55	Leithinger,Daniel	Main Campus
+29469	CSCI	3002	102	17:00:00	17:50:00	TH	HUMN 125	Leithinger,Daniel	Main Campus
+29467	CSCI	3002	103	08:00:00	08:50:00	F	STAD 112	Leithinger,Daniel	Main Campus
+29527	CSCI	3002	104	13:00:00	13:50:00	F	\N	Leithinger,Daniel	Main Campus
+29470	CSCI	3002	105	14:00:00	14:50:00	F	\N	Leithinger,Daniel	Main Campus
+38877	CSCI	3002	200	08:00:00	09:15:00	MW	ECES 114	Manikonda Keshavaiah Naidu,Supriy	Main Campus
+38878	CSCI	3002	201	08:00:00	08:50:00	F	ECES 114	Manikonda Keshavaiah Naidu,Supriy	Main Campus
+29448	CSCI	3010	1	16:30:00	17:45:00	MW	ITLL 1B50	Muzny,Felix	Main Campus
+29246	CSCI	3022	1	16:00:00	17:15:00	MW	RAMY C250	Tutmaher,Rachel Suzanne	Main Campus
+28320	CSCI	3104	100	09:30:00	10:45:00	TTH	GOLD A2B70	Chen,Lijun	Main Campus
+28322	CSCI	3104	101	16:00:00	16:50:00	T	STAD 140	Chen,Lijun	Main Campus
+28321	CSCI	3104	102	17:00:00	17:50:00	W	DUAN G2B47	Chen,Lijun	Main Campus
+28323	CSCI	3104	103	09:00:00	09:50:00	W	ECES 112	Chen,Lijun	Main Campus
+36269	CSCI	3104	104	11:00:00	11:50:00	W	ECES 114	\N	Main Campus
+28620	CSCI	3104	105	14:00:00	14:50:00	W	\N	\N	Main Campus
+29311	CSCI	3104	200	13:00:00	13:50:00	MWF	BESC 180	Grochow,Joshua	Main Campus
+29312	CSCI	3104	201	15:00:00	15:50:00	M	ECES 112	Grochow,Joshua	Main Campus
+29314	CSCI	3104	202	16:00:00	16:50:00	M	ECCR 155	Grochow,Joshua	Main Campus
+29315	CSCI	3104	203	08:00:00	08:50:00	W	ECES 112	Grochow,Joshua	Main Campus
+29313	CSCI	3104	204	09:00:00	09:50:00	W	DUAN G125	Grochow,Joshua	Main Campus
+28324	CSCI	3155	100	09:30:00	10:45:00	TTH	HUMN 1B50	Sankaranarayanan,Sriram	Main Campus
+28325	CSCI	3155	101	17:00:00	17:50:00	TH	\N	Sankaranarayanan,Sriram	Main Campus
+28326	CSCI	3155	102	08:00:00	08:50:00	F	FLMG 156	Sankaranarayanan,Sriram	Main Campus
+28725	CSCI	3155	103	09:00:00	09:50:00	F	ECES 114	Sankaranarayanan,Sriram	Main Campus
+29768	CSCI	3155	104	10:00:00	10:50:00	F	\N	Sankaranarayanan,Sriram	Main Campus
+29775	CSCI	3155	105	11:00:00	11:50:00	F	\N	Sankaranarayanan,Sriram	Main Campus
+28520	CSCI	3155	106	11:00:00	11:50:00	F	\N	\N	Main Campus
+29247	CSCI	3202	1	10:00:00	10:50:00	MWF	ECCR 1B40	Tutmaher,Rachel Suzanne	Main Campus
+29402	CSCI	3287	1	15:00:00	15:50:00	MWF	HALE 270	Paradise,Alan	Main Campus
+36465	CSCI	3302	100	15:30:00	16:45:00	T	HUMN 1B80	Roncone,Alessandro	Main Campus
+36466	CSCI	3302	101	14:00:00	15:40:00	W	ITLL 2B10	Roncone,Alessandro	Main Campus
+28642	CSCI	3308	100	11:00:00	11:50:00	MW	DUAN G1B20	Nath,Sreesha	Main Campus
+28643	CSCI	3308	101	12:00:00	13:40:00	W	ECES 114	Nath,Sreesha	Main Campus
+28796	CSCI	3308	102	15:00:00	16:40:00	TH	ECCR 235	Nath,Sreesha	Main Campus
+28645	CSCI	3308	103	08:00:00	09:40:00	F	ECES 112	Nath,Sreesha	Main Campus
+28646	CSCI	3308	104	10:00:00	11:40:00	F	ECES 112	Nath,Sreesha	Main Campus
+28644	CSCI	3308	105	15:00:00	16:40:00	F	ECES 112	Nath,Sreesha	Main Campus
+29318	CSCI	3308	109	13:00:00	14:40:00	TH	ECCR 235	Nath,Sreesha	Main Campus
+29319	CSCI	3308	110	17:00:00	18:40:00	TH	ECCR 235	Nath,Sreesha	Main Campus
+29095	CSCI	3308	111	09:00:00	10:40:00	F	ECCR 235	Nath,Sreesha	Main Campus
+32877	CSCI	3308	112	11:00:00	12:40:00	F	ECCR 235	Nath,Sreesha	Main Campus
+39319	CSCI	3352	1	13:00:00	14:15:00	TTH	BIOT E1B11	Clauset,Aaron	Main Campus
+27350	CSCI	3403	100	14:00:00	15:15:00	TTH	GOLD A2B70	\N	Main Campus
+27351	CSCI	3403	101	17:00:00	17:50:00	TH	CLRE 207	\N	Main Campus
+27352	CSCI	3403	102	18:00:00	18:50:00	TH	FLMG 154	\N	Main Campus
+27353	CSCI	3403	103	08:00:00	08:50:00	F	ECCR 135	\N	Main Campus
+27354	CSCI	3403	104	14:00:00	14:50:00	F	\N	\N	Main Campus
+29187	CSCI	3656	1	09:30:00	10:45:00	TTH	HALE 230	Kallen-Brown,Jedediah A	Main Campus
+27958	CSCI	3753	100	11:00:00	12:15:00	TTH	ECCR 265	Vu,Tam	Main Campus
+27961	CSCI	3753	101	18:00:00	18:50:00	TH	DUAN G2B60	Vu,Tam	Main Campus
+27959	CSCI	3753	102	11:00:00	11:50:00	F	ECES 114	Vu,Tam	Main Campus
+27960	CSCI	3753	103	12:00:00	12:50:00	F	ECES 114	Vu,Tam	Main Campus
+28726	CSCI	3753	104	13:00:00	13:50:00	F	ECES 114	Vu,Tam	Main Campus
+29663	CSCI	4113	1	14:00:00	15:15:00	TTH	CASE E340	Herman,Carey Jay	Main Campus
+28522	CSCI	4239	1	17:00:00	19:30:00	TH	HUMN 1B90	Schreuder,Willem Adriaan	Main Campus
+36310	CSCI	4273	1	11:00:00	12:15:00	TTH	ECES 114	Herman,Carey Jay	Main Campus
+29611	CSCI	4314	1	12:30:00	13:45:00	TTH	HUMN 1B90	Peleg,Orit	Main Campus
+27962	CSCI	4318	100	08:00:00	09:15:00	TTH	DUAN G1B20	Paradise,Alan	Main Campus
+28727	CSCI	4318	101	17:30:00	18:45:00	W	DUAN G1B30	Paradise,Alan	Main Campus
+29153	CSCI	4358	100	11:00:00	12:15:00	TTH	FLMG 154	Han,Richard Yehwhei	Main Campus
+29155	CSCI	4358	101	17:00:00	17:50:00	W	FLMG 154	Han,Richard Yehwhei	Main Campus
+28729	CSCI	4446	1	09:30:00	10:45:00	TTH	ECCR 151	Bradley,Elizabeth	Main Campus
+32133	CSCI	4448	1	12:00:00	12:50:00	MWF	ECCR 150	Montgomery Jr,Bruce	Main Campus
+27759	CSCI	4593	1	12:00:00	12:50:00	MWF	FLMG 157	Sheafor,Stephen James	Main Campus
+32135	CSCI	4622	1	14:00:00	14:50:00	MWF	HUMN 1B80	\N	Main Campus
+29329	CSCI	4802	1	17:00:00	18:15:00	T	FLMG 157	Larremore,Daniel Benjamin	Main Campus
+29405	CSCI	4830	3	09:00:00	11:30:00	M	ATLS 113	\N	Main Campus
+29410	CSCI	4831	1	09:00:00	09:50:00	MWF	ECCR 150	Fleming,Ioana Nicolaescu	Main Campus
+29770	CSCI	5423	1	17:45:00	20:15:00	W	ECCR 151	Peleg,Orit	Main Campus
+37823	CSCI	5448	1	12:00:00	12:50:00	MWF	ECCR 150	Montgomery Jr,Bruce	Main Campus
+33270	CSCI	5535	1	08:00:00	09:15:00	TTH	HUMN 1B80	Chang,Bor Yuh Evan	Main Campus
+37676	CSCI	5550	1	17:30:00	20:00:00	TH	FLMG 33	Thrall,Gregory Wray	Main Campus
+33263	CSCI	5654	1	12:30:00	13:45:00	TTH	HUMN 1B80	Sankaranarayanan,Sriram	Main Campus
+33272	CSCI	5673	1	11:00:00	12:15:00	TTH	HUMN 1B90	Mishra,Shivakant	Main Campus
+33265	CSCI	5676	1	15:00:00	16:15:00	MW	HUMN 1B90	Cai,Xiao-Chuan	Main Campus
+29248	CSCI	5722	1	09:00:00	09:50:00	MWF	ECCR 150	Fleming,Ioana Nicolaescu	Main Campus
+39520	CSCI	5828	1	17:30:00	20:00:00	W	ECCR 105	\N	Main Campus
+37704	CSCI	5919	1	11:00:00	12:15:00	TTH	KCEN N252	Yeh,Pei Hsiu	Main Campus
+29664	CSCI	5922	1	16:30:00	17:45:00	MW	HUMN 1B90	\N	Main Campus
+37719	CSCI	6502	1	14:00:00	15:15:00	TTH	HUMN 1B80	Lv,Qin	Main Campus
+27868	CSCI	7000	1	13:00:00	13:50:00	MWF	HUMN 1B90	Waggoner,Benjamin	Main Campus
+29643	CSCI	7000	4	12:30:00	13:45:00	TTH	ECES 112	Hayes,Bradley	Main Campus
+29745	CSCI	7000	5	13:00:00	14:15:00	MW	ECES 112	Tan,Chenhao	Main Campus
+28948	CSCI	7000	6	14:00:00	15:15:00	TTH	ECES 114	Monteleoni,Claire	Main Campus
+28956	CSCI	7000	8	12:30:00	13:45:00	TTH	ECES 114	Morrison,Rebecca	Main Campus
+29406	CSCI	7000	9	14:00:00	15:15:00	TTH	DLC 1B20	Yeh,Pei Hsiu	Main Campus
+37770	CSCI	7000	10	09:30:00	10:45:00	TTH	ECEE 283	Perigo,Levi D	Main Campus
+37772	CSCI	7000	11	10:00:00	10:50:00	MWF	ECEE 283	Santos,Jose Ramon	Main Campus
+37771	CSCI	7000	12	16:00:00	18:30:00	F	ECST 1B21	Epperson,Kevin Thomas	Main Campus
+29761	CSCI	7000	13	12:30:00	13:45:00	TTH	ECEE 283	Perigo,Levi D	Main Campus
+31389	CSCI	7000	14	14:00:00	14:50:00	MWF	ECEE 283	Santos,Jose Ramon	Main Campus
+39315	CSCI	7000	802	09:15:00	11:45:00	TH	ECCR 239	Alistar,Mirela	Main Campus
+28595	ECEN	1310	10	14:00:00	14:50:00	MWF	ECCR 245	Izraelevitz,Joseph	Main Campus
+28598	ECEN	1310	11	08:30:00	10:20:00	T	ECEE 281	Izraelevitz,Joseph	Main Campus
+28599	ECEN	1310	12	08:30:00	10:20:00	T	ECEE 282	Izraelevitz,Joseph	Main Campus
+28600	ECEN	1310	13	15:30:00	17:20:00	T	ECEE 281	Izraelevitz,Joseph	Main Campus
+28601	ECEN	1310	14	15:30:00	17:20:00	T	ECEE 282	Izraelevitz,Joseph	Main Campus
+28572	ECEN	1400	10	15:00:00	15:50:00	MW	FLMG 156	Blum,Arielle Melissa	Main Campus
+28573	ECEN	1400	11	08:00:00	09:50:00	TTH	ITLL 1B10	Blum,Arielle Melissa	Main Campus
+27623	ECEN	2250	1	14:00:00	14:50:00	MWF	ECEE 1B32	Blum,Arielle Melissa	Main Campus
+28380	ECEN	2260	1	09:00:00	09:50:00	MWF	ECCR 1B40	Gasiewski,Albin J.	Main Campus
+28569	ECEN	2270	10	15:00:00	15:50:00	M	ECCR 200	Sharma,Prachi	Main Campus
+28570	ECEN	2270	11	10:30:00	12:20:00	TTH	ECEE 281	Sharma,Prachi	Main Campus
+28571	ECEN	2270	12	10:30:00	12:20:00	TTH	ECEE 282	Sharma,Prachi	Main Campus
+28730	ECEN	2270	13	17:30:00	19:20:00	TTH	ECEE 281	Sharma,Prachi	Main Campus
+28731	ECEN	2270	14	17:30:00	19:20:00	TTH	ECEE 282	Sharma,Prachi	Main Campus
+29688	ECEN	2310	1	15:00:00	16:50:00	W	ECEE 1B32	Hodge,Bri-Mathias	Main Campus
+27624	ECEN	2350	1	13:00:00	13:50:00	MW	HLMS 201	Robinson,Loyal	Main Campus
+33217	ECEN	2350	2	15:00:00	16:50:00	TH	ITLL 1B10	Robinson,Loyal	Main Campus
+29073	ECEN	2410	1	11:00:00	11:50:00	MWF	ECEE 1B32	Mickelson,Alan R	Main Campus
+28515	ECEN	2420	10	08:00:00	08:50:00	M	ECEE 287	Psychogiou,Dimitra	Main Campus
+29096	ECEN	2420	11	11:00:00	12:50:00	MW	ECEE 281	Psychogiou,Dimitra	Main Campus
+33218	ECEN	2440	1	11:00:00	11:50:00	M	ITLL 1B10	Blum,Arielle Melissa	Main Campus
+33219	ECEN	2440	2	11:00:00	12:50:00	WF	ITLL 1B10	Blum,Arielle Melissa	Main Campus
+29790	ECEN	2703	1	12:00:00	12:50:00	MWF	ECEE 1B32	Somenzi,Fabio	Main Campus
+28592	ECEN	3010	10	16:00:00	16:50:00	MW	HUMN 150	Newhall,William George	Main Campus
+28593	ECEN	3010	11	09:00:00	10:50:00	F	ITLL 2B10	Newhall,William George	Main Campus
+28594	ECEN	3010	12	09:00:00	10:50:00	F	ITLL 2B10	Newhall,William George	Main Campus
+29038	ECEN	3010	13	11:00:00	12:50:00	F	ITLL 2B10	Newhall,William George	Main Campus
+29039	ECEN	3010	14	11:00:00	12:50:00	F	ITLL 2B10	Newhall,William George	Main Campus
+27625	ECEN	3250	1	11:00:00	11:50:00	MWF	FLMG 154	Sharma,Prachi	Main Campus
+27626	ECEN	3300	1	14:00:00	14:50:00	MWF	CASE E340	Wagner,Kelvin	Main Campus
+33221	ECEN	3300	2	13:00:00	13:50:00	MWF	ECCR 151	Dall'anese,Emiliano	Main Campus
+28735	ECEN	3320	1	08:00:00	08:50:00	MWF	ECCR 150	Sharma,Prachi	Main Campus
+28381	ECEN	3350	1	10:00:00	10:50:00	MWF	ECEE 1B32	\N	Main Campus
+28732	ECEN	3360	10	16:00:00	16:50:00	M	ECCR 245	Graham,Keith A	Main Campus
+28733	ECEN	3360	11	13:00:00	14:50:00	TTH	ITLL 1B10	Graham,Keith A	Main Campus
+27627	ECEN	3400	1	09:00:00	09:50:00	MWF	ECEE 1B32	Filipovic,Dejan S	Main Campus
+28996	ECEN	3410	1	12:30:00	13:45:00	TTH	ECEE 1B32	Popovic,Z	Main Campus
+33226	ECEN	4133	1	14:00:00	15:15:00	TTH	ECEE 1B32	Wustrow,Eric	Main Campus
+29706	ECEN	4224	1	13:30:00	16:00:00	F	ECEE 287	Piket,Melinda	Main Campus
+28543	ECEN	4341	1	11:00:00	11:50:00	MWF	ECEE 265	Barnes,Frank Stephenson	Main Campus
+27889	ECEN	4517	10	13:00:00	13:50:00	M	ECEE 1B32	Erickson,Robert W	Main Campus
+27890	ECEN	4517	11	12:00:00	15:50:00	T	ECEE 1B65	Erickson,Robert W	Main Campus
+28988	ECEN	4517	12	12:00:00	15:50:00	W	ECEE 1B65	Erickson,Robert W	Main Campus
+28995	ECEN	4517	13	12:00:00	15:50:00	TH	ECEE 1B65	Erickson,Robert W	Main Campus
+27628	ECEN	4532	10	15:00:00	16:15:00	M	ECEE 1B32	Perkins,Michael Gregory	Main Campus
+27629	ECEN	4532	11	15:30:00	17:20:00	TH	ECEE 281	Perkins,Michael Gregory	Main Campus
+37690	ECEN	4532	12	16:30:00	17:20:00	M	ECEE 281	Perkins,Michael Gregory	Main Campus
+33232	ECEN	4606	10	15:00:00	16:15:00	M	KCEN S163	Huang,Shu-Wei	Main Campus
+33233	ECEN	4606	11	15:30:00	18:30:00	T	ECEE 105	Huang,Shu-Wei	Main Campus
+33234	ECEN	4606	12	15:30:00	18:30:00	W	ECEE 105	Huang,Shu-Wei	Main Campus
+33235	ECEN	4606	13	15:30:00	18:30:00	TH	ECEE 105	Huang,Shu-Wei	Main Campus
+28950	ECEN	4616	1	15:30:00	16:45:00	TTH	ECEE 287	Mc Leod,Robert Royal	Main Campus
+28789	ECEN	4620	1	09:30:00	12:15:00	TTH	ECEE 2B37	Femrite,Andrew Jay	Main Campus
+28981	ECEN	4620	2	09:30:00	12:15:00	TTH	ECEE 2B39	Femrite,Andrew Jay	Main Campus
+29639	ECEN	4620	803	09:30:00	12:15:00	TTH	ECEE 1B10	Femrite,Andrew Jay	Main Campus
+37660	ECEN	4620	804	09:30:00	12:15:00	TTH	ECEE 287	Femrite,Andrew Jay	Main Campus
+28618	ECEN	4638	1	12:30:00	15:00:00	TTH	ITLL 1B10	Nicotra,Marco	Main Campus
+29167	ECEN	4638	2	15:00:00	17:30:00	TTH	ITLL 1B10	Nicotra,Marco	Main Campus
+29689	ECEN	4652	10	09:00:00	09:50:00	M	ECEE 287	Mathys,Peter	Main Campus
+29691	ECEN	4652	11	09:00:00	11:00:00	WF	See Academc Dept	Mathys,Peter	Main Campus
+29279	ECEN	5126	1	12:30:00	13:45:00	TTH	KCEN S163	Piestun,Rafael	Main Campus
+33229	ECEN	5154	1	10:00:00	11:15:00	TTH	See Academc Dept	Filipovic,Dejan S	Main Campus
+39372	ECEN	5254	1	09:30:00	10:45:00	TTH	ECCR 150	Gasiewski,Albin J.	Main Campus
+33231	ECEN	5355	1	10:00:00	10:50:00	MWF	 ECCR 116	Van Zeghbroeck,Bart J	 Main Campus
+39361	ECEN	5358	1	09:30:00	10:45:00	TTH	 ECEE 287	Hauser,John	 Main Campus
+28983	ECEN	5458	1	11:00:00	12:15:00	MW	See Academc Dept	 Pao,Lucy Y	 Main Campus
+27760	ECEN	5613	1	18:30:00	21:00:00	M	 ECEE 1B32	 Mc Clure,Linden Howell	 Main Campus
+29185	ECEN	5616	1	15:30:00	16:45:00	TTH	 ECEE 287	Mc Leod,Robert Royal	 Main Campus
+29454	ECEN	5622	1	09:30:00	10:45:00	TTH	 ECCR 139	Varanasi,Mahesh	 Main Campus
+28982	ECEN	5623	1	12:30:00	13:45:00	TTH	 ECCR 105	Scherr,Timothy Lee	 Main Campus
+33236	ECEN	5626	1	12:30:00	13:45:00	TTH	 ECCR 139	\N	 Main Campus
+29769	ECEN	5652	2	11:00:00	12:15:00	TTH	 ECEE 287	Liu,Youjian	 Main Campus
+39401	ECEN	5682	1	11:00:00	11:50:00	MWF	 HLMS 220	Mathys,Peter	 Main Campus
+28813	ECEN	5692	1	12:30:00	13:45:00	TTH	 ECEE 287	Varanasi,Mahesh	 Main Campus
+29784	ECEN	5737	1	17:30:00	18:45:00	TTH	SEEC N125	Sepahvand,Alihossein	 Main Campus
+33248	ECEN	5738	1	14:00:00	15:15:00	TTH	 ECEE 287	Hauser,John	 Main Campus
+29223	ECEN	5813	1	14:00:00	15:15:00	TTH	ECCR 105	Montgomery Jr,Bruce	 Main Campus
+33237	ECEN	5817	1	10:00:00	10:50:00	MWF	 ECCR 150	Maksimovic,Dragan	 Main Campus
+29225	ECEN	5823	1	09:30:00	10:45:00	TTH	 ECCR 105	Scherr,Timothy Lee	 Main Campus
+33251	ECEN	5833	1	17:00:00	18:15:00	TTH	HUMN 1B80	Scherr,Timothy Lee	 Main Campus
+29227	ECEN	5863	1	15:30:00	16:45:00	TTH	 ECCR 1B51	Spriggs,Benjamin	 Main Campus
+27589	EME	4030	1	11:00:00	12:15:00	TTH	ECCR 151	McDonald,Patricia Ann	Main Campus
+29262	EME	4030	2	15:30:00	16:45:00	TTH	ECCR 151	McDonald,Patricia Ann	Main Campus
+29444	EME	4030	3	17:30:00	20:00:00	W	FLMG 156	\N	Main Campus
+28919	EME	4050	2	08:00:00	09:15:00	TTH	ECCR 105	Duren,Ron	Main Campus
+28787	EME	4100	1	09:30:00	10:45:00	TTH	FLMG 157	Bozic,Christy L	Main Campus
+28785	EME	4100	2	17:30:00	20:00:00	W	ECCR 135	Wrobetz,Anne Victoria	Main Campus
+28920	EME	4100	3	15:00:00	16:15:00	MW	FLMG 154	Readey,Michael Jeffrey	Main Campus
+29666	EME	4110	1	12:30:00	13:45:00	TTH	CASE E220	Ravishankar,Gurumurthi	Main Campus
+29667	EME	4110	2	14:00:00	15:15:00	TTH	CASE E220	Ravishankar,Gurumurthi	Main Campus
+29668	EME	4110	3	09:30:00	10:45:00	TTH	KOBL 320	Ravishankar,Gurumurthi	Main Campus
+29669	EME	4120	1	09:30:00	10:45:00	MW	\N	Zhang,Rui	Main Campus
+29670	EME	4120	2	11:00:00	12:15:00	MW	\N	Zhang,Rui	Main Campus
+29172	EME	4200	1	17:15:00	19:45:00	M	FLMG 154	Murray,Seth Everett	Main Campus
+29264	EME	4405	1	17:30:00	20:00:00	T	FLMG 154	Van Atten,William	Main Campus
+29685	EME	4800	1	13:00:00	13:50:00	MWF	ECCR 135	Judah,Kyle	Main Campus
+28508	EME	4825	1	15:30:00	18:15:00	T	CASE E250	Werner,Walter	Main Campus
+28699	EME	4825	5	17:00:00	19:45:00	M	\N	\N	Main Campus
+28700	EME	4825	802	17:00:00	19:45:00	M	\N	\N	Main Campus
+28565	EME	5005	1	14:00:00	15:15:00	TTH	ECCR 1B51	Littlejohn,Ray Lynn	Main Campus
+32618	EME	5015	1	17:30:00	20:00:00	TH	ECCR 105	Leopold,Christie Anne	Main Campus
+38652	EME	5015	2	17:30:00	20:00:00	TH	ECCR 1B55	Leopold,Christie Anne	Main Campus
+29174	EME	5020	1	17:30:00	20:00:00	T	ECCR 150	Readey,Michael Jeffrey	Main Campus
+28566	EME	5030	1	17:30:00	20:00:00	M	ECCR 150	Gibson,Elizabeth C D	Main Campus
+28736	EME	5032	1	17:30:00	20:00:00	T	ECCR 1B55	Svoboda,John David	Main Campus
+28378	EME	5050	1	17:30:00	20:00:00	T	ECCR 1B51	Duren,Ron	Main Campus
+35796	EME	5053	1	17:30:00	20:00:00	TH	ECCR 1B51	Tobey,Kathryn Graese	Main Campus
+27619	EME	5080	1	17:30:00	20:00:00	T	ECCR 105	Moorer Jr,Daniel Fuller	Main Campus
+27620	EME	5090	1	17:30:00	20:00:00	M	ECCR 1B51	Svoboda,John David	Main Campus
+29265	EME	5094	1	17:30:00	20:00:00	TH	ECCR 150	Readey,Michael Jeffrey	Main Campus
+29267	EME	5405	1	17:30:00	20:00:00	M	ECCR 105	Van Atten,William	Main Campus
+27971	EME	5900	1	17:30:00	20:00:00	W	ECCR 1B51	Littlejohn,Ray Lynn	Main Campus
+32870	GEE	1400	10	09:00:00	09:50:00	M	 ITLL 160	Wingate,Kathryn Anne	 Main Campus
+32871	GEE	1400	11	09:00:00	10:50:00	TTH	 ITLL 160	Wingate,Kathryn Anne	 Main Campus
+27708	GEE	1400	20	11:00:00	11:50:00	M	 ITLL 150	 Zarske,Malinda Schaefer	 Main Campus
+27709	GEE	1400	21	10:00:00	11:50:00	WF	 ITLL 150	 Zarske,Malinda Schaefer	 Main Campus
+27710	GEE	1400	30	15:00:00	15:50:00	M	 ITLL 160	Pacheco-Borden,Carmen	 Main Campus
+27711	GEE	1400	31	14:00:00	15:50:00	WF	 ITLL 160	Pacheco-Borden,Carmen	 Main Campus
+28511	GEE	1400	40	11:00:00	11:50:00	M	 ITLL 160	Soltys,Michael Andrew	 Main Campus
+28512	GEE	1400	41	11:00:00	12:50:00	TTH	 ITLL 160	Soltys,Michael Andrew	 Main Campus
+28626	GEE	1400	50	12:00:00	12:50:00	M	 ITLL 150	Godrick,Daniel	 Main Campus
+28627	GEE	1400	51	11:00:00	12:50:00	TTH	 ITLL 150	Godrick,Daniel	 Main Campus
+32872	GEE	1400	70	14:00:00	14:50:00	M	 ITLL 150	Godrick,Daniel	 Main Campus
+32873	GEE	1400	71	13:00:00	14:50:00	TTH	 ITLL 150	Godrick,Daniel	 Main Campus
+29161	GEE	2400	10	12:00:00	12:50:00	M	 ITLL 160	Soltys,Michael Andrew	 Main Campus
+29162	GEE	2400	11	12:00:00	13:50:00	WF	 ITLL 160	Soltys,Michael Andrew	 Main Campus
+28692	GEE	3400	10	10:00:00	10:50:00	M	 ITLL 160	 Segil,Jacob L	 Main Campus
+28693	GEE	3400	11	09:00:00	10:50:00	WF	 ITLL 160	 Segil,Jacob L	 Main Campus
+29753	GEE	4400	10	13:00:00	13:50:00	WF	 ECES 1B12	 Zarske,Malinda Schaefer	 Main Campus
+29754	GEE	4400	11	12:00:00	13:50:00	M	 ECES 1B12	 Zarske,Malinda Schaefer	 Main Campus
+27964	HUE	1010	1	10:00:00	10:50:00	MWF	 ECCR 1B06	Fredricksmeyer,H C F	 Main Campus
+27965	HUE	1010	2	11:00:00	11:50:00	MWF	ECCR 1B06	Fredricksmeyer,H C F	Main Campus
+28407	HUE	1010	3	11:00:00	11:50:00	MWF	KCEN S161	Stanford-Mcintyre,Sarah	Main Campus
+28575	HUE	1010	4	13:00:00	13:50:00	MWF	LESS 1B01	Lange,Anja Kerstin	Main Campus
+28576	HUE	1010	5	14:00:00	14:50:00	MWF	LESS 1B01	Priou,Alexandre	Main Campus
+28584	HUE	1010	6	09:30:00	10:45:00	TTH	ECCR 1B06	Kowalchuk,Andrea	Main Campus
+28854	HUE	1010	7	09:30:00	10:45:00	TTH	LESS 1B01	DE Alwis,Lisa Malkanthi	Main Campus
+28630	HUE	1010	8	11:00:00	12:15:00	TTH	LESS 1B01	DE Alwis,Lisa Malkanthi	Main Campus
+28704	HUE	1010	9	11:00:00	12:15:00	TTH	ECCR 1B06	Giovannelli,Leland Frances	Main Campus
+28706	HUE	1010	10	12:30:00	13:45:00	TTH	LESS 1B01	Turner,Aaron Kane	Main Campus
+29750	HUE	1010	11	14:00:00	15:15:00	TTH	LESS 1B01	Turner,Aaron Kane	Main Campus
+28797	HUE	1010	800	11:00:00	11:50:00	MWF	LESS 1B01	Axel,Donna	Main Campus
+28802	HUE	1010	801	15:00:00	15:50:00	MWF	LESS 1B01	Priou,Alexandre	Main Campus
+35934	HUE	2360	1	14:00:00	15:15:00	TTH	ECCR 131	Giovannelli,Leland Frances	Main Campus
+27966	HUE	3100	1	09:00:00	09:50:00	MWF	ECCR 1B06	Priou,Alexandre	Main Campus
+27967	HUE	3100	2	09:00:00	09:50:00	MWF	LESS 1B01	Lange,Anja Kerstin	Main Campus
+27968	HUE	3100	3	10:00:00	10:50:00	MWF	LESS 1B01	Lange,Anja Kerstin	Main Campus
+28317	HUE	3100	4	13:00:00	13:50:00	MWF	ECCR 1B06	Fredricksmeyer,H C F	Main Campus
+28738	HUE	3100	5	14:00:00	14:50:00	MWF	ECCR 1B06	Diduch,Paul Jordan	Main Campus
+28778	HUE	3100	6	15:00:00	16:15:00	MW	ECCR 1B06	Diduch,Paul Jordan	Main Campus
+28855	HUE	3100	7	12:30:00	13:45:00	TTH	ECCR 1B06	Kowalchuk,Andrea	Main Campus
+28998	HUE	3100	8	14:00:00	15:15:00	TTH	ECCR 1B06	Kowalchuk,Andrea	Main Campus
+29160	HUE	3430	1	12:30:00	13:45:00	TTH	ECCR 151	Wilkerson,Donald H	Main Campus
+28714	MCE	1024	100	10:00:00	10:50:00	MWF	CASE E340	Stoldt,Conrad Robert	Main Campus
+28715	MCE	1024	101	11:00:00	11:50:00	W	FLMG 271B	Stoldt,Conrad Robert	Main Campus
+28716	MCE	1024	102	12:00:00	12:50:00	W	FLMG 271B	Stoldt,Conrad Robert	Main Campus
+29208	MCE	1024	103	11:00:00	11:50:00	F	FLMG 271B	Stoldt,Conrad Robert	Main Campus
+29209	MCE	1024	104	12:00:00	12:50:00	F	FLMG 271B	Stoldt,Conrad Robert	Main Campus
+28568	MCE	1025	10	09:00:00	09:50:00	MW	BESC 180	Bucciaglia,Joseph D	Main Campus
+28567	MCE	1025	11	11:00:00	12:50:00	MW	ECCE 141	Bucciaglia,Joseph D	Main Campus
+28585	MCE	1025	12	11:00:00	12:50:00	MW	ECCE 141	Bucciaglia,Joseph D	Main Campus
+28586	MCE	1025	13	13:00:00	14:50:00	MW	ECCE 141	Bucciaglia,Joseph D	Main Campus
+28587	MCE	1025	14	13:00:00	14:50:00	MW	ECCE 141	Bucciaglia,Joseph D	Main Campus
+28588	MCE	1025	15	15:00:00	16:50:00	MW	ECCE 141	Bucciaglia,Joseph D	Main Campus
+28589	MCE	1025	16	15:00:00	16:50:00	MW	ECCE 141	Bucciaglia,Joseph D	Main Campus
+28702	MCE	2023	1	14:00:00	15:15:00	TTH	ECCR 200	Neu,Corey P	Main Campus
+27630	MCE	2024	1	13:00:00	13:50:00	MWF	ECCR 1B40	Whiting,Gregory	Main Campus
+28580	MCE	2043	1	09:30:00	10:45:00	TTH	FLMG 156	Long,Rong	Main Campus
+29476	MCE	2043	2	12:30:00	13:45:00	TTH	FLMG 154	Long,Rong	Main Campus
+27893	MCE	2063	1	10:00:00	10:50:00	MWF	ITLL 1B50	Murray,Todd W	Main Campus
+29210	MCE	2063	2	12:00:00	12:50:00	MWF	ECCR 245	Murray,Todd W	Main Campus
+28529	MCE	3021	1	14:00:00	14:50:00	MWF	ATLS 100	\N	Main Campus
+27894	MCE	3022	1	14:00:00	14:50:00	MWF	ECCR 265	Regner,Keith	Main Campus
+28517	MCE	3022	400	13:00:00	13:50:00	MWF	Offered at Colorado	Mitrano,Peter	Main Campus
+27895	MCE	3025	100	11:00:00	12:15:00	TTH	ECCR 200	Tsai,Janet Yi-Jen	Main Campus
+28717	MCE	3025	110	14:00:00	15:15:00	TTH	ITLL 1B50	Tsai,Janet Yi-Jen	Main Campus
+28516	MCE	3025	111	10:00:00	11:50:00	M	FLMG 178A	Tsai,Janet Yi-Jen	Main Campus
+29437	MCE	3025	112	12:00:00	13:50:00	M	FLMG 178A	Tsai,Janet Yi-Jen	Main Campus
+29211	MCE	3025	113	10:00:00	11:50:00	W	FLMG 178A	Tsai,Janet Yi-Jen	Main Campus
+29438	MCE	3025	114	12:00:00	13:50:00	W	FLMG 178A	Tsai,Janet Yi-Jen	Main Campus
+29098	MCE	3025	400	08:00:00	09:50:00	MW	Offered at Colorado	Castro,Francisco	Main Campus
+28590	MCE	3030	1	15:30:00	16:45:00	TTH	EKLC E1B20	Henze,Daven Ker	Main Campus
+31821	MCE	3030	2	12:30:00	13:45:00	TTH	ECCE 141	Henze,Daven Ker	Main Campus
+29565	MCE	3030	400	09:00:00	09:50:00	TTH	Offered at Colorado	Castro,Francisco	Main Campus
+29566	MCE	3030	401	15:00:00	16:50:00	T	Offered at Colorado	Castro,Francisco	Main Campus
+28690	MCE	3032	1	11:00:00	11:50:00	MWF	HALE 270	Walker,Michael Edward	Main Campus
+28696	MCE	3032	400	13:00:00	14:50:00	TTH	Offered at Colorado	McNeill,Nathan John	Main Campus
+29022	MCE	3047	10	12:00:00	12:50:00	MW	ATLS 100	Regner,Keith	Main Campus
+29023	MCE	3047	11	09:00:00	10:50:00	TTH	ITLL 2B10	Regner,Keith	Main Campus
+29024	MCE	3047	12	11:00:00	12:50:00	TTH	ITLL 2B10	Regner,Keith	Main Campus
+29025	MCE	3047	13	14:00:00	15:50:00	TTH	ITLL 2B10	Pacheco-Borden,Carmen	Main Campus
+29303	MCE	3047	14	16:00:00	17:50:00	TTH	ITLL 2B10	Pacheco-Borden,Carmen	Main Campus
+28695	MCE	3047	400	15:00:00	15:50:00	MW	Offered at Colorado	Mitrano,Peter	Main Campus
+29099	MCE	3047	401	10:00:00	11:50:00	MW	Offered at Colorado	Mitrano,Peter	Main Campus
+29100	MCE	3047	402	10:00:00	11:50:00	TTH	Offered at Colorado	Mitrano,Peter	Main Campus
+29480	MCE	4010	1	12:30:00	13:45:00	TTH	ECCR 131	Lee,Yung-Cheng	Main Campus
+28718	MCE	4026	10	09:00:00	09:50:00	MWF	ATLS 100	\N	Main Campus
+28719	MCE	4026	11	10:00:00	11:50:00	F	FLMG 178A	\N	Main Campus
+28822	MCE	4026	12	12:00:00	13:50:00	F	FLMG 178A	\N	Main Campus
+28999	MCE	4026	13	14:00:00	15:50:00	F	FLMG 178A	\N	Main Campus
+28720	MCE	4043	10	13:00:00	13:50:00	MWF	ATLS 100	Ruben,Shalom D	Main Campus
+28823	MCE	4043	11	12:00:00	13:50:00	T	ITLL 2B10	Ruben,Shalom D	Main Campus
+28721	MCE	4043	12	12:00:00	13:50:00	TH	ITLL 2B10	Ruben,Shalom D	Main Campus
+27949	MCE	4085	100	09:30:00	10:40:00	TTH	FLMG 274	Kotys,Daria Andrea	Main Campus
+27950	MCE	4085	101	10:45:00	11:55:00	TTH	FLMG 274	Lynch,Maureen Ellen	Main Campus
+27951	MCE	4085	102	10:45:00	11:55:00	TTH	FLMG 274	\N	Main Campus
+27952	MCE	4085	103	10:45:00	11:55:00	TTH	FLMG 274	Maguire,Patrick James	Main Campus
+27953	MCE	4085	104	10:45:00	11:55:00	TTH	FLMG 274	Ding,Xiaoyun	Main Campus
+27954	MCE	4085	105	10:45:00	11:55:00	TTH	FLMG 274	Komarek,Rebecca	Main Campus
+27955	MCE	4085	106	10:45:00	11:55:00	TTH	FLMG 274	Mac Curdy,Robert Bruce	Main Campus
+27956	MCE	4085	107	10:45:00	11:55:00	TTH	FLMG 274	Keplinger,Christoph	Main Campus
+27957	MCE	4085	108	10:45:00	11:55:00	TTH	FLMG 274	Carroll,Gerard P	Main Campus
+28076	MCE	4085	109	10:45:00	11:55:00	TTH	FLMG 274	Vanderheyden,William Joseph	Main Campus
+28077	MCE	4085	110	10:45:00	11:55:00	TTH	FLMG 274	Bollendonk,Chip Gregory William	Main Campus
+28411	MCE	4085	111	10:45:00	11:55:00	TTH	FLMG 274	\N	Main Campus
+28412	MCE	4085	112	10:45:00	11:55:00	TTH	FLMG 274	Keplinger,Christoph	Main Campus
+28413	MCE	4085	113	10:45:00	11:55:00	TTH	FLMG 274	\N	Main Campus
+28414	MCE	4085	114	10:45:00	11:55:00	TTH	FLMG 274	\N	Main Campus
+29694	MCE	4085	115	10:45:00	11:55:00	TTH	FLMG 274	Himpsel,Peter	Main Campus
+28416	MCE	4085	116	10:45:00	11:55:00	TTH	FLMG 274	Berkower,Stefan	Main Campus
+28417	MCE	4085	117	10:45:00	11:55:00	TTH	FLMG 274	Linden,Robert A	Main Campus
+28633	MCE	4085	118	10:45:00	11:55:00	TTH	FLMG 274	Carroll,Gerard P	Main Campus
+28634	MCE	4085	119	10:45:00	11:55:00	TTH	FLMG 274	Wilke,Thomas	Main Campus
+28635	MCE	4085	120	10:45:00	11:55:00	TTH	FLMG 274	Chessman,Herbert	Main Campus
+28765	MCE	4085	121	10:45:00	11:55:00	TTH	FLMG 274	Ding,Xiaoyun	Main Campus
+28766	MCE	4085	122	10:45:00	11:55:00	TTH	FLMG 274	Reamon,Derek T	Main Campus
+28767	MCE	4085	123	10:45:00	11:55:00	TTH	FLMG 274	Keplinger,Christoph	Main Campus
+28768	MCE	4085	124	10:45:00	11:55:00	TTH	FLMG 274	Wilson,Drew	Main Campus
+28769	MCE	4085	125	10:45:00	11:55:00	TTH	FLMG 274	Reamon,Derek T	Main Campus
+28770	MCE	4085	126	10:45:00	11:55:00	TTH	FLMG 274	Zable,Jack Louis	Main Campus
+28771	MCE	4085	127	10:45:00	11:55:00	TTH	FLMG 274	Ibanez,Paul	Main Campus
+28772	MCE	4085	128	10:45:00	11:55:00	TTH	FLMG 274	Ding,Xiaoyun	Main Campus
+28773	MCE	4085	129	10:45:00	11:55:00	TTH	FLMG 274	Berkower,Stefan	Main Campus
+28774	MCE	4085	130	10:45:00	11:55:00	TTH	FLMG 274	\N	Main Campus
+28415	MCE	4085	131	10:45:00	11:55:00	TTH	FLMG 274	Reamon,Derek T	Main Campus
+29700	MCE	4085	132	10:45:00	11:55:00	TTH	FLMG 274	\N	Main Campus
+29695	MCE	4085	133	10:45:00	11:55:00	TTH	FLMG 274	Goldstein,Andrew David	Main Campus
+29696	MCE	4085	134	10:45:00	11:55:00	TTH	FLMG 274	\N	Main Campus
+29697	MCE	4085	135	10:45:00	11:55:00	TTH	FLMG 274	\N	Main Campus
+29698	MCE	4085	136	10:45:00	11:55:00	TTH	FLMG 274	\N	Main Campus
+28775	MCE	4085	200	09:30:00	10:45:00	TTH	FLMG 154	Riffell,Daniel Joseph	Main Campus
+29213	MCE	4085	240	10:50:00	11:55:00	TTH	FLMG 274	Ruybal,Timothy	Main Campus
+29214	MCE	4085	241	10:50:00	11:55:00	TTH	FLMG 274	Ibanez,Paul	Main Campus
+29215	MCE	4085	242	10:50:00	11:55:00	TTH	FLMG 274	Ruybal,Timothy	Main Campus
+29216	MCE	4085	243	10:50:00	11:55:00	TTH	 FLMG 274	 Morton,Andrew Scott	 Main Campus
+29217	MCE	4085	244	10:50:00	11:55:00	TTH	 FLMG 274	Wong,Walter	 Main Campus
+29218	MCE	4085	245	10:50:00	11:55:00	TTH	 FLMG 274	\N	 Main Campus
+29219	MCE	4085	246	10:50:00	11:55:00	TTH	 FLMG 274	\N	 Main Campus
+29220	MCE	4085	247	10:50:00	11:55:00	TTH	 FLMG 274	\N	 Main Campus
+29488	MCE	4085	248	10:50:00	11:55:00	TTH	 FLMG 274	\N	 Main Campus
+29489	MCE	4085	249	10:50:00	11:55:00	TTH	 FLMG 274	\N	 Main Campus
+29490	MCE	4085	250	10:50:00	11:55:00	TTH	 FLMG 274	\N	 Main Campus
+38950	LAW	7051	802	16:30:00	18:10:00	TH	WLAW 307	Foley,Shannon E	Main Campus
+28518	MCE	4085	400	10:00:00	10:50:00	TTH	Offered at Colorado	McNeill,Nathan John	 Main Campus
+28519	MCE	4085	401	11:00:00	11:50:00	TTH	Offered at Colorado	McNeill,Nathan John	 Main Campus
+28869	MCE	4086	400	09:00:00	09:50:00	TH	Offered at Colorado	Sholtes,Kari Autumn	 Main Campus
+28781	MCE	4115	10	09:00:00	09:50:00	MWF	 ITLL 1B50	 Reamon,Derek T	 Main Campus
+28782	MCE	4115	11	10:00:00	10:50:00	MWF	 ITLL 1B10	 Reamon,Derek T	 Main Campus
+29709	MCE	4117	1	14:00:00	14:50:00	MWF	 ITLL 1B50	Tan,Wei	 Main Campus
+31525	MCE	4125	1	14:00:00	15:15:00	TTH	 ECCR 150	Ruben,Shalom D	 Main Campus
+28776	MCE	4131	1	09:00:00	09:50:00	MWF	 FLMG 156	Patel,Sameer	 Main Campus
+29398	MCE	4133	1	10:00:00	10:50:00	MWF	 ECCR 105	 Ferguson,Virginia Lea	 Main Campus
+39416	MCE	4135	1	12:30:00	13:45:00	TTH	KCEN N252	\N	 Main Campus
+29230	MCE	4173	10	11:00:00	11:50:00	MW	ECCR 155	 Knutsen,Jeffrey Steven	 Main Campus
+29231	MCE	4173	11	10:00:00	11:50:00	F	ECCE 141	 Knutsen,Jeffrey Steven	 Main Campus
+29799	MCE	4173	12	12:00:00	13:50:00	F	ECCE 141	 Knutsen,Jeffrey Steven	 Main Campus
+29181	MCE	4173	400	15:00:00	16:50:00	TH	Offered at Colorado	Castro,Francisco	 Main Campus
+29567	MCE	4173	401	15:00:00	16:50:00	TH	Offered at Colorado	Castro,Francisco	 Main Campus
+28742	MCE	4194	1	11:00:00	11:50:00	MWF	 ECCR 151	Lee,Se-Hee	 Main Campus
+28545	MCE	4228	1	09:00:00	09:50:00	MWF	 CASE E340	Ding,Yifu	 Main Campus
+28546	MCE	4228	2	15:30:00	16:45:00	TTH	 FLMG 271B	Ding,Xiaoyun	 Main Campus
+28824	MCE	4228	3	11:00:00	11:50:00	MWF	 ITLL 1B50	Hertzberg,Jean R	 Main Campus
+29484	MCE	4228	4	14:00:00	15:15:00	TTH	 FLMG 271B	 Lynch,Maureen Ellen	 Main Campus
+28625	MCE	4228	5	12:30:00	13:45:00	TTH	 ECCR 1B51	Mukherjee,Debanjan	 Main Campus
+35578	MCE	4228	6	13:00:00	13:50:00	MWF	 FLMG 271B	Riffell,Daniel Joseph	 Main Campus
+28871	MCE	4228	7	10:00:00	10:50:00	MWF	 ECCR 155	Hannigan,Michael P.	 Main Campus
+29678	MCE	4228	8	15:30:00	16:45:00	TTH	EKLC E1B50	\N	 Main Campus
+29414	MCE	4228	9	12:00:00	12:50:00	MWF	 ECCR 155	Ruzzene,Massimo	 Main Campus
+29170	MCE	4228	401	09:45:00	11:00:00	MW	Offered at Colorado	McNeill,Nathan John	 Main Campus
+29712	MCE	4228	402	14:00:00	15:50:00	TTH	Offered at Colorado	 Affrunti,Andrew Joseph	 Main Campus
+29714	MCE	4228	403	08:00:00	09:45:00	MW	Offered at Colorado	 Affrunti,Andrew Joseph	 Main Campus
+39303	MCE	5044	1	16:00:00	17:15:00	MW	KTCH 1B64	Raj,Rishi	Main Campus
+28788	MCE	5045	1	15:30:00	16:45:00	TTH	FLMG 33	Riffell,Daniel Joseph	Main Campus
+28698	MCE	5075	10	13:00:00	14:50:00	W	FLMG 33	Rentschler,Mark Edwin	Main Campus
+29397	MCE	5133	1	10:00:00	10:50:00	MWF	ECCR 105	Ferguson,Virginia Lea	Main Campus
+29030	MCE	7221	1	14:30:00	15:45:00	MW	 AERO 232	 Evans,John A	 Main Campus
+27969	TLEN	5710	1	15:00:00	17:30:00	W	\N	 Gifford,Kevin Kent	 Main Campus
+31218	APRD	1003	1	14:00:00	15:15:00	TTH	 ECCR 265	Logan,Kelty Irene	 Main Campus
+31312	APRD	1003	2	14:00:00	15:15:00	TTH	 CHEM 142	Willis,Erin N	 Main Campus
+31226	APRD	2001	1	15:30:00	16:45:00	TTH	HUMN 1B50	 Cheval,Melinda J	 Main Campus
+31238	APRD	2004	100	15:00:00	15:50:00	MW	RAMY C250	Hopp,Tobias	 Main Campus
+31249	APRD	2005	100	10:00:00	10:50:00	MW	 HALE 270	\N	 Main Campus
+31260	APRD	2006	100	09:00:00	09:50:00	MW	 VAC 1B20	Labrecque,Joseph	 Main Campus
+26594	APRD	3001	1	18:00:00	20:30:00	T	ARMR 201	\N	 Main Campus
+26595	APRD	3001	2	18:00:00	20:30:00	W	HUMN 1B70	Ligon,Jon	 Main Campus
+35872	APRD	3001	3	15:30:00	16:45:00	TTH	 HLMS 181	\N	 Main Campus
+26320	APRD	3002	1	17:00:00	18:15:00	TTH	 DUAN G2B47	 Arnett,Trina D	 Main Campus
+26553	APRD	3002	2	14:00:00	15:15:00	TTH	DUAN G131	Arnett,Trina D	Main Campus
+26818	APRD	3002	3	18:00:00	20:30:00	T	HALE 260	\N	Main Campus
+26899	APRD	3002	4	18:00:00	20:30:00	W	HALE 240	\N	Main Campus
+26718	APRD	3002	550R	18:30:00	21:00:00	TH	Offered through CU in	Gelb,Amos Peter	Main Campus
+26321	APRD	3003	1	12:30:00	13:45:00	TTH	KTCH 1B87	Lee,Seow	Main Campus
+26596	APRD	3003	2	11:00:00	12:15:00	TTH	ARMR 206A	\N	Main Campus
+26739	APRD	3003	3	14:00:00	15:15:00	TTH	ARMR 218	Lee,Seow	Main Campus
+26322	APRD	3004	1	18:00:00	20:30:00	W	MUEN E064	\N	Main Campus
+26597	APRD	3004	2	18:00:00	20:30:00	T	MUEN E064	\N	Main Campus
+26737	APRD	3005	1	18:00:00	20:30:00	M	MUEN E064	\N	Main Campus
+31321	APRD	3006	1	09:30:00	10:45:00	TTH	EDUC 155	Cheval,Melinda J	Main Campus
+31292	APRD	3009	1	17:00:00	18:15:00	TTH	GUGG 205	\N	Main Campus
+31293	APRD	3009	2	17:00:00	18:15:00	TTH	HLMS 251	\N	Main Campus
+31294	APRD	3009	3	12:30:00	13:45:00	TTH	ARMR 218	\N	Main Campus
+31295	APRD	3010	1	11:00:00	12:15:00	TTH	ECON 13	\N	Main Campus
+31296	APRD	3010	2	12:30:00	13:45:00	TTH	VAC 1B88	\N	Main Campus
+31297	APRD	3010	3	14:00:00	15:15:00	TTH	HUMN 190	\N	Main Campus
+26600	APRD	3100	1	13:00:00	15:30:00	W	ENVD 1B90	Labrecque,Joseph	Main Campus
+33213	APRD	3102	1	18:00:00	20:30:00	M	ECON 119	Slayden,David Lee	Main Campus
+26598	APRD	3103	1	10:00:00	10:50:00	MWF	HLMS 245	Doty,Dawn	Main Campus
+26740	APRD	3103	2	11:00:00	11:50:00	MWF	STAD 135	Doty,Dawn	Main Campus
+26741	APRD	3103	3	18:00:00	20:30:00	W	KTCH 1B44	\N	Main Campus
+31298	APRD	3104	1	09:30:00	10:45:00	TTH	ARMR 218	\N	Main Campus
+31299	APRD	3104	2	17:00:00	18:15:00	TTH	HUMN 190	\N	Main Campus
+31300	APRD	3105	1	17:00:00	18:15:00	MW	HUMN 190	\N	Main Campus
+31301	APRD	3105	2	17:00:00	18:15:00	TTH	HLMS 245	\N	Main Campus
+26822	APRD	3112	1	16:30:00	17:45:00	MW	CLRE 104	Fisher,Irma J	Main Campus
+26605	APRD	3300	1	18:00:00	20:30:00	T	ARMR 206A	\N	Main Campus
+26742	APRD	3301	1	09:30:00	10:45:00	TTH	MUEN E131	Hopp,Tobias	Main Campus
+26677	APRD	3301	2	14:00:00	15:15:00	TTH	MUEN E113	\N	Main Campus
+26720	APRD	3301	550R	18:30:00	21:00:00	TH	Offered through CU in	Gelb,Amos Peter	Main Campus
+26606	APRD	3302	1	08:00:00	09:15:00	TTH	HUMN 370	\N	Main Campus
+26748	APRD	3302	550R	18:30:00	21:00:00	M	Offered through CU in	Gelb,Amos Peter	Main Campus
+26601	APRD	3500	1	18:00:00	20:30:00	W	Meets at Off-Campus	Slayden,David Lee	Main Campus
+26907	APRD	3500	2	18:00:00	20:30:00	W	Meets at Off-Campus	\N	Main Campus
+26604	APRD	4100	1	18:00:00	20:30:00	M	HUMN 125	\N	Main Campus
+26743	APRD	4100	2	18:00:00	20:30:00	T	ECON 119	\N	Main Campus
+26894	APRD	4100	3	18:00:00	20:30:00	W	HUMN 125	\N	Main Campus
+36143	APRD	4102	1	12:30:00	13:45:00	TTH	HLMS 237	Schauster,Erin E	Main Campus
+26825	APRD	4300	1	09:30:00	10:45:00	TTH	ENVD 1B90	Vargo,Christopher	Main Campus
+26744	APRD	4403	1	17:00:00	18:45:00	MW	GUGG 3	\N	Main Campus
+26324	APRD	4403	2	15:30:00	17:15:00	TTH	ARMR 206A	\N	Main Campus
+26325	APRD	4403	3	10:00:00	11:45:00	MW	ARMR 206A	Stoner,Michael Hart	Main Campus
+26560	APRD	4403	4	15:30:00	17:15:00	TTH	CLRE 301	\N	Main Campus
+26599	APRD	4403	5	15:30:00	17:15:00	TTH	MUEN E114	\N	Main Campus
+26765	APRD	4403	6	12:00:00	13:45:00	MW	ARMR 206A	Stoner,Michael Hart	Main Campus
+26903	APRD	4403	7	18:00:00	21:30:00	T	HLMS 220	\N	Main Campus
+26904	APRD	4403	8	17:00:00	20:30:00	T	HUMN 335	\N	Main Campus
+26905	APRD	4403	9	09:00:00	10:45:00	MW	ARMR 218	\N	Main Campus
+26906	APRD	4403	10	13:00:00	14:45:00	MW	ARMR 218	Doty,Dawn	Main Campus
+26908	APRD	4403	11	18:00:00	21:30:00	M	HUMN 1B70	\N	Main Campus
+26755	APRD	4404	801	15:00:00	17:30:00	W	\N	Stoner,Michael Hart	Main Campus
+26602	APRD	4501	1	18:00:00	20:30:00	TH	HALE 260	\N	Main Campus
+35920	APRD	4504	1	11:00:00	12:15:00	TTH	ENVD 1B90	Griffin,Glenn	Main Campus
+35922	APRD	4505	801	18:00:00	20:30:00	T	ENVD 1B90	Benjamin,Michael	Main Campus
+35918	APRD	4506	801	12:30:00	13:45:00	TTH	ENVD 1B90	Griffin,Glenn	Main Campus
+26323	APRD	4523	801	18:00:00	20:30:00	T	DUAN G1B35	Ligon,Jon	Main Campus
+26731	APRD	4523	802	18:00:00	20:30:00	TH	HLMS 181	\N	Main Campus
+26326	APRD	4543	1	11:00:00	12:15:00	TTH	STAD 136C	Weintraub,William H	Main Campus
+26747	APRD	4543	550R	18:30:00	21:00:00	M	Offered through CU in	Gelb,Amos Peter	Main Campus
+26895	APRD	5003	1	18:00:00	21:00:00	T	Meets at Off-Campus	\N	Main Campus
+26896	APRD	5004	1	12:30:00	15:30:00	T	Meets at Off-Campus	\N	Main Campus
+26682	APRD	5008	1	09:30:00	12:30:00	M	Meets at Off-Campus	\N	Main Campus
+26770	APRD	5017	1	09:00:00	12:00:00	T	Meets at Off-Campus	\N	Main Campus
+26889	APRD	6343	801	11:00:00	12:15:00	TTH	ECCR 150	Vargo,Christopher	Main Campus
+26887	APRD	7003	1	11:30:00	14:00:00	T	ARMR 1B01	McDevitt,Michael Joseph	Main Campus
+26888	APRD	7004	1	17:00:00	17:50:00	M	ARMR 1B01	Hopp,Tobias	Main Campus
+39110	APRD	7011	1	12:30:00	15:00:00	TH	ARMR 1B01	Sriramesh,Krishnamurthy	Main Campus
+39108	APRD	7021	1	12:00:00	14:30:00	W	ARMR 1B01	Ryan,Kathleen	Main Campus
+38855	APRD	7051	1	15:00:00	17:30:00	W	ARMR 218	Schauster,Erin E	Main Campus
+26149	COM	1210	100	11:00:00	11:50:00	MW	HUMN 1B50	Hickerson,Ruth L	Main Campus
+26152	COM	1210	103	11:00:00	11:50:00	F	HLMS 77	Townsend,Jake Kyer	Main Campus
+26158	COM	1300	2	09:00:00	09:50:00	MWF	CASE E260	Del Rincon,Yessica	Main Campus
+32568	COM	1300	3	10:00:00	10:50:00	MWF	CASE E260	Del Rincon,Yessica	Main Campus
+26159	COM	1300	4	11:00:00	11:50:00	MWF	CASE E260	Barber,Audra Kelly	Main Campus
+26160	COM	1300	5	12:00:00	12:50:00	MWF	CASE E260	Dionne,Terrell Jake	Main Campus
+26161	COM	1300	6	13:00:00	13:50:00	MWF	CASE E260	\N	Main Campus
+26162	COM	1300	7	12:30:00	13:45:00	TTH	CASE E260	Love,Kerry	Main Campus
+26163	COM	1300	8	11:00:00	12:15:00	TTH	CASE E260	Love,Kerry	Main Campus
+26722	COM	1300	9	09:30:00	10:45:00	TTH	CASE E260	Simpson,Jayne	Main Campus
+26723	COM	1300	10	08:00:00	09:15:00	TTH	CASE E260	Simpson,Jayne	Main Campus
+26768	COM	1300	11	08:00:00	09:15:00	TTH	HLMS 77	Love,Kerry	Main Campus
+35700	COM	1300	12	15:30:00	16:45:00	TTH	CASE E260	Moncrieff,Kerri	Main Campus
+35701	COM	1300	13	17:00:00	18:15:00	TTH	CASE E260	Moncrieff,Kerri	Main Campus
+35702	COM	1300	14	12:30:00	13:45:00	TTH	HLMS 104	Thompson,Hunter Craig	Main Campus
+35703	COM	1300	15	09:30:00	10:45:00	TTH	HLMS 196	Thompson,Hunter Craig	Main Campus
+26164	COM	1600	100	11:00:00	12:15:00	T	HUMN 1B50	Jahn,Jody L	Main Campus
+26807	COM	2400	1	11:00:00	11:50:00	MWF	HLMS 245	Shrikant,Natasha	Main Campus
+26170	COM	2400	2	09:30:00	10:45:00	TTH	EKLC E1B50	Sprain,Leah MH	Main Campus
+26171	COM	2400	3	08:00:00	09:15:00	TTH	HLMS 245	Marshall,Dana Harrington	Main Campus
+26172	COM	2400	4	10:00:00	10:50:00	MWF	CLRE 209	\N	Main Campus
+26914	COM	2400	5	14:00:00	14:50:00	MWF	CASE E260	\N	Main Campus
+26679	COM	2400	6	08:00:00	09:15:00	TTH	CHEM 145	Loker,Emily Therese	Main Campus
+26900	COM	2400	7	15:00:00	16:15:00	MW	HLMS 263	Aurian,Carolin	Main Campus
+26806	COM	2400	8	08:00:00	09:15:00	TTH	HLMS 251	Brownlee,Kellie	Main Campus
+26884	COM	2400	9	11:00:00	12:15:00	TTH	HLMS 141	Loker,Emily Therese	Main Campus
+26881	COM	2400	10	09:00:00	09:50:00	MWF	GUGG 206	\N	Main Campus
+35611	COM	2400	11	14:00:00	15:15:00	TTH	MCOL E186	Sims,Christy Dale Lawrence	Main Campus
+35612	COM	2400	12	14:00:00	15:15:00	TTH	CLRE 301	Moncrieff,Kerri	Main Campus
+35610	COM	2400	13	11:00:00	12:15:00	TTH	EKLC M203	Marshall,Dana Harrington	Main Campus
+26173	COM	2500	1	14:00:00	15:15:00	TTH	CLRE 209	Meyers Bass,Elizabeth Kay	Main Campus
+26174	COM	2500	2	11:00:00	11:50:00	MWF	EDUC 143	\N	Main Campus
+26804	COM	2650	1	11:00:00	12:15:00	TTH	CLRE 104	Meyers Bass,Elizabeth Kay	Main Campus
+26176	COM	3210	100	09:00:00	09:50:00	MW	HUMN 135	Kuhn,Timothy R	Main Campus
+26179	COM	3300	100	11:00:00	11:50:00	MW	CLRE 207	Motter,Jeffrey Brian	Main Campus
+26218	COM	3320	1	09:30:00	10:45:00	TTH	HLMS 141	Koschmann,Matthew A.	Main Campus
+26169	COM	3330	1	14:00:00	15:15:00	TTH	CASE E260	Gomez,Logan Rae	Main Campus
+26222	COM	3340	1	15:00:00	16:15:00	MW	HLMS 237	Motter,Jeffrey Brian	Main Campus
+26569	COM	3370	1	11:00:00	12:15:00	TTH	KTCH 1B87	Pezzullo,Phaedra Carmen	Main Campus
+26182	COM	3410	1	09:30:00	10:45:00	TTH	HUMN 135	Boromisza-Habashi,David	Main Campus
+26183	COM	3410	2	15:00:00	16:15:00	MW	ECON 2	Cruz,Joelle M	Main Campus
+26184	COM	3410	3	08:00:00	09:15:00	TTH	HLMS 255	Russell,Charles Vincent	Main Campus
+26802	COM	3410	4	09:30:00	10:45:00	TTH	HLMS 255	Naputi,Tiara Rose	Main Campus
+26808	COM	3410	6	12:30:00	13:45:00	TTH	VAC 1B90	Naputi,Tiara Rose	Main Campus
+35699	COM	3410	9	08:00:00	09:15:00	TTH	CLRE 207	Marras Tate,Joanne Christine	Main Campus
+26211	COM	3420	1	15:00:00	16:15:00	MW	CLRE 207	Barber,Audra Kelly	Main Campus
+35608	COM	3430	1	09:30:00	10:45:00	TTH	HLMS 251	Skerski,Jamie	Main Campus
+35609	COM	3430	2	12:30:00	13:45:00	TTH	CLRE 302	Skerski,Jamie	Main Campus
+26212	COM	3510	1	12:30:00	13:45:00	TTH	GUGG 206	Poole,Lisa Lorraine	Main Campus
+26797	COM	3510	2	15:00:00	17:30:00	W	HUMN 186	White,Cindy Hagemeier	Main Campus
+26564	COM	3610	1	15:00:00	16:15:00	MW	CASE E260	Striphas,Theodore G	Main Campus
+26897	COM	3610	3	12:30:00	13:45:00	TTH	GUGG 2	Taylor,Bryan Copeland	Main Campus
+36178	COM	3610	4	16:30:00	17:45:00	MW	HLMS 251	Aurian,Carolin	Main Campus
+26175	COM	3630	1	15:00:00	16:15:00	MW	CLRE 208	Leslie,Kathryn Joan	Main Campus
+26798	COM	3740	1	12:30:00	13:45:00	TTH	CLRE 209	German,Jeanette Elberta	Main Campus
+26213	COM	3750	1	17:00:00	18:15:00	TTH	HLMS 255	Poole,Lisa Lorraine	Main Campus
+26557	COM	3760	1	09:30:00	10:45:00	TTH	CLRE 208	Gomez,Logan Rae	Main Campus
+26678	COM	4000	800	12:00:00	12:50:00	M	LIBR M498	White,Cindy Hagemeier	Main Campus
+36376	COM	4220	2	09:30:00	12:00:00	T	HLMS 77	Simonson,Peter D.	Main Campus
+26216	COM	4300	1	12:30:00	13:45:00	TTH	HUMN 190	Skerski,Jamie	Main Campus
+26198	COM	4510	1	17:00:00	19:30:00	T	HLMS 241	Frey,Lawrence R	Main Campus
+38250	COM	2400	300E	17:30:00	19:00:00	T	\N	 Varela,Elisa Mercedes	Continuing Education
+38252	COM	3410	300E	17:30:00	19:30:00	T	\N	 Hodge,Danielle Michelle	Continuing Education
+32572	COM	5620	1	15:30:00	18:00:00	M	 HLMS 77	 Ashcraft,Karen Lee	 Main Campus
+32573	COM	5720	1	15:30:00	18:00:00	T	 HLMS 77	Ackerman,John Martin	 Main Campus
+32575	COM	6030	1	18:15:00	20:45:00	W	 HLMS 77	Frey,Lawrence R	 Main Campus
+26214	COM	6200	1	15:30:00	18:00:00	W	 HLMS 77	Echchaibi,Nabil	 Main Campus
+32574	COM	6445	1	14:00:00	15:15:00	MW	 HLMS 77	Boromisza-Habashi,David	 Main Campus
+32570	COM	6730	1	14:00:00	15:15:00	TTH	 HLMS 77	Jahn,Jody L	 Main Campus
+26223	CMD	1400	10	15:30:00	16:45:00	TTH	 VAC 1B20	 Young,Andrew Phillip	 Main Campus
+26225	CMD	2100	10	09:30:00	10:45:00	TTH	 HLMS 199	Black,August	 Main Campus
+32407	CMD	2100	11	08:00:00	08:50:00	F	ENVD 214B	\N	 Main Campus
+32408	CMD	2100	12	09:00:00	09:50:00	F	ENVD 214B	\N	 Main Campus
+32409	CMD	2100	13	10:00:00	10:50:00	F	ENVD 214B	\N	 Main Campus
+32410	CMD	2100	14	11:00:00	11:50:00	F	ENVD 214B	\N	 Main Campus
+32411	CMD	2100	15	12:00:00	12:50:00	F	ENVD 214B	\N	 Main Campus
+32412	CMD	2100	16	13:00:00	13:50:00	F	ENVD 214B	\N	 Main Campus
+26227	CMD	2500	1	09:00:00	10:45:00	MW	ENVD 214B	 Clark,Patrick Ryan	 Main Campus
+26228	CMD	2500	2	11:30:00	13:15:00	TTH	ENVD 214B	 Parvu,Maria Luiza	 Main Campus
+26736	CMD	2500	3	15:00:00	16:45:00	MW	ENVD 214B	 Zinner,Rebecca Danielle	 Main Campus
+26912	CMD	2500	4	09:00:00	10:45:00	TTH	ENVD 214A	 Zinner,Rebecca Danielle	 Main Campus
+26717	CMD	2820	100	14:00:00	14:50:00	TTH	MUEN E050	 Hammons,Christian Stanford	 Main Campus
+26230	CMD	2870	1	12:00:00	12:50:00	MW	MUS N1B49	Lobel,Herbert Hugh	 Main Campus
+32419	CMD	3350	1	11:00:00	12:15:00	TTH	ENVD 214A	 Hammons,Christian Stanford	 Main Campus
+26226	CMD	3400	1	15:30:00	16:45:00	TTH	 HLMS 251	\N	 Main Campus
+26686	CMD	3510	1	09:30:00	10:45:00	TTH	STAD 136	 Gnerre,Jason Robert	 Main Campus
+26757	CMD	3510	2	15:00:00	17:30:00	F	ENVD 215	Lobel,Herbert Hugh	 Main Campus
+26816	CMD	3510	3	15:00:00	17:30:00	F	ENVD 214B	Hoth,Kevin J	 Main Campus
+26565	CMD	3600	1	15:30:00	17:15:00	TTH	ENVD 214B	 Zinner,Rebecca Danielle	 Main Campus
+26685	CMD	3600	2	13:00:00	14:45:00	MW	ENVD 214B	Sanford,Jason	 Main Campus
+26817	CMD	3600	3	11:00:00	12:45:00	MW	ENVD 214A	 Clark,Patrick Ryan	 Main Campus
+26567	CMD	3700	1	09:00:00	10:45:00	MW	ENVD 214A	Kernan,Keely	 Main Campus
+26568	CMD	3700	2	15:00:00	16:45:00	MW	ENVD 214A	Kernan,Keely	 Main Campus
+26687	CMD	3830	1	13:00:00	14:45:00	MW	ENVD 214A	Haynes,Keith	 Main Campus
+26229	CMD	3840	1	10:00:00	11:45:00	MW	MUS N1B49	Biggs,Betsey	 Main Campus
+32414	CMD	3840	2	15:00:00	16:45:00	MW	MUS N1B49	Sanford,Jason	 Main Campus
+32420	CMD	4410	1	12:30:00	13:45:00	TTH	ENVD 214A	 Young,Andrew Phillip	 Main Campus
+26688	CMD	4810	1	09:30:00	11:15:00	TTH	ENVD 214B	Coombs Esmail,Eric David	 Main Campus
+26689	CMD	4820	1	14:00:00	15:15:00	TTH	STAD 255-32	 Parvu,Maria Luiza	 Main Campus
+26690	CMD	4860	1	13:00:00	14:15:00	MW	MUS N1B49	Lobel,Herbert Hugh	 Main Campus
+26691	CMD	4900	1	11:00:00	12:45:00	MW	ENVD 214B	Knight,Tara	 Main Campus
+26772	CMD	4900	2	13:30:00	15:15:00	TTH	ENVD 214B	Coombs Esmail,Eric David	 Main Campus
+32421	CMD	5500	1	12:00:00	15:30:00	W	STAD 255-32	Biggs,Betsey	 Main Campus
+26692	CMD	7300	1	11:00:00	13:30:00	T	STAD 255-32	Spray,Stephanie	 Main Campus
+26693	CMD	7500	1	12:00:00	15:30:00	W	STAD 255-32	Biggs,Betsey	 Main Campus
+26694	INFO	1101	10	16:00:00	17:15:00	M	 CHEM 140	Sylvester,Roshanna	 Main Campus
+31896	INFO	1101	11	15:30:00	16:45:00	T	 HALE 270	Sylvester,Roshanna	 Main Campus
+31897	INFO	1101	12	15:30:00	16:45:00	TH	 HALE 270	Sylvester,Roshanna	 Main Campus
+26577	INFO	1121	10	14:00:00	15:15:00	TTH	MCOL W100	 Devendorf,Laura K	 Main Campus
+26867	INFO	1121	11	16:00:00	16:50:00	W	MUEN E131	 Devendorf,Laura K	 Main Campus
+29889	LAW	7071	801	14:00:00	15:50:00	TH	WLAW 306	Bauer,Amy	Main Campus
+26868	INFO	1121	12	16:00:00	16:50:00	W	 DUAN G125	 Devendorf,Laura K	 Main Campus
+26891	INFO	1121	13	17:00:00	17:50:00	W	MUEN E131	 Devendorf,Laura K	 Main Campus
+26892	INFO	1121	14	17:00:00	17:50:00	W	MUEN E432	 Devendorf,Laura K	 Main Campus
+26578	INFO	1201	10	11:00:00	11:50:00	MWF	MATH 100	 Zietz,Jason Ian	 Main Campus
+26579	INFO	1201	11	12:00:00	12:50:00	M	RAMY N1B31	 Zietz,Jason Ian	 Main Campus
+26580	INFO	1201	12	12:00:00	12:50:00	M	STAD 136C	 Zietz,Jason Ian	 Main Campus
+26676	INFO	1201	13	13:00:00	13:50:00	M	 GUGG 3	 Zietz,Jason Ian	 Main Campus
+26724	INFO	1201	14	13:00:00	13:50:00	M	STAD 140	 Zietz,Jason Ian	 Main Campus
+26725	INFO	1201	15	14:00:00	14:50:00	M	HUMN 245	 Zietz,Jason Ian	 Main Campus
+26854	INFO	1201	16	14:00:00	14:50:00	M	 HLMS 259	 Zietz,Jason Ian	 Main Campus
+26859	INFO	1201	17	15:00:00	15:50:00	M	HUMN 370	 Zietz,Jason Ian	 Main Campus
+26860	INFO	1201	18	15:00:00	15:50:00	M	TLC 158	 Zietz,Jason Ian	 Main Campus
+26861	INFO	1201	19	16:00:00	16:50:00	M	HUMN 370	 Zietz,Jason Ian	 Main Campus
+36069	INFO	1201	20	16:00:00	16:50:00	M	HUMN 145	 Zietz,Jason Ian	 Main Campus
+36070	INFO	1201	21	17:00:00	17:50:00	M	HUMN 370	 Zietz,Jason Ian	 Main Campus
+36071	INFO	1201	22	17:00:00	17:50:00	M	 CLRE 209	 Zietz,Jason Ian	 Main Campus
+36072	INFO	1201	23	08:00:00	08:50:00	T	MCOL E158	 Zietz,Jason Ian	 Main Campus
+36074	INFO	1201	24	09:00:00	09:50:00	T	 HALE 236	 Zietz,Jason Ian	 Main Campus
+36075	INFO	1201	25	11:00:00	11:50:00	T	ECON 2	 Zietz,Jason Ian	 Main Campus
+36077	INFO	1201	26	12:00:00	12:50:00	T	 CHEM 145	 Zietz,Jason Ian	 Main Campus
+36078	INFO	1201	27	15:30:00	16:20:00	T	 HLMS 185	 Zietz,Jason Ian	 Main Campus
+36079	INFO	1201	220R	17:00:00	17:50:00	T	BUCK N101	 Zietz,Jason Ian	 Main Campus
+26581	INFO	2201	10	10:00:00	10:50:00	MWF	 HLMS 241	 Zietz,Jason Ian	 Main Campus
+26582	INFO	2201	11	15:00:00	15:50:00	M	 HLMS 211	 Zietz,Jason Ian	 Main Campus
+26683	INFO	2301	1	11:00:00	11:50:00	MWF	 DUAN G2B47	Paul,Michael John	 Main Campus
+36084	INFO	3101	1	17:00:00	18:15:00	TTH	 HLMS 267	Sylvester,Roshanna	 Main Campus
+36083	INFO	3401	1	10:00:00	10:50:00	MWF	HUMN 125	 Szafir,Danielle N	 Main Campus
+36125	INFO	3504	1	15:30:00	16:45:00	TTH	 HLMS 211	 Brubaker,Jed Richards	 Main Campus
+26733	INFO	4601	1	14:00:00	15:15:00	TTH	 VAC 1B88	Fiesler,Casey Lynn	 Main Campus
+36156	INFO	4609	1	11:00:00	12:15:00	TTH	 VAC 1B90	 Zietz,Jason Ian	 Main Campus
+26776	INFO	4700	1	14:30:00	17:00:00	W	TLC 158	Roque,Ricarose	 Main Campus
+36154	INFO	2001	1	16:00:00	18:00:00	T	 CLRE 211	\N	 Main Campus
+36144	INFO	6301	1	14:00:00	16:30:00	F	TLC 158	Voida,Stephen	 Main Campus
+26735	INFO	6500	1	14:00:00	14:50:00	W	HUMN 245	Fiesler,Casey Lynn	 Main Campus
+26219	JRNL	1000	100	14:00:00	14:50:00	MW	 VAC 1B20	Taylor,David Ross	 Main Campus
+26234	JRNL	1000	120	08:00:00	08:50:00	F	MCOL E158	\N	 Main Campus
+26235	JRNL	1000	130	09:00:00	09:50:00	F	ENVD 122	\N	 Main Campus
+26236	JRNL	1000	140	10:00:00	10:50:00	F	RAMY N1B31	\N	 Main Campus
+26237	JRNL	1000	150	14:00:00	14:50:00	F	 CLUB 13	\N	 Main Campus
+26721	JRNL	1000	160	11:00:00	11:50:00	F	ARMR 206A	\N	 Main Campus
+26778	JRNL	2000	1	12:30:00	13:45:00	TTH	ARMR 201	Whitt,Jan	 Main Campus
+26779	JRNL	2000	2	11:00:00	12:15:00	TTH	 HLMS 196	\N	 Main Campus
+26780	JRNL	2000	3	16:00:00	17:15:00	MW	 CHEM 145	\N	 Main Campus
+26231	JRNL	2001	1	16:00:00	17:15:00	MW	ARMR 209	Daugherty,Paul Joseph	 Main Campus
+26232	JRNL	2001	2	14:00:00	15:15:00	TTH	ARMR 201	 Clark,Patrick Ryan	 Main Campus
+26233	JRNL	2001	3	11:00:00	12:15:00	TTH	ARMR 211	\N	 Main Campus
+26782	JRNL	2001	5	09:30:00	10:45:00	TTH	ARMR 201	\N	 Main Campus
+26238	JRNL	3102	1	12:30:00	13:45:00	TTH	MUEN E130	 Alaimo,Kathleen Inez	 Main Campus
+26783	JRNL	3201	1	15:30:00	16:45:00	TTH	 VAC 1B90	McDevitt,Michael Joseph	 Main Campus
+26746	JRNL	3202	550R	18:30:00	21:00:00	TH	Offered through CU in	Gelb,Amos Peter	 Main Campus
+35936	JRNL	3241	1	09:00:00	09:50:00	MWF	MUEN E064	Whitt,Jan	 Main Campus
+26727	JRNL	3402	1	15:00:00	17:30:00	W	ARMR 201	\N	 Main Campus
+26786	JRNL	3552	1	09:00:00	10:15:00	MW	ARMR 211	Leach,John Franklin	 Main Campus
+26239	JRNL	3614	1	12:00:00	14:30:00	W	ARMR 211	Conran,Maeve	 Main Campus
+26240	JRNL	3644	20	13:00:00	14:50:00	TTH	ARMR 206A	Daugherty,Paul Joseph	Main Campus
+26241	JRNL	3644	21	15:00:00	16:50:00	TTH	ECNT 1B20	Daugherty,Paul Joseph	Main Campus
+26221	JRNL	3651	1	08:00:00	09:15:00	TTH	HUMN 150	Kalika,Angelica	Main Campus
+26242	JRNL	3651	2	14:00:00	15:15:00	TTH	RAMY N1B23	\N	Main Campus
+26777	JRNL	3651	3	17:00:00	18:15:00	TTH	CASE E340	\N	Main Campus
+26243	JRNL	3674	10	09:30:00	10:45:00	TTH	STAD 136C	Jones,Stephen	Main Campus
+26244	JRNL	3674	11	11:00:00	12:50:00	TTH	ECNT 1B20	Jones,Stephen	Main Campus
+26787	JRNL	3704	1	18:00:00	20:30:00	TH	ARMR 218	Siegel,Henry J	Main Campus
+32318	JRNL	3704	2	17:30:00	20:00:00	W	ARMR 218	\N	Main Campus
+26813	JRNL	3804	1	14:00:00	15:15:00	TTH	CLRE 207	Matthews,Tammy Rae	Main Campus
+26559	JRNL	4002	2	09:30:00	10:45:00	TTH	STAD 135	\N	Main Campus
+26764	JRNL	4002	3	09:30:00	10:45:00	TTH	KTCH 1B60	\N	Main Campus
+26245	JRNL	4102	1	15:30:00	16:45:00	TTH	HUMN 186	\N	Main Campus
+26788	JRNL	4311	1	15:30:00	16:45:00	TTH	HUMN 1B70	Whitt,Jan	Main Campus
+32375	JRNL	4344	1	15:00:00	17:30:00	W	ARMR 206A	Ryan,Kathleen	Main Campus
+32248	JRNL	4354	1	15:30:00	16:45:00	TTH	ARMR 211	Kim,Hun Shik	Main Campus
+26576	JRNL	4411	1	12:30:00	13:45:00	TTH	\N	Kim,Hun Shik	Main Campus
+26574	JRNL	4572	1	11:00:00	12:15:00	TTH	DUAN G125	Johnson,Emilie	Main Campus
+32310	JRNL	4602	1	14:00:00	15:15:00	TTH	HUMN 270	Plunkett,Chuck	Main Campus
+32249	JRNL	4614	1	12:00:00	14:30:00	M	ARMR 211	\N	Main Campus
+26246	JRNL	4624	10	13:00:00	14:50:00	F	ARMR 218	Daugherty,Paul Joseph	Main Campus
+26247	JRNL	4624	11	08:00:00	11:00:00	TTH	ARMR 209	Daugherty,Paul Joseph	Main Campus
+26249	JRNL	4674	1	08:00:00	12:50:00	TTH	ECNT 1B20	Jones,Stephen	Main Campus
+26573	JRNL	4704	1	18:30:00	21:00:00	T	ARMR 218	Plati,David Paul	Main Campus
+26728	JRNL	4724	801	14:00:00	16:30:00	M	ARMR 206A	Johnson,Mark	Main Campus
+26729	JRNL	4802	1	15:30:00	16:45:00	TTH	HLMS 191	Rosner,Hillary M	Main Campus
+26793	JRNL	4822	1	16:00:00	18:30:00	M	HLMS 104	Rosner,Hillary M	Main Campus
+35940	JRNL	4822	2	16:00:00	18:30:00	M	HLMS 181	Yulsman,Tom	Main Campus
+26790	JRNL	5514	1	14:00:00	15:15:00	TTH	ARMR 209	\N	Main Campus
+26791	JRNL	5552	1	09:00:00	10:15:00	MW	ARMR 211	Leach,John Franklin	Main Campus
+26792	JRNL	5572	1	11:00:00	12:15:00	TTH	DUAN G125	Plunkett,Chuck	Main Campus
+26575	JRNL	5651	1	17:30:00	20:00:00	W	HUMN 1B80	Browsh,Jared Bahir	Main Campus
+32276	JRNL	5651	001B	17:30:00	20:00:00	M	Distance Education	\N	Main Campus
+26828	MDST	1001	1	12:00:00	12:50:00	MW	MUEN E0046	Ristovska,Sandra	Main Campus
+33176	MDST	1001	11	08:00:00	08:50:00	F	DUAN G2B21	\N	Main Campus
+33195	MDST	1001	12	09:00:00	09:50:00	F	CLRE 208	\N	Main Campus
+33194	MDST	1001	13	10:00:00	10:50:00	F	ARMR 218	\N	Main Campus
+33193	MDST	1001	14	11:00:00	11:50:00	F	MUEN E113	\N	Main Campus
+33192	MDST	1001	15	12:00:00	12:50:00	F	ARMR 218	\N	Main Campus
+26719	MDST	1002	10	14:00:00	14:50:00	MWF	FLMG 155	Sindorf,Shannon	Main Campus
+26497	MDST	2002	1	14:00:00	15:15:00	TTH	EKLC E1B50	\N	Main Campus
+26680	MDST	2002	2	09:00:00	09:50:00	MWF	MCOL W100	Putri,Ully Damari	Main Campus
+26826	MDST	2002	3	15:30:00	16:45:00	TTH	EDUC 155	\N	Main Campus
+26827	MDST	2002	4	09:00:00	09:50:00	MWF	DUAN G2B60	Feshami,Kevan Ahmad	Main Campus
+33026	MDST	2010	1	17:00:00	18:15:00	TTH	VAC 1B90	Abbott,Susan Marie	Main Campus
+33284	MDST	2012	1	14:00:00	15:15:00	TTH	HLMS 267	Schneider,Nathan Todd	Main Campus
+33028	MDST	2032	1	14:00:00	14:50:00	MWF	ARMR 201	Frost,Steven Earl	Main Campus
+26571	MDST	3001	1	14:00:00	15:15:00	TTH	 VAC 1B90	 Putri,Ully Damari	 Main Campus
+26498	MDST	3002	1	15:30:00	16:45:00	TTH	 HLMS 267	 Feshami,Kevan Ahmad	 Main Campus
+38170	MDST	3791	1	17:00:00	18:15:00	MW	ENVD 120	 De Coning,Alexis	 Main Campus
+26745	MDST	3791	550R	18:30:00	21:00:00	TH	Offered through CU in	Gelb,Amos Peter	 Main Campus
+38171	MDST	4221	1	15:30:00	16:45:00	TTH	RAMY N1B23	Rajabi,Samira	 Main Campus
+26500	MDST	4331	1	15:30:00	16:45:00	TTH	 HLMS 241	 Mclean,Polly E	 Main Campus
+26756	MDST	4371	1	15:30:00	16:45:00	TTH	 DUAN G2B47	 Bamford,Arthur Jonathan	 Main Campus
+33029	MDST	4401	1	09:30:00	10:45:00	TTH	 DUAN G2B47	 Stevens,John Richard	 Main Campus
+26558	MDST	5002	1	12:30:00	15:00:00	M	\N	 Abbott,Susan Marie	 Main Campus
+26831	MDST	6051	1	09:00:00	11:30:00	W	ARMR 1B01	Ardizzoni,Michela	 Main Campus
+33030	MDST	6201	1	09:00:00	11:30:00	T	ARMR 1B01	 Mclean,Polly E	 Main Campus
+33031	MDST	7001	1	11:30:00	13:00:00	W	See Class Notes For	\N	 Main Campus
+26833	MDST	7021	1	15:30:00	18:00:00	T	ARMR 1B01	\N	 Main Campus
+26909	MDST	7051	1	15:30:00	18:00:00	TH	ARMR 1B01	\N	 Main Campus
+26493	CMCI	1020	100	09:30:00	10:45:00	TTH	 FLMG 155	Fisher,Irma J	 Main Campus
+26494	CMCI	1020	200	09:30:00	10:45:00	TTH	HUMN 150	 Frost,Steven Earl	 Main Campus
+26495	CMCI	1020	220R	09:30:00	10:45:00	TTH	 FLMG 155	 Frost,Steven Earl	 Main Campus
+26496	CMCI	1020	230R	09:30:00	10:45:00	TTH	HUMN 150	Fisher,Irma J	 Main Campus
+32892	CMCI	2030	10	11:00:00	12:15:00	TTH	ARMR 218	Rajabi,Samira	 Main Campus
+32895	CMCI	2030	13	09:00:00	09:50:00	F	ARMR 206A	\N	 Main Campus
+32896	CMCI	2030	14	10:00:00	10:50:00	F	ARMR 206A	\N	 Main Campus
+26862	CMCI	3000	2	12:00:00	12:50:00	MWF	HUMN 1B90	Sylvester,Roshanna	 Main Campus
+26750	CMCI	3000	550R	09:00:00	17:00:00	F	Offered through CU in	Gelb,Amos Peter	 Main Campus
+32890	CMCI	2001	1	15:00:00	16:40:00	MW	EDUC 155	\N	 Main Campus
+32891	CMCI	2001	2	15:00:00	16:40:00	MW	 EDUC 155	\N	 Main Campus
+26863	IAWP	6100	1	14:00:00	16:30:00	TH	STAD 255-40	 Emerson,Lori Ann	 Main Campus
+36213	IAWP	6200	1	14:30:00	17:00:00	M	STAD 255-40	Theodore,Michael R	 Main Campus
+29993	MUS	1111	1	11:00:00	11:50:00	MW	MCKY 102	Malin,Jonathan	 Main Campus
+29994	MUS	1111	2	08:00:00	08:50:00	MW	MUS C125	Malin,Jonathan	 Main Campus
+29995	MUS	1111	801	08:00:00	08:50:00	MW	MUS N1B59	Buer,Karin Leigh	 Main Campus
+29996	MUS	1131	1	10:00:00	10:50:00	MW	MUS N180D	Chang,Philip C	 Main Campus
+29997	MUS	1131	2	08:00:00	08:50:00	TTH	MUS N1B85	 Eichhorn,John Jacob	 Main Campus
+29998	MUS	1131	3	08:00:00	08:50:00	TTH	MUS N180D	 Guerrero,Devin Ariel	 Main Campus
+29999	MUS	1131	4	09:00:00	09:50:00	TTH	MUS N1B85	 Morris,Benjamin Jacob	 Main Campus
+30526	MUS	1131	5	09:00:00	09:50:00	TTH	MUS N180D	 Guerrero,Devin Ariel	 Main Campus
+30000	MUS	1131	6	09:00:00	09:50:00	MW	MUS C125	 Morris,Benjamin Jacob	 Main Campus
+30001	MUS	1131	801	10:00:00	10:50:00	TTH	MUS N1B85	Buer,Karin Leigh	 Main Campus
+30030	MUS	1554	1	15:30:00	16:20:00	TTH	MUS N180D	Moteki,Mutsumi	Main Campus
+30004	MUS	2111	1	10:00:00	10:50:00	MW	ATLS 102	Arnett,Mark L	Main Campus
+30005	MUS	2111	2	10:00:00	10:50:00	TTH	ATLS 102	Arnett,Mark L	Main Campus
+30006	MUS	2131	1	10:00:00	10:50:00	MW	MUS C125	\N	Main Campus
+30007	MUS	2131	2	11:00:00	11:50:00	MW	MUS C125	\N	Main Campus
+30008	MUS	2131	3	08:00:00	08:50:00	TTH	MUS C125	\N	Main Campus
+30449	MUS	2131	5	09:00:00	09:50:00	MW	MUS N180D	\N	Main Campus
+32321	MUS	2325	1	15:00:00	15:50:00	TTH	See Academc Dept	Korevaar,David J	Main Campus
+30500	MUS	2365	1	10:00:00	11:50:00	F	MUS C125	Mc Donald,Margaret Mary	Main Campus
+30037	MUS	2608	1	14:00:00	14:50:00	TTH	MUS N1B85	Brody,James M	Main Campus
+30038	MUS	2608	2	09:00:00	09:50:00	MW	MUS N1B85	Brody,James M	Main Campus
+30507	MUS	2782	1	10:00:00	10:50:00	MWF	MCKY 102	Kammin,Benjamin	Main Campus
+30017	MUS	3023	1	08:00:00	09:15:00	TTH	MUS E160	Sander,Zachary H	Main Campus
+30018	MUS	3033	1	08:00:00	08:50:00	MWF	MUS E160	Kading,Anthony Michael	Main Campus
+36158	MUS	3041	1	09:00:00	09:50:00	TTH	MCKY 213	Arnett,Mark L	Main Campus
+36160	MUS	3051	1	11:00:00	11:50:00	TTH	MUS N1B85	Alexander,Robert	Main Campus
+30352	MUS	3071	1	11:00:00	11:50:00	MW	MCKY 1B03B	Goode,Bradley M.	Main Campus
+30472	MUS	3091	1	10:00:00	10:50:00	MWF	MCKY 117	\N	Main Campus
+30019	MUS	3133	1	09:00:00	09:50:00	MW	MCKY 213	Miranda,Martina L	Main Campus
+30020	MUS	3153	1	08:00:00	09:15:00	TTH	MUS E160	Sander,Zachary H	Main Campus
+30033	MUS	3186	1	10:00:00	10:50:00	MW	MUS E160	Dockendorf,Matthew Paul	Main Campus
+36073	MUS	3186	2	14:00:00	14:50:00	MW	MCKY 102	Swanson,Elizabeth Kay	Main Campus
+30021	MUS	3193	1	14:00:00	14:50:00	MW	MUS N1B85	Seesholtz,John	Main Campus
+30022	MUS	3223	1	08:00:00	08:50:00	MWF	MUS E160	Kading,Anthony Michael	Main Campus
+30023	MUS	3253	1	14:00:00	14:50:00	TTH	MCKY 1B03B	Church,Clare Virginia	Main Campus
+30024	MUS	3273	1	14:00:00	14:50:00	MW	MUS C125	Schut,Joel MIchael	Main Campus
+30031	MUS	3464	1	14:00:00	14:50:00	TTH	MUS N180D	Reger,Jeremy J	Main Campus
+30473	MUS	3652	1	12:30:00	13:45:00	TTH	MCKY 117	\N	Main Campus
+30016	MUS	3812	1	09:00:00	09:50:00	MWF	MCKY 102	Caballero,Carlo	Main Campus
+30475	MUS	4061	1	10:00:00	10:50:00	TTH	MUS N180D	Chang,Philip C	Main Campus
+30488	MUS	4091	1	11:00:00	11:50:00	MW	MCKY 117	McKee,Paul	Main Campus
+30012	MUS	4101	1	10:00:00	10:50:00	MW	MUS N1B59	Drumheller III,John Earl	Main Campus
+30013	MUS	4101	2	11:00:00	11:50:00	MW	MUS N1B59	Drumheller III,John Earl	Main Campus
+30486	MUS	4103	1	09:00:00	09:50:00	F	MUS C125	Armes,Jocelyn Wenona	Main Campus
+30014	MUS	4121	1	12:30:00	13:45:00	TTH	MUS N1B46	Drumheller III,John Earl	Main Campus
+36085	MUS	4171	1	09:30:00	10:45:00	TTH	MCKY 117	Jenkins,Jeffrey C	Main Campus
+30026	MUS	4193	1	16:00:00	17:15:00	M	MUS N285	Ewer,Michelle Berndt	Main Campus
+30383	MUS	4202	1	11:00:00	11:50:00	MWF	MUS N285	Teitelbaum,Benjamin Raphael	Main Campus
+36126	MUS	4202	2	14:00:00	15:15:00	T	MUS N285	Smith,Jeremy	Main Campus
+32325	MUS	4313	1	10:00:00	10:50:00	MWF	MCKY 213	Heil,Leila Theresa	Main Campus
+32329	MUS	4335	1	12:00:00	12:50:00	TTH	MUS C125	Hayghe,Jennifer C	Main Campus
+36217	MUS	4336	1	15:30:00	17:20:00	M	See Academc Dept	Gardner,Ryan	Main Campus
+30028	MUS	4443	1	11:00:00	11:50:00	MWF	MCKY 213	Austin,James R	Main Campus
+30467	MUS	4608	1	10:00:00	10:50:00	MW	MUS N1B85	Brody,James M	Main Campus
+30385	MUS	4988	1	14:00:00	15:15:00	TTH	MUS C125	Nytch,Jeffrey	Main Campus
+37529	MUS	5012	1	14:00:00	15:15:00	TTH	MCKY 213	Okigbo,Austin Chinagorom	Main Campus
+36163	MUS	5041	1	14:00:00	15:15:00	TTH	MUS C121	Pann,Carter N	Main Campus
+30358	MUS	5061	1	09:30:00	10:45:00	TTH	MUS C125	Bruns,Steven Michael	Main Campus
+30364	MUS	5071	1	09:30:00	10:45:00	TTH	MUS N1B59	Leong,Daphne	Main Campus
+36086	MUS	5091	1	12:00:00	13:15:00	MW	MCKY 117	Gunther,John G	Main Campus
+30332	MUS	5121	1	12:30:00	13:45:00	TTH	MUS N1B46	Drumheller III,John Earl	Main Campus
+36165	MUS	5151	1	14:00:00	15:15:00	TTH	MUS N1B59	Leong,Daphne	Main Campus
+36167	MUS	5151	2	14:00:00	15:15:00	TTH	MCKY 117	Bruns,Steven Michael	Main Campus
+36076	MUS	5156	1	10:00:00	10:50:00	MW	See Academc Dept	Gentry,Gregory Reid	Main Campus
+32323	MUS	5315	1	13:00:00	13:50:00	TTH	MUS C125	Cremaschi,Alejandro M	Main Campus
+32330	MUS	5435	1	09:00:00	10:50:00	TH	MUS N285	Nguyen,Alexandra	Main Campus
+30338	MUS	5464	1	13:00:00	13:50:00	TTH	MUS N180D	Moteki,Mutsumi	Main Campus
+30492	MUS	5484	1	10:00:00	11:50:00	F	MUS N1B59	Seesholtz,John	Main Campus
+30040	MUS	5608	1	14:00:00	14:50:00	TTH	MUS N1B85	Brody,James M	Main Campus
+30041	MUS	5608	2	09:00:00	09:50:00	MW	MUS N1B85	Brody,James M	Main Campus
+36087	MUS	5642	1	14:00:00	15:15:00	MW	MCKY 117	Goode,Bradley M.	Main Campus
+30042	MUS	5708	1	10:00:00	10:50:00	MW	MUS N285	DE Alwis,Lisa Malkanthi	Main Campus
+36128	MUS	5802	1	12:30:00	13:45:00	TTH	MUS C121	Keister,Jay	Main Campus
+30468	MUS	5808	1	10:00:00	10:50:00	MW	MUS N1B85	Brody,James M	Main Campus
+36129	MUS	5822	1	13:30:00	14:45:00	MW	MUS N180D	Maloy,Rebecca	Main Campus
+30534	MUS	5948	1	16:30:00	18:30:00	TH	MUS N285	Lee,SoYoung	Main Campus
+32327	MUS	6133	1	16:30:00	18:10:00	TH	MCKY 213	Heil,Leila Theresa	Main Campus
+30339	MUS	6203	1	16:30:00	18:10:00	T	MUS N1B59	Rickels,David Aaron	Main Campus
+30015	MUS	6801	1	14:00:00	15:15:00	TTH	MUS N1B59	Leong,Daphne	Main Campus
+36214	MUS	6801	2	09:30:00	10:45:00	TTH	MUS C121	Waters,Keith John	Main Campus
+36215	MUS	6801	3	09:00:00	11:50:00	F	MUS C121	Chang,Philip C	Main Campus
+30384	MUS	6822	1	09:00:00	10:15:00	MW	MUS C121	Sampsel,Laurie J	Main Campus
+30539	MUS	6822	2	14:00:00	16:50:00	F	MUS N285	Thomas,Susan	Main Campus
+36088	MUS	7046	1	09:30:00	10:45:00	TTH	MUS C121	Waters,Keith John	Main Campus
+32328	MUS	7103	1	12:00:00	14:30:00	W	MUS C121	Miranda,Martina L	Main Campus
+36140	MUS	7822	1	14:00:00	16:50:00	W	MUS N285	Caballero,Carlo	Main Campus
+36141	MUS	7822	2	14:00:00	16:50:00	F	MUS N285	Thomas,Susan	Main Campus
+38785	MUS	6133	570	16:30:00	18:10:00	TH	Continuing Ed Online	Heil,Leila Theresa	Continuing Education
+29980	MUEL	1081	1	08:00:00	09:15:00	TTH	ATLS 102	Spencer,Ryan	Main Campus
+36153	MUEL	1081	2	08:00:00	08:50:00	MWF	MCKY 102	Guerrero,Devin Ariel	Main Campus
+29981	MUEL	1832	1	09:30:00	10:45:00	TTH	MUS N1B95D	Smith,Jeremy	Main Campus
+29982	MUEL	1832	2	12:30:00	13:45:00	TTH	MUS N1B95D	Stover,Brandon	Main Campus
+36307	MUEL	2031	1	13:00:00	13:50:00	MWF	MUS C125	Winters,Sean	Main Campus
+30535	MUEL	2051	1	10:00:00	10:50:00	MWF	MUS N1B95D	Barnett,Michael Todd	Main Campus
+29983	MUEL	2752	1	12:00:00	12:50:00	MWF	MUS N1B95D	Sampsel,Laurie J	Main Campus
+30508	MUEL	2782	1	10:00:00	10:50:00	MWF	MCKY 102	Kammin,Benjamin	Main Campus
+29984	MUEL	2852	1	11:00:00	12:15:00	TTH	MUS N1B95D	Barnett,Michael Todd	Main Campus
+29985	MUEL	3642	1	12:30:00	13:45:00	T	MUS C112	Walton,Heath Ryan	Main Campus
+30334	MUEL	3642	2	11:00:00	11:50:00	MWF	MUS N1B95D	D'Angelo,Michael Phillip	Main Campus
+30363	MUEL	3832	1	08:00:00	09:15:00	TTH	MUS N1B95D	\N	Main Campus
+30466	MUEL	3882	1	13:00:00	13:50:00	MWF	MCKY 1B03B	Teitelbaum,Benjamin Raphael	Main Campus
+30474	MUEL	3892	1	09:30:00	10:45:00	TTH	MCKY 102	Keister,Jay	Main Campus
+30343	MUEL	4121	800	12:30:00	13:45:00	TTH	MUS N1B46	Drumheller III,John Earl	Main Campus
+38238	MUEL	1832	300E	18:00:00	21:00:00	W	\N	Cefkin,Benjamin	Continuing Education
+38236	MUEL	2752	400E	18:00:00	21:00:00	M	\N	Obluda,Daniel Christopher	Continuing Education
+38457	MUEL	1145	801	12:00:00	12:50:00	MW	CEDU 1B40	Mondzac,Maximilian Benjamin	Continuing Education
+38458	MUEL	1145	802	14:00:00	14:50:00	MW	CEDU 1B40	Mondzac,Maximilian Benjamin	Continuing Education
+38460	MUEL	1145	803	12:00:00	12:50:00	TTH	CEDU 1B40	Trump,Harry	Continuing Education
+38461	MUEL	1145	804	14:00:00	14:50:00	TTH	CEDU 1B40	Trump,Harry	Continuing Education
+30285	EMU	1217	1	12:00:00	12:50:00	M-TH	MCKY 102	Gentry,Gregory Reid	Main Campus
+30288	EMU	1227	1	13:00:00	13:50:00	M-TH	MCKY 102	Swanson,Elizabeth Kay	Main Campus
+30291	EMU	1237	1	14:00:00	15:15:00	TTH	MCKY 102	Swanson,Elizabeth Kay	Main Campus
+30295	EMU	1247	1	16:00:00	17:15:00	MW	MCKY 102	Gentry,Gregory Reid	Main Campus
+30293	EMU	1257	1	15:30:00	16:45:00	TTH	MCKY 102	Gentry,Gregory Reid	Main Campus
+30284	EMU	1277	1	16:00:00	18:00:00	F	MUS E160	Steinmetz,Branden	Main Campus
+30355	EMU	1297	1	11:30:00	13:45:00	TTH	MUS E160	McKinney,Donald J	Main Campus
+30297	EMU	1307	1	14:00:00	15:30:00	MWF	MUS E160	Dockendorf,Matthew Paul	Main Campus
+30398	EMU	1317	1	16:00:00	18:00:00	MW	MUS E160	Steinmetz,Branden	Main Campus
+30300	EMU	1327	1	12:00:00	13:30:00	MWF	MUS E160	Lewis,Gary Joe	Main Campus
+37508	EMU	1327	2	12:00:00	13:30:00	MWF	MUS C112	Schut,Joel MIchael	Main Campus
+30306	EMU	1417	1	16:00:00	17:50:00	M	See Class Notes For	Walter,Douglas William	Main Campus
+30347	EMU	1417	2	15:30:00	17:20:00	TH	See Class Notes For	Dixon,Carl Day	Main Campus
+30309	EMU	1427	1	16:30:00	18:00:00	TTH	MUS E160	Gunther,John G	Main Campus
+30310	EMU	1427	2	18:15:00	19:45:00	TTH	MUS E160	\N	Main Campus
+36080	EMU	1427	3	18:15:00	19:45:00	TTH	MCKY 1B03B	\N	Main Campus
+30321	EMU	1467	1	16:00:00	18:50:00	TH	MCKY 1B03D	Itasaka,Mami	Main Campus
+30322	EMU	1467	2	17:00:00	19:50:00	T	MCKY 1B03D	Cupec,Zane	Main Campus
+30323	EMU	1467	3	17:00:00	19:50:00	M	MCKY 1B03D	Mensah,Maputo	Main Campus
+30330	EMU	1517	1	19:00:00	21:30:00	W	MUS E160	 Gilliland,Renee Noel	 Main Campus
+36224	PMU	1217	1	09:00:00	09:50:00	MWF	MUS N1B95D	Chellis,Matthew Wren	Main Campus
+30056	PMU	1506	800	15:30:00	16:20:00	TH	See Class Notes For	Ishikawa,Yoshiyuki	Main Campus
+30061	PMU	1516	800	15:30:00	16:20:00	TH	See Class Notes For	Silver,Daniel S	Main Campus
+30451	PMU	1526	800	14:00:00	15:50:00	W	MCKY 213	Pann,Carter N	Main Campus
+30452	PMU	1526	801	14:00:00	15:50:00	W	MCKY 213	\N	Main Campus
+30453	PMU	1526	802	14:00:00	15:50:00	W	MCKY 213	Theodore,Michael R	Main Campus
+30454	PMU	1526	803	14:00:00	15:50:00	W	MCKY 213	Drumheller III,John Earl	Main Campus
+30476	PMU	1526	804	14:00:00	15:50:00	W	MCKY 213	Nytch,Jeffrey	Main Campus
+30477	PMU	1526	805	14:00:00	15:50:00	W	MCKY 213	Biggs,Betsey	Main Campus
+30082	PMU	1546	800	15:30:00	16:20:00	T	See Class Notes For	Dunn,James M	Main Campus
+30087	PMU	1556	800	15:30:00	16:20:00	TH	See Class Notes For	Jennings,Christina A	Main Campus
+30091	PMU	1566	800	15:00:00	15:50:00	M	See Class Notes For	Spera,Nicolo Ruggero Ferruccio	Main Campus
+30095	PMU	1576	800	15:00:00	15:50:00	M	See Class Notes For	Harriman,Janet Kay	Main Campus
+30101	PMU	1596	800	15:30:00	16:20:00	T	See Class Notes For	Thornton,Michael Robert	Main Campus
+30105	PMU	1606	800	15:30:00	16:20:00	TH	See Class Notes For	Cooper,Peter W.	Main Campus
+30117	PMU	1626	800	15:30:00	16:20:00	T	See Class Notes For	Walter,Douglas William	Main Campus
+30121	PMU	1636	800	14:00:00	14:50:00	M	See Class Notes For	Cremaschi,Alejandro M	Main Campus
+30122	PMU	1636	801	14:00:00	14:50:00	M	See Class Notes For	Korevaar,David J	Main Campus
+30123	PMU	1636	802	14:00:00	14:50:00	M	See Class Notes For	Hayghe,Jennifer C	Main Campus
+30124	PMU	1636	803	14:00:00	14:50:00	M	See Class Notes For	Cooperstock,Andrew B	Main Campus
+30125	PMU	1636	804	14:00:00	14:50:00	M	See Class Notes For	Cremaschi,Alejandro M	Main Campus
+30378	PMU	1636	805	14:00:00	14:50:00	M	See Class Notes For	Sher,Daniel P	Main Campus
+30141	PMU	1646	800	15:30:00	16:20:00	TH	See Class Notes For	Myer,Tom R	Main Campus
+30145	PMU	1656	800	15:00:00	15:50:00	M	See Class Notes For	Erhard,Paul Martin	Main Campus
+30150	PMU	1666	800	15:30:00	16:20:00	T	See Class Notes For	Stanley,William J	Main Campus
+30154	PMU	1676	800	15:30:00	16:20:00	T	See Class Notes For	Gardner,Ryan	Main Campus
+30158	PMU	1686	800	15:30:00	16:20:00	T	See Class Notes For	Dunn,James M	Main Campus
+30162	PMU	1696	800	15:00:00	15:50:00	M	See Class Notes For	Eckert,Erika L	Main Campus
+30166	PMU	1706	800	15:00:00	15:50:00	M	See Class Notes For	Rhodes,Harumi B	Main Campus
+30167	PMU	1706	801	15:00:00	15:50:00	M	See Class Notes For	Wetherbee,Charles Tyler	Main Campus
+30428	PMU	1706	802	15:00:00	15:50:00	M	See Class Notes For	Schranz,Karoly	Main Campus
+30513	PMU	1706	803	15:00:00	15:50:00	M	See Class Notes For	Sim,Claude	Main Campus
+30174	PMU	1716	800	15:00:00	15:50:00	M	See Class Notes For	Requiro,David	Main Campus
+30179	PMU	1726	800	15:00:00	15:50:00	W	See Class Notes For	Bird-Arvidsson,Jennifer	Main Campus
+30180	PMU	1726	801	15:00:00	15:50:00	W	See Class Notes For	Chellis,Matthew Wren	Main Campus
+30181	PMU	1726	802	15:00:00	15:50:00	W	See Class Notes For	Nims,Abigail Andrews	 Main Campus
+30182	PMU	1726	803	15:00:00	15:50:00	W	See Class Notes For	Seesholtz,John	 Main Campus
+30183	PMU	1726	804	15:00:00	15:50:00	W	See Class Notes For	Garland,Andrew B	 Main Campus
+37549	PMU	1726	810	15:00:00	15:50:00	W	See Class Notes For	Barber,Sarah Elizabeth	 Main Campus
+30209	PMU	1806	800	11:00:00	11:50:00	TH	MCKY 1B03B	 Jenkins,Jeffrey C	 Main Campus
+30215	PMU	1816	800	11:00:00	11:50:00	TH	MCKY 1B03B	Barbosa,Eduardo Da Silva	 Main Campus
+30221	PMU	1826	800	11:00:00	11:50:00	TH	MCKY 1B03B	 Romaine,Paul Christian	 Main Campus
+30227	PMU	1846	800	11:00:00	11:50:00	TH	MCKY 1B03B	 Corbus,David Allen	 Main Campus
+30233	PMU	1856	800	11:00:00	11:50:00	TH	MCKY 1B03B	Goode,Bradley M.	 Main Campus
+30239	PMU	1866	800	11:00:00	11:50:00	TH	MCKY 1B03B	McKee,Paul	 Main Campus
+30245	PMU	1876	800	11:00:00	11:50:00	TH	MCKY 1B03B	 Gunther,John G	 Main Campus
+36152	PMU	3271	800	16:30:00	17:20:00	TTH	MUS C125	Erhard,Paul Martin	Main Campus
+30047	PMU	4147	1	13:00:00	13:50:00	MW	MUS N1B95D	 Holman,Leigh Karen	 Main Campus
+30360	PMU	4157	1	16:00:00	18:00:00	TWTH	MUS N1B95D	 Holman,Leigh Karen	 Main Campus
+37550	PMU	4157	2	16:00:00	19:00:00	TWTH	MUS N1B95D	Chellis,Matthew Wren	 Main Campus
+30532	PMU	4497	1	11:00:00	11:50:00	MW	MUS N180D	Moteki,Mutsumi	 Main Campus
+30359	PMU	5157	1	16:00:00	18:00:00	TWTH	MUS N1B95D	Holman,Leigh Karen	Main Campus
+30533	PMU	5497	1	11:00:00	11:50:00	MW	MUS N180D	Moteki,Mutsumi	Main Campus
+26943	AIRR	1020	10	11:00:00	11:50:00	TH	STAD 112	Havard,Jessica	Main Campus
+26945	AIRR	1020	20	14:00:00	14:50:00	TH	ECCR 245	Havard,Jessica	Main Campus
+36710	AIRR	1234	1	15:30:00	18:50:00	TH	DUAN G1B30	Mueckay,Julio	Main Campus
+36711	AIRR	1234	2	08:00:00	12:00:00	F	See Academc Dept	Mueckay,Julio	Main Campus
+26954	AIRR	2020	10	12:30:00	13:20:00	TH	STAD 112	Havard,Jessica	Main Campus
+26956	AIRR	2020	20	14:00:00	14:50:00	TH	STAD 112	Cruz,Steve	Main Campus
+36321	AIRR	2020	30	08:00:00	08:50:00	TH	DUAN G125	\N	Main Campus
+26947	AIRR	3020	10	09:30:00	10:45:00	TTH	STAD 140	Barnes,Danielle	Main Campus
+26949	AIRR	3020	20	14:00:00	15:15:00	TTH	STAD 140	Lambert,Megan Claire	Main Campus
+36322	AIRR	3020	30	12:30:00	13:45:00	T	STAD 367	\N	Main Campus
+26951	AIRR	4020	10	11:00:00	12:15:00	TTH	STAD 135	Havard,Jessica	Main Campus
+26953	AIRR	4020	20	14:00:00	15:15:00	TTH	HUMN 1B90	Havard,Jessica	Main Campus
+26969	MILR	1021	20	08:00:00	08:50:00	TTH	STAD 140	Morgan,Ronald D	Main Campus
+26970	MILR	1021	21	15:30:00	16:50:00	TH	STAD 140	Morgan,Ronald D	Main Campus
+26941	MILR	2041	10	09:30:00	10:45:00	TTH	STAD 112	Huck,Nyland	Main Campus
+26942	MILR	2041	11	15:30:00	17:00:00	TH	See Class Notes For	Palermo,William Scott	Main Campus
+26976	MILR	3062	20	08:00:00	09:15:00	TTH	STAD 112	Valenzano,Anthony	Main Campus
+26977	MILR	3062	21	15:30:00	17:00:00	TH	See Class Notes For	James,Joshua Robert	Main Campus
+26978	MILR	3090	809	06:00:00	06:50:00	MW	See Class Notes For	Lojka,Jason R	Main Campus
+26979	MILR	3090	810	06:00:00	06:50:00	T	See Class Notes For	 Lojka,Jason R	 Main Campus
+26974	MILR	4082	20	11:00:00	12:15:00	TTH	STAD 140	 Lojka,Jason R	 Main Campus
+26975	MILR	4082	21	15:30:00	17:00:00	TH	See Class Notes For	 Lojka,Jason R	 Main Campus
+26932	NAVR	2020	10	11:00:00	11:50:00	MWF	STAD 140	 Seiders,Joden L	 Main Campus
+26933	NAVR	2020	11	15:30:00	17:50:00	TTH	MATH 100	\N	 Main Campus
+26936	NAVR	2020	30	11:00:00	11:50:00	MWF	STAD 140	 Seiders,Joden L	 Main Campus
+26966	NAVR	3030	10	08:00:00	09:15:00	TTH	 DUAN G2B21	Dodge,Jamieson	 Main Campus
+26967	NAVR	3030	11	15:30:00	17:50:00	TTH	MATH 100	\N	 Main Campus
+26968	NAVR	3030	20	08:00:00	09:15:00	TTH	 DUAN G2B21	Dodge,Jamieson	 Main Campus
+26983	NAVR	3201	10	08:00:00	09:15:00	TTH	STAD 135	Colgrove,Justin Cody	 Main Campus
+26984	NAVR	3201	11	15:30:00	17:50:00	TTH	MATH 100	\N	 Main Campus
+26985	NAVR	3201	20	08:00:00	09:15:00	TTH	STAD 135	Colgrove,Justin Cody	 Main Campus
+26938	NAVR	4020	10	09:00:00	09:50:00	MWF	STAD 112	Dodds,Thomas John	 Main Campus
+26939	NAVR	4020	11	15:30:00	17:50:00	TTH	MATH 100	\N	 Main Campus
+30766	NAVR	4020	20	10:00:00	10:50:00	MWF	STAD 112	Dodds,Thomas John	 Main Campus
+30767	NAVR	4020	21	15:30:00	17:50:00	TTH	MATH 100	\N	 Main Campus
+26940	NAVR	4020	30	09:00:00	09:50:00	MWF	STAD 112	Dodds,Thomas John	 Main Campus
+30768	NAVR	4020	40	10:00:00	10:50:00	MWF	STAD 112	Dodds,Thomas John	 Main Campus
+26963	NAVR	4030	10	09:00:00	09:50:00	MWF	STAD 140	Dziwulski,Shelby	 Main Campus
+26964	NAVR	4030	11	15:30:00	17:50:00	TTH	MATH 100	\N	 Main Campus
+26965	NAVR	4030	20	09:00:00	09:50:00	MWF	STAD 140	Dziwulski,Shelby	 Main Campus
+26924	PRLC	1820	800	18:00:00	18:50:00	MW	 HLMS 201	 Shepherd,Juliemarie Anjali	 Main Campus
+26925	PRLC	1820	801	15:30:00	17:30:00	TH	 MKNA 204	 Shepherd,Juliemarie Anjali	 Main Campus
+26926	PRLC	1820	802	15:30:00	17:30:00	TH	 HLMS 185	 Shepherd,Juliemarie Anjali	 Main Campus
+26927	PRLC	1820	803	17:30:00	19:30:00	TH	MUEN E130	 Shepherd,Juliemarie Anjali	 Main Campus
+26928	PRLC	1820	804	15:30:00	17:30:00	TH	 HALE 235	 Shepherd,Juliemarie Anjali	 Main Campus
+26929	PRLC	1820	805	17:30:00	19:30:00	TH	 HALE 235	 Shepherd,Juliemarie Anjali	 Main Campus
+26930	PRLC	1820	806	17:30:00	19:30:00	TH	 MKNA 204	 Shepherd,Juliemarie Anjali	 Main Campus
+26986	PRLC	3800	801	12:30:00	13:45:00	TTH	 CASE E250	 Shepherd,Juliemarie Anjali	 Main Campus
+25595	ACCT	3220	1	12:30:00	13:45:00	TTH	\N	Tice,Frances Mei-Lin Siu	 Main Campus
+25596	ACCT	3220	2	15:30:00	16:45:00	TTH	\N	Tice,Frances Mei-Lin Siu	 Main Campus
+25597	ACCT	3220	3	14:00:00	15:15:00	TTH	\N	Tice,Frances Mei-Lin Siu	 Main Campus
+25598	ACCT	3230	1	15:30:00	16:45:00	TTH	 KOBL 330	 Jhabvala,Jamasp D	 Main Campus
+25599	ACCT	3230	2	14:00:00	15:15:00	TTH	 KOBL 330	 Jhabvala,Jamasp D	 Main Campus
+25823	ACCT	3230	3	12:30:00	13:45:00	TTH	 KOBL 330	 Jhabvala,Jamasp D	 Main Campus
+25600	ACCT	3320	1	11:00:00	12:15:00	TTH	 KOBL 317	Ballantine Jr,John T	 Main Campus
+25601	ACCT	3320	2	12:30:00	13:45:00	TTH	 KOBL 317	Ballantine Jr,John T	 Main Campus
+25603	ACCT	3440	1	09:30:00	10:45:00	TTH	 KOBL 317	Lazzeri,Nicole	 Main Campus
+25898	ACCT	3440	2	08:00:00	09:15:00	TTH	 KOBL 317	Lazzeri,Nicole	 Main Campus
+25928	ACCT	3440	3	11:00:00	12:15:00	MW	 KOBL 317	Morley,Susan	 Main Campus
+25798	ACCT	4240	1	08:00:00	09:15:00	MW	\N	\N	 Main Campus
+36025	ACCT	4240	2	09:30:00	10:45:00	MW	\N	\N	 Main Campus
+25799	ACCT	4250	1	15:30:00	16:45:00	TTH	\N	Bondi,Salvatore	 Main Campus
+36027	ACCT	4250	2	12:30:00	13:45:00	TTH	 CASE E230	Bondi,Salvatore	 Main Campus
+25883	ACCT	4540	1	18:30:00	21:15:00	M	\N	Parker,Richard	 Main Campus
+25604	ACCT	4620	1	11:00:00	12:15:00	TTH	 CASE E230	Bondi,Salvatore	 Main Campus
+25606	ACCT	4850	1	14:00:00	15:15:00	MW	\N	Maxwell,Christopher	 Main Campus
+25607	ACCT	4850	2	15:30:00	16:45:00	MW	\N	Maxwell,Christopher	 Main Campus
+25700	ACCT	5450	1	12:30:00	13:45:00	MW	\N	Morley,Susan	 Main Campus
+25826	ACCT	5827	1	12:30:00	13:45:00	TTH	\N	 Milburn,Catherine C	 Main Campus
+25609	ACCT	6350	1	09:30:00	12:15:00	F	\N	\N	 Main Campus
+25922	ACCT	6450	1	15:00:00	16:20:00	TTH	 WLAW 307	Speck,Sloan G	 Main Campus
+25610	ACCT	6620	1	17:00:00	19:45:00	T	\N	Maxwell,Christopher	 Main Campus
+25611	ACCT	6620	2	08:00:00	10:45:00	M	 CASE E224	Maxwell,Christopher	 Main Campus
+25701	ACCT	5450	2	07:45:00	09:15:00	M-TH	\N	Morley,Susan	 Main Campus
+25815	ACCT	6350	2	17:00:00	19:45:00	W	\N	\N	 Main Campus
+25899	BAD	1260	801	14:00:00	15:15:00	M	\N	Lewis,Mary Beth	 Main Campus
+37541	BAD	1260	802	12:30:00	13:45:00	M	 CASE E224	Auslander,Bonnie	 Main Campus
+26139	BAD	1260	803	12:30:00	13:45:00	TH	CHEY 140	Abeloe,Jaclyn	 Main Campus
+25824	BAD	1260	806	11:00:00	12:15:00	T	CHEY 140	 Schaub,Kevin David	 Main Campus
+25830	BAD	1260	807	11:00:00	12:15:00	F	 KOBL 317	 Cowan,Sarah Rosenbaum	 Main Campus
+25886	BAD	1260	810	12:30:00	13:45:00	W	 CASE E224	Young,E Morgan	 Main Campus
+25863	BAD	1260	812	11:00:00	12:15:00	TH	CHEY 140	Straccia,Andrea Rooks	 Main Campus
+25887	BAD	1260	814	09:00:00	10:15:00	F	 KOBL 317	 McMahon,Kevin Christopher	 Main Campus
+25888	BAD	1260	815	14:00:00	15:15:00	W	\N	 Banks,Cynthia Lee	 Main Campus
+25889	BAD	1260	816	11:00:00	12:15:00	T	WVN 181A	Napier,Vanessa Muriel	 Main Campus
+25900	BAD	1260	817	15:30:00	16:45:00	T	 CASE E224	 Kennedy,Heather Lee	 Main Campus
+25814	BAD	2010	1	16:00:00	16:50:00	TH	\N	McGee,Micah	 Main Campus
+25822	BAD	2010	2	17:00:00	17:50:00	TH	\N	McGee,Micah	 Main Campus
+37542	BAD	2010	3	08:00:00	08:50:00	W	\N	McGee,Micah	 Main Campus
+25891	BAD	6930	2	17:00:00	19:45:00	T	SEEC N124	York,Jeffrey	 Main Campus
+25829	BAD	6940	1	16:00:00	18:45:00	W	Meets at Off-Campus	Thibodeau,Thomas G	 Main Campus
+25901	BCO	1015	1	08:00:00	09:15:00	TTH	\N	Edgar,Stacey	 Main Campus
+25902	BCO	1015	2	09:30:00	10:45:00	TTH	\N	Edgar,Stacey	 Main Campus
+36380	BCO	1015	3	15:30:00	16:45:00	MW	 KOBL 102	Nunziato,Joshua	 Main Campus
+25903	BCO	1015	4	17:00:00	18:15:00	MW	 KOBL 102	Nunziato,Joshua	 Main Campus
+26006	BCO	1015	7	15:00:00	16:15:00	MW	 HLMS 141	\N	 Main Campus
+25926	BCO	1015	610R	14:00:00	15:15:00	MW	CHEY 240	Kwaramba,Marcia	 Main Campus
+25940	BCO	1015	611R	15:30:00	16:45:00	MW	CHEY 240	Kwaramba,Marcia	 Main Campus
+25941	BCO	1015	612R	09:30:00	10:45:00	TTH	CHEY 240	Schuetz,Kenneth R	Main Campus
+25942	BCO	1015	613R	11:00:00	12:15:00	TTH	CHEY 240	Schuetz,Kenneth R	Main Campus
+25904	BCO	1015	642R	09:30:00	10:45:00	MW	WVN 181A--181B	Christoff,Lorna Colleen	Main Campus
+25905	BCO	1015	643R	11:00:00	12:15:00	MW	WVN 181A--181B	Christoff,Lorna Colleen	Main Campus
+37706	BCO	1015	644R	13:30:00	14:45:00	MW	WVN 181A--181B	Alston,Eric Christopher	Main Campus
+37708	BCO	1015	645R	09:30:00	10:45:00	TTH	WVN 181A--181B	Reznicek,Birdie C	Main Campus
+37709	BCO	1015	646R	12:30:00	13:45:00	TTH	WVN 181A--181B	Reznicek,Birdie C	Main Campus
+25849	BCO	1025	1	12:30:00	13:45:00	TTH	\N	Oest,Donald G	Main Campus
+25850	BCO	1025	2	14:00:00	15:15:00	TTH	KOBL 317	Oest,Donald G	Main Campus
+25851	BCO	1025	3	15:30:00	16:45:00	TTH	KOBL 317	Oest,Donald G	Main Campus
+25864	BCO	1025	611R	08:00:00	09:15:00	MW	CHEY 240	Fisher,Christina	Main Campus
+25865	BCO	1025	612R	09:30:00	10:45:00	MW	CHEY 240	Oest,Donald G	Main Campus
+25866	BCO	1025	613R	11:00:00	12:15:00	MW	CHEY 240	Schaub,Kevin David	Main Campus
+25867	BCO	1025	614R	12:30:00	13:45:00	MW	CHEY 240	Schaub,Kevin David	Main Campus
+25868	BCO	1025	615R	12:30:00	13:45:00	TTH	CHEY 240	Schaub,Kevin David	Main Campus
+25943	BCO	1025	616R	14:00:00	15:15:00	TTH	CHEY 240	\N	Main Campus
+36431	BCO	1025	617R	15:30:00	16:45:00	TTH	CHEY 240	\N	Main Campus
+25852	BCO	1025	800	14:00:00	15:15:00	TTH	\N	Fisher,Christina	Main Campus
+25857	BCO	1025	801	11:00:00	12:15:00	MW	CASE E220	Fisher,Christina	Main Campus
+25945	BCO	1030	1	08:00:00	09:15:00	TTH	HLMS 259	Bone,Jennifer Emerling	Main Campus
+25946	BCO	1030	2	11:00:00	11:50:00	MWF	ECCR 118	Hanson Smith,Elizabeth	Main Campus
+25947	BCO	1030	3	09:00:00	09:50:00	MWF	CLRE 209	Hanson Smith,Elizabeth	Main Campus
+25906	BCO	1030	4	14:00:00	14:50:00	MWF	HLMS 185	Hanson Smith,Elizabeth	Main Campus
+25862	BCO	1030	5	10:00:00	10:50:00	MWF	STAD 135	Hanson Smith,Elizabeth	Main Campus
+25907	BCO	1030	7	14:00:00	15:15:00	TTH	KTCH 1B44	Auslander,Bonnie	Main Campus
+25885	BCO	1030	8	15:00:00	16:15:00	MW	MUEN E130	Shukri,Salma	Main Campus
+25892	BCO	1030	9	15:30:00	16:45:00	TTH	ECCR 135	Auslander,Bonnie	Main Campus
+25948	BCO	1030	10	15:00:00	16:15:00	MW	HLMS 185	Smith,Julie Scher	Main Campus
+25949	BCO	1030	11	16:30:00	17:45:00	MW	MUEN E130	Shukri,Salma	Main Campus
+25910	BCO	1030	12	09:30:00	10:45:00	TTH	KTCH 1B44	Bone,Jennifer Emerling	Main Campus
+25908	BCO	1030	610R	09:30:00	10:45:00	MW	CHEY 140	Carbone,Christopher J	Main Campus
+25909	BCO	1030	611R	11:00:00	12:15:00	MW	CHEY 140	Carbone,Christopher J	Main Campus
+25869	BCO	1030	612R	12:30:00	13:45:00	MW	CHEY 140	Cunningham,Cory Brooke	Main Campus
+25870	BCO	1030	613R	14:00:00	15:15:00	MW	CHEY 140	Cunningham,Cory Brooke	Main Campus
+25871	BCO	1030	615R	15:30:00	16:45:00	MW	CHEY 140	Cunningham,Cory Brooke	Main Campus
+25872	BCO	1030	616R	08:00:00	09:15:00	TTH	CHEY 140	Newell,Katrina D	Main Campus
+25873	BCO	1030	617R	09:30:00	10:45:00	TTH	CHEY 140	Newell,Katrina D	Main Campus
+26008	BCO	1030	618R	14:00:00	15:15:00	TTH	CHEY 140	Ludwig,Bradley Stephen	Main Campus
+26140	BCO	1030	619R	15:30:00	16:45:00	TTH	CHEY 140	Ludwig,Bradley Stephen	Main Campus
+26009	BCO	2201	1	08:00:00	09:15:00	MW	\N	Goren,Bahriye	Main Campus
+26010	BCO	2201	2	09:30:00	10:45:00	MW	\N	Goren,Bahriye	Main Campus
+26014	BCO	2202	2	08:00:00	09:15:00	TTH	\N	Schaub,Kevin David	Main Campus
+26017	BCO	2203	1	11:00:00	12:15:00	MW	\N	Contreras,Jeremiah	Main Campus
+26018	BCO	2203	2	12:30:00	13:45:00	MW	\N	Contreras,Jeremiah	Main Campus
+26019	BCO	2203	3	15:30:00	16:45:00	TTH	\N	Contreras,Jeremiah	Main Campus
+26025	BCO	2205	1	11:00:00	12:15:00	MW	\N	\N	Main Campus
+26030	BCO	2206	2	11:00:00	12:15:00	TTH	\N	Drake,David	Main Campus
+26031	BCO	2206	3	12:30:00	13:45:00	TTH	\N	Drake,David	Main Campus
+25970	BCO	2301	3	13:00:00	13:50:00	MWF	EDUC 220	Maciszewski,Michael Arthur	Main Campus
+25971	BCO	2301	4	14:00:00	14:50:00	MWF	EDUC 220	Maciszewski,Michael Arthur	Main Campus
+25972	BCO	2301	5	15:00:00	15:50:00	MWF	EDUC 220	Maciszewski,Michael Arthur	Main Campus
+26038	BCO	2302	7	11:00:00	11:50:00	MWF	FLMG 155	Nunziato,Joshua	Main Campus
+26039	BCO	2302	8	12:00:00	12:50:00	MWF	FLMG 155	Nunziato,Joshua	Main Campus
+26040	BCO	2302	9	11:00:00	11:50:00	MWF	\N	\N	Main Campus
+26041	BCO	2302	10	12:00:00	12:50:00	MWF	\N	\N	Main Campus
+26042	BCO	2302	800	11:00:00	11:50:00	MWF	KOBL 330	Stapp,Elizabeth	Main Campus
+26043	BCO	2302	801	12:00:00	12:50:00	MWF	KOBL 330	Stapp,Elizabeth	Main Campus
+26044	BCO	2302	802	13:00:00	13:50:00	MWF	KOBL 330	Stapp,Elizabeth	Main Campus
+25973	BCO	2303	1	08:00:00	09:15:00	TTH	EDUC 220	Neil,Joshua Ryan	Main Campus
+25974	BCO	2303	2	09:30:00	10:45:00	TTH	EDUC 220	Neil,Joshua Ryan	Main Campus
+25975	BCO	2303	3	11:00:00	12:15:00	TTH	EDUC 220	Neil,Joshua Ryan	Main Campus
+25976	BCO	2303	4	14:00:00	15:15:00	TTH	FLMG 155	Contreras,Jeremiah	Main Campus
+25977	BCO	2303	5	15:30:00	16:45:00	TTH	FLMG 155	Neil,Joshua Ryan	Main Campus
+25978	BCO	2303	6	17:00:00	18:15:00	TTH	FLMG 155	Contreras,Jeremiah	Main Campus
+26105	BCO	2304	7	12:30:00	13:45:00	TTH	\N	Li,Ningzi	Main Campus
+26106	BCO	2304	8	09:30:00	10:45:00	TTH	\N	Li,Ningzi	Main Campus
+26107	BCO	2304	9	11:00:00	12:15:00	TTH	\N	Li,Ningzi	Main Campus
+26108	BCO	2304	10	14:00:00	15:15:00	TTH	\N	Li,Ningzi	Main Campus
+26109	BCO	2304	11	15:30:00	16:45:00	TTH	\N	Li,Ningzi	Main Campus
+26011	BCO	2201	3	08:00:00	09:15:00	TTH	\N	Goren,Bahriye	Main Campus
+26013	BCO	2202	1	09:30:00	10:45:00	MW	\N	Schaub,Kevin David	Main Campus
+26015	BCO	2202	3	08:00:00	08:50:00	MW	\N	Schaub,Kevin David	Main Campus
+26021	BCO	2204	1	11:00:00	12:15:00	MW	\N	Merrell,Jeffrey Charles	Main Campus
+26022	BCO	2204	2	12:30:00	13:45:00	MW	\N	Merrell,Jeffrey Charles	Main Campus
+26023	BCO	2204	3	15:30:00	16:45:00	TTH	\N	Merrell,Jeffrey Charles	Main Campus
+26026	BCO	2205	2	11:00:00	12:15:00	TTH	\N	Lacek,David	Main Campus
+26027	BCO	2205	3	12:30:00	13:45:00	TTH	\N	Lacek,David	Main Campus
+26029	BCO	2206	1	11:00:00	12:15:00	MW	\N	\N	Main Campus
+25968	BCO	2301	1	11:00:00	11:50:00	MWF	FLMG 155	Lyle,Catherine Carson	Main Campus
+25969	BCO	2301	2	12:00:00	12:50:00	MWF	FLMG 155	Lyle,Catherine Carson	Main Campus
+26033	BCO	2301	800	11:00:00	11:50:00	MWF	KOBL 330	Stapp,Elizabeth	Main Campus
+26034	BCO	2301	801	12:00:00	12:50:00	MWF	KOBL 330	Stapp,Elizabeth	Main Campus
+26035	BCO	2301	802	13:00:00	13:50:00	MWF	KOBL 330	Stapp,Elizabeth	Main Campus
+26094	BCO	2302	1	13:00:00	13:50:00	MWF	EDUC 220	Nunziato,Joshua	Main Campus
+26095	BCO	2302	2	14:00:00	14:50:00	MWF	EDUC 220	Nunziato,Joshua	Main Campus
+26096	BCO	2302	3	16:00:00	16:50:00	MWF	\N	\N	Main Campus
+26097	BCO	2302	4	13:00:00	13:50:00	MWF	\N	\N	Main Campus
+26098	BCO	2302	5	14:00:00	14:50:00	MWF	\N	\N	Main Campus
+26037	BCO	2302	6	15:00:00	15:50:00	MWF	\N	\N	Main Campus
+25979	BCO	2303	7	08:00:00	09:15:00	TTH	\N	Wang,Clare	Main Campus
+25980	BCO	2303	8	09:30:00	10:45:00	TTH	\N	Wang,Clare	 Main Campus
+25981	BCO	2303	9	11:00:00	12:15:00	TTH	\N	Wang,Clare	 Main Campus
+25982	BCO	2303	10	14:00:00	15:15:00	TTH	\N	 Neil,Joshua Ryan	 Main Campus
+25983	BCO	2303	11	15:30:00	16:45:00	TTH	\N	 Neil,Joshua Ryan	 Main Campus
+25984	BCO	2303	12	12:30:00	13:45:00	TTH	\N	Wang,Clare	 Main Campus
+26099	BCO	2304	1	08:00:00	09:15:00	TTH	 EDUC 220	Chari,Mukund	 Main Campus
+26100	BCO	2304	2	09:30:00	10:45:00	TTH	EDUC 220	Chari,Mukund	 Main Campus
+26101	BCO	2304	3	11:00:00	12:15:00	TTH	 EDUC 220	Chari,Mukund	 Main Campus
+26102	BCO	2304	4	14:00:00	15:15:00	TTH	 FLMG 155	Chari,Mukund	 Main Campus
+26103	BCO	2304	5	15:30:00	16:45:00	TTH	 FLMG 155	Chari,Mukund	 Main Campus
+26104	BCO	2304	6	17:00:00	18:15:00	TTH	 FLMG 155	Chari,Mukund	 Main Campus
+38233	BCO	1015	301E	17:00:00	20:00:00	T	MUEN E113	Donohew,Zachary	Continuing Education
+38235	BCO	1015	302E	17:00:00	20:00:00	M	MUEN E432	Donohew,Zachary	Continuing Education
+26136	BPOL	7500	1	09:00:00	12:00:00	W	See Academc Dept	 Reuer,Jeffrey J	 Main Campus
+25875	BSL	4120	1	08:00:00	09:15:00	TTH	\N	Ballantine Jr,John T	 Main Campus
+25944	CESR	3040	1	11:00:00	12:15:00	TTH	 KOBL 330	Christoff,Lorna Colleen	 Main Campus
+36304	CESR	4005	1	14:00:00	15:15:00	TTH	 CASE E224	Edgar,Stacey	 Main Campus
+25954	CESR	4130	1	12:30:00	13:45:00	MW	 CASE E230	Dobrow,Joseph	 Main Campus
+25613	ESBM	3700	2	09:30:00	10:45:00	MW	KOBL 102	Banks,Cynthia Lee	Main Campus
+25614	ESBM	3700	3	11:00:00	12:15:00	MW	KOBL 102	Banks,Cynthia Lee	Main Campus
+25615	ESBM	4570	1	14:00:00	16:45:00	F	CASE E220	\N	Main Campus
+38257	ESBM	3100	300E	18:00:00	21:00:00	W	\N	Gwozdz,Ronald Scott	Continuing Education
+25911	FNCE	2010	2	15:30:00	16:45:00	MW	CASE E230	Clark,Andrew	Main Campus
+25912	FNCE	2010	3	14:00:00	15:15:00	MW	CASE E230	Clark,Andrew	Main Campus
+25913	FNCE	2010	4	11:00:00	12:15:00	MW	\N	Clark,Andrew	Main Campus
+25914	FNCE	2010	5	08:00:00	09:15:00	TTH	CASE E230	Merrell,Jeffrey Charles	Main Campus
+25915	FNCE	2010	6	09:30:00	10:45:00	TTH	CASE E230	Merrell,Jeffrey Charles	Main Campus
+25927	FNCE	2010	7	09:30:00	10:45:00	MW	\N	Mohr,Peter Justin	Main Campus
+26129	FNCE	2010	8	15:30:00	16:45:00	MW	\N	\N	Main Campus
+25894	FNCE	2820	1	14:00:00	15:15:00	MW	CASE E224	Hirschhorn,Diane Amy	Main Campus
+25895	FNCE	2820	2	09:30:00	10:45:00	MW	KOBL 330	Starn Jr,Harry Mohr	Main Campus
+37761	FNCE	2820	3	17:00:00	19:45:00	TH	\N	Starn Jr,Harry Mohr	Main Campus
+25957	FNCE	3010	1	12:30:00	13:45:00	TTH	\N	Dam,Robert Anthony	Main Campus
+25616	FNCE	3010	2	14:00:00	15:15:00	TTH	\N	Dam,Robert Anthony	Main Campus
+25617	FNCE	3010	3	15:30:00	16:45:00	TTH	\N	Dam,Robert Anthony	Main Campus
+25964	FNCE	3010	4	08:00:00	09:15:00	TTH	CASE E220	Robinson,Douglas	Main Campus
+25618	FNCE	3030	1	08:00:00	09:15:00	TTH	ECCR 155	Livneh,Deborah	Main Campus
+25619	FNCE	3030	2	15:30:00	16:45:00	MW	\N	Biegelsen,Katherine M	Main Campus
+25956	FNCE	3030	3	17:00:00	18:15:00	MW	\N	Biegelsen,Katherine M	Main Campus
+37763	FNCE	3030	4	12:30:00	13:45:00	MW	CASE E220	Biegelsen,Katherine M	Main Campus
+25897	FNCE	3040	1	17:00:00	19:45:00	T	CASE E224	Starn Jr,Harry Mohr	Main Campus
+25934	FNCE	3060	1	17:00:00	19:45:00	M	\N	VandeHoef,Holly	Main Campus
+26069	FNCE	3820	1	15:00:00	16:15:00	MW	HLMS 267	Starn Jr,Harry Mohr	Main Campus
+25620	FNCE	4040	1	08:00:00	09:15:00	TTH	\N	Brown,Daniel g	Main Campus
+25621	FNCE	4040	2	09:30:00	10:45:00	TTH	\N	Brown,Daniel g	Main Campus
+25622	FNCE	4040	3	11:00:00	12:15:00	TTH	\N	Brown,Daniel g	Main Campus
+25935	FNCE	4040	5	14:00:00	15:15:00	MW	KOBL 317	Gross,David Michael	Main Campus
+25936	FNCE	4040	6	15:30:00	16:45:00	MW	KOBL 317	Gross,David Michael	Main Campus
+25624	FNCE	4070	2	11:00:00	13:45:00	F	\N	\N	Main Campus
+25625	FNCE	4070	3	11:00:00	12:15:00	MW	\N	\N	Main Campus
+25692	FNCE	4820	1	08:00:00	09:15:00	TTH	\N	Stutzer,Michael J.	 Main Campus
+26070	FNCE	4827	1	15:30:00	16:45:00	TTH	\N	Brown,Daniel g	 Main Campus
+25890	FNCE	4831	802	18:30:00	21:15:00	TH	 KOBL 320	Kirby,Bradford	 Main Campus
+36301	FNCE	4835	1	14:00:00	15:15:00	TTH	 KOBL 320	Gross,David Michael	 Main Campus
+25937	FNCE	4840	1	17:00:00	19:45:00	W	\N	McNary,Judith D	 Main Campus
+26071	FNCE	4850	1	09:30:00	10:45:00	TTH	 KOBL 330	Donchez,Robert Michael	 Main Campus
+25626	FNCE	4850	2	15:30:00	18:15:00	W	\N	Bhagat,Sanjai	 Main Campus
+25627	FNCE	4850	3	11:00:00	12:15:00	TTH	\N	Donchez,Robert Michael	 Main Campus
+25916	FNCE	4850	6	14:00:00	15:15:00	TTH	\N	Donchez,Robert Michael	 Main Campus
+25959	FNCE	4850	7	09:30:00	10:45:00	MW	 KOBL 320	 Stephenson,Craig Allen	 Main Campus
+25961	FNCE	4850	8	12:30:00	13:45:00	MW	 KOBL 320	 Stephenson,Craig Allen	 Main Campus
+25967	FNCE	4850	10	11:00:00	12:15:00	MW	 KOBL 320	 Stephenson,Craig Allen	 Main Campus
+38261	FNCE	2820	301E	14:00:00	15:15:00	MW	\N	Hirschhorn,Diane Amy	Continuing Education
+38262	FNCE	2820	302E	09:30:00	10:45:00	MW	\N	 Starn Jr,Harry Mohr	Continuing Education
+38263	FNCE	2820	303E	17:00:00	19:00:00	TH	\N	 Starn Jr,Harry Mohr	Continuing Education
+38264	FNCE	4080	300E	17:00:00	20:00:00	M	\N	Alston,Eric Christopher	Continuing Education
+25955	FNCE	7200	1	12:00:00	15:00:00	M	See Academc Dept	\N	 Main Campus
+25630	INBU	3300	1	09:30:00	10:45:00	MW	 CASE E230	 Adams,Heather L	 Main Campus
+25631	INBU	3300	2	11:00:00	12:15:00	MW	 CASE E224	 Adams,Heather L	 Main Campus
+25921	INBU	3450	1	08:00:00	09:15:00	MW	\N	Koc,Ozlem	 Main Campus
+25628	INBU	4200	1	17:00:00	18:15:00	TTH	\N	\N	 Main Campus
+25930	MGM	3100	1	11:00:00	12:15:00	TTH	 KOBL 320	 Denton,D. Keith	 Main Campus
+25844	MGM	3100	2	15:30:00	16:45:00	TTH	 CASE E220	 Denton,D. Keith	 Main Campus
+25882	MGM	3100	3	12:30:00	13:45:00	TTH	 KOBL 320	 Denton,D. Keith	 Main Campus
+36263	MGM	3800	1	09:30:00	10:45:00	MW	\N	Carson,Visda	 Main Campus
+25691	MGM	4140	1	14:00:00	15:15:00	MW	\N	Lacek,David	Main Campus
+25965	MGM	4140	5	12:30:00	13:45:00	MW	\N	Lacek,David	Main Campus
+25640	MGM	4150	1	15:30:00	18:15:00	M	\N	D'Esposito Jr,Pasquale George	Main Campus
+25918	MGM	4200	1	09:30:00	12:15:00	M	\N	Hawk,Ashton Lewis	Main Campus
+36264	MGM	4200	2	15:30:00	18:15:00	M	KOBL 320	Hawk,Ashton Lewis	Main Campus
+26075	MGM	4820	1	14:00:00	15:15:00	MW	KOBL 320	\N	Main Campus
+25932	MGM	4850	2	12:30:00	13:45:00	MW	\N	Lewis,Edward	Main Campus
+25933	MGM	4850	4	14:00:00	15:15:00	MW	\N	Lewis,Edward	Main Campus
+26146	MGM	4850	5	08:00:00	09:15:00	MW	\N	Laszlo,Karen	Main Campus
+26147	MGM	4850	6	09:30:00	10:45:00	MW	\N	\N	Main Campus
+25878	MKT	3100	1	11:00:00	12:15:00	TTH	\N	Higgins,Brian	Main Campus
+25879	MKT	3150	1	08:00:00	09:15:00	TTH	KOBL 330	Higgins,Brian	Main Campus
+25917	MKT	3201	2	15:30:00	16:45:00	MW	\N	Larsen,Kai R	Main Campus
+25642	MKT	3250	1	12:30:00	13:45:00	MW	\N	Winter,Margaret	Main Campus
+25960	MKT	3250	4	11:00:00	12:15:00	MW	\N	Winter,Margaret	Main Campus
+25643	MKT	3350	1	12:30:00	13:45:00	MW	\N	Koc,Ozlem	Main Campus
+25880	MKT	3700	1	15:30:00	16:45:00	TTH	CASE E230	Edwards,Emily Jane	Main Campus
+25919	MKT	3700	2	14:00:00	15:15:00	TTH	CASE E230	Edwards,Emily Jane	Main Campus
+25687	MKT	4250	1	11:00:00	12:15:00	TTH	KOBL 102	Dupre,Heather	Main Campus
+25825	MKT	4250	2	12:30:00	13:45:00	TTH	KOBL 102	Dupre,Heather	Main Campus
+25828	MKT	4250	3	08:00:00	09:15:00	MW	KOBL 102	Dupre,Heather	Main Campus
+25794	MKT	4300	1	09:30:00	10:45:00	TTH	\N	He,Chuan	Main Campus
+25795	MKT	4300	2	11:00:00	12:15:00	TTH	\N	He,Chuan	Main Campus
+25645	MKT	4550	1	11:00:00	12:15:00	MW	CASE E230	Kennedy,Heather Lee	Main Campus
+25646	MKT	4550	2	08:00:00	09:15:00	MW	CASE E220	Young,E Morgan	Main Campus
+25929	MKT	4550	3	09:30:00	10:45:00	MW	CASE E220	Young,E Morgan	Main Campus
+25797	MKT	4820	1	11:00:00	12:15:00	TTH	STAD 136C	Weintraub,William H	Main Campus
+25802	MKT	4850	1	15:30:00	16:45:00	MW	\N	McMahon,Kevin Christopher	Main Campus
+25803	MKT	4850	2	17:00:00	18:15:00	MW	\N	McMahon,Kevin Christopher	Main Campus
+25804	MKT	4850	3	08:00:00	09:15:00	TTH	\N	McMahon,Kevin Christopher	Main Campus
+25805	MKT	4850	4	09:30:00	10:45:00	TTH	\N	McMahon,Kevin Christopher	Main Campus
+39011	MKT	2700	300E	15:30:00	16:45:00	TTH	\N	Light,Nicholas	Continuing Education
+26076	MKT	7310	1	14:00:00	16:45:00	TH	\N	Reinholtz,Nicholas S	Main Campus
+25896	MBAX	6100	1	09:30:00	12:15:00	F	KOBL 320	Deriso,George Gergory	Main Campus
+26072	MBAX	6130	1	14:00:00	15:15:00	MW	\N	York,Jeffrey	Main Campus
+25702	MBAX	6140	1	17:00:00	19:45:00	T	\N	Deriso,George Gergory	Main Campus
+25688	MBAX	6180	1	17:00:00	19:45:00	M	\N	York,Jeffrey	Main Campus
+25858	MBAX	6190	2	17:00:00	19:45:00	W	\N	Bruder,Daniel	Main Campus
+25635	MBAX	6210	1	14:00:00	15:15:00	MW	\N	Moyen,Nathalie	Main Campus
+26135	MBAX	6210	3	12:30:00	13:45:00	MW	\N	Moyen,Nathalie	Main Campus
+26112	MBAX	6260	1	14:00:00	15:15:00	TTH	KOBL 320	Gross,David Michael	Main Campus
+25924	MBAX	6270	1	15:30:00	16:45:00	TTH	\N	Brown,Daniel g	Main Campus
+25963	MBAX	6280	1	07:30:00	09:00:00	TTH	\N	Caccia,Roberto	Main Campus
+25839	MBAX	6330	1	14:00:00	16:45:00	TH	\N	Williams,Lawrence Edwin	Main Campus
+25636	MBAX	6410	1	17:00:00	19:45:00	M	\N	Better,Marco Leonardo	Main Campus
+26127	MBAX	6450	1	17:00:00	18:15:00	MW	\N	Rodgers,Timothy William	Main Campus
+25950	MBAX	6530	1	09:30:00	12:15:00	M	\N	Bennett,Douglas P	Main Campus
+25638	MBAX	6560	1	14:00:00	16:45:00	T	\N	Bennett,Douglas P	Main Campus
+25689	MBAX	6600	1	15:30:00	18:15:00	M	CASE E224	Ferraro,Craig A	Main Campus
+25639	MBAX	6620	1	17:00:00	19:45:00	TH	\N	\N	Main Campus
+26138	MBAX	6640	1	18:30:00	21:15:00	M	KOBL 320	Mankamyer Jr,Jack Laverne	Main Campus
+38893	MBAX	6695	1	09:30:00	12:00:00	T	\N	Ferraro,Craig A	Main Campus
+36530	MBAX	6802	1	15:30:00	16:45:00	TTH	\N	He,Chuan	Main Campus
+36531	MBAX	6815	1	14:00:00	16:45:00	TH	\N	\N	Main Campus
+25841	MBAX	6843	1	14:00:00	16:45:00	W	\N	Zhang,Rui	Main Campus
+37880	MBAX	6930	1	17:00:00	19:45:00	W	\N	York,Jeffrey	Main Campus
+37879	MBAX	6372	1	14:00:00	15:15:00	TTH	\N	Higgins,Brian	Main Campus
+25856	MBAX	6801	1	17:00:00	18:15:00	T	\N	Seward,Lori Elizabeth	Main Campus
+37876	MBAX	6340	1	14:00:00	16:45:00	M	\N	Goren,Bahriye	Main Campus
+38778	MBAX	6211	575	08:30:00	12:00:00	S	See Academc Dept	Moyen,Nathalie	Continuing Education
+38774	MBAX	6531	572	18:30:00	21:45:00	W	\N	Papuzza,Antonio	Continuing Education
+38777	MBAX	6846	573	18:30:00	21:45:00	TH	See Academc Dept	Papuzza,Antonio	Continuing Education
+38779	MBAX	6301	572	18:30:00	21:45:00	M	See Academc Dept	Campbell,Margaret	Continuing Education
+38776	MBAX	6595	572	18:30:00	21:45:00	T	See Academc Dept	Papuzza,Antonio	Continuing Education
+38972	MBAX	6595	573	18:30:00	21:45:00	T	See Academc Dept	Papuzza,Antonio	Continuing Education
+26144	MBA	6080	3	11:00:00	12:15:00	TTH	\N	 Lawrence,Stephen R	 Main Campus
+25590	MBA	6012	1	09:30:00	10:45:00	TTH	\N	Wobbekind,Richard L	 Main Campus
+25591	MBA	6012	2	11:00:00	12:15:00	TTH	\N	Wobbekind,Richard L	 Main Campus
+25632	MBA	6050	1	09:30:00	12:15:00	MW	\N	Tong,Wenfeng	 Main Campus
+25633	MBA	6050	2	14:00:00	16:45:00	MW	\N	Tong,Wenfeng	 Main Campus
+36533	MBA	6096	1	08:00:00	09:15:00	TTH	 CASE E224	 Cunningham,Cory Brooke	 Main Campus
+36534	MBA	6096	2	09:30:00	10:45:00	TTH	 CASE E224	 Cunningham,Cory Brooke	 Main Campus
+36535	MBA	6096	3	11:00:00	12:15:00	TTH	 CASE E224	Shukri,Salma	 Main Campus
+37860	MBA	6003	1	09:30:00	12:15:00	T	\N	Bennett,Douglas P	 Main Campus
+37862	MBA	6003	2	09:30:00	12:15:00	TH	\N	Bennett,Douglas P	 Main Campus
+26079	MSBX	5205	1	11:00:00	12:15:00	TTH	\N	Stutzer,Michael J.	 Main Campus
+25877	MSBX	5225	1	15:30:00	16:45:00	MW	 CASE E220	Hirschhorn,Diane Amy	 Main Campus
+25843	MSBX	5310	1	12:30:00	13:45:00	TTH	\N	Shriver,Scott	 Main Campus
+26080	MSBX	5310	2	15:30:00	16:45:00	TTH	 ECCR 150	Shriver,Scott	 Main Campus
+26081	MSBX	5415	1	15:30:00	18:15:00	W	 CASE E224	Zhang,Dan	 Main Campus
+26082	MSBX	5415	2	09:30:00	12:15:00	W	\N	Zhang,Dan	 Main Campus
+26142	MSBX	5420	3	17:30:00	20:00:00	T	HUMN 1B90	\N	 Main Campus
+25923	MSBX	5435	1	09:30:00	12:15:00	T	\N	 Macaluso,Gregg Richard	 Main Campus
+37847	MSBX	5500	1	14:00:00	16:45:00	F	 KOBL 102	Eargle,David	 Main Campus
+26130	MSBX	5605	2	15:30:00	18:15:00	M	\N	Kirby,Bradford	 Main Campus
+26113	MSBX	5680	1	14:00:00	16:45:00	T	\N	Thibodeau,Thomas G	 Main Campus
+38781	MSBX	5415	575	08:30:00	12:00:00	S	See Academc Dept	Zhang,Dan	Continuing Education
+38782	MSBX	5310	572	18:30:00	21:45:00	TH	 KOBL 102	Shriver,Scott	Continuing Education
+36253	ORM	7830	1	14:00:00	16:45:00	F	 KOBL 330	Volpone,Sabrina	 Main Campus
+29914	LAW	7101	801	13:00:00	14:45:00	MW	WLAW 301	Gerding,Erik F	Main Campus
+25592	REAL	3000	1	08:00:00	09:15:00	MW	\N	Sears,Curtis R	 Main Campus
+25593	REAL	3000	2	09:30:00	10:45:00	MW	\N	Sears,Curtis R	 Main Campus
+25881	REAL	3000	3	14:00:00	15:15:00	MW	 KOBL 330	Sears,Curtis R	 Main Campus
+25594	REAL	4000	1	08:00:00	09:15:00	TTH	\N	\N	 Main Campus
+25647	REAL	4100	1	12:30:00	13:45:00	TTH	 CASE E224	Gallo,John	 Main Campus
+36102	REAL	4400	1	14:00:00	15:15:00	TTH	\N	Thibodeau,Thomas G	 Main Campus
+36104	REAL	4850	1	15:30:00	16:45:00	TTH	 KOBL 102	Sears,Curtis R	 Main Campus
+36106	REAL	4850	2	17:00:00	18:15:00	TTH	 KOBL 102	Sears,Curtis R	 Main Campus
+38216	REAL	2010	300E	18:00:00	21:00:00	T	\N	Starbuck,Joel Quintin	Continuing Education
+31444	ARC	2100	10	12:00:00	12:50:00	M	ENVD 134	Drennan,Kimberly Alaine	Main Campus
+31445	ARC	2100	11	08:00:00	11:50:00	MW	ENVD 301	Drennan,Kimberly Alaine	Main Campus
+31446	ARC	2100	12	08:00:00	11:50:00	MW	ENVD 301	Holbert,Marianne	Main Campus
+31447	ARC	2100	13	08:00:00	11:50:00	MW	ENVD 301	\N	Main Campus
+31448	ARC	2100	14	13:00:00	16:50:00	MW	ENVD 310	Hudson,Alicja Vernoica	Main Campus
+31449	ARC	2100	15	13:00:00	16:50:00	MW	ENVD 310	\N	Main Campus
+31450	ARC	2100	16	13:00:00	16:50:00	MW	ENVD 310	\N	Main Campus
+31536	ARC	2115	1	15:30:00	16:45:00	TTH	MCOL W100	Evers,Neal	Main Campus
+31452	ARC	3100	10	08:00:00	08:50:00	M	ENVD 120	Lavine,Rachel Ann	Main Campus
+31453	ARC	3100	11	09:00:00	12:15:00	M	ENVD 310	Lavine,Rachel Ann	Main Campus
+31527	ARC	3100	20	08:00:00	08:50:00	MW	ENVD 310	Polizzi,Jade Venus	Main Campus
+31528	ARC	3100	21	09:00:00	12:15:00	MW	ENVD 310	Polizzi,Jade Venus	Main Campus
+31529	ARC	3100	30	13:00:00	13:50:00	MW	ENVD 120	De Lange,Marcel	Main Campus
+31530	ARC	3100	31	16:50:00	17:15:00	MW	ENVD 310	\N	Main Campus
+31531	ARC	3100	40	13:00:00	13:50:00	MW	ENVD 310	Atkinson,Susan Marie	Main Campus
+31532	ARC	3100	41	14:00:00	17:15:00	MW	ENVD 310	Atkinson,Susan Marie	Main Campus
+31533	ARC	3100	50	08:00:00	08:50:00	MW	ENVD 310	\N	Main Campus
+31534	ARC	3100	51	09:00:00	12:15:00	MW	ENVD 310	\N	Main Campus
+31537	ARC	3214	1	12:30:00	13:45:00	TTH	ECCR 1B40	Holbert,Marianne	Main Campus
+31458	ARC	4100	10	08:00:00	08:50:00	MW	ENVD 301	Hunnicutt,Paul	Main Campus
+31459	ARC	4100	11	09:00:00	12:15:00	MW	ENVD 301	Hunnicutt,Paul	Main Campus
+31460	ARC	4100	20	08:00:00	08:50:00	MW	ENVD 301	Johnson,Betsy Holt	Main Campus
+31461	ARC	4100	21	09:00:00	12:15:00	MW	ENVD 301	Johnson,Betsy Holt	Main Campus
+31462	ARC	4100	30	13:00:00	13:50:00	MW	ENVD 301	Xu,Ping	Main Campus
+31463	ARC	4100	31	14:00:00	17:15:00	MW	ENVD 301	Xu,Ping	Main Campus
+31464	ARC	4100	40	13:00:00	13:50:00	MW	ENVD 301	Anderson,John	Main Campus
+31465	ARC	4100	41	14:00:00	17:15:00	MW	ENVD 301	Anderson,John	Main Campus
+31644	ARC	4100	50	13:00:00	13:50:00	MW	ENVD 301	\N	Main Campus
+31645	ARC	4100	51	14:00:00	17:15:00	MW	ENVD 301	\N	Main Campus
+31566	ENVD	1002	1	09:00:00	09:50:00	T	ENVD 1B05F	Drennan,Kimberly Alaine	Main Campus
+31575	ENVD	1002	2	10:00:00	10:50:00	T	ENVD 1B05F	Drennan,Kimberly Alaine	Main Campus
+31576	ENVD	1002	3	09:00:00	09:50:00	T	ENVD 1B05F	Drake,Susannah	Main Campus
+31577	ENVD	1002	4	10:00:00	10:50:00	T	ENVD 1B05F	Drake,Susannah	Main Campus
+17320	ENVD	1004	1	14:00:00	15:15:00	TTH	\N	Bilot,Danielle Melissa	Main Campus
+31578	ENVD	1012	1	08:00:00	09:15:00	TTH	ENVD 211	Beach,Alexandra Mariel Coit	Main Campus
+31579	ENVD	1012	2	11:00:00	12:15:00	TTH	ENVD 211	Beach,Alexandra Mariel Coit	Main Campus
+31580	ENVD	1012	3	11:30:00	12:45:00	TTH	CINC 152 H	Johnson,Betsy Holt	Main Campus
+31581	ENVD	1012	4	13:00:00	14:15:00	TTH	CINC 152 H	Tabatabaie,Sara	Main Campus
+31582	ENVD	1012	5	14:30:00	15:45:00	TTH	CINC 152 H	Ehly,Jeremy	Main Campus
+31535	ENVD	1024	1	09:30:00	10:45:00	TTH	EKLC E1B20	Polizzi,Jade Venus	Main Campus
+31585	ENVD	1150	2	10:00:00	10:50:00	MWF	GUGG 2	Fantalis,Maryanne	Main Campus
+31586	ENVD	1150	3	14:00:00	14:50:00	MWF	MUEN E064	Fantalis,Maryanne	Main Campus
+31428	ENVD	2352	1	09:30:00	10:45:00	TTH	ENVD 211	Van Horne,Jesse Peter	Main Campus
+31429	ENVD	2352	2	13:00:00	13:50:00	MWF	ENVD 211	\N	Main Campus
+31588	ENVD	3150	2	13:00:00	13:50:00	MWF	MUEN E064	Fantalis,Maryanne	Main Campus
+37534	ENVD	3212	1	13:00:00	14:15:00	TTH	CINC 152 F	Polizzi,Jade Venus	Main Campus
+17314	ENVD	4112	1	13:00:00	15:50:00	T	See Academc Dept	Xu,Ping	Main Campus
+37537	ENVD	4352	1	10:00:00	11:15:00	TTH	CINC 152 F	Hemsi,David Cohen	Main Campus
+31688	ENVD	4352	2	14:30:00	17:00:00	T	CINC 152 F	Bellucci,Justin Thomas	Main Campus
+31707	ENVD	4363	1	09:30:00	10:45:00	TTH	ENVD 120	Chinowsky,Paul	Main Campus
+31708	ENVD	4363	2	15:30:00	16:45:00	TTH	ENVD 122	Greenwood,Emily Rose	Main Campus
+31710	ENVD	4363	3	09:30:00	10:45:00	TTH	ENVD 122	Kemp,David John	Main Campus
+37544	ENVD	4363	4	11:30:00	12:45:00	TTH	CINC 152 F	Khan,Azhar	Main Campus
+37547	ENVD	4363	5	08:30:00	09:45:00	TTH	CINC 152 F	Wilberding,Seth	Main Campus
+17332	ENVD	4365	1	15:30:00	16:45:00	TTH	HLMS 252	\N	Main Campus
+17351	ENVD	4365	2	17:00:00	18:15:00	TTH	MUEN E0046	\N	Main Campus
+31714	ENVD	4365	3	11:00:00	12:15:00	MW	ENVD 122	Anderson,John	Main Campus
+17369	ENVD	4972	1	11:00:00	11:50:00	T	MUEN E130	\N	Main Campus
+31567	ENVD	1010	10	09:00:00	09:50:00	MW	ENVD 122	Beach,Alexandra Mariel Coit	Main Campus
+31568	ENVD	1010	11	10:00:00	10:50:00	MW	ENVD 122	Beach,Alexandra Mariel Coit	Main Campus
+31569	ENVD	1010	20	13:00:00	13:50:00	MW	ENVD 122	Felderman,Melissa H	Main Campus
+31570	ENVD	1010	21	14:00:00	16:20:00	MWF	ENVD 122	Felderman,Melissa H	Main Campus
+31538	ENVD	1030	10	12:00:00	12:50:00	MW	MATH 100	Wilberding,Seth	Main Campus
+31659	ENVD	1030	11	09:00:00	11:20:00	MWF	ENVD 1B05F	Wilberding,Seth	Main Campus
+31660	ENVD	1030	12	09:00:00	11:20:00	MWF	ENVD 1B05F	Greenwood,Emily Rose	Main Campus
+31661	ENVD	1030	13	09:00:00	11:20:00	MWF	ENVD 1B05F	Bilot,Danielle Melissa	Main Campus
+31662	ENVD	1030	14	09:00:00	11:20:00	MWF	ENVD 1B05F	Brooks,F. Siobhan	Main Campus
+31663	ENVD	1030	21	13:30:00	15:50:00	MWF	ENVD 1B05F	\N	Main Campus
+31664	ENVD	1030	22	13:30:00	15:50:00	MWF	ENVD 1B05F	Wilberding,Seth	 Main Campus
+31665	ENVD	1030	23	13:30:00	15:50:00	MWF	ENVD 1B05F	Young,Jesse	 Main Campus
+31666	ENVD	1030	24	13:30:00	15:50:00	MWF	ENVD 1B05F	\N	 Main Campus
+31431	ENVD	2352	100	16:00:00	18:30:00	TTH	CINC 152 H	\N	 Main Campus
+31430	ENVD	2352	101	16:00:00	18:30:00	TTH	ENVD 211	\N	 Main Campus
+31571	ENVD	1020	10	09:00:00	09:50:00	MW	ENVD 122	Atkinson,Susan Marie	 Main Campus
+31572	ENVD	1020	11	11:00:00	12:20:00	MW	ENVD 1B05F	Atkinson,Susan Marie	 Main Campus
+31573	ENVD	1020	20	13:00:00	13:50:00	MW	ENVD 122	Lavine,Rachel Ann	 Main Campus
+31574	ENVD	1020	21	14:00:00	16:20:00	MWF	ENVD 122	Lavine,Rachel Ann	 Main Campus
+31557	ENVD	1040	200	12:00:00	12:50:00	MW	MATH 100	VanGenderen,Scott	 Main Campus
+31558	ENVD	1040	201	09:00:00	11:20:00	MWF	ENVD 1B05F	VanGenderen,Scott	 Main Campus
+31559	ENVD	1040	202	09:00:00	11:20:00	MWF	ENVD 1B05F	Brooks,F. Siobhan	 Main Campus
+31560	ENVD	1040	203	09:00:00	11:20:00	MWF	ENVD 1B05F	Escobar,Jose	 Main Campus
+31561	ENVD	1040	204	09:00:00	11:20:00	MWF	ENVD 1B05F	 Schulte,Stacey Lynn	 Main Campus
+31562	ENVD	1040	221	13:30:00	15:50:00	MWF	ENVD 1B05F	Tabatabaie,Sara	 Main Campus
+31563	ENVD	1040	222	13:30:00	15:50:00	MWF	ENVD 1B05F	Roudbari,Shawhin	 Main Campus
+31564	ENVD	1040	223	13:30:00	15:50:00	MWF	ENVD 1B05F	VanGenderen,Scott	 Main Campus
+31565	ENVD	1040	224	13:30:00	15:50:00	MWF	ENVD 1B05F	 Schulte,Stacey Lynn	 Main Campus
+31433	ENVD	2352	201	16:00:00	18:30:00	TTH	ENVD 211	\N	 Main Campus
+31434	ENVD	2352	202	16:00:00	18:30:00	TTH	CINC 152 H	\N	 Main Campus
+33420	EDU	1080	1	11:00:00	12:15:00	TTH	 EDUC 132	Lopez,Enrique Jose	 Main Campus
+35529	EDU	2015	801	09:00:00	10:15:00	F	EDUC 346	Braaten,Melissa	 Main Campus
+35530	EDU	2015	802	10:30:00	11:45:00	F	 EDUC 346	Braaten,Melissa	 Main Campus
+35531	EDU	2015	803	13:00:00	14:15:00	F	 EDUC 346	Deverel-Rico,Clarissa de Oliveira	 Main Campus
+27044	EDU	2020	1	11:00:00	12:15:00	T	 EDUC 346	 Andrew,Julie Ann	 Main Campus
+27334	EDU	2020	2	11:00:00	12:15:00	TH	 EDUC 346	 Andrew,Julie Ann	 Main Campus
+27045	EDU	2020	3	12:30:00	13:45:00	T	 EDUC 346	 Andrew,Julie Ann	 Main Campus
+27046	EDU	2030	1	11:00:00	11:50:00	MW	EDUC 346	Andrew,Julie Ann	Main Campus
+27047	EDU	2030	2	12:00:00	12:50:00	MW	EDUC 346	Andrew,Julie Ann	Main Campus
+36159	EDU	2050	801	09:30:00	10:45:00	F	EDUC 231	Cartun,Ashley Dawn	Main Campus
+32741	EDU	2125	1	09:30:00	10:45:00	TTH	RAMY N1B75	LeFebre,Derek	Main Campus
+27125	EDU	2150	1	17:00:00	19:30:00	M	DUAN G131	Dutro,Elizabeth	Main Campus
+39411	EDU	2150	2	15:30:00	16:45:00	MW	EDUC 134	Guggenheim,Aaron Micah	Main Campus
+27241	EDU	2311	1	12:30:00	13:45:00	TTH	EDUC 231	Dalton,Bridget Monroe	Main Campus
+32742	EDU	2411	20	09:30:00	10:45:00	TTH	CLUB 4	Riedy,Robbin Takeshia Thornton	Main Campus
+32743	EDU	2411	21	14:45:00	17:20:00	M	Meets at Off-Campus	Jurow,Aachey Susan	Main Campus
+32744	EDU	2411	22	14:45:00	17:20:00	T	Meets at Off-Campus	Jurow,Aachey Susan	Main Campus
+32745	EDU	2411	23	14:45:00	17:20:00	W	Meets at Off-Campus	Jurow,Aachey Susan	Main Campus
+32746	EDU	2411	30	11:00:00	12:15:00	TTH	HLMS 211	Lizarraga,Jose	Main Campus
+32747	EDU	2411	31	14:45:00	17:20:00	M	Meets at Off-Campus	Jurow,Aachey Susan	Main Campus
+32748	EDU	2411	32	14:45:00	17:20:00	T	Meets at Off-Campus	Jurow,Aachey Susan	Main Campus
+32749	EDU	2411	33	14:45:00	17:20:00	W	Meets at Off-Campus	Jurow,Aachey Susan	Main Campus
+37535	EDU	2425	1	12:30:00	13:45:00	TTH	EDUC 341	Gort,Mileidis	Main Campus
+37536	EDU	2425	2	12:30:00	13:45:00	TTH	EDUC 134	Sambolin Morales,Astrid Nicholl	Main Campus
+27311	EDU	2500	1	11:00:00	11:50:00	MWF	EDUC 231	Hildreth,Roudy William	Main Campus
+27237	EDU	2625	1	17:00:00	19:30:00	T	EDUC 143	Palmer,Deborah	Main Campus
+27339	EDU	2910	1	15:30:00	16:45:00	TH	KTCH 1B84	\N	Main Campus
+32750	EDU	2919	10	13:00:00	13:50:00	MW	EDUC 341	Agnoletti,Charla Lello	Main Campus
+32752	EDU	2919	20	15:00:00	15:50:00	MW	EDUC 341	Agnoletti,Charla Lello	Main Campus
+27292	EDU	2920	1	17:00:00	17:50:00	TH	HLMS 181	\N	Main Campus
+27048	EDU	3013	1	17:00:00	19:30:00	TH	KTCH 1B60	\N	Main Campus
+27049	EDU	3013	2	17:00:00	19:30:00	W	EDUC 155	\N	Main Campus
+27050	EDU	3013	3	17:00:00	19:30:00	W	HLMS 247	\N	Main Campus
+27051	EDU	3013	4	17:00:00	19:30:00	M	EDUC 155	\N	Main Campus
+27052	EDU	3013	5	17:00:00	19:30:00	M	ENVD 122	\N	Main Campus
+27283	EDU	3013	6	17:00:00	19:30:00	T	KTCH 1B60	\N	Main Campus
+27053	EDU	3013	7	17:00:00	19:30:00	T	HLMS 237	\N	Main Campus
+27054	EDU	3013	8	15:30:00	16:45:00	TTH	HLMS 255	\N	Main Campus
+27055	EDU	3013	9	15:30:00	16:45:00	TTH	EDUC 143	\N	Main Campus
+27056	EDU	3013	10	14:00:00	15:15:00	TTH	GUGG 206	\N	Main Campus
+27329	EDU	3013	11	14:00:00	15:15:00	TTH	EDUC 134	\N	Main Campus
+32756	EDU	3570	1	17:00:00	19:30:00	W	MUEN D144	\N	Main Campus
+31310	EDU	4001	10	15:00:00	16:15:00	MW	CLRE 104	Staley,Sara Jane	Main Campus
+27057	EDU	4023	10	17:00:00	19:30:00	T	HLMS 229	Stamatis,Kristina Marie	Main Campus
+27274	EDU	4050	1	17:00:00	19:30:00	T	EDUC 136	Hand,Victoria	Main Campus
+32757	EDU	4050	2	14:00:00	15:15:00	TTH	EDUC 341	Taylor,Edward Vincent	Main Campus
+37528	EDU	4205	10	09:30:00	12:00:00	TH	EDUC 231	Taylor,Edward Vincent	Main Campus
+32758	EDU	4222	1	17:00:00	19:30:00	M	HLMS 247	\N	Main Campus
+33744	EDU	4301	1	17:00:00	19:30:00	M	MUEN D144	Leonardi,Mary Beth	Main Campus
+32759	EDU	4321	10	14:00:00	16:30:00	T	EDUC 231	Nogueron-Liu,Silvia	Main Campus
+32760	EDU	4321	11	07:15:00	11:00:00	M	Meets at Off-Campus	Stillman,Jamy Ann	Main Campus
+27305	EDU	4425	1	17:00:00	19:30:00	TH	EDUC 143	Sambolin Morales,Astrid Nicholl	Main Campus
+37533	EDU	4435	11	11:15:00	15:00:00	M	Meets at Off-Campus	Stillman,Jamy Ann	Main Campus
+32762	EDU	4455	10	09:30:00	12:00:00	T	EDUC 231	Hopewell,Susan Walsh	Main Campus
+33242	EDU	4490	1	16:00:00	18:30:00	TH	EDUC 338	Walsh,Benjamin Edward Frank	Main Campus
+32763	EDU	4595	1	07:15:00	15:00:00	W	Meets at Off-Campus	Stillman,Jamy Ann	Main Campus
+33745	EDU	4630	1	16:00:00	18:30:00	M	EDUC 136	Langdon,Laurie	Main Campus
+33746	EDU	4630	2	16:00:00	18:30:00	T	EDUC 132	Langdon,Laurie	Main Campus
+27288	EDU	4822	1	17:00:00	19:30:00	TH	EDUC 346	Andrew,Julie Ann	Main Campus
+32765	EDU	4902	801	07:00:00	15:00:00	M-F	Meets at Off-Campus	Boggs,Alison	Main Campus
+32769	EDU	5085	1	17:00:00	19:30:00	T	HLMS 181	Donato,Ruben	Main Campus
+27242	EDU	5255	1	16:30:00	19:00:00	T	Meets at Off-Campus	Dalton,Bridget Monroe	Main Campus
+27126	EDU	5285	1	17:00:00	19:30:00	TH	CLRE 302	Begley,Donna M	Main Campus
+27099	EDU	5355	10	17:00:00	19:30:00	W	EDUC 338	Willmann,Kent D	Main Campus
+27100	EDU	5365	10	16:00:00	18:30:00	T	EDUC 338	Glenn,Wendy	Main Campus
+27101	EDU	5375	10	17:00:00	19:30:00	W	EDUC 341	Bush,Jeffrey	Main Campus
+27106	EDU	5385	10	17:00:00	19:30:00	W	EDUC 346	Writer,Jeffrey Hawkins	Main Campus
+33751	EDU	5435	1	17:00:00	19:30:00	M	MUEN E118	\N	Main Campus
+33753	EDU	5455	1	17:00:00	19:30:00	T	EDUC 231	\N	Main Campus
+27115	EDU	5485	10	17:00:00	19:30:00	T	HLMS 229	Stamatis,Kristina Marie	Main Campus
+33754	EDU	5595	2	17:00:00	19:30:00	T	Meets at Off-Campus	\N	Main Campus
+27238	EDU	5625	1	17:00:00	19:30:00	T	EDUC 143	Palmer,Deborah	Main Campus
+33279	EDU	5635	1	17:00:00	19:30:00	TH	HLMS 237	Gort,Mileidis	Main Campus
+27112	EDU	5706	1	17:00:00	19:30:00	T	EDUC 346	Bush,Jeffrey	Main Campus
+37546	EDU	6325	1	17:00:00	19:30:00	TH	EDUC 134	Dyrness,Andrea	Main Campus
+27198	EDU	6368	1	13:00:00	15:30:00	M	EDUC 251	\N	Main Campus
+27321	EDU	6945	1	17:00:00	19:30:00	M	EDUC 132	White,Terrenda Corisa	Main Campus
+27093	EDU	6964	1	17:00:00	19:30:00	TH	EDUC 155	Mc Ginley,William James	Main Campus
+33116	EDU	7386	1	09:00:00	11:30:00	T	EDUC 136	Engel,Miriam	Main Campus
+27330	EDU	7396	1	13:00:00	15:30:00	T	EDUC 136	Shear,Benjamin Rogers	Main Campus
+33115	EDU	7446	1	17:00:00	19:30:00	W	EDUC 251	\N	Main Campus
+37540	EDU	8135	1	09:00:00	11:30:00	F	EDUC 132	Glenn,Wendy	Main Campus
+27248	EDU	8155	1	13:00:00	15:30:00	M	EDUC 132	Dutro,Elizabeth	Main Campus
+27265	EDU	8165	1	10:00:00	12:30:00	F	EDUC 341	Hand,Victoria	Main Campus
+27266	EDU	8175	1	10:00:00	12:30:00	F	EDUC 341	Hand,Victoria	Main Campus
+27085	EDU	8220	1	09:00:00	11:30:00	T	EDUC 251	Moses,Michele Sharon	Main Campus
+27243	EDU	8240	10	11:35:00	12:50:00	TTH	EDUC 251	Atteberry,Allison	Main Campus
+27244	EDU	8240	11	13:30:00	14:30:00	W	EDUC 251	\N	Main Campus
+27275	EDU	8358	1	13:00:00	15:30:00	T	EDUC 251	Nzinga,Kalonji	Main Campus
+33117	EDU	8720	1	13:00:00	15:30:00	M	EDUC 136	Briggs,Derek Christian Mauthner	Main Campus
+27299	EDU	8730	1	13:00:00	15:30:00	TH	EDUC 338	Furtak,Erin Marie	Main Campus
+32767	EDU	5011	1	17:00:00	19:30:00	T	EDUC 134	Severy,Lisa E	Main Campus
+32768	EDU	5012	1	17:00:00	19:30:00	T	EDUC 134	\N	Main Campus
+32766	EDU	5010	1	17:00:00	19:30:00	T	EDUC 134	Maes,Johanna Bernita	Main Campus
+26998	LEAD	1000	1	12:30:00	13:45:00	TTH	HALE 260	\N	Main Campus
+27246	LEAD	1000	2	14:00:00	15:15:00	TTH	EDUC 132	\N	Main Campus
+27259	LEAD	1000	3	15:30:00	16:45:00	TTH	MCOL E158	\N	Main Campus
+27273	LEAD	1000	4	11:00:00	12:15:00	TTH	EDUC 134	\N	Main Campus
+27276	LEAD	1000	5	15:00:00	16:15:00	MW	EDUC 143	\N	Main Campus
+27253	LEAD	4000	10	12:30:00	13:45:00	TTH	EDUC 143	Vanbuskirk,Allison Nicole	Main Campus
+27255	LEAD	4000	20	15:00:00	16:15:00	MW	HLMS 245	\N	Main Campus
+27284	LEAD	4000	40	11:00:00	12:15:00	TTH	HLMS 193	\N	Main Campus
+37591	LEAD	4000	60	09:30:00	10:45:00	TTH	EDUC 338	Keasley,Alphonse	Main Campus
+29899	LAW	6004	801	13:00:00	16:00:00	TH	WLAW 202	Gordon,Matthew David	Main Campus
+31647	LAW	6021	801	15:30:00	16:50:00	MW	WLAW 301	Benhalim,Rabea	Main Campus
+29817	LAW	6103	801	10:30:00	11:50:00	MW	WLAW 206	Kay,Melanie	Main Campus
+29816	LAW	6103	802	13:00:00	14:20:00	TTH	WLAW 301	Huang,Peter H	Main Campus
+29868	LAW	6104	801	10:30:00	11:50:00	TTH	WLAW 207	Ryan,Maureen Y	Main Campus
+29818	LAW	6109	801	18:05:00	19:45:00	W	WLAW 102	Wayne,Lisa Monet	Main Campus
+31649	LAW	6112	801	10:00:00	11:15:00	TTH	WLAW 204	Sheldon,Karin P.	Main Campus
+29869	LAW	6157	801	15:00:00	16:20:00	TTH	WLAW 307	Speck,Sloan G	Main Campus
+29836	LAW	6211	801	13:30:00	14:20:00	TWTH	WLAW 204	Loewenstein,Mark J	Main Campus
+29967	LAW	6217	801	16:20:00	18:50:00	W	WLAW 421	Grassgreen,Randi M	Main Campus
+29863	LAW	6223	801	13:00:00	14:15:00	TTH	WLAW 304	Stafford,Gabrielle Marks	Main Campus
+29905	LAW	6226	801	13:00:00	14:40:00	TH	WLAW 307	Stafford,Todd	Main Campus
+29860	LAW	6236	801	13:00:00	14:50:00	W	WLAW 306	Kiernan-Johnson,Derek Huntley	Main Campus
+29859	LAW	6271	801	17:00:00	18:40:00	W	WLAW 307	Weiner,Michael L	Main Campus
+29907	LAW	6318	801	14:30:00	15:45:00	TTH	WLAW 301	Huang,Peter H	Main Campus
+29850	LAW	6353	801	09:00:00	09:50:00	TWTH	WLAW 204	Bloom,Frederic M	Main Campus
+29878	LAW	6401	801	17:30:00	18:20:00	T	WLAW 304	Funk,Markus	Main Campus
+29819	LAW	6510	801	10:00:00	11:50:00	M	WLAW 421	Guruswamy,Lakshman	Main Campus
+29910	LAW	6712	801	16:00:00	18:30:00	TH	WLAW 206	Skinner-Thompson,Jonathan	Main Campus
+29911	LAW	6722	801	09:00:00	10:20:00	MW	WLAW 206	Jacobs,Sharon Bogas	Main Campus
+31655	LAW	6813	801	13:00:00	14:40:00	W	WLAW 300	Surden,Harry Adam	Main Campus
+29871	LAW	6876	801	14:30:00	16:10:00	M	WLAW 1B12	Linz,Robert M	Main Campus
+31516	LAW	7003	801	15:00:00	15:50:00	TWTH	WLAW 206	Bloom,Frederic M	Main Campus
+29912	LAW	7015	801	10:30:00	11:50:00	MW	WLAW 204	Norton,Helen Louise	Main Campus
+31518	LAW	7025	801	09:00:00	10:20:00	MW	WLAW 205	Skinner-Thompson,Scott	Main Campus
+31519	LAW	7031	801	13:00:00	14:15:00	TTH	WLAW 305	Orian Peer,Nadav	Main Campus
+29846	LAW	7051	801	17:00:00	18:40:00	W	WLAW 330	Foley,Shannon E	Main Campus
+29877	LAW	7103	801	15:30:00	16:50:00	MW	WLAW 202	Francis,John Allen	Main Campus
+31590	LAW	7115	801	13:00:00	14:20:00	MW	WLAW 305	Robinson,Colene Flynn	Main Campus
+29890	LAW	7122	801	14:30:00	15:45:00	TTH	WLAW 300	Flynn,Roger	Main Campus
+29915	LAW	7128	801	13:00:00	15:45:00	M	WLAW 421	Schlag,Pierre	Main Campus
+29919	LAW	7169	801	16:15:00	18:00:00	T	WLAW 102	Mix,Kristen Louise	Main Campus
+31591	LAW	7205	801	10:30:00	11:50:00	MW	WLAW 207	Chen,Ming Hsu	Main Campus
+31592	LAW	7301	801	14:30:00	15:50:00	MW	WLAW 205	Garcia,Kristelia A	Main Campus
+31593	LAW	7303	801	09:00:00	10:20:00	MW	WLAW 307	Mueller,Chris	Main Campus
+29921	LAW	7311	801	10:30:00	11:50:00	MW	WLAW 205	Surden,Harry Adam	Main Campus
+29864	LAW	7318	801	10:00:00	11:15:00	TTH	WLAW 330	Campos,Paul F	Main Campus
+31595	LAW	7323	801	14:50:00	16:30:00	TH	WLAW 330	Hanlon,Natalie Marie	Main Campus
+29891	LAW	7331	801	13:00:00	14:50:00	M	WLAW 307	Hartley,Sarah Levine	Main Campus
+29922	LAW	7341	801	09:00:00	10:20:00	MW	WLAW 306	Garcia,Kristelia A	Main Campus
+29896	LAW	7350	801	16:00:00	17:20:00	MW	WLAW 305	Deforest,Denise	Main Campus
+29897	LAW	7350	802	16:00:00	17:20:00	TTH	WLAW 306	Deforest,Denise	Main Campus
+38153	LAW	7361	801	15:55:00	17:35:00	TH	WLAW 205	Plotkin,Bruce Leon	Main Campus
+29924	LAW	7401	801	09:00:00	10:20:00	MW	WLAW 207	Gerding,Erik F	Main Campus
+29872	LAW	7405	801	16:00:00	18:30:00	W	WLAW 300	O Rourke,Patrick Terrence	Main Campus
+29875	LAW	7426	801	14:30:00	15:20:00	TTH	WLAW 411	Francis,John Allen	Main Campus
+29940	LAW	7515	801	16:00:00	17:15:00	TTH	WLAW 305	Hart,Melissa	Main Campus
+29848	LAW	7541	801	10:30:00	11:50:00	MW	WLAW 304	Malveaux,Suzette	Main Campus
+29895	LAW	7605	801	16:30:00	17:45:00	MW	WLAW 206	Green,Lisa Rochelle	Main Campus
+31604	LAW	7611	801	10:30:00	11:50:00	MW	WLAW 306	Brunet,Alexia	Main Campus
+31605	LAW	7718	801	09:00:00	09:50:00	TTH	WLAW 305	Collins,Richard Benjamin	Main Campus
+29821	LAW	7735	801	13:00:00	14:20:00	MW	WLAW 411	Wilkinson,Charles F	Main Campus
+29930	LAW	8095	801	15:00:00	16:50:00	M	WLAW 303	Malveaux,Suzette	Main Campus
+31606	LAW	8112	801	10:30:00	12:10:00	T	WLAW 411	Krakoff,Sarah A	Main Campus
+29932	LAW	8321	801	13:00:00	14:40:00	TH	WLAW 330	Kaminski,Margot	Main Campus
+29935	LAW	8455	801	10:00:00	11:50:00	TH	WLAW 303	Ramsey,Carolyn	Main Campus
+29943	LAW	8545	801	13:00:00	14:50:00	M	WLAW 303	Brunet,Alexia	Main Campus
+31608	LAW	8722	801	13:00:00	14:50:00	W	WLAW 202	Safty,Mark D	Main Campus
+31656	LAW	7102	801	13:00:00	16:00:00	M	WLAW 300	Ritchie,David	Main Campus
+32322	LAW	5646	804	16:00:00	16:50:00	TTH	WLAW 1B12	Linz,Robert M	Main Campus
+\.
+
+
+--
+-- Data for Name: completed_courses; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.completed_courses (student_id, course_department, course_subject) FROM stdin;
+900000000	CMCI	2030
+900000001	MBAX	6595
+900000002	GEO	3862
+900000003	PHIL	1400
+900000004	KREN	3851
+900000005	ENGL	3245
+900000006	MATH	2135
+900000007	SLHS	5282
+900000008	THTR	4063
+900000009	ASEN	3111
+900000010	PHYS	7820
+900000011	ECEN	4532
+900000012	ASEN	4218
+900000013	HUM	3093
+900000014	MCE	4117
+900000015	PMU	4147
+900000016	HIST	4830
+900000017	EME	5094
+900000018	GEE	3400
+900000019	DNC	3041
+900000020	SOCY	1006
+900000021	AREN	4506
+900000022	MILR	1021
+900000023	ECO	8848
+900000024	APPM	8500
+900000025	HIST	4728
+900000026	PSCI	3183
+900000027	INFO	4609
+900000028	ECEN	5622
+900000029	ASEN	3300
+900000030	JRNL	4674
+900000031	GEO	1962
+900000032	CSCI	5922
+900000033	APPM	1360
+900000034	MATH	1212
+900000035	ECO	4524
+900000036	HIND	1011
+900000037	SPAN	4120
+900000038	PSCI	4221
+900000039	APPM	2460
+900000040	LING	5140
+900000041	APRD	3301
+900000042	CWC	4000
+900000043	ECO	4818
+900000044	ACCT	6450
+900000045	CHIN	1012
+900000046	FREN	5330
+900000047	COM	2650
+900000048	ECO	2010
+900000049	HIST	4623
+900000050	COM	4220
+900000051	ENVD	1020
+900000052	ENGL	3025
+900000053	CSCI	3352
+900000054	SPAN	2110
+900000055	MATH	3510
+900000056	CLAS	4091
+900000057	CVEN	3246
+900000058	LAW	7303
+900000059	EDU	2125
+900000060	CVEN	4333
+900000061	AREN	2110
+900000062	PSCI	2116
+900000063	COM	4000
+900000064	ATOC	4800
+900000065	PHIL	3410
+900000066	PHIL	4490
+900000067	HIST	2326
+900000068	ARTS	3124
+900000069	PHYS	2210
+900000070	CVEN	3161
+900000071	GEOL	3430
+900000072	EDU	4435
+900000073	HIST	4128
+900000074	AIRR	3020
+900000075	DNC	5301
+900000076	ARAB	3410
+900000077	PMU	1626
+900000078	HIST	4423
+900000079	LING	1000
+900000080	ASTR	7500
+900000081	ATOC	3050
+900000082	ECEN	4620
+900000083	ECEN	5616
+900000084	ACCT	4620
+900000085	MDST	7051
+900000086	ETHN	3314
+900000087	JRNL	3614
+900000088	ENVD	4112
+900000089	COM	4300
+900000090	MCD	4310
+900000091	ATOC	7500
+900000092	EMU	1307
+900000093	LING	7800
+900000094	EDU	6945
+900000095	MUEL	2752
+900000096	ENVD	1030
+900000097	EDU	2910
+900000098	GRM	3505
+900000099	IPHY	3415
+900000100	ARSC	1720
+900000101	MKT	3100
+900000102	CVEN	3698
+900000103	MCD	4444
+900000104	ATLS	2000
+900000105	LING	5410
+900000106	COM	3740
+900000107	GEOL	5001
+900000108	SPAN	3002
+900000109	WRT	2090
+900000110	SLHS	6660
+900000111	MUS	2131
+900000112	PSCI	3271
+900000113	ATOC	5770
+900000114	SCAN	1202
+900000115	ECEN	5126
+900000116	EBIO	6100
+900000117	MUS	4443
+900000118	GEO	5662
+900000119	SLHS	3106
+900000120	LAW	5646
+900000121	MBAX	6531
+900000122	GRM	1020
+900000123	MUS	4336
+900000124	HUM	4504
+900000125	EBIO	3080
+900000126	ARTS	5176
+900000127	GEO	3742
+900000128	HIST	1518
+900000129	HUM	4011
+900000130	IPHY	4580
+900000131	JPNS	1020
+900000132	PSCI	4002
+900000133	MBAX	6280
+900000134	THTR	2021
+900000135	APPM	7100
+900000136	RUSS	4020
+900000137	MCE	5133
+900000138	ASEN	5010
+900000139	EDU	2150
+900000140	GEO	3612
+900000141	FREN	3500
+900000142	ETHN	6101
+900000143	MCD	3135
+900000144	LAW	7031
+900000145	CHE	4581
+900000146	IPHY	2800
+900000147	ACCT	3230
+900000148	ENVS	5702
+900000149	AIRR	2020
+900000150	ITAL	4500
+900000151	THTR	4555
+900000152	SLHS	3014
+900000153	CVEN	5564
+900000154	HIST	4123
+900000155	ACCT	4850
+900000156	EME	4030
+900000157	EBIO	1210
+900000158	EDU	5255
+900000159	ARTS	5126
+900000160	ARTS	2022
+900000161	PMU	1546
+900000162	INDO	1120
+900000163	ATLS	5250
+900000164	MATH	5905
+900000165	ENGL	1800
+900000166	PSCI	3062
+900000167	ASEN	6028
+900000168	NAVR	4020
+900000169	ARAB	3120
+900000170	ECEN	4133
+900000171	COM	3510
+900000172	ARTH	3419
+900000173	MCD	3450
+900000174	RUSS	3241
+900000175	ENGL	2717
+900000176	GRM	3020
+900000177	MKT	3201
+900000178	DNC	1301
+900000179	MATH	1112
+900000180	ENVS	5510
+900000181	NRS	5110
+900000182	PSCI	4792
+900000183	RLST	2610
+900000184	ARTS	5303
+900000185	MCD	2150
+900000186	MCD	2161
+900000187	LAW	7341
+900000188	MUS	5156
+900000189	PHIL	1100
+900000190	MSBX	5225
+900000191	PHYS	4410
+900000192	PHYS	3320
+900000193	SLHS	5242
+900000194	ATOC	3600
+900000195	ECEN	2260
+900000196	BAD	2010
+900000197	EDU	3570
+900000198	CHE	5531
+900000199	DNC	1000
+900000000	LAW	7128
+900000001	SPAN	3010
+900000002	EDU	2500
+900000003	ATLS	4010
+900000004	LING	5800
+900000005	ENVS	4800
+900000006	EDU	4321
+900000007	ECO	4794
+900000008	CLAS	1110
+900000009	JRNL	2000
+900000010	PHYS	2170
+900000011	ARTS	3423
+900000012	APPM	1350
+900000013	ATOC	1060
+900000014	CHIN	3200
+900000015	MBAX	6330
+900000016	PSYC	2145
+900000017	SPAN	4170
+900000018	LING	4420
+900000019	CSCI	2270
+900000020	MUS	1554
+900000021	LAW	6004
+900000022	CVEN	2121
+900000023	ATOC	5000
+900000024	SOCY	4063
+900000025	WRT	1160
+900000026	EDU	5635
+900000027	LING	6300
+900000028	GEO	4023
+900000029	ETHN	4951
+900000030	APRD	3005
+900000031	GEO	3023
+900000032	ENVS	1001
+900000033	CLAS	1051
+900000034	MUS	5464
+900000035	HIST	2015
+900000036	PHIL	6200
+900000037	ECEN	5813
+900000038	MBAX	6600
+900000039	GEO	4093
+900000040	ARTS	3017
+900000041	FREN	5350
+900000042	CHE	6801
+900000043	LAW	6103
+900000044	ENGL	1230
+900000045	ITAL	1010
+900000046	PSCI	3123
+900000047	BCO	1030
+900000048	CVEN	7161
+900000049	NRS	4092
+900000050	MBAX	6640
+900000051	ITAL	4600
+900000052	APRD	4404
+900000053	HIST	4366
+900000054	LAW	8321
+900000055	LING	5430
+900000056	ENVD	2352
+900000057	ETHN	2203
+900000058	CHIN	5280
+900000059	MDST	3001
+900000060	THTR	3085
+900000061	PSYC	6603
+900000062	MUS	5071
+900000063	CVEN	5393
+900000064	LAW	8095
+900000065	ETHN	3501
+900000066	CHE	4521
+900000067	RLST	4820
+900000068	PSCI	3225
+900000069	EBIO	4980
+900000070	NRS	4132
+900000071	APPM	4720
+900000072	JRNL	4002
+900000073	PHYS	1120
+900000074	ANTH	3010
+900000075	MATH	2510
+900000076	SOCY	1022
+900000077	SPAN	5220
+900000078	PMU	1556
+900000079	MUS	4313
+900000080	ASEN	4028
+900000081	LAW	7015
+900000082	CVEN	4555
+900000083	EME	5080
+900000084	ENGL	1001
+900000085	DNC	3043
+900000086	CSCI	3010
+900000087	EMU	1327
+900000088	SOCY	1001
+900000089	ASIA	4830
+900000090	THTR	3045
+900000091	LAW	6112
+900000092	GEO	4003
+900000093	AREN	3540
+900000094	MCE	1025
+900000095	ANTH	2100
+900000096	CVEN	5131
+900000097	CSCI	6502
+900000098	NAVR	2020
+900000099	ARC	3100
+900000100	LAW	6722
+900000101	DNC	1100
+900000102	GEOL	3720
+900000103	PHIL	4340
+900000104	ATOC	3300
+900000105	APRD	3104
+900000106	EME	4825
+900000107	SLHS	1010
+900000108	HIST	4435
+900000109	CVEN	3525
+900000110	MUS	5030
+900000111	MGM	4850
+900000112	ACCT	3320
+900000113	ATLS	2519
+900000114	COM	1600
+900000115	MDST	2010
+900000116	CHE	3361
+900000117	MUEL	1145
+900000118	HIST	2516
+900000119	GRM	1010
+900000120	PMU	5497
+900000121	MCD	4428
+900000122	PSYC	5112
+900000123	FREN	5120
+900000124	GEOL	3540
+900000125	APRD	4505
+900000126	APRD	3105
+900000127	ECEN	5613
+900000128	MUEL	3642
+900000129	NAVR	3030
+900000130	ECO	4626
+900000131	ENGL	5029
+900000132	CLAS	1115
+900000133	ASEN	5016
+900000134	CHE	4021
+900000135	ECEN	4517
+900000136	MDST	4401
+900000137	SPAN	1020
+900000138	LAW	7611
+900000139	ENGL	5059
+900000140	ETHN	3136
+900000141	ENGL	2021
+900000142	LAW	6271
+900000143	MUS	4061
+900000144	EDU	4455
+900000145	ARTS	4085
+900000146	CSCI	2834
+900000147	PHIL	4450
+900000148	CHE	4530
+900000149	COM	3330
+900000150	ENVD	4365
+900000151	ATOC	5061
+900000152	HIST	7415
+900000153	EBIO	1240
+900000154	HUM	4170
+900000155	BCO	2302
+900000156	PHYS	5770
+900000157	ANTH	2040
+900000158	ECEN	5358
+900000159	PHYS	4420
+900000160	ARTS	4202
+900000161	HIST	2110
+900000162	IPHY	1950
+900000163	CHE	4141
+900000164	DNC	3005
+900000165	ECO	3818
+900000166	IPHY	3470
+900000167	IPHY	4440
+900000168	APRD	4102
+900000169	ASTR	2100
+900000170	MUS	7046
+900000171	CSCI	3155
+900000172	INFO	6500
+900000173	EDU	8240
+900000174	MUEL	2051
+900000175	ENVS	1000
+900000176	MATH	6220
+900000177	ASEN	5111
+900000178	CSCI	3403
+900000179	ATLS	4040
+900000180	LAW	7025
+900000181	IPHY	4600
+900000182	RUSS	3705
+900000183	SPAN	3060
+900000184	THTR	3023
+900000185	PORT	4110
+900000186	LING	5832
+900000187	LING	7100
+900000188	GRE	3123
+900000189	ETHN	2001
+900000190	ATLS	3300
+900000191	EBIO	4750
+900000192	MSBX	5435
+900000193	MBAX	6846
+900000194	CLAS	1120
+900000195	PHIL	3190
+900000196	ARAB	1020
+900000197	APPM	4650
+900000198	CHE	6321
+900000199	ANTH	1140
+900000000	WRT	2090
+900000001	WRT	1160
+900000002	THTR	4063
+900000003	THTR	2021
+900000004	THTR	4555
+900000005	THTR	3085
+900000006	THTR	3045
+900000007	THTR	3023
+900000008	SPAN	4120
+900000009	SPAN	2110
+900000010	SPAN	3002
+900000011	SPAN	3010
+900000012	SPAN	4170
+900000013	SPAN	5220
+900000014	SPAN	1020
+900000015	SPAN	3060
+900000016	SOCY	1006
+900000017	SOCY	4063
+900000018	SOCY	1022
+900000019	SOCY	1001
+900000020	SLHS	5282
+900000021	SLHS	6660
+900000022	SLHS	3106
+900000023	SLHS	3014
+900000024	SLHS	5242
+900000025	SLHS	1010
+900000026	SCAN	1202
+900000027	RUSS	4020
+900000028	RUSS	3241
+900000029	RUSS	3705
+900000030	RLST	2610
+900000031	RLST	4820
+900000032	PSYC	2145
+900000033	PSYC	6603
+900000034	PSYC	5112
+900000035	PSCI	3183
+900000036	PSCI	4221
+900000037	PSCI	2116
+900000038	PSCI	3271
+900000039	PSCI	4002
+900000040	PSCI	3062
+900000041	PSCI	4792
+900000042	PSCI	3123
+900000043	PSCI	3225
+900000044	PORT	4110
+900000045	PMU	4147
+900000046	PMU	1626
+900000047	PMU	1546
+900000048	PMU	1556
+900000049	PMU	5497
+900000050	PHYS	7820
+900000051	PHYS	2210
+900000052	PHYS	4410
+900000053	PHYS	3320
+900000054	PHYS	2170
+900000055	PHYS	1120
+900000056	PHYS	5770
+900000057	PHYS	4420
+900000058	PHIL	1400
+900000059	PHIL	3410
+900000060	PHIL	4490
+900000061	PHIL	1100
+900000062	PHIL	6200
+900000063	PHIL	4340
+900000064	PHIL	4450
+900000065	PHIL	3190
+900000066	NRS	5110
+900000067	NRS	4092
+900000068	NRS	4132
+900000069	NAVR	4020
+900000070	NAVR	2020
+900000071	NAVR	3030
+900000072	MUS	2131
+900000073	MUS	4443
+900000074	MUS	4336
+900000075	MUS	5156
+900000076	MUS	1554
+900000077	MUS	5464
+900000078	MUS	5071
+900000079	MUS	5071
+900000080	MUS	5030
+900000081	MUS	4061
+900000082	MUS	7046
+900000083	MUEL	2752
+900000084	MUEL	1145
+900000085	MUEL	3642
+900000086	MUEL	2051
+900000087	MSBX	5225
+900000088	MSBX	5435
+900000089	MKT	3100
+900000090	MKT	3201
+900000091	MILR	1021
+900000092	MGM	4850
+900000093	MDST	7051
+900000094	MDST	3001
+900000095	MDST	2010
+900000096	MDST	4401
+900000097	MCE	4117
+900000098	MCE	5133
+900000099	MCE	1025
+900000100	MCD	4310
+900000101	MCD	4444
+900000102	MCD	3135
+900000103	MCD	3450
+900000104	MCD	2150
+900000105	MCD	2161
+900000106	MCD	4428
+900000107	MBAX	6595
+900000108	MBAX	6531
+900000109	MBAX	6280
+900000110	MBAX	6330
+900000111	MBAX	6600
+900000112	MBAX	6640
+900000113	MBAX	6846
+900000114	MATH	2135
+900000115	MATH	1212
+900000116	MATH	3510
+900000117	MATH	5905
+900000118	MATH	1112
+900000119	MATH	2510
+900000120	MATH	6220
+900000121	LING	5140
+900000122	LING	1000
+900000123	LING	7800
+900000124	LING	5410
+900000125	LING	5800
+900000126	LING	4420
+900000127	LING	6300
+900000128	LING	5430
+900000129	LING	5832
+900000130	LING	7100
+900000131	LAW	7303
+900000132	LAW	5646
+900000133	LAW	7031
+900000134	LAW	7341
+900000135	LAW	7128
+900000136	LAW	6004
+900000137	LAW	6103
+900000138	LAW	8321
+900000139	LAW	8095
+900000140	LAW	7015
+900000141	LAW	6112
+900000142	LAW	6722
+900000143	LAW	7611
+900000144	LAW	6271
+900000145	LAW	7025
+900000146	KREN	3851
+900000147	JRNL	4674
+900000148	JRNL	3614
+900000149	JRNL	2000
+900000150	JRNL	4002
+900000151	JPNS	1020
+900000152	ITAL	4500
+900000153	ITAL	1010
+900000154	ITAL	4600
+900000155	IPHY	3415
+900000156	IPHY	4580
+900000157	IPHY	2800
+900000158	IPHY	1950
+900000159	IPHY	3470
+900000160	IPHY	4440
+900000161	IPHY	4600
+900000162	INFO	4609
+900000163	INFO	6500
+900000164	INDO	1120
+900000165	HUM	3093
+900000166	HUM	4504
+900000167	HUM	4011
+900000168	HUM	4170
+900000169	HIST	4830
+900000170	HIST	4728
+900000171	HIST	4623
+900000172	HIST	2326
+900000173	HIST	4128
+900000174	HIST	4423
+900000175	HIST	1518
+900000176	HIST	4123
+900000177	HIST	2015
+900000178	HIST	4366
+900000179	HIST	4435
+900000180	HIST	2516
+900000181	HIST	7415
+900000182	HIST	2110
+900000183	HIND	1011
+900000184	GRM	3505
+900000185	GRM	1020
+900000186	GRM	3020
+900000187	GRM	1010
+900000188	GRM	3020
+900000189	GEOL	3430
+900000190	GEOL	5001
+900000191	GEOL	3720
+900000192	GEOL	3540
+900000193	GEO	3862
+900000194	GEO	1962
+900000195	GEO	5662
+900000196	GEO	3742
+900000197	GEO	3612
+900000198	GEO	4023
+900000199	GEO	3023
+900000000	GEO	4093
+900000001	GEO	4003
+900000002	GEE	3400
+900000003	FREN	5330
+900000004	FREN	3500
+900000005	FREN	5350
+900000006	FREN	5120
+900000007	ETHN	3314
+900000008	ETHN	6101
+900000009	ETHN	4951
+900000010	ETHN	2203
+900000011	ETHN	3501
+900000012	ETHN	3136
+900000013	ETHN	2001
+900000014	ENVS	5702
+900000015	ENVS	5510
+900000016	ENVS	4800
+900000017	ENVS	1001
+900000018	ENVS	1000
+900000019	ENVD	1020
+900000020	ENVD	4112
+900000021	ENVD	1030
+900000022	ENVD	2352
+900000023	ENVD	4365
+900000024	ENGL	3245
+900000025	ENGL	3025
+900000026	ENGL	1800
+900000027	ENGL	2717
+900000028	ENGL	1230
+900000029	ENGL	1001
+900000030	ENGL	5029
+900000031	ENGL	5059
+900000032	ENGL	2021
+900000033	EMU	1307
+900000034	EMU	1327
+900000035	EME	5094
+900000036	EME	4030
+900000037	EME	5080
+900000038	EME	4825
+900000039	EDU	2125
+900000040	EDU	4435
+900000041	EDU	6945
+900000042	EDU	2910
+900000043	EDU	2150
+900000044	EDU	5255
+900000045	EDU	3570
+900000046	EDU	2500
+900000047	EDU	4321
+900000048	EDU	5635
+900000049	EDU	4455
+900000050	EDU	8240
+900000051	ECO	8848
+900000052	ECO	4524
+900000053	ECO	4818
+900000054	ECO	2010
+900000055	ECO	4794
+900000056	ECO	4626
+900000057	ECO	3818
+900000058	ECEN	4532
+900000059	ECEN	5622
+900000060	ECEN	4620
+900000061	ECEN	5616
+900000062	ECEN	5126
+900000063	ECEN	4133
+900000064	ECEN	2260
+900000065	ECEN	5813
+900000066	ECEN	5613
+900000067	ECEN	4517
+900000068	ECEN	5358
+900000069	EBIO	6100
+900000070	EBIO	3080
+900000071	EBIO	1210
+900000072	EBIO	4980
+900000073	EBIO	1240
+900000074	EBIO	4750
+900000075	DNC	3041
+900000076	DNC	5301
+900000077	DNC	1301
+900000078	DNC	1000
+900000079	DNC	3043
+900000080	DNC	1100
+900000081	DNC	3005
+900000082	CWC	4000
+900000083	CVEN	3246
+900000084	CVEN	4333
+900000085	CVEN	3161
+900000086	CVEN	3698
+900000087	CVEN	5564
+900000088	CVEN	2121
+900000089	CVEN	7161
+900000090	CVEN	5393
+900000091	CVEN	4555
+900000092	CVEN	5131
+900000093	CVEN	3525
+900000094	CSCI	5922
+900000095	CSCI	3352
+900000096	CSCI	2270
+900000097	CSCI	3010
+900000098	CSCI	6502
+900000099	CSCI	2834
+900000100	CSCI	3155
+900000101	CSCI	3403
+900000102	COM	2650
+900000103	COM	4220
+900000104	COM	4000
+900000105	COM	4300
+900000106	COM	4300
+900000107	COM	3510
+900000108	COM	1600
+900000109	COM	3330
+900000110	CMCI	2030
+900000111	CLAS	4091
+900000112	CLAS	1110
+900000113	CLAS	1051
+900000114	CLAS	1115
+900000115	CLAS	1120
+900000116	CHIN	1012
+900000117	CHIN	3200
+900000118	CHIN	5280
+900000119	CHE	4581
+900000120	CHE	5531
+900000121	CHE	6801
+900000122	CHE	4521
+900000123	CHE	3361
+900000124	CHE	4021
+900000125	CHE	4530
+900000126	CHE	4141
+900000127	CHE	6321
+900000128	BCO	1030
+900000129	BCO	2302
+900000130	BAD	2010
+900000131	ATOC	4800
+900000132	ATOC	3050
+900000133	ATOC	7500
+900000134	ATOC	5770
+900000135	ATOC	3600
+900000136	ATOC	1060
+900000137	ATOC	5000
+900000138	ATOC	3300
+900000139	ATOC	5061
+900000140	ATLS	2000
+900000141	ATLS	5250
+900000142	ATLS	4010
+900000143	ATLS	2519
+900000144	ATLS	4040
+900000145	ATLS	3300
+900000146	ASTR	7500
+900000147	ASTR	2100
+900000148	ASIA	4830
+900000149	ASEN	3111
+900000150	ASEN	4218
+900000151	ASEN	3300
+900000152	ASEN	5010
+900000153	ASEN	6028
+900000154	ASEN	4028
+900000155	ASEN	5016
+900000156	ASEN	5111
+900000157	ARTS	3124
+900000158	ARTS	5176
+900000159	ARTS	5176
+900000160	ARTS	5303
+900000161	ARTS	5303
+900000162	ARTS	3423
+900000163	ARTS	3017
+900000164	ARTS	4085
+900000165	ARTS	4202
+900000166	ARTH	3419
+900000167	ARSC	1720
+900000168	AREN	4506
+900000169	AREN	2110
+900000170	AREN	3540
+900000171	ARC	3100
+900000172	ARAB	3410
+900000173	ARAB	3120
+900000174	ARAB	1020
+900000175	APRD	3301
+900000176	APRD	3005
+900000177	APRD	4404
+900000178	APRD	3104
+900000179	APRD	4505
+900000180	APRD	3105
+900000181	APRD	4102
+900000182	APPM	8500
+900000183	APPM	1360
+900000184	APPM	2460
+900000185	APPM	7100
+900000186	APPM	1350
+900000187	APPM	4720
+900000188	APPM	4650
+900000189	ANTH	3010
+900000190	ANTH	2100
+900000191	ANTH	2040
+900000192	ANTH	1140
+900000193	AIRR	3020
+900000194	AIRR	2020
+900000195	ACCT	6450
+900000196	ACCT	4620
+900000197	ACCT	3230
+900000198	ACCT	4850
+900000199	ACCT	3320
+\.
+
+
+--
+-- Data for Name: course_info; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.course_info (course_department, course_subject, course_description, course_credits, course_name) FROM stdin;
+ANTH	1120	\N	3	Pueblo Indians Southwest
+ANTH	1140	\N	3	Expl/Nonwest Cult/Maya
+ANTH	1145	\N	3	Explr Nonwest Cult/Aztec
+ANTH	1155	\N	3	Expl Global Cult Diversity
+ANTH	1170	\N	3	Culture, Gender, Film
+ANTH	2020	\N	3	Intro to Bio Anthropology 2
+ANTH	2040	\N	1	Lab in Bio Anthropology 2
+ANTH	2100	\N	3	Intro to Cultural Anthropology
+ANTH	2200	\N	3	The Archaeology of Human Hist
+ANTH	2525	\N	3	Environmental Anthropology
+ANTH	3010	\N	3	The Human Animal
+ANTH	3119	\N	3	The Archaeology of Death
+ANTH	4020	\N	3	Explorations in Anthropology
+ANTH	4125	\N	3	Primate Life History
+ANTH	4180	\N	3	Anth Prspect/Contemp Iss
+ANTH	4580	\N	3	The Holocaust
+ANTH	4700	\N	3	Practicing Anthropology
+ANTH	4720	\N	3	Dept Honors in Anthropology 2
+ANTH	4730	\N	3	Latin American Culture
+ANTH	4735	\N	3	Cuban Culture
+ANTH	4800	\N	3	Language and Culture
+ANTH	2010	\N	3	Intro to Bio Anthropology 1
+ANTH	5785	\N	3	Adv Sem: Cultural ANTH
+ANTH	7000	\N	3	Sem-Cur Rsch Tpc Clt Ant
+ANTH	7030	\N	3	Sem-Archaeology
+APPM	1235	\N	4	Pre-Calculus for Engineers
+APPM	1345	\N	4	Calculus 1B with Algebra
+APPM	1350	\N	4	Calculus 1 for Engineers
+APPM	1360	\N	4	Calculus 2 for Engineers
+APPM	1390	\N	1	A Game for Calculus
+APPM	2350	\N	4	Calculus 3 for Engineers
+APPM	2360	\N	4	Intro Diff Eq W/Lin Alg
+APPM	2450	\N	1	Calculus 3 Computer Lab
+APPM	2460	\N	1	Diff Eq Computer Lab
+APPM	3050	\N	3	Sci Computing in Matlab
+APPM	3170	\N	3	Discrete Applied Mathematics
+APPM	3570	\N	3	Applied Probability
+APPM	4120	\N	3	Operations Research
+APPM	4360	\N	3	Complex Var/Applications
+APPM	4370	\N	3	Computational Neuroscience
+APPM	4390	\N	3	Modeling: Mathematical Biology
+APPM	4450	\N	3	Ugrad Applied Analysis 2
+APPM	4560	\N	3	Markov Processes
+APPM	4650	\N	3	Intermed Numerical Analysis 1
+APPM	4660	\N	3	Intermed Numer Analys 2
+APPM	4720	\N	3	Open Tpcs: Applied Mathematics
+APPM	5450	\N	3	Applied Analysis 2
+APPM	5480	\N	3	Approximation Methods
+APPM	5610	\N	3	Numerical Analysis 2
+APPM	5620	\N	3	Numerical Linear Algebra
+APPM	7100	\N	3	Dynamical Systems
+APPM	8000	\N	1	Colloquium/Applied Mathematics
+APPM	8100	\N	1	Sem-Dynamical Systems
+APPM	8300	\N	1	Nonlinear Waves Seminar
+APPM	8400	\N	1	Mathematical Biology Seminar
+APPM	8500	\N	1	Stats, Opt and ML Seminar
+APPM	8600	\N	1	Sem: Computational Mathematics
+ARAB	1011	\N	3	Intro Arab/Islam Civilizations
+ARAB	1020	\N	5	Beginning Arabic 2
+ARAB	2120	\N	5	Intermediate Arabic 2
+ARAB	3120	\N	3	Advanced Arabic 2
+ARAB	3230	\N	3	Islamic Culture & Iberia
+ARAB	3410	\N	3	Gender/Sexuality in Mid East
+ARTF	5000	\N	3	Advnced Digital Postproduction
+ARTF	5003	\N	3	Film and Literature
+ARTF	5024	\N	3	Advnced Research Seminar
+ARTF	5453	\N	3	History of Avant-Garde Film
+ARTF	5500	\N	3	Cinema Production 2
+ARTF	5604	\N	3	Colloq in Film Aesthetic
+ARTF	5610	\N	3	Image-Makers Grad Seminar
+ARTH	1600	\N	3	U.S. Art Across Cultures
+ARTH	2039	\N	3	Greek Art and Archaeology
+ARTH	2049	\N	3	Intro Roman Art & Architecture
+ARTH	3109	\N	3	Art in Contemporary Society
+ARTH	3419	\N	3	Modern Art Survey
+ARTH	3619	\N	3	Arts of China
+ARTH	3729	\N	3	Foundations Latin American Art
+ARTH	3929	\N	3	Spc Tpcs: Art History
+ARTH	4119	\N	3	Roman Sculpture
+ARTH	4139	\N	3	Greek Vase Painting
+ARTH	4919	\N	3	Capstone Sem: Tpcs Art Hist
+ARTH	4929	\N	3	Special Topics in Art History
+ARTH	2029	\N	3	Egyptian Art and Archaeology
+ARTH	6939	\N	3	Grd Sem-Open Tpc Art History
+ARTS	1003	\N	3	Printmaking for Non-Mjrs
+ARTS	1010	\N	3	Intro to Studio Art
+ARTS	1012	\N	3	Drawing for Non-Majors
+ARTS	1020	\N	3	Intro to Studio Art 2
+ARTS	1171	\N	3	Photography for Non-Mjrs
+ARTS	1212	\N	3	Painting for Non-Majors
+ARTS	1514	\N	3	Sculpture for Non-Majors
+ARTS	1875	\N	3	Ceramics for Non-Majors
+ARTS	2022	\N	3	Beginning Drawing
+ARTS	2085	\N	3	Ceramics 2: Handbuilding
+ARTS	2095	\N	3	Ceramics 2: Wheelthrowing
+ARTS	2126	\N	3	Digital Art 1
+ARTS	2171	\N	3	Photography 1
+ARTS	2191	\N	3	Photography 2
+ARTS	2222	\N	3	Beginning Painting
+ARTS	2303	\N	3	Beginning Relief
+ARTS	2413	\N	3	Beginning Lithography
+ARTS	2423	\N	3	Beginning Screenprinting
+ARTS	2453	\N	3	Beginning Monotype
+ARTS	2504	\N	3	Basic Sculpture:Material/Techs
+ARTS	3004	\N	3	Land and Environmental Art
+ARTS	3017	\N	3	Special Topics in Studio
+ARTS	3022	\N	3	Intermediate Drawing
+ARTS	3054	\N	3	Modules and Multiples
+ARTS	3085	\N	3	Ceramics 3
+ARTS	3097	\N	3	Sp Topics - Non Studio
+ARTS	3124	\N	3	Intrvention, Exchng & Duration
+ARTS	3191	\N	3	Photography 3
+ARTS	3212	\N	3	Figure Painting
+ARTS	3222	\N	3	Intermediate Painting
+ARTS	3303	\N	3	Relief 1
+ARTS	3413	\N	3	Lithography 1
+ARTS	3423	\N	3	Screen Printing 1
+ARTS	3453	\N	3	Monotype 1
+ARTS	4002	\N	3	Adv Drawing/Portfolio
+ARTS	4017	\N	3	Special Topics in Studio Arts
+ARTS	4085	\N	3	Ceramics 4
+ARTS	4095	\N	3	Special Topics in Ceramics
+ARTS	4097	\N	3	Special Topics-Non-Studio
+ARTS	4117	\N	3	BFA Seminar
+ARTS	4118	\N	3	Visiting Artist Program
+ARTS	4126	\N	3	Digital Art 2
+ARTS	4161	\N	3	Photography 4
+ARTS	4171	\N	3	New Directions in Photography
+ARTS	4176	\N	3	New Directions in Digital Art
+ARTS	4202	\N	3	Adv Painting/Portfolio
+ARTS	4246	\N	3	Begin Video Production
+ARTS	4303	\N	3	Relief 2
+ARTS	4413	\N	3	Lithography 2
+ARTS	4423	\N	3	Screen Printing 2
+ARTS	4453	\N	3	Monotype 2
+ARTS	4504	\N	3	Advanced Sculpture Studio
+ARTS	4607	\N	3	Art and Social Change
+ARTS	5075	\N	3	Graduate Ceramics
+ARTS	5095	\N	3	Grad Spc Tpcs: Ceramics
+ARTS	5118	\N	3	Graduate Visiting Artist Prgm
+ARTS	5126	\N	3	Graduate Digital Art 2
+ARTS	5176	\N	3	Grad New Direct in Digital Art
+ARTS	5202	\N	3	Graduate Painting
+ARTS	5246	\N	3	Grad Begin Video Prod
+ARTS	5303	\N	3	Graduate Relief
+ARTS	5413	\N	3	Graduate Lithography
+ARTS	5423	\N	3	Graduate Screen Printing
+ARTS	5453	\N	3	Grad Monotype Printing
+ARSC	1080	\N	4	College Writing and Research
+ARSC	1440	\N	1	SASC Coseminar: Mathematics
+ARSC	1460	\N	1	SASC Coseminar: Biology
+ARSC	1470	\N	1	MASP Natural Science Seminar
+ARSC	1490	\N	1	MASP Humanities Seminar
+ARSC	1492	\N	1	MASP Research Seminar
+ARSC	1720	\N	1	SASC Calculus Work Group
+ARSC	2000	\N	3	Constructions of Knowledge
+ARSC	2400	\N	1	SASC Cosem: Organic Chem
+ARSC	2470	\N	1	SASC Coseminar: Physics
+ARSC	3100	\N	3	Multicultural Topics
+ARSC	5040	\N	1	Arts & Sciences Special Topics
+ASIA	2000	\N	3	Gateway-Asian Studies
+ASIA	3300	\N	3	Sex and Gender in Asia
+ASIA	4001	\N	1	Adv Language Co-Seminar AH
+ASIA	4830	\N	3	Senior Seminar
+ASTR	1000	\N	3	The Solar System
+ASTR	1010	\N	4	Introductory Astronomy 1
+ASTR	1020	\N	4	Introductory Astronomy 2
+ASTR	1030	\N	4	Accel Intro Astronomy 1
+ASTR	1040	\N	4	Accel Intro Astronomy 2
+ASTR	1200	\N	3	Stars and Galaxies
+ASTR	2000	\N	3	Ancient Astronomies/Wrld
+ASTR	2010	\N	3	Modern Cosmology
+ASTR	2030	\N	3	Black Holes
+ASTR	2040	\N	3	Srch for Life in the Universe
+ASTR	2100	\N	3	Concepts in Astrophysics
+ASTR	2500	\N	3	Gateway to Space
+ASTR	2600	\N	3	Intro Scientific Programming
+ASTR	3400	\N	3	Research Methods
+ASTR	3520	\N	4	Observ/Instrument II
+ASTR	3720	\N	3	Planets/Their Atmosphere
+ASTR	3740	\N	3	Cosmology and Relativity
+ASTR	3760	\N	3	Solar and Space Physics
+ASTR	3800	\N	3	Astro Data Analysis
+ASTR	3830	\N	3	Astrophy 2-Galactc/Extragalact
+ASTR	4800	\N	3	Space Sci: Practice and Policy
+ASTR	5150	\N	3	Introductory Plasma Physics
+ASTR	5400	\N	3	Introduction to Fluid Dynamics
+ASTR	5550	\N	3	Observations & Statistic
+ASTR	5700	\N	3	Stellar Astrophysics
+ASTR	5810	\N	3	Planetary Atmospheres
+ASTR	5830	\N	3	Topics in Planetary Science
+ASTR	5835	\N	1	Seminar in Planetary Science
+ASTR	6000	\N	1	Seminar in Astrophysics
+ASTR	6630	\N	3	Earth and Planetary Physics 3
+ASTR	7500	\N	1	Special Topics in APAS
+ATOC	1050	\N	3	Weather & the Atmosphere
+ATOC	1060	\N	3	Our Changing Environment
+ATOC	1070	\N	1	Weather and Atmosphere Lab
+ATOC	2050	\N	3	Intro Atms Research
+ATOC	3050	\N	3	Principles of Weather
+ATOC	3070	\N	3	Introduction to Oceanography
+ATOC	3180	\N	3	Aviation Meteorology
+ATOC	3300	\N	3	Anly/Clmate & Weather Ob
+ATOC	3500	\N	3	Air Chemistry and Pollution
+ATOC	3600	\N	3	Principles of Climate
+ATOC	4500	\N	3	Sp Tps/ATOC-Upper Division
+ATOC	4700	\N	3	Weather Analysis & Forecasting
+ATOC	4720	\N	3	Atmospheric Dynamics
+ATOC	4770	\N	3	Renewable Energy Meteorology
+ATOC	4800	\N	3	Policy and Climate
+ATOC	5000	\N	3	Critical Issues: Clmte & Envir
+ATOC	5060	\N	3	Dynamics of Atmos & Ocean
+ATOC	5061	\N	3	Dynamics of Oceans
+ATOC	5235	\N	3	Intro Atm Rad Trans & Rs
+ATOC	5600	\N	3	Clouds and Aerosols
+ATOC	5770	\N	3	Wind Energy Meteorology
+ATOC	7500	\N	3	Sp Tps/Atmos & Ocn Sci
+CWC	2000	\N	3	The Western Tradition
+CWC	4000	\N	3	Foundations of Western Civ
+CAM	2001	\N	3	The American West
+CEES	1623	\N	3	Cent/East Euro Hist since 1770
+CHE	1021	\N	4	Introductory Chemistry
+CHE	1031	\N	4	Environmental Chemistry 2
+CHE	1113	\N	4	General Chemistry 1
+CHE	1114	\N	1	Laboratory Gen Chem 1
+CHE	1133	\N	4	General Chemistry 2
+CHE	1134	\N	1	Laboratory Gen Chem 2
+CHE	1221	\N	1	Engr Gen Chemistry Lab
+CHE	2100	\N	4	Chemical Energetics & Dynamics
+CHE	2101	\N	1	Energetics and Dynamics Lab
+CHE	3311	\N	4	Organic Chemistry 1
+CHE	3321	\N	1	Lab/Organic Chemistry 1
+CHE	3331	\N	4	Organic Chemistry 2
+CHE	3341	\N	1	Lab/Organic Chemistry 2
+CHE	3361	\N	2	Lab/Organic Chem 1/Major
+CHE	3451	\N	4	Organic Chemistry 1 - Majors
+CHE	4011	\N	3	Modern Inorganic Chemistry
+CHE	4021	\N	3	Inorganic Laboratory
+CHE	4141	\N	3	Water and Soil Chemistry
+CHE	4181	\N	3	Instrument Analysis Lec/Lab 2
+CHE	4261	\N	3	Organic Materials
+CHE	4271	\N	3	Chemistry of Solar Energy
+CHE	4511	\N	3	Physical Chemistry 1
+CHE	4531	\N	3	Physical Chemistry 2
+CHE	4555	\N	4	Computational Chemistry
+CHE	4581	\N	1	Physical Chemistry Lab 1
+CHE	4591	\N	2	Physical Chemistry Lab 2
+CHE	5152	\N	3	Advanced Atmospheric Chemistry
+CHE	5161	\N	3	Analytical Atmos Spectroscopy
+CHE	5331	\N	3	Adv Spectrscp Tchnq Orgn
+CHE	5531	\N	3	Statistical Mechanics
+CHE	5571	\N	3	Surface Science
+CHE	5591	\N	3	Advn Molec Spectroscopy
+CHE	6101	\N	1	Sem-Analytical Chemistry
+CHE	6301	\N	1	Sem-Organic Chemistry
+CHE	6321	\N	1	Sp Tpc-Phys Organic Chemistry
+CHE	6401	\N	1	Seminar/Physical Chemistry
+CHE	6801	\N	0	Departmental Resrch Seminar
+CHIN	1012	\N	4	Intro to Chinese Civilization
+CHIN	1020	\N	5	Beginning Chinese 2
+CHIN	2120	\N	5	Intermediate Chinese 2
+CHIN	3120	\N	5	Advanced Chinese 2
+CHIN	3200	\N	3	Adv Wrtg Chinese & Japanese
+CHIN	3321	\N	3	Pol Thought in Ancient China
+CHIN	4120	\N	3	Adv Rdgs/Modrn Chinese 2
+CHIN	4220	\N	3	Rdgs-Classical Chinese
+CHIN	4300	\N	3	Opn Tps: Rdgs/Chin Lit
+CHIN	5070	\N	1	Graduate Academic Writing
+CHIN	5130	\N	3	Hist of Chinese Literature 2
+CHIN	5280	\N	3	Tpcs/Ancient Literature
+CHIN	5410	\N	3	Medieval Prose
+GRE	1023	\N	4	Begin Classical Greek 2
+GRE	3123	\N	3	Intermed Class Greek 2
+GRE	4093	\N	3	Survey of Greek Literature
+CLAS	1020	\N	3	Argument from Evidence
+CLAS	1030	\N	3	Intro to Western Phil: Ancient
+CLAS	1051	\N	3	World of Ancient Greeks
+CLAS	1061	\N	3	Rise/Fall Ancient Rome
+CLAS	1071	\N	3	Ancient Sport and Spectacle
+CLAS	1100	\N	3	Greek and Roman Mythology
+CLAS	1110	\N	3	Gods, Monsters and Mortals
+CLAS	1115	\N	3	Greek Lit/Transl
+CLAS	1120	\N	3	Pwer & Passion Ancient Rome
+CLAS	1140	\N	3	Bread/Circuses Roman Soc
+CLAS	2100	\N	3	Gender/Sexuality Anc Greece
+CLAS	2110	\N	3	Gender/Sexuality Anc Rome
+CLAS	4081	\N	3	The Roman Republic
+CLAS	4091	\N	3	The Roman Empire
+CLAS	4110	\N	3	Greek and Roman Epic
+CLAS	4120	\N	3	Greek and Roman Tragedy
+CLAS	4130	\N	3	Greek and Roman Comedy
+CLAS	3019	\N	3	Pompeii & Cities of Vesuvius
+CLAS	7012	\N	3	Graduate Seminar
+DNC	1000	\N	2	Begin Contemporary Dance Tech
+DNC	1013	\N	2	Dance Improvisation
+DNC	1017	\N	3	Dance in Pop Culture and Media
+DNC	1100	\N	1	Beginning Ballet
+DNC	1220	\N	1	Begin Jazz Dance w/Exper
+DNC	1301	\N	2	Hip-Hop Dance Technique 1
+DNC	1401	\N	1	Transnational Fusion Dance
+DNC	1501	\N	1	Tap Technique
+DNC	2501	\N	2	African Dance
+DNC	3001	\N	2	Int/Adv Contemporay Dance Tech
+DNC	3005	\N	3	Mov Awrness & Inj Prvntn
+DNC	3041	\N	2	Major Technique
+DNC	3043	\N	3	Choreographic Process
+DNC	3901	\N	2	Technique Practicum
+DNC	4012	\N	1	Concert Production
+DNC	4046	\N	1	Teaching Practicum
+DNC	4047	\N	3	Hip-Hop Dance History
+DNC	5001	\N	2	Graduate Technique
+DNC	5064	\N	2	Music and Dance Seminar
+DNC	5301	\N	2	Graduate Hip-Hop Technique 1
+DNC	5501	\N	2	Graduate African Dance
+DNC	5901	\N	2	Grad Technique Practicum
+DNC	5909	\N	3	Special Topics
+DNC	6073	\N	3	Choreography
+EBIO	1010	\N	3	Intro Stats & Quant Thinking
+EBIO	1100	\N	3	Biology and Society
+EBIO	1220	\N	3	General Biology 2
+EBIO	1240	\N	1	General Biology Lab 2
+EBIO	1940	\N	3	Intro Sci Writing
+EBIO	2040	\N	4	Principles of Ecology
+EBIO	2070	\N	4	Genetics: Molec to Populations
+EBIO	3080	\N	4	Evolutionary Biology
+EBIO	3400	\N	3	Microbiology
+EBIO	3410	\N	1	Microbiology Lab
+EBIO	3630	\N	4	Parasitology
+EBIO	3940	\N	3	Written Comm in the Sciences
+EBIO	3980	\N	2	Seminar: Intro to EBIO Honors
+EBIO	4030	\N	3	Limnology
+EBIO	4140	\N	3	Plant Ecology
+EBIO	4155	\N	3	Ecosystem Ecology
+EBIO	4420	\N	3	Computational Biology
+EBIO	4500	\N	4	Plant Biodiversity/Evolution
+EBIO	4750	\N	4	Ornithology
+EBIO	4800	\N	3	Critical Thinking in Biology
+EBIO	4980	\N	2	Seminar: EBIO Honors Thesis
+EBIO	1210	\N	3	General Biology 1
+EBIO	5800	\N	3	Crit Thinking in Biology
+EBIO	6100	\N	1	Sem in Environmental Biology
+EBIO	6200	\N	1	Seminar in Population Biology
+ECO	1078	\N	3	Math Tools for Economists 1
+ECO	1088	\N	3	Math Tools for Economists 2
+ECO	2010	\N	4	Prin of Microeconomics
+ECO	2020	\N	4	Prin of Macroeconomics
+ECO	3070	\N	4	Intrmed Microecon Theory
+ECO	3080	\N	3	Intrmed Macroecon Theory
+ECO	3403	\N	3	Interntl Economics and Policy
+ECO	3818	\N	4	Intro to Stat w/ Computer App
+ECO	4050	\N	3	Market Design
+ECO	4070	\N	3	Topics in Microeconomics
+ECO	4221	\N	3	Political Economics
+ECO	4231	\N	3	App Econ Analysis Pub Policy
+ECO	4339	\N	3	Economics Honors Seminar 2
+ECO	4413	\N	3	International Trade
+ECO	4514	\N	3	Economic History-Europe
+ECO	4524	\N	3	Economic History of U.S.
+ECO	4535	\N	3	Natural Resource Economics
+ECO	4626	\N	3	Econ/Inequal/Discrimination
+ECO	4717	\N	3	Economics of Entrepreneurship
+ECO	4774	\N	3	Econ Reform/Devel Countries
+ECO	4784	\N	3	Economic Development
+ECO	4794	\N	3	Economic Growth
+ECO	4808	\N	3	Intro to Math Economics
+ECO	4818	\N	3	Introduction/Econometric
+ECO	4848	\N	3	Applied Econometrics
+ECO	7030	\N	3	Microeconomic Theory 2
+ECO	7040	\N	3	Macroeconomic Theory 2
+ECO	7828	\N	3	Econometrics
+ECO	8020	\N	3	Business Cycle Theory
+ECO	8219	\N	3	Econ Rsch Methods Workshop 2
+ECO	8784	\N	3	Economic Development 2
+ECO	8838	\N	3	Seminar: Econometrics 2
+ECO	8848	\N	3	Applied Microeconomtrics
+ENGL	1001	\N	3	Freshman Writing Seminar
+ENGL	1191	\N	3	Intro Creative Writing
+ENGL	1220	\N	3	From Gothic to Horror
+ENGL	1230	\N	3	Environmental Literature
+ENGL	1240	\N	3	Planetarity
+ENGL	1250	\N	3	Intro to Global Women's Lit
+ENGL	1270	\N	3	Intro to American Women's Lit
+ENGL	1420	\N	3	Poetry
+ENGL	1500	\N	3	Intro to British Literature
+ENGL	1600	\N	3	Intro to American Literature
+ENGL	1800	\N	3	Amer Ethnic Literatures
+ENGL	2021	\N	3	Intro Poetry Workshop
+ENGL	2051	\N	3	Intro Fiction Workshop
+ENGL	2058	\N	3	Lit in English, 1900-Present
+ENGL	2102	\N	3	Literary Analysis
+ENGL	2112	\N	3	Intro to Literary Theory
+ENGL	2503	\N	3	British Literary Hist to 1660
+ENGL	2504	\N	3	British Lit Hist: After 1660
+ENGL	2717	\N	3	American Indian Literature
+ENGL	3000	\N	3	Shakespeare/Nonmajors
+ENGL	3005	\N	3	New World Encounters
+ENGL	3021	\N	3	Intermed Poetry Workshop
+ENGL	3025	\N	3	American Nationalisms
+ENGL	3026	\N	3	Syntax, Citation, Analysis
+ENGL	3041	\N	3	Studies in Fiction and Poetry
+ENGL	3051	\N	3	Intermed Fiction Wrkshop
+ENGL	3060	\N	3	Mod/Contemp Lit Nonmajors
+ENGL	3088	\N	3	Major Authors/Post-1900 Lit
+ENGL	3116	\N	3	Topics in Adv Theory
+ENGL	3164	\N	3	Hist & Lit Georgian Britain
+ENGL	3245	\N	3	American Poetry
+ENGL	3246	\N	3	Tpc-Popular Culture
+ENGL	3267	\N	3	Women Writers
+ENGL	3523	\N	3	The Early English Renaissance
+ENGL	3544	\N	3	The Long Eighteenth Century
+ENGL	3564	\N	3	Romanticism
+ENGL	3583	\N	3	Milton
+ENGL	3796	\N	3	Queer Theory
+ENGL	3856	\N	3	Topics in Genre Studies
+ENGL	4021	\N	3	Advanced Poetry Workshop
+ENGL	4023	\N	3	Intermediate Old English II
+ENGL	4026	\N	3	Tpcs Genre Media Writing
+ENGL	4039	\N	3	Crit Think/English Studies
+ENGL	4051	\N	3	Advanced Fiction Wrkshop
+ENGL	4071	\N	3	Screenwriting Workshop
+ENGL	4098	\N	3	Spec Tpcs: Novel, Post-1900
+ENGL	4368	\N	3	Modern Drama
+ENGL	4468	\N	3	Modern Poetry
+ENGL	4514	\N	3	Adv. Topics: The Long 18th C.
+ENGL	4697	\N	3	Sp Tpcs: Multcult/Ethn Am Lit
+ENGL	4717	\N	3	NAIS Capstone Seminar
+ENGL	5029	\N	3	British Lit & Cult Before 1800
+ENGL	5059	\N	3	British Lit & Cult After 1800
+ENGL	5169	\N	3	Multicultura/Postcolonial Stdy
+ENGL	5229	\N	3	Poetry Workshop
+ENGL	5239	\N	3	Fiction Workshop
+ENGL	5459	\N	3	Introduction to the Profession
+ENGL	5529	\N	3	Studies/Special Topics 1
+ENGL	5559	\N	3	Studies/Special Topics 3
+ENGL	5000	\N	3	Applied Shakespeare
+ENVS	1000	\N	4	Intro Environmental Studies
+ENVS	1001	\N	4	Intro Dev Env Solutions
+ENVS	1150	\N	3	First-Year Writing in ENVS
+ENVS	2000	\N	4	Applied Ecology for ENVS
+ENVS	3020	\N	3	Adv Writing/Environmental Stdy
+ENVS	3031	\N	3	Environmental Psychology
+ENVS	3070	\N	3	Energy & the Environment
+ENVS	3140	\N	3	Environmental Ethics
+ENVS	3173	\N	3	Creative Climate Communication
+ENVS	3525	\N	3	ENVS Cornerstone
+ENVS	4100	\N	3	Special Topics in ENVS
+ENVS	4800	\N	3	ENVS Capstone
+ENVS	5003	\N	3	ENVS Methods
+ENVS	5100	\N	3	Topics/ Environmental Studies
+ENVS	5510	\N	1	ENVS Colloquia
+ENVS	5702	\N	3	Policy, Politics, Mgmt: T & P
+ETHN	1022	\N	3	Introduction to Africana Stdy
+ETHN	1025	\N	3	Intro Asian Amer Studies
+ETHN	2001	\N	3	Foundations of Ethnic Studies
+ETHN	2203	\N	3	American Indians in Film
+ETHN	2536	\N	3	Chicana/o History & Culture
+ETHN	3015	\N	3	Asian/Pacific Am Commun
+ETHN	3024	\N	3	Intro Critical Sports Studies
+ETHN	3101	\N	3	Selected Tpcs/Ethnic Stu
+ETHN	3136	\N	3	Chicana Feminism/Knowldg
+ETHN	3212	\N	3	Intro to Hip Hop Studies
+ETHN	3314	\N	3	Violence/Wmn-Girls
+ETHN	3501	\N	3	Theory/Methods/Writing in ETHN
+ETHN	3707	\N	3	Race/Ethnicity in Sport Films
+ETHN	4102	\N	3	Special Tpcs Africana Studies
+ETHN	4951	\N	3	Sr/Grad Sem in Ethnic Studies
+ETHN	6100	\N	3	Race and Citizenship
+ETHN	6101	\N	3	TPC-Comp Ethnic Studies
+FARR	2002	\N	3	Literature - Lifewriting
+FREN	1010	\N	5	Beginning French 1
+FREN	1020	\N	5	Beginning French 2
+FREN	1050	\N	5	Beginning French Review
+FREN	1880	\N	3	Zombie and Ghost of Slavery
+FREN	1900	\N	3	Modern Paris in Arts
+FREN	2110	\N	3	2nd Yr Fren:Grmmr/Read 1
+FREN	2120	\N	3	2nd Yr Fren:Grmmr/Read 2
+FREN	3010	\N	3	Fren Phonetics / Pronunciation
+FREN	3060	\N	3	French Composition 2
+FREN	3100	\N	3	Crit Rdg/Writ/Fren Lit
+FREN	3120	\N	3	Main Currents Fren Lit 2
+FREN	3500	\N	3	Curr Evnt/Cnvrstn & Comp
+FREN	3600	\N	3	Business French 1
+FREN	3700	\N	3	French-US Culture Diff
+FREN	4250	\N	3	Medieval & Renais Readng
+FREN	4600	\N	3	Topics in French Film
+FREN	4700	\N	3	Encountering Animals
+FREN	5120	\N	3	French Special Topics
+FREN	5330	\N	3	Moliere/17th C Fr Comedy
+FREN	5350	\N	3	French Enlightenment
+GEO	1001	\N	4	Envir Sys: Climate&Vegetation
+GEO	1011	\N	4	Env Sys: Landscapes & Water
+GEO	1962	\N	3	Geographies of Global Change
+GEO	1972	\N	3	Environment-Society Geography
+GEO	1982	\N	3	World Regional Geography
+GEO	2092	\N	3	Adv Intro to Human Geography
+GEO	3023	\N	4	Statistics and Geographic Data
+GEO	3053	\N	4	GIS: Mapping
+GEO	3351	\N	3	Biogeography
+GEO	3422	\N	3	Political Ecology
+GEO	3511	\N	4	Intro to Hydrology
+GEO	3612	\N	3	Geography of American Cities
+GEO	3692	\N	4	Intro to Global Public Health
+GEO	3742	\N	3	Place, Power, Culture
+GEO	3812	\N	3	Mex/Cntrl Amer & Carribn
+GEO	3862	\N	3	Geography of Africa
+GEO	4003	\N	4	Topics in Geographic Skills
+GEO	4023	\N	4	Adv Quant Method: Spatial Data
+GEO	4093	\N	4	Remote Sensing-Environ
+GEO	4103	\N	4	GIS: Spatial Analytics
+GEO	4241	\N	4	Prin of Geomorphology
+GEO	4303	\N	4	GIS: Spatial Programming
+GEO	4321	\N	4	Snow Hydrology
+GEO	4501	\N	3	Water/Resrce Mgt West US
+GEO	4503	\N	3	GIS: Project Management
+GEO	4563	\N	3	Earth Analytics
+GEO	4742	\N	3	Topic in Environment & Society
+GEO	5100	\N	3	Spec Topics: Geography
+GEO	5161	\N	3	Research Design in Geography
+GEO	5241	\N	3	Topics/Physical Geog
+GEO	5662	\N	3	Topics Economic Geography
+GEOL	1010	\N	3	Exploring Earth
+GEOL	1012	\N	3	Exploring Earth for Scientists
+GEOL	1020	\N	3	History of a Habitable Planet
+GEOL	1030	\N	1	Intro to Geology Lab 1
+GEOL	1040	\N	3	Geology of Colorado
+GEOL	1150	\N	3	Water, Energy and Environment
+GEOL	1170	\N	3	Our Deadly Planet
+GEOL	1180	\N	3	Our Microbial Planet
+GEOL	2001	\N	4	Planet Earth
+GEOL	2005	\N	4	Earth Materials
+GEOL	2700	\N	2	Intro to Field Geology
+GEOL	3020	\N	3	Petrology
+GEOL	3050	\N	2	GIS for Geologists
+GEOL	3320	\N	3	Intro to Geochemistry
+GEOL	3330	\N	3	Principles of Geophysics
+GEOL	3430	\N	4	Sedimntology/Stratigrphy
+GEOL	3540	\N	3	Intro Petroleum Geol
+GEOL	3720	\N	3	Evol of Life/Geol Record
+GEOL	3910	\N	4	Earth and Planetary Inference
+GEOL	3950	\N	3	Nat Catas/Geol Hazards
+GEOL	4380	\N	3	Stable Isotope Geochemistry
+GEOL	4611	\N	3	Organic Geochemistry
+GEOL	4700	\N	1	Special Geological Topic
+GEOL	4715	\N	2	Fld Technq Hydrogeology
+GEOL	5001	\N	3	Phys Chem Solid Earth
+GEOL	5700	\N	3	Geological Topic Seminar
+GEOL	5702	\N	1	Geomorphology Seminar
+GEOL	5775	\N	3	Intro Numerical Modeling
+GEOL	5910	\N	3	Geothermodynamics
+GRM	1010	\N	4	Beginning German 1
+GRM	1020	\N	4	Beginning German 2
+GRM	1601	\N	3	Germany Today
+GRM	2020	\N	4	Intermediate German 2
+GRM	2301	\N	3	Inside Nazi Germany
+GRM	2503	\N	3	Fairy Tales of Germany
+GRM	3010	\N	3	Advanced German 1
+GRM	3020	\N	3	Advanced German 2
+GRM	3030	\N	3	Business German
+GRM	3150	\N	3	German Politis and Lit
+GRM	3505	\N	3	The Enlightenment
+GRM	3513	\N	3	Grmn Film & Society 1945-89
+GRM	4051	\N	3	Crit Theory Frankfurt School
+GRM	4231	\N	3	Sex/Love/Marriage: Lit & Phil
+GRM	5010	\N	3	German Studies Theory/Practice
+GRM	5520	\N	3	Sem: Curr Iss Grmn Lit & Media
+GSLL	2350	\N	3	Introduction to Jewish Culture
+HEBR	1020	\N	4	Beginning Modern Hebrew 2
+HEBR	2120	\N	4	Intermediate Modern Hebrew 2
+HEBR	3020	\N	3	Third Year Modern Hebrew 2
+HIND	1011	\N	3	Intro South Asian Civilization
+HIND	1020	\N	5	Beginning Hindi 2
+HIND	2120	\N	5	Intermediate Hindi 2
+HIND	3120	\N	3	Advanced Hindi 2
+HIND	3851	\N	3	Devotional Lit of S. Asia
+HIST	1011	\N	3	European History to 1600
+HIST	1012	\N	3	European History Since 1600
+HIST	1015	\N	3	American History to 1865
+HIST	1025	\N	3	American History since 1865
+HIST	1228	\N	3	Sub-Saharan Hist Since 1800
+HIST	1518	\N	3	Intro/South Asian Hist to 1757
+HIST	1628	\N	3	Intro Chinese Hist Since 1644
+HIST	1800	\N	3	Introduction to Global History
+HIST	1830	\N	3	Holocaust and Global Genocide
+HIST	2015	\N	3	Themes Early American History
+HIST	2100	\N	3	Revolution in History
+HIST	2110	\N	3	History Early Modern Societies
+HIST	2220	\N	3	History of War & Society
+HIST	2326	\N	3	Issues U.S. Society & Culture
+HIST	2516	\N	3	America Through Baseball
+HIST	3020	\N	3	Historical Thinking & Writing
+HIST	3113	\N	3	Sem: Medieval/Mod Engl History
+HIST	3115	\N	3	Sem in Early American History
+HIST	3628	\N	3	Sem: Recent Chinese History
+HIST	4018	\N	3	Aztecs, Incas Spanish Conquest
+HIST	4123	\N	3	Medieval England
+HIST	4128	\N	3	Modern Mexico Since 1821
+HIST	4205	\N	3	Coming of Independence
+HIST	4238	\N	3	History Southern Africa
+HIST	4323	\N	3	Mafia and Terrorism in Italy
+HIST	4329	\N	3	Islam/Mod Wrld 1800-2001
+HIST	4343	\N	3	Golden Age Spain & Portugal
+HIST	4349	\N	3	Decolonization British Empire
+HIST	4366	\N	3	Culture Wars: The Modern U.S.
+HIST	4423	\N	3	German History 1848 to 1989
+HIST	4425	\N	3	US History 1917-1945
+HIST	4435	\N	3	Cold War to Counterculture
+HIST	4511	\N	3	Europe in the Dark Ages
+HIST	4526	\N	3	Recent U.S. Social History
+HIST	4548	\N	3	Women in Modern India
+HIST	4558	\N	3	History of Indian Nonviolence
+HIST	4623	\N	3	History East Europe Since 1914
+HIST	4626	\N	3	US Gender/Sexuality from 1870
+HIST	4638	\N	3	Contemporary China since 1949
+HIST	4728	\N	3	Modern Japanese History
+HIST	4806	\N	3	Spec Tps in American History
+HIST	4820	\N	3	Human Rights: Histories
+HIST	4830	\N	3	Human Trafficking - Glob Persp
+HIST	6019	\N	3	Readings-World History
+HIST	6326	\N	3	Rdgs: US Intellectual History
+HIST	6800	\N	3	Readings in Global History
+HIST	7415	\N	3	Sem Modern U.S. History
+HON	3220	\N	3	Advanced Honors Writing
+HUM	1110	\N	3	Literature 1
+HUM	1120	\N	3	Literature 2
+HUM	1220	\N	3	Art and Music 2
+HUM	3093	\N	3	Topics in Humanities
+HUM	3500	\N	3	Literatures of Consciousness
+HUM	3800	\N	3	Paris/Modernity/Avant-garde
+HUM	4000	\N	3	Question of Romanticism
+HUM	4011	\N	3	The Criminal-Hero
+HUM	4135	\N	3	Art and Psychoanalysis
+HUM	4170	\N	3	Fiction and Reality
+HUM	4504	\N	3	Goethe's Faust
+HUM	4811	\N	3	19th Century Russian Lit
+INDO	1120	\N	3	Beginning Indonesian 2
+IPHY	1950	\N	3	Intro Sci Wrtg/Intgrtve Physio
+IPHY	2420	\N	3	Introduction to Nutrition
+IPHY	2800	\N	4	Introduction to Statistics
+IPHY	3410	\N	3	Human Anatomy
+IPHY	3415	\N	2	Human Anatomy Laboratory
+IPHY	3430	\N	3	Human Physiology
+IPHY	3435	\N	2	Physiology Lab
+IPHY	3470	\N	3	Human Physiology 1
+IPHY	3480	\N	3	Human Physiology 2
+IPHY	3490	\N	3	Introduction to Epidemiology
+IPHY	3700	\N	3	Sci Wrtg / Integrative Physiol
+IPHY	4010	\N	3	Seminar Integrative Physiology
+IPHY	4200	\N	3	Physiological Genetic/Genomics
+IPHY	4440	\N	4	Endocrinology
+IPHY	4580	\N	3	Sleep Physiology
+IPHY	4600	\N	3	Immunology
+IPHY	4650	\N	5	Exercise Physiology
+IPHY	4720	\N	4	Neurophysiology
+IPHY	4880	\N	3	Advanced Data Analysis
+IPHY	5100	\N	2	Coll/Integrative Physiol
+IPHY	5262	\N	3	App of Bioinform & Genomics
+IPHY	5800	\N	4	Adv Stat/Rsrch Meth in IPHY
+IPHY	6010	\N	3	Seminar
+IAFS	1000	\N	4	Global Issues & Intl Aff
+IAFS	3000	\N	3	Sp Tpc: International Affairs
+IAFS	3631	\N	3	Arctic Society and Culture
+IAFS	4500	\N	3	The Post-Cold War World
+ITAL	1010	\N	4	Beginning Italian 1
+ITAL	1020	\N	4	Beginning Italian 2
+ITAL	1050	\N	4	Fast-Track Italian
+ITAL	1500	\N	3	Intro to Italian Culture
+ITAL	2110	\N	4	Int Ital Rdg/Gmmr/Comp I
+ITAL	2120	\N	4	Int Ital Rdg/Gmmr/Comp 2
+ITAL	2130	\N	3	Intro to Literary Analys
+ITAL	3040	\N	3	Italian Cinema
+ITAL	3160	\N	3	Literary/Artistic Cultures 1
+ITAL	4040	\N	3	Business Italian Style
+ITAL	4500	\N	4	Italian Theatre
+ITAL	4600	\N	3	Once Upon a Time in Italy
+JPNS	1020	\N	5	Beginning Japanese 2
+JPNS	1051	\N	3	Mstpcs Japnese Lit/Trans
+JPNS	2120	\N	5	Intermediate Japanese 2
+JPNS	3831	\N	3	Early Modern Literature
+JPNS	3851	\N	3	Japanese Popular Culture
+JPNS	3871	\N	3	Horror in Japanese Literature
+JPNS	3891	\N	3	Travel in Japanese Literature
+JPNS	4120	\N	3	Adv Rdgs in Modern Japanese 2
+JPNS	4320	\N	3	Classical Japanese 2
+JPNS	5320	\N	3	Adv Clas Japanese 2
+JPNS	5810	\N	3	Modern Literature
+JWST	3130	\N	3	Jews in the American West
+JWST	3150	\N	3	Jerusalem: The Holy City
+JWST	4200	\N	3	Religion Reproductive Politics
+JWST	4524	\N	3	Jews of Spain and Portugal
+KREN	1011	\N	3	Intro to Korean Civiliz
+KREN	1020	\N	5	Beginning Korean 2
+KREN	2120	\N	5	Intermediate Korean 2
+KREN	3120	\N	5	Advanced Korean 2
+KREN	3851	\N	3	Korean Popular Culture
+LGBT	2000	\N	3	Intro to LGBT Studies
+LIBB	1133	\N	3	Drawing and Visual Literacy
+LIBB	2500	\N	3	Special Topics-Studio
+LIBB	2800	\N	3	Horror Film: Am. Culture
+LING	1000	\N	3	Language in U.S. Society
+LING	2400	\N	3	Language, Gender and Sexuality
+LING	3005	\N	3	Cognitive Science
+LING	3100	\N	3	Language Sound Structures
+LING	3430	\N	3	Semantics
+LING	4100	\N	3	Perspectives on Language
+LING	4420	\N	3	Morphology and Syntax
+LING	4560	\N	3	Language Development
+LING	4610	\N	3	English Structure-Tesol
+LING	4700	\N	3	Conversation Analysis
+LING	4910	\N	3	TESOL Practicum
+LING	5140	\N	2	CLASIC Capstone
+LING	5410	\N	3	Phonology
+LING	5430	\N	3	Semantics and Pragmatics
+LING	5610	\N	3	English Structure-TESOL
+LING	5620	\N	3	Oral Language & Communication
+LING	5800	\N	3	Open Topics in Linguistics
+LING	5832	\N	3	Natural Language Processing
+LING	6200	\N	3	Methods in Cognitive Sci
+LING	6300	\N	3	Topics in Language Use
+LING	7030	\N	3	Phonetic Theory and Analysis
+LING	7100	\N	3	Field Methods 1
+LING	7565	\N	3	Computational Phon & Morph
+LING	7800	\N	3	Open Topics/Linguistics
+MATH	1012	\N	3	Quant Reason/Math Skills
+MATH	1112	\N	4	Math Analysis in Business
+MATH	1120	\N	3	Mathemtics for Elem Educatrs 2
+MATH	1150	\N	4	Precalculus Mathematics
+MATH	1151	\N	1	Precalculus Supplemental Lab
+MATH	1212	\N	3	Data and Models
+MATH	1300	\N	5	Calculus 1
+MATH	2001	\N	3	Intro to Discrete Mathematics
+MATH	2002	\N	3	Number Systems
+MATH	2130	\N	3	Lin Algebra for Non-Math Mjrs
+MATH	2135	\N	3	Lin Algebra for Math Mjrs
+MATH	2300	\N	5	Calculus 2
+MATH	2400	\N	5	Calculus 3
+MATH	2510	\N	3	Introduction/Statistics
+MATH	3001	\N	3	Analysis I
+MATH	3110	\N	3	Intro-Theory of Numbers
+MATH	3140	\N	3	Abstract Algebra 1
+MATH	3210	\N	3	Euclidean/Non-Eucl Geom
+MATH	3430	\N	3	Ordinary Differential Equation
+MATH	3450	\N	3	Intro: Complex Variables
+MATH	3510	\N	3	Intro to Prob and Stats
+MATH	4140	\N	3	Abstract Algebra 2
+MATH	4330	\N	3	Fourier Analysis
+MATH	4470	\N	3	Partial Differential Equations
+MATH	4510	\N	3	Intro-Probability Theory
+MATH	4520	\N	3	Intro to Math Statistics
+MATH	4540	\N	3	Introduction to Time Series
+MATH	4810	\N	1	Special Topics in Mathematics
+MATH	4820	\N	3	History of Mathematical Ideas
+MATH	5040	\N	3	Intermed Math Physics 2
+MATH	5905	\N	1	Mathematics Teacher Training
+MATH	6000	\N	3	Model Theory
+MATH	6140	\N	3	Algebra 2
+MATH	6190	\N	3	Analytic Number Theory
+MATH	6220	\N	3	Introduction-Topology 2
+MATH	6230	\N	3	Intro-Differ Geometry 1
+MATH	6290	\N	3	Homological Algebra
+MATH	6320	\N	3	Intro to Real Analysis 2
+MATH	6534	\N	3	Tpcs-Mathematical Probability
+MATH	8114	\N	3	Topics-Number Theory 1
+MATH	8370	\N	3	Harmonic Analysis I
+MATH	8815	\N	1	Ulam Seminar
+MCD	1150	\N	3	Intro/Cellular & Molecular Bio
+MCD	1152	\N	1	Problem Solving Intro
+MCD	1161	\N	2	Phage Genomics Lab I
+MCD	2150	\N	3	Principles of Genetics
+MCD	2152	\N	1	Problem Solving Genetics
+MCD	2161	\N	2	Phage Genomics Lab II
+MCD	2171	\N	2	Discovery Based Laboratory 2
+MCD	2200	\N	3	Biophysics for Biologists
+MCD	2350	\N	3	Understanding Cancer
+MCD	3135	\N	3	Molecular Biology
+MCD	3140	\N	2	Cell Biology Laboratory
+MCD	3145	\N	3	Cell Biology
+MCD	3150	\N	3	Biology of Cancer Cell
+MCD	3300	\N	3	Personalized Medicine
+MCD	3350	\N	3	Fertil/Steril/Mamm Devel
+MCD	3450	\N	3	Biological Data Science
+MCD	3700	\N	3	Biology of Poisons
+MCD	4101	\N	3	Manipulating Genomes
+MCD	4310	\N	3	Microbial Genetic & Physiology
+MCD	4361	\N	3	Evolution and Development
+MCD	4420	\N	3	Genetics of Brain and Behavior
+MCD	4425	\N	3	Topics in Membrane Biology
+MCD	4426	\N	3	Cell Signaling/Devel Reg
+MCD	4428	\N	3	Regulation of Lifespan
+MCD	4444	\N	3	Cellular Basis of Disease
+MCD	4520	\N	3	Bioinformatics and Genomics
+MCD	4650	\N	3	Developmental Biology
+MCD	4750	\N	3	Animal Virology
+MCD	4777	\N	3	Molecular Neurobiology
+MCD	4790	\N	3	Oocytes Stem Cells Organisms
+MCD	5210	\N	3	Cell Structure & Functn
+MCD	7910	\N	1	Seminar Practicum
+MUS	5030	\N	3	Museum Education
+MUS	5031	\N	3	Museum: Exhibit Development
+MUS	6110	\N	3	Seminar in Museum Issues
+NRS	2100	\N	4	Introduction to Neuroscience
+NRS	2200	\N	2	Lab Techniques in Neuroscience
+NRS	4032	\N	3	Neurobio Learn & Memory
+NRS	4042	\N	3	Systems Neuroscience
+NRS	4072	\N	3	Clinical Neuroscience
+NRS	4082	\N	3	Neural Circuits of Learning
+NRS	4092	\N	3	Behavioral Neuroendocrinology
+NRS	4132	\N	3	Neuropharmacology
+NRS	4545	\N	3	Neurobiology of Addiction
+NRS	5110	\N	3	Intro to Neuroscience II
+NRS	6100	\N	2	Advances in Neuroscience
+PSCI	3225	\N	3	Strategy and Politics
+NRS	6602	\N	1	Scientific Skills Development
+NRS	7102	\N	1	Topics in Neuroscience
+PACS	2500	\N	3	Intro Peace, Conflict & Secur
+PACS	3800	\N	3	Security Studies
+PACS	3850	\N	3	Intl Conflct Res and Peacebldg
+PACS	4500	\N	3	Sen Sem Peace, Con & Sec Stdy
+PHIL	1000	\N	3	Introduction to Philosophy
+PHIL	1020	\N	3	Intro to West Phil: Modern
+PHIL	1100	\N	3	Ethics
+PHIL	1160	\N	3	Introduction to Medical Ethics
+PHIL	1200	\N	3	Contemporary Social Problems
+PHIL	1250	\N	3	Poverty, Power, & Patriotism
+PHIL	1400	\N	3	Philosophy and Sciences
+PHIL	1440	\N	3	Critical Thinking
+PHIL	1500	\N	3	Reading, Writing and Reasoning
+PHIL	1600	\N	3	Philosophy and Religion
+PHIL	2140	\N	3	Environmental Justice
+PHIL	2150	\N	3	Ethics and Sex
+PHIL	2160	\N	3	Ethics and Information Tech
+PHIL	2200	\N	3	Major Social Theories
+PHIL	2220	\N	3	Philosophy & Law
+PHIL	2240	\N	3	Philosophy and Sports
+PHIL	2270	\N	3	Philosophy and Race
+PHIL	2290	\N	3	Philosophy and Gender
+PHIL	2440	\N	3	Symbolic Logic
+PHIL	2750	\N	3	Philosophy and Science Fiction
+PHIL	3000	\N	3	History of Ancient Philosophy
+PHIL	3010	\N	3	History of Modern Philosophy
+PHIL	3100	\N	3	Ethical Theory
+PHIL	3110	\N	3	Feminist Practical Ethic
+PHIL	3160	\N	3	Bioethics
+PHIL	3190	\N	3	War and Morality
+PHIL	3200	\N	3	Soc/Political Philosophy
+PHIL	3260	\N	3	Philosophy/International Order
+PHIL	3410	\N	3	Hist Sci: Ancients to Newton
+PHIL	3430	\N	3	Hist Sci: Newton to Einstein
+PHIL	3480	\N	3	Crit Thinkng/Writng Philosophy
+PHIL	3600	\N	3	Philosophy of Religion
+PHIL	4010	\N	3	Single Philosopher
+PHIL	4020	\N	3	Topics/History of Philosophy
+PHIL	4150	\N	3	Topics in Applied Ethics
+PHIL	4260	\N	3	Philosophy of Law
+PHIL	4340	\N	3	Epistemology
+PHIL	4400	\N	3	Philosophy of Science
+PHIL	4450	\N	3	Hist & Philosophy of Physics
+PHIL	4490	\N	3	Philosophy of Language
+PHIL	4800	\N	3	Open Topics in Philosophy
+PHIL	5800	\N	3	Open Topics/Philosophy
+PHIL	6200	\N	3	Sem in Social/Political Phil
+PHIL	6300	\N	3	Sem-Philosophy of Mind
+PHIL	6380	\N	3	Seminar in Metaphysics
+PHYS	1110	\N	4	General Physics 1
+PHYS	1120	\N	4	General Physics 2
+PHYS	1125	\N	4	General Physics 2 for Majors
+PHYS	1140	\N	1	Experimental Physics 1
+PHYS	1230	\N	3	Light/Color Nonscientist
+PHYS	1240	\N	3	Sound and Music
+PHYS	1580	\N	3	Energy and Interactions
+PHYS	2130	\N	3	General Physics 3
+PHYS	2150	\N	1	Experimental Physics 2
+PHYS	2170	\N	3	Foundations Mod Physics
+PHYS	2210	\N	3	Class Mech & Math Meth 1
+PHYS	2600	\N	3	Scientific Computing
+PHYS	3050	\N	3	Writing in Physics
+PHYS	3090	\N	3	Intro to Quantum Computing
+PHYS	3210	\N	3	Class Mech & Math Meth 2
+PHYS	3220	\N	3	Quantum Mechanics 1
+PHYS	3221	\N	1	Quantum 1 Tutorial Pract
+PHYS	3310	\N	3	Prin Elec-Magnetism 1
+PHYS	3320	\N	3	Prin Elec-Magnetism 2
+PHYS	3330	\N	2	Electronics Physical Sciences
+PHYS	4230	\N	3	Thermodynam Stat Mech
+PHYS	4340	\N	3	Introduction Solid State Phys
+PHYS	4410	\N	3	Quantum Mechanics 2
+PHYS	4420	\N	3	Nuclear and Particle Physics
+PHYS	4430	\N	3	Advanced Laboratory
+PHYS	5260	\N	3	Intro/Quantum Mechanic 2
+PHYS	5606	\N	3	Optical Lab 1
+PHYS	5730	\N	3	Particle Physics
+PHYS	5770	\N	3	Gravitational Theory
+PHYS	7250	\N	3	Quantum Many Body Theory
+PHYS	7320	\N	3	Electromagnetic Theory 2
+PHYS	7440	\N	3	Theory of Solid State
+PHYS	7550	\N	3	Atomic and Molecular Spectra
+PHYS	7560	\N	3	Quantum Optics
+PHYS	7650	\N	3	Nonlinear and Nano-Optics
+PHYS	7810	\N	3	Special Topics in Physics
+PHYS	7820	\N	3	Topics in Scientific Writing
+PSCI	1101	\N	3	Intro to American Politics
+PSCI	2004	\N	3	Survy/Westrn Pol Thought
+PSCI	2012	\N	3	Intro/Compar Politics
+PSCI	2075	\N	3	Quant Research Methods
+PSCI	2106	\N	3	Intr/Public Policy Analy
+PSCI	2116	\N	3	Intro Environmental Policy
+PSCI	2223	\N	3	Intro International Relations
+PSCI	3011	\N	3	Amer Pres and Exec Branch
+PSCI	3021	\N	3	US Campaigns & Elections
+PSCI	3032	\N	3	Demo, Ineq & Viol in Latin Am
+PSCI	3041	\N	3	The American Congress
+PSCI	3054	\N	3	American Politcl Thought
+PSCI	3061	\N	3	State Govt and Politics
+PSCI	3062	\N	3	Revolut & Polit Violence
+PSCI	3064	\N	3	Environmental Political Theory
+PSCI	3075	\N	3	Applied Political Sci Research
+PSCI	3123	\N	3	War/Peace/Strat Defense
+PSCI	3143	\N	3	Current Affairs in Inter Relat
+PSCI	3163	\N	3	American Foreign Policy
+PSCI	3172	\N	3	Democracy in the US and EU
+PSCI	3183	\N	3	International Law
+PSCI	3191	\N	3	Nat Securty Org/Polcymkg
+PSCI	3193	\N	3	International Behavior
+PSCI	3205	\N	3	Undergrad Research Experience
+PSCI	3206	\N	3	Environment/Publ Policy
+PSCI	3213	\N	3	International Political Econ
+PSCI	3271	\N	3	Law and Society
+PSCI	3281	\N	3	Devt Am Pol Inst
+PSCI	3294	\N	3	Identity Politics
+PSCI	3301	\N	3	Gender/Sexuality/US Law
+PSCI	3774	\N	3	Free Speech-Dangerous Ideas
+PSCI	4002	\N	3	Western European Politcs
+PSCI	4012	\N	3	Global Development
+PSCI	4016	\N	3	Inequality and Public Policy
+PSCI	4173	\N	3	International Cooperation
+PSCI	4213	\N	3	Europe and the Inter System
+PSCI	4221	\N	3	Political Psychology
+PSCI	4241	\N	3	Constitutional Law
+PSCI	4242	\N	3	Middle Eastern Politics
+PSCI	4703	\N	3	Technology, Society, Future
+PSCI	4714	\N	3	Liberalism and Its Critics
+PSCI	4792	\N	3	Iss Latin American Politics
+PSCI	7012	\N	3	Sem-Compar Politicl Syst
+PSCI	7024	\N	3	Sem/Selet Polit Theories
+PSCI	7055	\N	3	Introductory Game Theory
+PSCI	7071	\N	3	Sem: Intro to the Rule of Law
+PSCI	7095	\N	3	Advan Pol Data Analysis
+PSCI	7123	\N	3	Cnflct Behav/Pol of Viol
+PSCI	7206	\N	3	Governance: Natural Resources
+PORT	1020	\N	5	Beginning Portuguese 2
+PORT	2120	\N	3	Second-Year Portuguese 2
+PORT	2350	\N	3	Portuguese Romance Speakers
+PORT	2800	\N	3	Brazil: Past and Present
+PORT	3220	\N	3	Spanish Amer & Brazil Culture
+PORT	4110	\N	3	Brazilian Literature
+PSYC	1001	\N	3	General Psychology
+PSYC	2012	\N	3	Biological Psychology
+PSYC	2111	\N	4	Psychological Statistics
+PSYC	2145	\N	3	Intro Cognitive Psychology
+PSYC	2606	\N	3	Social Psychology
+PSYC	2700	\N	3	Psyc of Gender and Sexuality
+PSYC	3102	\N	3	Behavioral Genetics
+PSYC	3111	\N	4	Research Methods in Psychology
+PSYC	3303	\N	3	Abnormal Psychology
+PSYC	3684	\N	3	Developmental Psychology
+PSYC	4021	\N	3	Psyc & Neurscience of Exercise
+PSYC	4114	\N	3	Adolescent Development
+PSYC	4136	\N	4	Judgment & Decisn Making
+PSYC	4165	\N	4	Psychology of Perception
+PSYC	4263	\N	3	Psyc Treatment: Evidence-Based
+PSYC	4376	\N	4	Res Methods/Social Psych
+PSYC	4443	\N	4	Resch Methods Clinical Psyc
+PSYC	4526	\N	3	Social Neuroscience
+PSYC	4541	\N	3	Special Topics in Psych- SS
+PSYC	4553	\N	3	Women's Mental Health
+PSYC	3456	\N	3	Psychology of Personality
+PSYC	5112	\N	3	Concepts-Behav Genetic
+PSYC	5541	\N	3	Special Topics in Psychology
+PSYC	5656	\N	3	Advncd Grad Research Methods
+PSYC	5751	\N	4	General Statistics
+PSYC	5761	\N	3	Structural Equation Modeling
+PSYC	6603	\N	1	Profl Issues in Clinical Psyc
+PSYC	6605	\N	1	Cognitive Psyc Research Update
+PSYC	6606	\N	1	Professional Issues
+PSYC	7102	\N	2	Sem-Behavioral Genetics
+PSYC	7215	\N	3	Sem-Experimental Psychology
+PSYC	7673	\N	3	Adult Psychotherapy
+PSYC	7683	\N	1	Intel Assesmnt/Practicum
+PSYC	7793	\N	1	Child Assessment Practicum
+PSYC	5835	\N	2	Thinking Proseminar
+PSYC	5815	\N	2	Language Proseminar
+RLST	1910	\N	3	Intro to the New Testament
+RLST	2610	\N	3	Happiness and Nirvana: India
+RLST	2650	\N	3	Meditation: Ancient and Modern
+RLST	2700	\N	3	Amer Indian Relig Trdtns
+RLST	2800	\N	3	Women and Religion
+RLST	3001	\N	3	Modern Christianity
+RLST	3040	\N	3	The Quran
+RLST	3550	\N	3	Tibetan Buddhism
+RLST	4200	\N	3	Topics in Hinduism
+RLST	4820	\N	3	Interdis Seminar on Religion
+RLST	4830	\N	3	Senior Majors Seminar
+RUSS	1010	\N	4	Beginning Russian 1
+RUSS	1020	\N	4	Beginning Russian 2
+RUSS	2010	\N	4	Second-Year Russian 1
+RUSS	2020	\N	4	Second-Year Russian 2
+RUSS	2221	\N	3	Intro Modern Russian Culture
+RUSS	2231	\N	3	Fairy Tales of Russia
+RUSS	3020	\N	4	Third-Year Russian II
+RUSS	3211	\N	3	History of Russian Cinema
+RUSS	3241	\N	3	Russian Sci-Fi
+RUSS	3705	\N	3	Gender/Sexuality:Tolstoy Russ
+RUSS	4020	\N	4	Advanced Russian 2
+RUSS	4060	\N	4	Russian Heritage Spkers Pt 2
+RUSS	4471	\N	3	Women in 20-21C Russ Culture
+RUSS	4831	\N	3	Contemporary Russian Lit
+RUSS	4850	\N	4	Russ Film and Soc (in Russian)
+RUSS	5020	\N	4	Advanced Russian Seminar 2
+SCAN	1202	\N	3	Tolkien's Nordic Sources
+SCAN	2202	\N	3	The Vikings
+SCAN	3202	\N	3	Old Norse Mythology
+SCAN	3204	\N	3	Medieval Icelandic Sagas
+SCAN	3205	\N	3	Scan Folk Narrative
+SOCY	1001	\N	3	Intro to Sociology
+SOCY	1004	\N	3	Deviance in US Society
+SOCY	1006	\N	3	Social Constr/Sexuality
+SOCY	1016	\N	3	Sex Gender & Society 1
+SOCY	1021	\N	3	US Race/Ethnic Relations
+SOCY	1022	\N	3	Ethc/Soc Issues Hlth/Med
+SOCY	2031	\N	3	Social Problems
+SOCY	2044	\N	3	Crime and Society
+SOCY	2061	\N	3	Intro to Social Stats
+SOCY	2077	\N	3	Environment & Society
+SOCY	3001	\N	3	Classical Theory
+SOCY	3012	\N	3	Women and Development
+SOCY	3016	\N	3	Marriage/Family/U.S.
+SOCY	3032	\N	3	Social Epidemiology
+SOCY	3045	\N	3	Sociology of Death and Dying
+SOCY	3201	\N	3	Sociological Research Methods
+SOCY	4004	\N	3	Adv Topics in Crmnology
+SOCY	4007	\N	3	Global Human Ecology
+SOCY	4014	\N	3	Criminology
+SOCY	4017	\N	3	Animals and Society
+SOCY	4024	\N	3	Juvenile Justice & Delinquency
+SOCY	4030	\N	3	Sociology of Climate Change
+SOCY	4052	\N	3	Social Inequalities in Health
+SOCY	4063	\N	3	Risk and Resilience
+SOCY	4104	\N	3	Death Penalty
+SOCY	4117	\N	3	Food and Society
+SOCY	4121	\N	3	Sociology of Religion
+SOCY	4131	\N	1	Adv Topics in Sociology
+SOCY	4161	\N	3	Executing Social Innovations
+SOCY	4451	\N	3	Senior Honors Seminar 2
+SOCY	5071	\N	3	Social Stratification
+SOCY	5111	\N	3	Data 1
+SOCY	5181	\N	3	Logics of Qualitative Inquiry
+SPAN	1010	\N	5	Beginning Spanish 1
+SPAN	1020	\N	5	Beginning Spanish 2
+SPAN	1150	\N	5	Intensive First Year Spanish
+SPAN	2110	\N	3	Second Year Spanish 1
+SPAN	2120	\N	3	Second Year Spanish 2
+SPAN	2150	\N	5	Intensive Second Yr Span
+SPAN	2450	\N	3	Catalan for Spanish Speakers
+SPAN	3000	\N	5	Adv Spanish Lang Skills
+SPAN	3001	\N	3	Spanish Conversation
+SPAN	3002	\N	3	Adv Spanish Conversation
+SPAN	3010	\N	3	Adv Rhetoric/Composition
+SPAN	3050	\N	3	Spanish Phonology/Phonetics
+SPAN	3060	\N	3	Span for Careers Env and Sust
+SPAN	3070	\N	3	Spanish 21st Century Media
+SPAN	3100	\N	3	Lit Culture Analys in Spanish
+SPAN	3120	\N	3	Advanced Spanish Grammar
+SPAN	4070	\N	3	Prob Transl Prof Span 2
+SPAN	4120	\N	3	Lit & Film Spain/Latin America
+SPAN	4150	\N	3	Major Works: Spain Up to 1700
+SPAN	4170	\N	3	Mjr Wrks: Lat Am Up to 19th C
+SPAN	4450	\N	3	Intro to Hispanic Linguistics
+SPAN	4620	\N	3	Cervantes
+SPAN	4650	\N	3	Methods of Teaching Spanish
+SPAN	5200	\N	3	Sem-Spanish Lit/Ren/Baroque
+SPAN	5220	\N	3	Sem: Spanish Lit, 20th Century
+SPAN	5300	\N	3	Span-Amer Lit Colonial/19th C
+SPAN	5430	\N	3	Seminar: Hispanic Linguistics
+SLHS	1010	\N	3	Disabilities in Society
+SLHS	2000	\N	3	Intro Comm Disorders
+SLHS	2010	\N	3	Sci of Human Communication
+SLHS	2305	\N	4	Amer Sign Lang 1
+SLHS	2315	\N	4	Amer Sign Lang 2
+SLHS	2325	\N	4	Amer Sign Lang 3
+SLHS	3014	\N	3	Hearing Loss Epidemiology
+SLHS	3106	\N	3	Hearing Science
+SLHS	3116	\N	3	Speech Science
+SLHS	4502	\N	3	Lang Disorders Across Lifespan
+SLHS	4512	\N	3	Sp Disord Across Lifespan
+SLHS	4576	\N	3	Communication Neuroscience
+SLHS	4704	\N	3	Audiological Evaluation
+SLHS	4714	\N	3	Audiological Rehab
+SLHS	4918	\N	2	Intro/Clinical Practice
+SLHS	5242	\N	3	Lang Dis: School-Age
+SLHS	5282	\N	3	Acq Cognitive Disorders
+SLHS	5302	\N	3	Artic & Phonological Disorders
+SLHS	5362	\N	3	Fluency Disorders
+SLHS	5898	\N	3	Clinical Practicum
+SLHS	5918	\N	1	Aud Clinical Practicum: Lab
+SLHS	6554	\N	3	Auditory Processes: Child
+SLHS	6564	\N	3	Auditory Proc: Neurodiagn
+SLHS	6614	\N	3	Fundamentals of Amplification
+SLHS	6650	\N	2	Counseling & Prof Ethics
+SLHS	6660	\N	1	Multcult Issues SLHS
+SLHS	6670	\N	3	Adult Aural Rehabilitation
+SLHS	7550	\N	2	Mgmt/Prev Noise & Hearing Loss
+SLHS	7554	\N	1	Aud Instr & Cal in Audiology
+SLHS	5272	\N	1	Augmntative Altern Comm
+SWE	1020	\N	4	Beginning Swedish 2
+THTR	1003	\N	3	Acting 1
+THTR	1009	\N	3	Theatre and Society
+THTR	1011	\N	3	Global Theatre 1
+THTR	1105	\N	3	Stage Technologies
+THTR	1115	\N	3	Costume Technologies
+THTR	2021	\N	3	Global Theatre 2
+THTR	3011	\N	3	American Musical Theatre
+THTR	3015	\N	3	Scene Design 1
+THTR	3023	\N	3	Studio 2/Creating a Role
+THTR	3035	\N	2	Production Practicum
+THTR	3043	\N	3	Adv Voice for the Stage
+THTR	3045	\N	3	Stage Management
+THTR	3053	\N	3	Acting 2
+THTR	3085	\N	3	Fashion, Society and Decor
+THTR	4021	\N	3	American Theatre and Drama
+THTR	4023	\N	3	Std 4: Playing Styles
+THTR	4035	\N	3	Scene Painting
+THTR	4039	\N	3	Musical Theatre Repertory
+THTR	4063	\N	3	Audition Techniques
+THTR	4073	\N	3	Performing Voices Women
+THTR	4085	\N	3	Theatre Management
+THTR	4095	\N	3	Sp Tpc-Thtr Design/Technology
+THTR	4105	\N	3	Make-Up Design
+THTR	4117	\N	2	MT Lab 5: Senior Showcase Exp
+THTR	4213	\N	3	Improvisation II
+THTR	4555	\N	1	Production Studio
+THTR	5025	\N	3	Costume Pattern/Construction
+THTR	5049	\N	3	Special Topics in Theatre
+THTR	6021	\N	3	On-Stage Studies: Shakespeare
+THTR	6111	\N	3	Global Contemporary Theatre
+WRT	1100	\N	4	Extended 1st Yr Writing
+WRT	1150	\N	3	1st Yr Writing/Rhetoric
+WRT	1160	\N	3	CMCI First-Year Writing & Rhet
+WRT	1250	\N	3	Advanced 1st Yr Writing
+WRT	2020	\N	3	Intro Creative Nonfiction
+WRT	2090	\N	3	Electives in Writing
+WRT	3007	\N	3	Writing in the Visual Arts
+WRT	3020	\N	3	Topics in Writing
+WRT	3030	\N	3	Writing/Science-Society
+WRT	3035	\N	3	Tech Comm and Design
+WRT	3040	\N	3	Writing/Business-Society
+WRT	3090	\N	1	Open Tpcs/Writing: Advanced
+ASEN	1022	\N	3	Materials Sci Aerospace
+ASEN	1969	\N	3	Pathway to Space
+ASEN	2003	\N	5	Dynamics & Systems
+ASEN	2004	\N	5	Veh Design & Performance
+ASEN	3036	\N	3	Intro Human Spaceflight
+ASEN	3046	\N	3	Intro to Humans in Aviation
+ASEN	3111	\N	4	Aerodynamics
+ASEN	3112	\N	4	Structures
+ASEN	3113	\N	4	Thermo & Heat Transfer
+ASEN	3128	\N	4	Aircraft Dynamics
+ASEN	3200	\N	4	Orb Mech/Att Dyn & Cntl
+ASEN	3300	\N	4	Electronic and Communication
+ASEN	4013	\N	3	Foundations of Propulsion
+ASEN	4028	\N	4	Senior Proj 2: Des Practicum
+ASEN	4057	\N	3	Aerospace Software
+ASEN	4128	\N	3	Human Factors Engineering
+ASEN	4218	\N	3	Large Space Structures Design
+ASEN	5010	\N	3	Spacecrft Att Dyn/Cntrl
+ASEN	5016	\N	3	Space Life Sciences
+ASEN	5018	\N	3	Graduate Projects I
+ASEN	5022	\N	3	Dynamics/Aerospace Structures
+ASEN	5044	\N	3	Stat Est for Dyn Sys
+ASEN	5111	\N	3	Aeroelasticity
+ASEN	5148	\N	3	Spacecraft Design
+ASEN	5335	\N	3	Aerospace Environment
+ASEN	5519	\N	3	Selected Topics
+ASEN	6008	\N	3	Space Mission Design
+ASEN	6028	\N	3	Graduate Projects II
+ASEN	6037	\N	3	Turbulent Flows
+ASEN	6080	\N	3	Stat Orbit Determination
+ASEN	6412	\N	3	Uncertainty Quantification
+AREN	1027	\N	3	Engineering Drawing
+AREN	2110	\N	3	Thermodynamics
+AREN	2120	\N	3	Fluid Mech & Heat Transf
+AREN	3040	\N	3	Circuits for AREN
+AREN	3060	\N	3	Environ Systems Bldgs 2
+AREN	3540	\N	3	Illumination 1
+AREN	4110	\N	3	HVAC System Design
+AREN	4130	\N	3	Optical Design: Illumination
+AREN	4315	\N	3	Design of Masonry Struct
+AREN	4317	\N	5	Architectural Engineering Dsgn
+AREN	4506	\N	3	Const Estimating & Scheduling
+AREN	4550	\N	3	Illumination 2
+AREN	4606	\N	3	Const Execution and Control
+AREN	5060	\N	3	Distributed Electricity Gener
+ATLS	1100	\N	3	Design Foundations
+ATLS	1300	\N	4	Computational Foundations 1
+ATLS	2000	\N	3	Meaning of Info Technology
+ATLS	2001	\N	3	Design Technologies: Toolkit
+ATLS	2002	\N	3	Design Technologies: Process
+ATLS	2100	\N	3	Image
+ATLS	2200	\N	3	Web
+ATLS	2300	\N	3	Text
+ATLS	2519	\N	4	Special Topics in TAM
+ATLS	3100	\N	3	Form
+ATLS	3200	\N	3	Sound
+ATLS	3300	\N	3	Object
+ATLS	4010	\N	4	Capstone Projects
+ATLS	4040	\N	3	Game Design
+ATLS	4214	\N	3	Big Data Architecture
+ATLS	4320	\N	3	Mobile App Dev: Advanced Tpcs
+ATLS	4519	\N	3	Advanced Special Topics
+ATLS	4529	\N	3	Adv Sp Tp: Crit Perspect Tech
+ATLS	4809	\N	3	Computer Animation
+ATLS	5240	\N	3	ICTD Laboratory
+ATLS	5250	\N	3	Fieldwork Methods
+ATLS	6910	\N	3	ICTD Practicum
+ATLS	7000	\N	1	ATLAS Seminar
+CHE	1211	\N	4	General Chem Engineers
+CHE	1310	\N	3	Intro Engineering Computing
+CHE	2120	\N	3	Chen Material/Energy Bal
+CHE	2810	\N	3	Biology for Engineers
+CHE	3200	\N	3	Chem Engineering Fluid Mech
+CHE	3220	\N	3	Chem Engineering Separations
+CHE	3660	\N	3	Energy Fundamentals
+CHE	4090	\N	1	Undergraduate Seminar
+CHE	4330	\N	3	CHEN Reaction Kinetics
+CHE	4440	\N	3	Chemical Engineering Materials
+CHE	4521	\N	3	PChem for Engineers
+CHE	4530	\N	2	Chemical Engr Design Project
+CHE	4570	\N	4	Instrumentatn/Proc Cntrl
+CHE	4630	\N	1	Intell Prop Law and Engr
+CHE	4802	\N	3	Tissue Engrg & Medical Devices
+CHE	4805	\N	3	Biomaterials
+CHE	4830	\N	3	Biokinetics
+CHE	4836	\N	3	Nanomaterials
+CHE	5090	\N	1	Seminar in Chemical Engineer
+CHE	5630	\N	1	Intell Prop Law & Engineering
+CVEN	1027	\N	3	Civil Engineering Drawing
+CVEN	2012	\N	3	Intro to Geomatics
+CVEN	2121	\N	3	Analytical Mechanics 1
+CVEN	3111	\N	3	Analytical Mechanics 2
+CVEN	3161	\N	3	Mechanics of Materials 1
+CVEN	3227	\N	3	Prob, Stats and Decision
+CVEN	3246	\N	3	Introduction to Construction
+CVEN	3256	\N	3	Construction Equip/Meth
+CVEN	3313	\N	3	Theoretical Fluid Mechanics
+CVEN	3323	\N	3	Hydraulic Engineering
+CVEN	3414	\N	3	Fundamentals Environ Engr
+CVEN	3424	\N	3	Water/Wastewater Treat
+CVEN	3434	\N	3	Intro to Applied Ecology
+CVEN	3525	\N	3	Structural Analysis
+CVEN	3698	\N	3	Engineering Geology
+CVEN	3708	\N	3	Geotechnical Engineering 1
+CVEN	3718	\N	3	Geotechnical Engineering 2
+CVEN	4333	\N	3	Engineering Hydrology
+CVEN	4424	\N	3	Environ Organic Chemistry
+CVEN	4434	\N	4	Environmental Engineering Dsgn
+CVEN	4484	\N	3	Intro to Envrmntl Microbiology
+CVEN	4545	\N	3	Steel Design
+CVEN	4555	\N	3	Reinf Concrete Design
+CVEN	4897	\N	2	Prof Issues Civil Eng
+CVEN	4899	\N	4	Civil Engeering Sr Project Des
+CVEN	4969	\N	3	Water and Sanitation
+CVEN	5131	\N	3	Continuum Mech & Elast
+CVEN	5206	\N	3	Design Development
+CVEN	5226	\N	3	Construction Safety
+CVEN	5286	\N	3	Design Construction Operations
+CVEN	5343	\N	3	Trans/Disp Surface Water
+CVEN	5346	\N	3	Managing Eng Organizations
+CVEN	5363	\N	3	Modeling Hydro System
+CVEN	5393	\N	3	Water Resource Sys & Mgmt
+CVEN	5424	\N	3	Environ Organic Chemistr
+CVEN	5434	\N	3	Envirn Engr Design
+CVEN	5454	\N	3	Stat Meth for Natrl/Engrd Sys
+CVEN	5524	\N	3	Water Treatment
+CVEN	5534	\N	3	Wastewater Treatment
+CVEN	5544	\N	3	Solid Waste
+CVEN	5564	\N	3	Water Prof: Comm and Finance
+CVEN	5565	\N	3	Life-Cycle Engineering
+CVEN	5585	\N	3	Adv Tpcs in Ref Concrete
+CVEN	5628	\N	3	Seepage and Slopes
+CVEN	5788	\N	3	Comp Model Geotech Eng
+CVEN	6393	\N	1	Water Resources Seminar
+CVEN	6511	\N	3	Nonlinear FEA Solids & Porous
+CVEN	6595	\N	3	Earthquake Engrg
+CVEN	7161	\N	3	Fracture Mechanics
+CSCI	1300	\N	4	CS 1: Starting Computing
+CSCI	1320	\N	4	CS1: Engineering Applications
+CSCI	2270	\N	4	Comp Sci 2: Data Struct
+CSCI	2400	\N	4	Computer Systems
+CSCI	2820	\N	3	Linear Algebra with CS Apps
+CSCI	2824	\N	3	Discrete Structures
+CSCI	2834	\N	1	Discrete Structures Workgroup
+CSCI	3002	\N	4	Fundamentals of HCI
+CSCI	3010	\N	3	Programming Project Workshop
+CSCI	3022	\N	3	Intro to Data Sci w Prob/Stat
+CSCI	3104	\N	4	Algorithms
+CSCI	3155	\N	4	Princip of Prog Langs
+CSCI	3202	\N	3	Intro Artificial Intell
+CSCI	3287	\N	3	Data Systems
+CSCI	3302	\N	3	Introduction to Robotics
+CSCI	3308	\N	3	Software Dev Methods and Tools
+CSCI	3352	\N	3	Biological Networks
+CSCI	3403	\N	4	Introduction to CyberSecurity
+CSCI	3656	\N	3	Numerical Computation
+CSCI	3753	\N	4	Operating Systems
+CSCI	4113	\N	3	Linux System Administration
+CSCI	4239	\N	3	Advanced Computer Graphics
+CSCI	4273	\N	3	Network Systems
+CSCI	4314	\N	3	Dynamic Models in Biology
+CSCI	4318	\N	4	Software Eng Project 2
+CSCI	4358	\N	4	Entrepreneurial Projects II
+CSCI	4446	\N	3	Chaotic Dynamics
+CSCI	4448	\N	3	Object-Oriented Anlysis/Design
+CSCI	4593	\N	3	Computer Organization
+CSCI	4622	\N	3	Machine Learning
+CSCI	4802	\N	1	Data Science Team
+CSCI	4830	\N	3	Spec Tpcs in Computer Science
+CSCI	4831	\N	3	Special Topics in Algorithms
+CSCI	5423	\N	3	Bio-inspired Multi-Agent Syst
+CSCI	5448	\N	3	Object-Oriented Anlysis & Dsgn
+CSCI	5535	\N	3	Fund Concepts/Prog Lang
+CSCI	5550	\N	3	Designing for Defense
+CSCI	5654	\N	3	Linear Program
+CSCI	5673	\N	3	Distributed Systems
+CSCI	5676	\N	3	Numerical Optimization
+CSCI	5722	\N	3	Computer Vision
+CSCI	5828	\N	3	Foundations/Sftware Engr
+CSCI	5919	\N	3	HCC Survey-Foundation
+CSCI	5922	\N	3	Neural Nets and Deep Learning
+CSCI	6502	\N	3	Big Data Analytics
+CSCI	7000	\N	3	Current Tpcs in Computer Sci
+ECEN	1310	\N	4	C Programming for ECE
+ECEN	1400	\N	3	Intro Dig/Analog Elect
+ECEN	2250	\N	3	Intro Circuits & Electronics
+ECEN	2260	\N	3	Circuits as Systems
+ECEN	2270	\N	3	Electronics Design Lab
+ECEN	2310	\N	1	Math SW Programming
+ECEN	2350	\N	3	Digital Logic
+ECEN	2410	\N	3	Renew Electrical Energy Syst
+ECEN	2420	\N	3	Electronics for Wireless Systs
+ECEN	2440	\N	3	Appli of Embedded Systems
+ECEN	2703	\N	3	Discrete Math Compt Engineers
+ECEN	3010	\N	3	Circ/Elect for Mech Eng
+ECEN	3250	\N	3	Microelectronics
+ECEN	3300	\N	3	Linear Systems
+ECEN	3320	\N	3	Semiconductor Devices
+ECEN	3350	\N	3	Programming Digital Systems
+ECEN	3360	\N	3	Digital Design Laboratory
+ECEN	3400	\N	3	Electromag Flds/Waves
+ECEN	3410	\N	3	Electromag Waves
+ECEN	4133	\N	3	Computer Security
+ECEN	4224	\N	3	High Speed Digital Design
+ECEN	4341	\N	3	Bioelectromagnetics
+ECEN	4517	\N	3	Pwr Electrnics & Photovolt Lab
+ECEN	4532	\N	3	DSP Laboratory
+ECEN	4606	\N	3	Undergrad Optics Lab
+ECEN	4616	\N	3	Optoelectronic Sys Design
+ECEN	4620	\N	3	Capstone Lab, Part 2
+ECEN	4638	\N	3	Control Systems Lab
+ECEN	4652	\N	3	Communications
+ECEN	5126	\N	3	Computational Optical Imaging
+ECEN	5154	\N	3	Computational Electromag
+ECEN	5254	\N	3	Remote Sensing Signals/Systems
+ECEN	5355	\N	3	Princ of Electric Dev 1
+ECEN	5358	\N	3	Optimization & Optimal Control
+ECEN	5458	\N	3	Sampled Data/Dig Con Sys
+ECEN	5613	\N	3	Embedded System Design
+ECEN	5616	\N	3	Optoelectric Sys Design
+ECEN	5622	\N	3	Info Theory and Coding
+ECEN	5623	\N	3	Real-Time Embedded Systm
+ECEN	5626	\N	3	Active Optical Devices
+ECEN	5652	\N	3	Detec/Extrct Sig Noise
+ECEN	5682	\N	3	Thry/Prac Error Ctrl Cds
+ECEN	5692	\N	3	Prin of Digital Comm
+ECEN	5737	\N	3	Adjust Speed AC Drives
+ECEN	5738	\N	3	Thry of Nonlinear Syst
+ECEN	5813	\N	3	Principle of Embedded Software
+ECEN	5817	\N	3	Resonant Tech Pwe Elec
+ECEN	5823	\N	3	IOT Embedded Firmware
+ECEN	5833	\N	3	Low Pwr Emb Design Techniques
+ECEN	5863	\N	3	Programmable Logic Design
+EME	4030	\N	3	Project Management Systems
+EME	4050	\N	3	Leadershp & Professional Skill
+EME	4100	\N	3	Engineering Economics
+EME	4110	\N	3	Supply Chain Management
+EME	4120	\N	3	Managing Business Processes
+EME	4200	\N	3	Eng and Entrep for Dev World
+EME	4405	\N	3	Systems Engineering
+EME	4800	\N	3	Tech Ventures & Marketing
+EME	4825	\N	3	New Venture Creation
+EME	5005	\N	3	Intro to Applied Stats
+EME	5015	\N	3	Engineering Communication
+EME	5020	\N	3	Finance for Engr Mngrs
+EME	5030	\N	3	Fundamentals of Project Mgmt
+EME	5032	\N	3	Adv Topics Project Mgmt
+EME	5050	\N	3	Leading Oneself
+EME	5053	\N	3	Leading Tech Org
+EME	5080	\N	3	Ethics - Engrg Mgmnt
+EME	5090	\N	3	Marketing & Technology Venture
+EME	5094	\N	3	Entrepreneurship for Engineers
+EME	5405	\N	3	Fund of Systems Engineering
+EME	5900	\N	3	Research Mthds & Exp Design
+GEE	1400	\N	3	Engineering Projects
+GEE	2400	\N	3	Engr Proj for Community
+GEE	3400	\N	3	Invention and Innovation
+GEE	4400	\N	3	Teaching Design
+HUE	1010	\N	3	Engineering, Ethics, Society
+HUE	2360	\N	3	A Global State of Mind
+HUE	3100	\N	3	EES Seminar
+HUE	3430	\N	3	Ethics of Genetic Engineering
+MCE	1024	\N	4	Chem for Energy & Material Sci
+MCE	1025	\N	4	Comp Aid Design/Fabrctn
+MCE	2023	\N	3	Statics and Structures
+MCE	2024	\N	3	Materials Science
+MCE	2043	\N	3	Dynamics
+MCE	2063	\N	3	Mechanics of Solids
+MCE	3021	\N	3	Fluid Mechanics
+MCE	3022	\N	3	Heat Transfer
+MCE	3025	\N	3	Component Design
+MCE	3030	\N	3	Computational Methods
+MCE	3032	\N	3	Thermodynamics 2
+MCE	3047	\N	4	Data Analysis/Exp Methods
+MCE	4010	\N	3	Microsystems Integration
+MCE	4026	\N	3	Mfg Processes & Systems
+MCE	4043	\N	3	System Dynamics
+MCE	4085	\N	3	ME Design Project 2
+MCE	4086	\N	1	Writing for Design Projects
+MCE	4115	\N	3	Mechatronics and Robotics I
+MCE	4117	\N	3	Anatomy & Physiology Eng
+MCE	4125	\N	3	Optimal Design
+MCE	4131	\N	3	Air Pollution Control
+MCE	4133	\N	3	Intro to Tissue Biomechanics
+MCE	4135	\N	3	Wind Turbine Design
+MCE	4173	\N	3	Finite Element Analysis
+MCE	4194	\N	3	Energy Conversion & Storage
+MCE	4228	\N	3	Sp Tp: Mechnical Engineering
+MCE	5044	\N	3	Mech Behavior of Materials
+MCE	5045	\N	3	Design for Manufacturability
+MCE	5075	\N	3	Graduate Design II
+MCE	5133	\N	3	Biomechanics
+MCE	7221	\N	3	Turbulence
+TLEN	5710	\N	1	Capstone
+APRD	1003	\N	3	Principles of Strategy Comm
+APRD	2001	\N	3	Strategic Thinking
+APRD	2004	\N	3	Intro to Research Methods
+APRD	2005	\N	3	Strategic Writing
+APRD	2006	\N	3	Software and Design App
+APRD	3001	\N	3	Intermediate Design Concepts
+APRD	3002	\N	3	Communication Platforms
+APRD	3003	\N	3	Strat Com Research Methods
+APRD	3004	\N	3	Account Management
+APRD	3005	\N	3	Content Strategy
+APRD	3006	\N	3	History of Advertising
+APRD	3009	\N	3	Branding Solutions
+APRD	3010	\N	3	Consumer Insights
+APRD	3100	\N	3	Design for Digital Media
+APRD	3102	\N	3	Story Design I
+APRD	3103	\N	3	Writing for PR
+APRD	3104	\N	3	Digital Storytelling for PR
+APRD	3105	\N	3	PR Strategy
+APRD	3112	\N	3	International Public Relations
+APRD	3300	\N	3	Crisis Communication
+APRD	3301	\N	3	Social Media Strategies
+APRD	3302	\N	3	Case Studies
+APRD	3500	\N	3	Story Design II
+APRD	4100	\N	3	Brands and Culture
+APRD	4102	\N	3	Sustainable Brand Practices
+APRD	4300	\N	3	Strategic Comm Analytics
+APRD	4403	\N	4	Strat Com Campaigns
+APRD	4404	\N	3	Advanced Campaigns
+APRD	4501	\N	3	Design for Social Innovation
+APRD	4504	\N	3	Copywriting Seminar
+APRD	4505	\N	3	Art Direction Seminar
+APRD	4506	\N	3	Portfolio Development I
+APRD	4523	\N	3	Portfolio 2
+APRD	4543	\N	3	Strategic Brand Management
+APRD	5003	\N	3	Brand Design Studio 2
+APRD	5004	\N	3	Experiential Design Studio 2
+APRD	5008	\N	3	RE: Studio 2
+APRD	5017	\N	3	Critical Making Studio 3
+APRD	6343	\N	3	Advanced Advertising Stats
+APRD	7003	\N	3	ProSeminar in Mass Comm II
+APRD	7004	\N	1	Professionalization
+APRD	7011	\N	3	Strategic Public Relations
+APRD	7021	\N	3	Environmental Journalism
+APRD	7051	\N	3	Qualitative Methods
+COM	1210	\N	3	Perspectives on Human Comm
+COM	1300	\N	3	Public Speaking
+COM	1600	\N	3	Group Interaction
+COM	2400	\N	3	Discourse/Culture/Identities
+COM	2500	\N	3	Interpersonal Communication
+COM	2650	\N	3	Business and Professional Comm
+COM	3210	\N	3	Human Communication Thry
+COM	3300	\N	3	Rhetoric Fndations Comm
+COM	3320	\N	3	Persuasion in Society
+COM	3330	\N	3	Social Movements
+COM	3340	\N	3	Political Communication
+COM	3370	\N	3	Environmental Communication
+COM	3410	\N	3	Intercultural Communication
+COM	3420	\N	3	Gender and Communication
+COM	3430	\N	3	Comm, Culture and Sport
+COM	3510	\N	3	Family Communication
+COM	3610	\N	3	Comm, Tech, & Society
+COM	3630	\N	3	Organizational Communication
+COM	3740	\N	3	Qual Comm Resch Methods
+COM	3750	\N	3	Quantitative Research Methods
+COM	3760	\N	3	Rhetorical Criticism
+COM	4000	\N	3	Advanced Topics/Communication
+COM	4220	\N	3	Sem:Functions of Communication
+COM	4300	\N	3	Senior Seminar: Rhetoric
+COM	4510	\N	3	Senior Sem: Interpersonal Comm
+COM	5620	\N	3	Readings in Org Communication
+COM	5720	\N	3	Readings in Comm & Tech
+COM	6030	\N	3	Qualitative Research Methods
+COM	6200	\N	3	Sem-Selected Topics
+COM	6445	\N	3	Language, Ideology & Identity
+COM	6730	\N	3	Org Comm Constitutive View
+CMD	1400	\N	4	Intro to Contemp Media Culture
+CMD	2100	\N	3	Historical Media Practices
+CMD	2500	\N	3	Introd to Media Practices
+CMD	2820	\N	3	Culture & Gender Through Film
+CMD	2870	\N	2	Recording Design
+CMD	3350	\N	3	Documentary Media History
+CMD	3400	\N	3	Media Aesthetics
+CMD	3510	\N	3	Workshop II
+CMD	3600	\N	3	Creative Media Making
+CMD	3700	\N	3	Digital Photographic Practices
+CMD	3830	\N	3	Advanced Performance Media
+CMD	3840	\N	3	Sound Practices
+CMD	4410	\N	3	Contemp Media Technologies
+CMD	4810	\N	3	Advanced Documentary Practices
+CMD	4820	\N	3	Ethnographic Media
+CMD	4860	\N	2	Computer Composition
+CMD	4900	\N	3	Cncpts Pract of Contemp Media
+CMD	5500	\N	3	Doc Prod Workshops
+CMD	7300	\N	3	Theories of the Avant-Garde
+CMD	7500	\N	3	Production Methods I
+INFO	1101	\N	3	Computation in Society
+INFO	1121	\N	4	Intro to Info Sci: Design
+INFO	1201	\N	3	Computational Reasoning 1
+INFO	2201	\N	3	Computational Reasoning 2
+INFO	2301	\N	3	Quantitative Reasoning
+INFO	3101	\N	3	History/Computing Information
+INFO	3401	\N	3	Information Exploration
+INFO	3504	\N	3	Digital Identity
+INFO	4601	\N	3	Information Ethics and Policy
+INFO	4609	\N	3	User-Centered Design
+INFO	4700	\N	3	Senior Capstone
+INFO	2001	\N	1	Portfolio and Professions
+INFO	6301	\N	3	Comp & Rsch in Info Sci
+INFO	6500	\N	1	Information Science Seminar
+JRNL	1000	\N	3	Princpls Jour & Networked Comm
+JRNL	2000	\N	3	Writing for the Media
+JRNL	2001	\N	3	Reporting Technologies
+JRNL	3102	\N	3	Photojournalism I
+JRNL	3201	\N	3	Critical Perspcts on Journalis
+JRNL	3202	\N	3	Covering Political Campaigns
+JRNL	3241	\N	3	History of Journalism
+JRNL	3402	\N	3	Social Media Storytelling
+JRNL	3552	\N	3	Editing and Presentation
+JRNL	3614	\N	3	Principles of Audio Production
+JRNL	3644	\N	3	Principles of TV Production
+JRNL	3651	\N	3	Media Law and Ethics
+JRNL	3674	\N	3	TV Production 2
+JRNL	3704	\N	3	Sports Writing
+JRNL	3804	\N	3	Sports, Media and Society
+JRNL	4002	\N	3	Reporting 2
+JRNL	4102	\N	3	Photojournalism Portfolio
+JRNL	4311	\N	3	Literary Journalism
+JRNL	4344	\N	3	Video Documentary Production
+JRNL	4354	\N	3	TV Reporting
+JRNL	4411	\N	3	Media and Global Crises
+JRNL	4572	\N	3	News Corps
+JRNL	4602	\N	3	Opinion Writing
+JRNL	4614	\N	3	Advanced Audio Practices
+JRNL	4624	\N	4	NewsTeam
+JRNL	4674	\N	3	Television Production 3
+JRNL	4704	\N	3	Athletic Media Relations
+JRNL	4724	\N	3	Sports Announcing
+JRNL	4802	\N	3	Feature Writing
+JRNL	4822	\N	3	Reporting on Environment
+JRNL	5514	\N	3	Newsgathering for TV
+JRNL	5552	\N	3	News Editing
+JRNL	5572	\N	3	CU News Corps
+JRNL	5651	\N	3	Journalism Law & Ethics
+MDST	1001	\N	3	Foundations of Media Studies
+MDST	1002	\N	3	Introduction to Social Media
+MDST	2002	\N	3	Media/Communication History
+MDST	2010	\N	3	Media and Social Movements
+MDST	2012	\N	3	Hacker Culture
+MDST	2032	\N	3	Visual Literacies & Design
+MDST	3001	\N	3	Media Research
+MDST	3002	\N	3	Digital Culture and Politics
+MDST	3791	\N	3	Media and the Public
+MDST	4221	\N	3	Media Tech/Cultural Change
+MDST	4331	\N	3	Gndr, Race, Clss, Sex Pop Cult
+MDST	4371	\N	3	Media and Religion
+MDST	4401	\N	3	Fan and Audience Studies
+MDST	5002	\N	3	Media Activism/Public Engemnt
+MDST	6051	\N	3	Media Theories
+MDST	6201	\N	3	Global Media and Culture
+MDST	7001	\N	1	PhD Colloquium Series
+MDST	7021	\N	3	Prosem in Media/Comm Theory II
+MDST	7051	\N	3	Qual Resrch Mthds in Media
+CMCI	1020	\N	4	Concepts and Creativity 2
+CMCI	2030	\N	4	Becoming CMCI
+CMCI	3000	\N	3	Special Topics in CMCI
+CMCI	2001	\N	2	Sports Media Practics
+IAWP	6100	\N	3	Theory and Practice of Doing
+IAWP	6200	\N	3	Intermedia Collaboratory
+MUS	1111	\N	2	Semester 2 Theory
+MUS	1131	\N	1	Aural Skills Lab, Semester 2
+MUS	1554	\N	1	English Diction
+MUS	2111	\N	2	Semester 4 Theory
+MUS	2131	\N	1	Aural Skills Lab, Semester 4
+MUS	2325	\N	2	Appl Harmony/Keyboard
+MUS	2365	\N	2	Introduction to Accompanying
+MUS	2608	\N	1	Studies/Alexander Technq
+MUS	2782	\N	3	World Musics: Afr/Eur/Am
+MUS	3023	\N	1	Woodwind Class
+MUS	3033	\N	1	Brass Class
+MUS	3041	\N	2	Instrumentation and Arranging
+MUS	3051	\N	2	Beginning Composition
+MUS	3071	\N	2	Jazz Improvisation II
+MUS	3091	\N	3	Jazz Theory & Aural Fndtns 2
+MUS	3133	\N	2	Teaching General Music I
+MUS	3153	\N	2	Tchg Woodwind Instrument
+MUS	3186	\N	2	Conducting II
+MUS	3193	\N	2	Vocal Ped/Young Voices
+MUS	3223	\N	2	Teaching Brass Instrmnts
+MUS	3253	\N	2	Jazz Tech for the Mus Ed
+MUS	3273	\N	2	String Pedagogy and Literature
+MUS	3464	\N	1	German Diction
+MUS	3652	\N	3	History of Jazz 2
+MUS	3812	\N	3	History of Western Music 2
+MUS	4061	\N	2	Tonal Analysis
+MUS	4091	\N	2	Jazz Arranging 2
+MUS	4101	\N	1	Theory and Aural Skills Review
+MUS	4103	\N	1	Intro Student Teaching
+MUS	4121	\N	3	Topics: Music Technology
+MUS	4171	\N	2	Adv Jazz Improv/Analysis
+MUS	4193	\N	1	Sem-Student Teaching
+MUS	4202	\N	3	Special Topic in Musicology
+MUS	4313	\N	3	Teaching Choral Music
+MUS	4335	\N	2	Keyboard Literature 2
+MUS	4336	\N	2	Brass Pedagogy
+MUS	4443	\N	3	Teaching Instrumental Music
+MUS	4608	\N	1	Adv Studies in Alex Tech
+MUS	4988	\N	3	The Entrepreneurial Artist
+MUS	5012	\N	3	African Music
+MUS	5041	\N	2	Advanced Orchestration
+MUS	5061	\N	3	Advanced Tonal Analysis
+MUS	5071	\N	3	Post-Tnal Thry & Anlys I
+MUS	5091	\N	3	Contemporary Theory
+MUS	5121	\N	3	Adv Mus Tech
+MUS	5151	\N	3	Topics Music Analysis
+MUS	5156	\N	2	Choral Music Symposium
+MUS	5315	\N	2	Piano Ped - Intermed Lit
+MUS	5435	\N	2	Coll Piano Literature II
+MUS	5464	\N	2	French Song Literature
+MUS	5484	\N	2	Grad Seminar in Vocal Pedagogy
+MUS	5608	\N	1	Grad Stdy in Alexander Tech
+MUS	5642	\N	3	Jazz History & Lit
+MUS	5708	\N	2	Intro Mus Biblio Rsch
+MUS	5802	\N	3	Studies in 20th Century Music
+MUS	5808	\N	1	Adv Alex Tech Graduate
+MUS	5822	\N	3	Ancient/Medieval Music
+MUS	5948	\N	3	Sustainable Arts Orgs
+MUS	6133	\N	2	Comp Muscnshp Thru Perf
+MUS	6203	\N	2	Psyc of Music Learning
+MUS	6801	\N	3	Adv Tpcs in Music Theory
+MUS	6822	\N	3	Adv Studies Musicology
+MUS	7046	\N	3	Seminar-Jazz Literature
+MUS	7103	\N	3	Histrcl Rsch in Mus Ed
+MUS	7822	\N	3	Musicology Seminar
+MUEL	1081	\N	3	Basic Music Theory
+MUEL	1832	\N	3	Appreciation of Music
+MUEL	2031	\N	3	Making Electronic Music
+MUEL	2051	\N	3	Intro to Songwriting
+MUEL	2752	\N	3	Music in Amer Culture
+MUEL	2782	\N	3	World Musics: Afr/Eur/Amers
+MUEL	2852	\N	3	Music in the Rock Era
+MUEL	3642	\N	3	History of Jazz
+MUEL	3832	\N	3	Music in Literature
+MUEL	3882	\N	3	Music and Violence
+MUEL	3892	\N	3	Music and Space
+MUEL	4121	\N	3	Topics in Music Technology
+MUEL	1145	\N	2	Guitar Class
+EMU	1217	\N	1	University Singers
+EMU	1227	\N	1	University Choir
+EMU	1237	\N	1	Women's Chorus
+EMU	1247	\N	1	Men's Chorus
+EMU	1257	\N	1	Collegiate Chorale
+EMU	1277	\N	1	Court Players
+EMU	1297	\N	1	Wind Symphony
+EMU	1307	\N	1	Symphonic Band
+EMU	1317	\N	1	Concert Band
+EMU	1327	\N	1	Symphony Orchestra
+EMU	1417	\N	1	Percussion Ensemble
+EMU	1427	\N	1	Jazz Ensemble
+EMU	1467	\N	1	World Music Ensemble
+EMU	1517	\N	1	Campus Orchestra
+PMU	1217	\N	2	Musical Theatre Stud II Acting
+PMU	1506	\N	2	Bassoon
+PMU	1516	\N	2	Clarinet
+PMU	1526	\N	1	Composition
+PMU	1546	\N	2	Euphonium
+PMU	1556	\N	2	Flute
+PMU	1566	\N	2	Guitar
+PMU	1576	\N	2	Harp
+PMU	1596	\N	2	Horn
+PMU	1606	\N	2	Oboe
+PMU	1626	\N	2	Percussion
+PMU	1636	\N	2	Piano
+PMU	1646	\N	2	Saxophone
+PMU	1656	\N	2	Double Bass
+PMU	1666	\N	2	Trombone
+PMU	1676	\N	2	Trumpet
+PMU	1686	\N	2	Tuba
+PMU	1696	\N	2	Viola
+PMU	1706	\N	2	Violin
+PMU	1716	\N	2	Violoncello
+PMU	1726	\N	2	Voice
+PMU	1806	\N	2	Jazz Piano
+PMU	1816	\N	2	Jazz Bass
+PMU	1826	\N	2	Jazz Drum Set
+PMU	1846	\N	2	Jazz Guitar
+PMU	1856	\N	2	Jazz Trumpet
+PMU	1866	\N	2	Jazz Trombone
+PMU	1876	\N	2	Jazz Saxophone
+PMU	3271	\N	2	Basic Improvisation
+PMU	4147	\N	1	Opera Theater 2
+PMU	4157	\N	1	Opera Practicum
+PMU	4497	\N	1	Vocal Rep. Coaching
+PMU	5157	\N	1	Opera Theatre Practicum
+PMU	5497	\N	1	Vocal Repertoire Coaching
+AIRR	1020	\N	1	Heritages and Values II
+AIRR	1234	\N	0	Leadership Laboratory
+AIRR	2020	\N	1	Team and Leadership 2
+AIRR	3020	\N	3	Leading People/Effective Comm
+AIRR	4020	\N	3	Natl Sec Affairs/Comm Prep 2
+MILR	1021	\N	2	Adventures in Leadership 2
+MILR	2041	\N	3	Meths Leadership/Mgmt 2
+MILR	3062	\N	3	Military Trng/Operatns 2
+MILR	3090	\N	1	Mil Theory & Tactical Ldrshp
+MILR	4082	\N	3	Leadership in a Complex World
+NAVR	2020	\N	3	Seapower/Maritime Affair
+NAVR	3030	\N	3	Naval Engineering Systems
+NAVR	3201	\N	3	Fund of Maneuver Warfare
+NAVR	4020	\N	3	Leadership and Ethics
+NAVR	4030	\N	3	Navigation
+PRLC	1820	\N	3	Lead Found and Applications II
+PRLC	3800	\N	4	Global Inquiry and Leadership
+ACCT	3220	\N	3	Corporate Financial Rprtng 1
+ACCT	3230	\N	3	Corporate Financial Rprtng 2
+ACCT	3320	\N	3	Cost Management
+ACCT	3440	\N	3	Income Taxation of Individuals
+ACCT	4240	\N	3	Advanced Financial Accounting
+ACCT	4250	\N	3	Financial Statement Analysis
+ACCT	4540	\N	3	Accounting Information Systems
+ACCT	4620	\N	3	Auditing and Assurance Service
+ACCT	4850	\N	3	SR Seminar - Accounting Ethics
+ACCT	5450	\N	3	Income Tax: Business Entities
+ACCT	5827	\N	3	Integrated Report for Soc Resp
+ACCT	6350	\N	3	Current Iss Prof ACCT--Ethics
+ACCT	6450	\N	3	Taxation of Corporations
+ACCT	6620	\N	3	Adv Aud/Bus Risk & Dec
+BAD	1260	\N	2	First-Year Global Experience
+BAD	2010	\N	1	Excel in Business
+BAD	6930	\N	3	Comm Sustain Enrgy Tech
+BAD	6940	\N	3	Land Use Law
+BCO	1015	\N	3	The World of Business
+BCO	1025	\N	3	Statistical Analys in Business
+BCO	1030	\N	3	Communication Strategy
+BCO	2201	\N	1	Principles of Marketing
+BCO	2202	\N	1	Princ of Organizational Behav
+BCO	2203	\N	1	Principles of Accounting I
+BCO	2205	\N	1	Intro to Info Mgmt and Analyt
+BCO	2206	\N	1	Princ of Operations Mgmt
+BCO	2301	\N	1	Business Law
+BCO	2302	\N	1	Bus Ethics and Soc Responsibil
+BCO	2303	\N	1	Principles of Accounting II
+BCO	2304	\N	1	Strategic and Entrepr Thinking
+BCO	2204	\N	1	Princ of Financial Mgmt
+BPOL	7500	\N	3	Doc Sem: Strategic Mgmt 1
+BSL	4120	\N	3	Advanced Business Law
+CESR	3040	\N	3	Fund Soc Rspnsble Lead
+CESR	4005	\N	3	Bus Solutions Dev World
+CESR	4130	\N	3	Sustainable Operations
+ESBM	3700	\N	3	Entrepreneurial Environs
+ESBM	4570	\N	3	Entrepreneurial Finance
+ESBM	3100	\N	3	Intro to Entrepreneurship
+FNCE	2010	\N	3	Fndmnts of Financial Analysis
+FNCE	2820	\N	3	Intro Personal Finances
+FNCE	3010	\N	3	Corporate Finance
+FNCE	3030	\N	3	Invstmnt & Prtfolio Mgmt
+FNCE	3040	\N	3	Retirement Planning
+FNCE	3060	\N	3	Estate Planning
+FNCE	3820	\N	3	Principles of PFP and Insuranc
+FNCE	4040	\N	3	Derivative Securities
+FNCE	4070	\N	3	Fin Markets & Institutns
+FNCE	4820	\N	3	Topics in Finance
+FNCE	4827	\N	3	Exp Sem: Topics in Derivatives
+FNCE	4831	\N	3	Sem in Investment Management
+FNCE	4835	\N	3	Fixed Income Securities
+FNCE	4840	\N	3	Prsnal Financial Plan Capstone
+FNCE	4850	\N	3	Bus Senior Sem in Finance
+FNCE	4080	\N	3	Blockchain & Cryptocurrencies
+FNCE	7200	\N	3	Doc Sem:Rsrch Meths Fnce
+INBU	3300	\N	3	Intnl Business & Mgmt
+INBU	3450	\N	3	International Marketing
+INBU	4200	\N	3	Intl Financial Mgmt
+MGM	3100	\N	3	Operations Management
+MGM	3800	\N	3	Consulting Skills
+MGM	4140	\N	3	Project Management
+MGM	4150	\N	3	Intrntnl Operatns Mgmt
+MGM	4200	\N	3	Competitive Strategy
+MGM	4820	\N	3	Topics in Business
+MGM	4850	\N	3	Senior Seminar in Management
+MKT	3100	\N	3	Fundamentals of Prof Selling
+MKT	3150	\N	3	Sales Mgmt, Ldrshp & Org Deve
+MKT	3201	\N	3	Business Analytics
+MKT	3250	\N	3	Buyer Behavior
+MKT	3350	\N	3	Marketing Research & Analytics
+MKT	3700	\N	3	Digital Marketing
+MKT	4250	\N	3	Product Strategy
+MKT	4300	\N	3	Pricing & Chan of Distribution
+MKT	4550	\N	3	Advrtisng & Promotn Mgmt
+MKT	4820	\N	3	Special Topics in Mktg
+MKT	4850	\N	3	Senior Seminar in Marketing
+MKT	2700	\N	3	Digital Marketing Tools
+MKT	7310	\N	3	Dsgn/Analysis Exprmt Bus
+MBAX	6100	\N	3	Entrepreneurship
+MBAX	6130	\N	3	Sustainable Venturing
+MBAX	6140	\N	3	Social Entrep Emerg Mkts
+MBAX	6180	\N	3	Startup Execution
+MBAX	6190	\N	3	Projects in Entrep Co
+MBAX	6210	\N	3	Applied Financial Mangmt
+MBAX	6260	\N	3	Fixed Income Investing
+MBAX	6270	\N	3	Applied Derivatives
+MBAX	6280	\N	3	Entrepreneurship Valuation
+MBAX	6330	\N	3	Market Intelligence
+MBAX	6410	\N	3	Process Analytics
+MBAX	6450	\N	1	Internatl Ops Management
+MBAX	6530	\N	3	Negotiatng/Conflict Mgmt
+MBAX	6560	\N	3	Executive Leadership
+MBAX	6600	\N	3	Real Estate Principles
+MBAX	6620	\N	3	Real Estate Proj Competn
+MBAX	6640	\N	3	Real Estate Law & Practice
+MBAX	6695	\N	3	Special Topics in Real Estate
+MBAX	6802	\N	3	Pricing Strategy and Tactics
+MBAX	6815	\N	3	Sustainable Real Estate
+MBAX	6843	\N	3	Supply Chain Analytics
+MBAX	6930	\N	3	Sustainable Energy
+MBAX	6372	\N	1	Professional Sales Management
+MBAX	6801	\N	3	Global Perspectives Sem
+MBAX	6340	\N	1	Marketing Field Project
+MBAX	6211	\N	2	Applied Financial Management
+MBAX	6531	\N	2	Negotiations
+MBAX	6846	\N	2	Global Strategy
+MBAX	6301	\N	2	Marketing Communications
+MBAX	6595	\N	2	Topics in Org. Behavior
+MBA	6080	\N	3	Decision Model/Applicat
+MBA	6012	\N	1	Managerial Economics 2
+MBA	6050	\N	3	Strategy
+MBA	6096	\N	1	Managerial Communications
+MBA	6003	\N	1	Foundations of Leadership
+MSBX	5205	\N	3	Fin Strategy & Decision Model
+MSBX	5225	\N	3	Advanced Portfolio Management
+MSBX	5310	\N	1	Customer Analytics
+MSBX	5415	\N	1	Advanced Data Analytics
+MSBX	5420	\N	3	Unstruct Dist Data Mod/Analys
+MSBX	5435	\N	3	Planning and Production
+MSBX	5500	\N	3	Security Analytics with Python
+MSBX	5605	\N	3	Real Estate Invest & Risk Man
+MSBX	5680	\N	3	Real Estate Technology
+ORM	7830	\N	3	Rsch Design/Methods Mgmt
+REAL	3000	\N	3	Principles of Real Estate
+REAL	4000	\N	3	Real Estate Law
+REAL	4100	\N	3	Finance & Invstmnt Anal
+REAL	4400	\N	3	Real Estate Economics
+REAL	4850	\N	3	Senior Seminar in Real Estate
+REAL	2010	\N	3	Introduction to Real Estate
+ARC	2100	\N	6	Foundations of Architecture
+ARC	2115	\N	3	ARCH Materials and Methods
+ARC	3100	\N	6	Intermediate Architecture
+ARC	3214	\N	3	Hist & Thry of Architecture 2
+ARC	4100	\N	6	Architecture Capstone
+ENVD	1002	\N	1	Tech 1: Applications for ENVD
+ENVD	1004	\N	3	Intro Environ Design
+ENVD	1012	\N	3	Tech 2: Visual Communications
+ENVD	1024	\N	3	History: Built Environment
+ENVD	1150	\N	3	ENVD First Year Writing
+ENVD	2352	\N	3	Beginning Digital Applications
+ENVD	3150	\N	3	Project Writing in ENVD
+ENVD	3212	\N	3	Color Theory
+ENVD	4112	\N	3	ARCH Graphics 1
+ENVD	4352	\N	3	Spec Topics: Comput Meth
+ENVD	4363	\N	3	Spec Top: Phys Factors
+ENVD	4365	\N	3	Spec Tpcs: Techno & Prac
+ENVD	4972	\N	1	Honors Research Methods
+ENVD	1010	\N	3	Intro to Products of Design
+ENVD	1030	\N	3	Intro Landscape Architecture
+ENVD	1020	\N	3	Introduction to Architecture
+ENVD	1040	\N	3	Intro Planning & Urban Design
+EDU	1080	\N	3	Decolonial Praxis in Education
+EDU	2015	\N	1	Elem Math Sci for Soc Justice
+EDU	2020	\N	1	Step 1: STEM Teaching
+EDU	2030	\N	1	Step 2 Inquiry Lsson Des
+EDU	2050	\N	1	Step Up to Soc Just Teaching
+EDU	2125	\N	3	Hist Amer Public Educ
+EDU	2150	\N	3	Education in Film
+EDU	2311	\N	3	Child Lit Engmt Elem Sch
+EDU	2411	\N	4	Ed Psyc for Elem Schools
+EDU	2425	\N	3	Foundations Biling/Multi Ed
+EDU	2500	\N	3	Strategies for Social Change
+EDU	2625	\N	3	Teaching ESL
+EDU	2910	\N	1	Field Practicum I
+EDU	2919	\N	3	Renewing Democracy
+EDU	2920	\N	1	Field Practicum II
+EDU	3013	\N	3	School & Society
+EDU	3570	\N	3	Learning With Technology
+EDU	4001	\N	3	Equity and Justice in Hum Clas
+EDU	4023	\N	3	Diff Instructn Secondary
+EDU	4050	\N	3	Know & Lrng Math/Sci
+EDU	4205	\N	3	Elem Math Methods
+EDU	4222	\N	3	Language Study for Educators
+EDU	4301	\N	3	Queer Topics in Education
+EDU	4321	\N	3	Writing Instr for Elem School
+EDU	4425	\N	3	Intro Biling/Multi Ed
+EDU	4435	\N	3	Culturally Sustain Pedagogies
+EDU	4455	\N	3	Mthds of Biliteracy Instrctn
+EDU	4490	\N	3	Blurring Disciplinary Lines
+EDU	4595	\N	3	Practicum in CLD Education
+EDU	4630	\N	2	LA Mentoring II
+EDU	4822	\N	3	Teaching & Learning Chem
+EDU	4902	\N	4	Student Teaching II
+EDU	5085	\N	3	Hist of Amer Education
+EDU	5255	\N	3	Digital Literacies & New Media
+EDU	5285	\N	3	Rdgs-Clinic Kind-12
+EDU	5355	\N	3	Social Studies Methods II
+EDU	5365	\N	3	Secondary English Methods II
+EDU	5375	\N	3	Problem-Based Math Instruction
+EDU	5385	\N	3	Problem-Based Science Instrct
+EDU	5435	\N	3	Mat/Meth-Biling/Mult Ed
+EDU	5455	\N	3	Literacy for Ling Diff
+EDU	5485	\N	3	Differentiation in the Classrm
+EDU	5595	\N	3	Pract-Ling Different: ESL
+EDU	5625	\N	3	Methods Teaching ESL
+EDU	5635	\N	3	ED & Sociolinguistics
+EDU	5706	\N	3	Assessmt Math & Sci Edu
+EDU	6325	\N	3	Anthropology of Education
+EDU	6368	\N	3	Adol Psy & Dev for Tchrs
+EDU	6945	\N	3	MA Capstone Seminar
+EDU	6964	\N	3	Capstone Inqu Cont Area
+EDU	7386	\N	3	Educ Evaluation
+EDU	7396	\N	3	Categorical Data Analysis
+EDU	7446	\N	3	Sem: Policy Issues in Educ
+EDU	8135	\N	3	Theories of Tchr Learning/Ed
+EDU	8155	\N	3	Adv Tpcs: Literacy Education
+EDU	8165	\N	3	Adv Tpcs: Mathematics Educ
+EDU	8175	\N	3	Adv Tpcs: Science Education
+EDU	8220	\N	3	Intro Educ Res & Policy
+EDU	8240	\N	3	Quant Methods II
+EDU	8358	\N	3	Seminar-Human Learning
+EDU	8720	\N	3	Adv Topics Measurement
+EDU	8730	\N	3	Adv Qual Data Analysis
+EDU	5011	\N	1	Coll Student Career Devel
+EDU	5012	\N	1	Higher Ed Finance
+EDU	5010	\N	1	Race in Higher Ed
+LEAD	1000	\N	3	Becoming a Leader
+LEAD	4000	\N	4	Leadership Capstone
+LAW	6004	\N	3	Real Estate Transactions
+LAW	6021	\N	3	Secured Transactions
+LAW	6103	\N	3	Legal Ethics Professionalism
+LAW	6104	\N	3	Wills and Trusts
+LAW	6109	\N	2	Trial Advocacy
+LAW	6112	\N	3	Found Amer Nat Res Law
+LAW	6157	\N	3	Corporate Taxation
+LAW	6211	\N	3	Corporations
+LAW	6217	\N	3	Estate and Gift Tax Planning
+LAW	6223	\N	3	Research/Writing in Reg State
+LAW	6226	\N	2	Advanced Legal Writing
+LAW	6236	\N	2	Judicial Opinion Writing
+LAW	6271	\N	1	Special Topics: Deals Lab
+LAW	6318	\N	3	Economic Analysis of Law
+LAW	6353	\N	3	Evidence
+LAW	6401	\N	1	Foreign Corrupt Practices Act
+LAW	6510	\N	2	Internatnll Environmental Law
+LAW	6712	\N	3	Climate Change Law & Pol
+LAW	6722	\N	3	Energy Law and Regulation
+LAW	6813	\N	2	Prob Solv, Judgmt, Dec Mking
+LAW	6876	\N	2	Legal Resrch Skills Practice
+LAW	7003	\N	3	Federal Courts
+LAW	7015	\N	3	First Amendment
+LAW	7025	\N	3	Civil Rights
+LAW	7031	\N	3	Reg Financial Institutions
+LAW	7051	\N	2	Transactional Drafting
+LAW	7071	\N	2	Advance Transactional Drafting
+LAW	7101	\N	4	Deals: Engineer Fin Trans
+LAW	7103	\N	3	Ethics & Compliance Capstone
+LAW	7115	\N	3	Juvenile Justice
+LAW	7122	\N	3	Mining & Mineral Dev Law
+LAW	7128	\N	3	Jurisprudence
+LAW	7169	\N	2	Motions Advocacy
+LAW	7205	\N	3	Administrative Law
+LAW	7301	\N	3	Copyright
+LAW	7303	\N	3	Complex Civil Litigation
+LAW	7311	\N	3	Patent Law
+LAW	7318	\N	3	Econ of Am Legal System
+LAW	7323	\N	2	Patent Litigation
+LAW	7331	\N	2	Sports Law
+LAW	7341	\N	3	Trademark & Unfair Comp
+LAW	7350	\N	3	Analytical Strategies
+LAW	7361	\N	2	Cybersecurity
+LAW	7401	\N	3	Securities Regulation
+LAW	7405	\N	3	Health Law 2
+LAW	7426	\N	2	Health Care Compliance
+LAW	7515	\N	3	Poverty Law
+LAW	7541	\N	3	Employment Discrimination
+LAW	7605	\N	3	Refugee and Asylum Law
+LAW	7611	\N	3	Intl Business Transactions
+LAW	7718	\N	2	The Regulation of Marijuana
+LAW	7735	\N	3	American Indian Law II
+LAW	8095	\N	2	Seminar: Problems in Con Law
+LAW	8112	\N	2	Sem Adv Natl Res
+LAW	8321	\N	2	Sem: Computers and Law
+LAW	8455	\N	2	Sem: Gender & Criminal Justice
+LAW	8545	\N	2	Seminar: Food Law and Policy
+LAW	8722	\N	2	Seminar: Advanced Energy Law
+LAW	7102	\N	2	Oil and Gas
+LAW	5646	\N	1	Foundations of Legal Research
+\.
+
+
+--
+-- Data for Name: major_names; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.major_names (major_id, major_name, major_dept) FROM stdin;
+1	Accounting	ACCT
+2	Advertising, PR and Media Design	APRD
+3	Aerospace Engineering	ASEN
+4	Air Force Aerospace Studies - ROTC	AIRR
+5	Anthropology	ANTH
+6	Applied Math	APPM
+7	Arabic Languages	ARAB
+8	Architectural Engineering	AREN
+9	Architecture	ARCH
+10	Art Film Studies	ARTF
+11	Art History	ARTH
+12	Arts and Sciences Courses	ARSC
+13	Art Studio and Non-Studio	ARTS
+14	Asian Studies	ASIA
+15	Astrophysical and Planetary Sciences	ASTR
+16	ATLAS	ATLS
+17	Atmospheric and Oceanic Sciences	ATOC
+18	Baker Residential Academic Program	BAKR
+19	BCOR Applied Semester Experience	BASE
+20	Biochemistry	BCHM
+21	Biomedical Engineering	BMEN
+22	Business Administration	BADM
+23	Business Core	BCOR
+24	Business Environment and Policy	BPOL
+25	Business Law	BSLW
+26	Business Minor	BUSM
+27	Career Services	CSVC
+28	Center for Western Civilization	CWCV
+29	Center of the American West	CAMW
+30	Central and East European Studies	CEES
+31	Chemical Engineering	CHEN
+32	Chemistry	CHEM
+33	Chinese	CHIN
+34	Cinema Studies & Moving Image Arts	CINE
+35	Civil Engineering	CVEN
+36	Classical Greek Language	GREK
+37	Classics	CLAS
+38	College of Engineering and Applied Science	COEN
+39	College of Media, Communication & Information	CMCI
+40	Communication	COMM
+41	Communication Residential Academic Program	COMR
+42	Comparative Literature	COML
+43	Computer Science	CSCI
+44	Computer Science Post-Baccalaureate	CSPB
+45	Critical Media Practices	CMDP
+46	Curriculum Emphasis in Social Responsibility	CESR
+47	Dance	DNCE
+48	Danish	DANE
+49	Digital Humanities	DHUM
+50	East Asian Languages and Civilizations	EALC
+51	Ecology and Evolutionary Biology	EBIO
+52	Economics	ECON
+53	Education	EDUC
+54	Electrical and Computer Engineering	ECEN
+55	Energy Engineering	ENEN
+56	Engineering for Developing Communities	EDEN
+57	Engineering Honors	EHON
+58	Engineering Management	EMEN
+59	Engineering Plus	GEEN
+60	English as a Second Language	ESLG
+61	English	ENGL
+62	Entrepreneurial and Small Business Management	ESBM
+63	Environmental Design	ENVD
+64	Environmental Engineering	EVEN
+65	Environmental Product of Design	EPOD
+66	Environmental Studies	ENVS
+67	Environment and Sustainability	ENST
+68	Ethnic Studies	ETHN
+69	Experience Design	TDXD
+70	Farrand Residential Academic Program	FARR
+71	Farsi	FRSI
+72	Finance	FNCE
+73	Finnish	FINN
+74	First Year Exploration	FYXP
+75	First Year Seminar	FYSM
+76	French	FREN
+77	Geography	GEOG
+78	Geological Sciences	GEOL
+79	German	GRMN
+80	Germanic and Slavic Languages and Literatures	GSLL
+81	Global Studies Residential Academic Program	GSAP
+82	Graduate School	GRAD
+83	Graduate Teacher Education	GRTE
+84	Hebrew	HEBR
+85	Hindi/Urdu	HIND
+86	History	HIST
+87	Honors	HONR
+88	Humanities for Engineers	HUEN
+89	Humanities	HUMN
+90	Indonesian	INDO
+91	Information Management and Business Analytics	BAIM
+92	Information Science	INFO
+93	Integrative Physiology	IPHY
+94	Intermedia Art, Writing and Performance	IAWP
+95	International Affairs	IAFS
+96	International Business	INBU
+97	INVST Community Studies	INVS
+98	Italian	ITAL
+99	Japanese	JPNS
+100	Jewish Studies	JWST
+101	Journalism	JRNL
+102	Korean	KREN
+103	Landscape Architecture	LAND
+104	Language Technology	LGTC
+105	Latin American Studies	LAMS
+106	Latin Language	LATN
+107	Law School	LAWS
+108	Leadership Minor	LEAD
+109	Lesbian, Gay and Bisexual Studies	LGBT
+110	Libby Residential Academic Program	LIBB
+111	Libraries	LIBR
+112	Linguistics	LING
+113	Management	MGMT
+114	Marketing	MKTG
+115	Master of the Environment	ENVM
+116	Materials Science and Engineering	MSEN
+117	Mathematics	MATH
+118	MBA Advanced Electives	MBAX
+119	MBA Core	MBAC
+120	Mechanical Engineering	MCEN
+121	Media Research and Practice	MDRP
+122	Media Studies	MDST
+123	Medieval and Early Modern Studies	MEMS
+124	Military Science - Army ROTC	MILR
+125	Molecular, Cellular and Developmental Biology	MCDB
+126	MS Business Core	MSBC
+127	MS Business Electives	MSBX
+128	Museum	MUSM
+129	Music Electives	MUEL
+130	Music Ensemble	EMUS
+131	Music	MUSC
+132	Naval Science - ROTC	NAVR
+133	Neuroscience	NRSC
+134	Norlin Scholars	NRLN
+135	Norwegian	NORW
+136	Operations and Information Management	OPIM
+137	Operations Management	OPMG
+138	Organization Management	ORMG
+139	Peace and Conflict Studies	PACS
+140	Performance Music	PMUS
+141	Philosophy	PHIL
+142	Physics	PHYS
+143	Planning and Urban Design	PLAN
+144	Political Science	PSCI
+145	Portuguese	PORT
+146	Presidents Leadership Class	PRLC
+147	Psychology	PSYC
+148	Real Estate	REAL
+149	Religious Studies	RLST
+150	Russian	RUSS
+151	Sanskrit	SNSK
+152	Scandinavian	SCAN
+153	Sewall Residential Academic Program	SEWL
+154	Sociology	SOCY
+155	Spanish	SPAN
+156	Speech, Language and Hearing Sciences	SLHS
+157	Statistics	STAT
+158	Sustainability and Social Innovation Residential Academic Program	SSIR
+159	Swedish	SWED
+160	Technology, Cybersecurity & Policy	CYBR
+161	Telecommunications	TLEN
+162	Theatre and Dance	THDN
+163	Theatre	THTR
+164	Thesis Music	TMUS
+165	Tibetan	TBTN
+166	Women and Gender Studies	WGST
+167	Writing and Rhetoric	WRTG
+168	Yiddish	YIDD
+\.
+
+
+--
+-- Data for Name: student_majors; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.student_majors (student_id, major_id) FROM stdin;
+900000000	77
+900000001	14
+900000002	88
+900000003	94
+900000004	149
+900000005	52
+900000006	65
+900000007	99
+900000008	116
+900000009	137
+900000010	3
+900000011	158
+900000012	54
+900000013	145
+900000014	106
+900000015	49
+900000016	50
+900000017	15
+900000018	143
+900000019	18
+900000020	20
+900000021	64
+900000022	39
+900000023	93
+900000024	122
+900000025	147
+900000026	2
+900000027	150
+900000028	48
+900000029	119
+900000030	23
+900000031	152
+900000032	168
+900000033	31
+900000034	166
+900000035	162
+900000036	55
+900000037	42
+900000038	72
+900000039	156
+900000040	118
+900000041	131
+900000042	44
+900000043	91
+900000044	62
+900000045	98
+900000046	105
+900000047	59
+900000048	95
+900000049	21
+900000050	45
+900000051	136
+900000052	154
+900000053	155
+900000054	112
+900000055	5
+900000056	67
+900000057	66
+900000058	37
+900000059	140
+900000060	90
+900000061	117
+900000062	13
+900000063	85
+900000064	138
+900000065	126
+900000066	167
+900000067	165
+900000068	133
+900000069	27
+900000070	130
+900000071	78
+900000072	142
+900000073	134
+900000074	28
+900000075	12
+900000076	164
+900000077	132
+900000078	63
+900000079	56
+900000080	38
+900000081	24
+900000082	123
+900000083	109
+900000084	124
+900000085	161
+900000086	160
+900000087	51
+900000088	10
+900000089	144
+900000090	135
+900000091	83
+900000092	121
+900000093	70
+900000094	151
+900000095	33
+900000096	76
+900000097	35
+900000098	120
+900000099	29
+900000100	28
+900000101	133
+900000102	96
+900000103	81
+900000104	12
+900000105	38
+900000106	148
+900000107	74
+900000108	132
+900000109	102
+900000110	109
+900000111	1
+900000112	167
+900000113	163
+900000114	43
+900000115	73
+900000116	151
+900000117	76
+900000118	57
+900000119	58
+900000120	75
+900000121	63
+900000122	164
+900000123	11
+900000124	78
+900000125	142
+900000126	125
+900000127	69
+900000128	113
+900000129	108
+900000130	130
+900000131	107
+900000132	19
+900000133	104
+900000134	80
+900000135	134
+900000136	24
+900000137	40
+900000138	47
+900000139	153
+900000140	16
+900000141	86
+900000142	111
+900000143	13
+900000144	135
+900000145	17
+900000146	56
+900000147	157
+900000148	124
+900000149	115
+900000150	30
+900000151	46
+900000152	121
+900000153	32
+900000154	41
+900000155	110
+900000156	141
+900000157	84
+900000158	34
+900000159	10
+900000160	92
+900000161	25
+900000162	79
+900000163	33
+900000164	36
+900000165	161
+900000166	51
+900000167	53
+900000168	83
+900000169	71
+900000170	6
+900000171	127
+900000172	85
+900000173	35
+900000174	120
+900000175	29
+900000176	89
+900000177	123
+900000178	101
+900000179	117
+900000180	61
+900000181	4
+900000182	114
+900000183	7
+900000184	60
+900000185	128
+900000186	68
+900000187	129
+900000188	160
+900000189	144
+900000190	97
+900000191	126
+900000192	27
+900000193	139
+900000194	100
+900000195	22
+900000196	103
+900000197	146
+900000198	165
+900000199	138
+\.
+
+
+--
+-- Data for Name: student_names; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.student_names (student_id, first_name, last_name) FROM stdin;
+900000000	Lyda	Dufrene
+900000001	Antony	Mccluney
+900000002	Ludie	Sollers
+900000003	Tia	Boniello
+900000004	Carolynn	Borders
+900000005	Kelli	Gheen
+900000006	Eleanora	Serrao
+900000007	Linnie	Racanelli
+900000008	Noemi	Bunting
+900000009	Norene	Picha
+900000010	Elmira	Rand
+900000011	Roland	Gerard
+900000012	Ninfa	Millner
+900000013	Chante	Valente
+900000014	Loise	Persing
+900000015	Delora	Cason
+900000016	Dave	Hultman
+900000017	Delma	Eldred
+900000018	Yuk	Siemers
+900000019	Barb	Goshorn
+900000020	Rheba	Mingle
+900000021	Zita	Ahmad
+900000022	Damion	Philip
+900000023	Carmela	Boylan
+900000024	Paris	Sauter
+900000025	Arica	Khang
+900000026	Sandie	Dartez
+900000027	Lorette	Urena
+900000028	Marnie	Kierstead
+900000029	Chelsey	Didomenico
+900000030	Shea	Sallee
+900000031	Albina	Tennison
+900000032	Angelique	Launer
+900000033	Cierra	Zook
+900000034	Ernest	Schear
+900000035	Bette	Sgro
+900000036	Susann	Horrocks
+900000037	Eugenio	Keeler
+900000038	Shandi	Gullette
+900000039	Laveta	Armistead
+900000040	Buster	Seamon
+900000041	Ines	Lafortune
+900000042	Christene	Dunbar
+900000043	January	Crimmins
+900000044	Angle	Grigsby
+900000045	Tressie	Haase
+900000046	Glenda	Oviatt
+900000047	Nidia	Daily
+900000048	Soo	Dworkin
+900000049	Vernon	Jacobsen
+900000050	Kirstie	Catania
+900000051	Riva	Swanner
+900000052	Madeleine	Nipper
+900000053	Delaine	Edmiston
+900000054	Tamesha	Mott
+900000055	Alma	Bounds
+900000056	Janie	Spoon
+900000057	Delma	Yoshimura
+900000058	Della	Clinger
+900000059	Oralia	Golla
+900000060	Tommie	Clift
+900000061	Liliana	Deal
+900000062	Cara	Hutchings
+900000063	Jennie	Tindall
+900000064	Kristy	Brekke
+900000065	Temeka	Groat
+900000066	Casey	Mcglaughlin
+900000067	Jen	Tebbs
+900000068	Muoi	Melugin
+900000069	Tonya	Vanauken
+900000070	Emmie	Ulery
+900000071	Eleonor	Seaton
+900000072	Eloisa	Forrest
+900000073	Evangelina	Modeste
+900000074	Brett	Garica
+900000075	Hermina	Greenhaw
+900000076	Thea	Baity
+900000077	Shanta	Maas
+900000078	Jody	Chidester
+900000079	Cherilyn	Boger
+900000080	Bernardina	Mckamie
+900000081	Loyce	Jone
+900000082	Taryn	Yarbro
+900000083	Starla	Woelfel
+900000084	Krystin	Hinds
+900000085	Matthew	Stano
+900000086	Willodean	Chesley
+900000087	Venetta	Sisco
+900000088	Bradley	Dano
+900000089	Maudie	Teixeira
+900000090	Genesis	Lutz
+900000091	Ngan	Marlow
+900000092	Ty	Gonsales
+900000093	Rhoda	Gooden
+900000094	Daria	Papke
+900000095	Winnie	Boerger
+900000096	Marcie	Osburn
+900000097	Isabell	Westman
+900000098	Yelena	Mccreery
+900000099	Leone	Plouffe
+900000100	Gertrude	Rourke
+900000101	Dexter	Sosnowski
+900000102	Lisette	Junior
+900000103	Velma	Mungo
+900000104	Letha	Gu
+900000105	Charmaine	Nishimoto
+900000106	Mistie	Lindblom
+900000107	Moira	Stiger
+900000108	Eilene	Hulsey
+900000109	Dorian	Widman
+900000110	Kera	Kinard
+900000111	Laurence	Mounsey
+900000112	Enedina	Bramlett
+900000113	Thresa	Liles
+900000114	Kristi	Delaughter
+900000115	Melvin	Steverson
+900000116	Aiko	Russel
+900000117	Jenna	Mcmillen
+900000118	Mittie	Hoying
+900000119	Ara	Byrnes
+900000120	Dodie	Roark
+900000121	Freeman	Gammons
+900000122	Debby	Gramling
+900000123	Freddy	Linzy
+900000124	Moises	Sheeley
+900000125	Kiyoko	Yowell
+900000126	Dona	Toller
+900000127	Lanette	Lariviere
+900000128	Kathe	Fray
+900000129	Dusty	Dauphinais
+900000130	Dania	Suitt
+900000131	Camilla	Mcelligott
+900000132	Lacey	Kohlmeier
+900000133	Merissa	Merchant
+900000134	Norine	Benningfield
+900000135	Keren	Cothern
+900000136	Shayla	Sclafani
+900000137	Shu	Stall
+900000138	Jefferey	Grieve
+900000139	Nicky	Bohr
+900000140	Mirian	Bruemmer
+900000141	Ma	Mcgeorge
+900000142	Zona	Gardenhire
+900000143	Jane	Cover
+900000144	Angelica	Botello
+900000145	Pamila	Buch
+900000146	Stella	Schultheis
+900000147	Carmina	Garriga
+900000148	Suzanna	Keach
+900000149	Olympia	Caddell
+900000150	Ginger	Daoust
+900000151	Boyd	Stelzer
+900000152	Deena	Dubrey
+900000153	Chanelle	Dozier
+900000154	Malisa	Cork
+900000155	Glen	Vivian
+900000156	Viki	Michaelsen
+900000157	Shonna	Fogle
+900000158	Estella	Cronkhite
+900000159	Norine	Garofalo
+900000160	Ofelia	Huffines
+900000161	Phil	Pilkington
+900000162	Rubin	Tremble
+900000163	Brianna	Oates
+900000164	Tomas	Hubbert
+900000165	Minta	Desroches
+900000166	Claire	Ammons
+900000167	India	Pilger
+900000168	Fermina	Onofrio
+900000169	Geralyn	Hartung
+900000170	Mia	Lopresti
+900000171	Margurite	Weide
+900000172	Virgil	Feggins
+900000173	Latrina	Arena
+900000174	Cori	Trembath
+900000175	Alec	Seigel
+900000176	Annelle	Hancock
+900000177	Hedwig	Ollis
+900000178	Shenika	Mahr
+900000179	Kam	Bartkowski
+900000180	Rodolfo	Whelchel
+900000181	Jennette	Bomberger
+900000182	Rosalinda	Najarro
+900000183	Pam	Clayson
+900000184	Adolph	Apel
+900000185	Libby	Albanese
+900000186	Spring	Neer
+900000187	Honey	Hougen
+900000188	Jovan	Triplett
+900000189	Latesha	Burney
+900000190	Timika	Pinard
+900000191	Palmer	Mondragon
+900000192	Treva	Gasaway
+900000193	Marielle	Ginter
+900000194	Glory	Devaughn
+900000195	Christa	Riedel
+900000196	Jesus	Queener
+900000197	John	Josephs
+900000198	Gladys	Mauldin
+900000199	Mica	Holmberg
+\.
+
+
+--
+-- Name: class_info class_info_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.class_info
+    ADD CONSTRAINT class_info_pkey PRIMARY KEY (class_number);
+
+
+--
+-- Name: completed_courses completed_courses_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.completed_courses
+    ADD CONSTRAINT completed_courses_pkey PRIMARY KEY (student_id, course_subject, course_department);
+
+
+--
+-- Name: course_info course_info_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.course_info
+    ADD CONSTRAINT course_info_pkey PRIMARY KEY (course_department, course_subject);
+
+
+--
+-- Name: major_names major_names_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.major_names
+    ADD CONSTRAINT major_names_pkey PRIMARY KEY (major_id);
+
+
+--
+-- Name: student_majors student_majors_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.student_majors
+    ADD CONSTRAINT student_majors_pkey PRIMARY KEY (student_id, major_id);
+
+
+--
+-- Name: student_names student_names_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.student_names
+    ADD CONSTRAINT student_names_pkey PRIMARY KEY (student_id);
+
+
+--
+-- Name: class_info class_info_course_department_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.class_info
+    ADD CONSTRAINT class_info_course_department_fkey FOREIGN KEY (course_department, course_subject) REFERENCES public.course_info(course_department, course_subject);
+
+
+--
+-- Name: completed_courses completed_courses_course_department_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.completed_courses
+    ADD CONSTRAINT completed_courses_course_department_fkey FOREIGN KEY (course_department, course_subject) REFERENCES public.course_info(course_department, course_subject);
+
+
+--
+-- Name: completed_courses completed_courses_student_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.completed_courses
+    ADD CONSTRAINT completed_courses_student_id_fkey FOREIGN KEY (student_id) REFERENCES public.student_names(student_id);
+
+
+--
+-- Name: student_majors student_majors_major_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.student_majors
+    ADD CONSTRAINT student_majors_major_id_fkey FOREIGN KEY (major_id) REFERENCES public.major_names(major_id);
+
+
+--
+-- Name: student_majors student_majors_student_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.student_majors
+    ADD CONSTRAINT student_majors_student_id_fkey FOREIGN KEY (student_id) REFERENCES public.student_names(student_id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
