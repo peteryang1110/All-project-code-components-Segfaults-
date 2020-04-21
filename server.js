@@ -32,12 +32,12 @@ app.get("/search", function (req, res) {
 
 app.get("/search/class_display", function (req, res) {
   var course_code_input = req.query.class_id;
-  var course_subject_input = toUppercase(req.query.class_prefix);
+  var course_subject_input = req.query.class_prefix;
   if (course_code_input == "") course_code_input = "%";
   if (course_subject_input == "") course_subject_input = "%";
   var query =
     "SELECT * FROM public.class_info WHERE public.class_info.course_department LIKE '%' || '" +
-    course_subject_input +
+    toUpperCase(course_subject_input) +
     "' || '%' AND (CAST(public.class_info.course_subject AS varchar(5)) LIKE '%' || '" +
     course_code_input +
     "' || '%');";
