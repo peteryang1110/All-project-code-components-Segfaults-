@@ -24,4 +24,4 @@ app.get("/", function (req, res) {
   res.render("/", {});
 });
 
-app.listen(3000);
+app.listen(process.env.PORT);
