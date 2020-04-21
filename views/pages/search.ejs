@@ -42,14 +42,12 @@
       <h1>
         Class Info: <br>
         <% if (data) {
-          var test = 'test';
-        var classInfo = '';
-        data.forEach(function (item) {
-        classInfo += '<h5>' + item.course_department + '' + item.course_subject + ' ' + item.course_section + ' ' +
-          item.course_location + '</h5>';
-        }); %>
+          var classInfo = '';
+          data.forEach(function (item) {
+            classInfo += '<h3>' + item.course_department + '' + item.course_subject + ' ' + item.course_section + ' ' + item.couse_start + ' ' + item.course_end + ' ' + item.course_days + ' ' +
+              item.course_location + ' ' + item.course_instructor + ' ' + item.course_campus + '</h3>';
+          }); %>
         <%- classInfo %>
-        <%- test %>
         <% } %>
       </h1>
     </div>
