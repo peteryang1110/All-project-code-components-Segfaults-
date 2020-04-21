@@ -45,7 +45,7 @@ app.get("/search/class_display", function (req, res) {
   //   professorName = "course_instructor = " + professor_name;
 
   var query =
-    "SELECT * FROM public.class_info WHERE course_subject = 1120 AND course_department = 'ANTH'";
+    "SELECT * FROM public.class_info WHERE course_subject = 1120 AND course_department = 'ANTH';";
 
   db.any(query)
     .then(function (rows) {
