@@ -43,19 +43,14 @@ app.get("/search/class_display", function (req, res) {
   //   professorName = " && course_instructor = " + professor_name;
   // else if (classId == "" && req.query.class_prefix == "")
   //   professorName = "course_instructor = " + professor_name;
-  var test1 = req.query.class_id;
 
   var query =
-    "SELECT * FROM public.class_info WHERE " +
-    classID +
-    classPrefix +
-    professorName;
+    "SELECT * FROM public.class_info WHERE course_subject = 1120 && course_department = ANTH";
 
   db.any(query)
     .then(function (rows) {
       res.render("pages/search", {
-        test: test1,
-        data: "",
+        data: rows,
       });
     })
     .catch(function (err) {
