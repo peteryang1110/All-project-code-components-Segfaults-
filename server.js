@@ -38,9 +38,9 @@ app.get("/search/class_display", function (req, res) {
   var query =
     "SELECT * FROM public.class_info WHERE public.class_info.course_department LIKE '%' || '" +
     course_subject_input +
-    "' || '%' AND (CAST(public.class_info.course_subject AS varchar(5)) LIKE '%' || " +
+    "' || '%' AND (CAST(public.class_info.course_subject AS varchar(5)) LIKE '%' || '" +
     course_code_input +
-    " || '%');";
+    "' || '%');";
 
   db.any(query)
     .then(function (rows) {
