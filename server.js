@@ -39,7 +39,7 @@ app.get("/search/class_display", function (req, res) {
   else if (classId == "" && req.query.class_prefix != "")
     classPrefix = "course_department = " + req.query.class_prefix;
   var professorName = "";
-  if (classId != "" || classPrefix != "")
+  if ((classId != "" || classPrefix != "") && req.query.professor_name != "")
     professorName = " && course_instructor = " + professor_name;
   else if (classId == "" && req.query.class_prefix == "")
     professorName = "course_instructor = " + professor_name;
