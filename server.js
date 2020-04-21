@@ -36,4 +36,4 @@ app.get("/about", function (req, res) {
   res.render("pages/about", {});
 });
 
-app.listen(3000);
+app.listen(process.env.PORT);
