@@ -25,7 +25,9 @@ app.get("/", function (req, res) {
 });
 
 app.get("/search", function (req, res) {
-  res.render("pages/search", {});
+  res.render("pages/search", {
+    data = ""
+  });
 });
 
 app.get("/search/class_display", function (req, res) {
