@@ -42,11 +42,11 @@
       <h1>
         Class Info:
         <% if (data) {
-          var class = "";
+          var class_info = '';
           data.forEach(function(item) {
-            class += item.course_department + " " + course_subject + " " + course_section<br >;
+            class_info += item.course_department + " " + course_subject + " " + course_section + "<br>";
           }); %>
-        <%- class %>
+        <%- class_info %>
         <% } %>
       </h1>
     </div>
