@@ -28,6 +28,40 @@ app.get("/search", function (req, res) {
   res.render("pages/search", {});
 });
 
+app.get("/search/class_display", function (req, res) {
+  var classId = "";
+  if (req.query.class_id != "") classId = "course_subject" + req.query.class_id;
+  var classPrefix = "";
+  if (classId != "" && req.query.class_prefix != "")
+    classPrefix = " && course_department = " + req.query.class_prefix;
+  else if (classId == "" && req.query.class_prefix != "")
+    classPrefix = "course_department = " + req.query.class_prefix;
+  var professorName = "";
+  if (classId != "" || classPrefix != "")
+    professorName = " && course_instructor = " + professor_name;
+  else if (classId == "" && req.query.class_prefix == "")
+    professorName = "course_instructor = " + professor_name;
+
+  var query =
+    "SELECT * FROM public.class_info WHERE " +
+    classID +
+    classPrefix +
+    professorName;
+
+  db.any(query)
+    .then(function (rows) {
+      res.render("pages/search", {
+        data: rows,
+      });
+    })
+    .catch(function (err) {
+      console.log("error", err);
+      res.render("pages/search", {
+        data: "",
+      });
+    });
+});
+
 app.get("/schedule", function (req, res) {
   res.render("pages/schedule", {});
 });

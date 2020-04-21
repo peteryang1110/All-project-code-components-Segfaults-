@@ -27,13 +27,13 @@
     </div>
     <div class="col-lg-10">
       <div>
-        <form>
+        <form action="search/class_display" method="GET">
           <label for="class_id">Class Id: </label>
           <input type="text" id="class_id" name="class_id"><br><br>
           <label for="class_prefix">Class Prefix:</label>
           <input type="text" id="class_prefix" name="class_prefix"><br><br>
           <label for="professor">Professor: </label>
-          <input type="text" id="date" name="date"><br><br>
+          <input type="text" id="professor_name" name="professor_name"><br><br>
           <input type="submit" value="Submit">
         </form>
       </div>
@@ -41,6 +41,13 @@
     <div class="col-lg-10" style="margin-top:2%;">
       <h1>
         Class Info:
+        <% if (data) {
+          var class = "";
+          data.forEach(function(item) {
+            class += item.course_department + " " + course_subject + " " + course_section<br >;
+          }); %>
+        <%- class %>
+        <% } %>
       </h1>
     </div>
   </div>
