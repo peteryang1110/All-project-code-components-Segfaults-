@@ -31,20 +31,14 @@ app.get("/search", function (req, res) {
 });
 
 app.get("/search/class_display", function (req, res) {
-  // var classId = "";
-  // if (req.query.class_id != "") classId = "course_subject" + req.query.class_id;
-  // var classPrefix = "";
-  // if (classId != "" && req.query.class_prefix != "")
-  //   classPrefix = " && course_department = " + req.query.class_prefix;
-  // else if (classId == "" && req.query.class_prefix != "")
-  //   classPrefix = "course_department = " + req.query.class_prefix;
-  // var professorName = "";
-  // if ((classId != "" || classPrefix != "") && req.query.professor_name != "")
-  //   professorName = " && course_instructor = " + professor_name;
-  // else if (classId == "" && req.query.class_prefix == "")
-  //   professorName = "course_instructor = " + professor_name;
+  var course_code_input = req.query.class_id;
+  var course_subject_input = req.query.class_prefix;
   var query =
-    "SELECT * FROM public.class_info WHERE course_subject = 1120 AND course_department = 'ANTH';";
+    "SELECT Class_info.Course_department, Class_info.Course_subject, Class_info.Course_start, Class_info.Course_end, Class_info.Course_instructor, Class_info.Course_days, Course_info.Course_name FROM Class_info FULL OUTER JOIN Course_info  ON Class_info.Course_department = Course_info.Course_department AND Class_info.Course_subject = Course_info.Course_subject WHERE Class_info.Course_department LIKE '%' ||" +
+    course_code_input +
+    "|| '%' AND(CAST(Class_info.Course_subject AS VARCHAR(5)) LIKE '%' ||" +
+    course_subject_input +
+    "|| '%');";
 
   db.any(query)
     .then(function (rows) {
