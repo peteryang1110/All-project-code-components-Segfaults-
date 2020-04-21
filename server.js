@@ -32,7 +32,7 @@ app.get("/search", function (req, res) {
 
 app.get("/search/class_display", function (req, res) {
   var course_code_input = req.query.class_id;
-  var course_subject_input = req.query.class_prefix;
+  var course_subject_input = toUppercase(req.query.class_prefix);
   if (course_code_input == "") course_code_input = "%";
   if (course_subject_input == "") course_subject_input = "%";
   var query =
