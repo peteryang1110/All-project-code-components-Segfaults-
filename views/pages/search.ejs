@@ -41,8 +41,12 @@
     <div class="col-lg-10" style="margin-top:2%;">
       <h1>
         Class Info: <br>
-        <% if (data) { %>
-        <%- data[0].course_subject %>
+        <% if (data) {
+          var classInfo = '';
+          data.forEach(function (item) {
+            classInfo += '<h5>' + item.course_subject + ' ' + item.course_department + '</h5><br>'; 
+          }); %>
+        <%- classInfo %>
         <% } %>
       </h1>
     </div>
