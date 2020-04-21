@@ -43,11 +43,12 @@
         Class Info: <br>
         <% if (data) {
           var test = 'test';
-          <%- test ->
-          var classInfo = '';
-          data.forEach(function (item) {
-            classInfo += '<h5>' + item.course_department + '' + item.course_subject + ' ' + item.course_section + ' ' + item.course_location + '</h5>'; 
-          }); %>
+          <%- test %>
+        var classInfo = '';
+        data.forEach(function (item) {
+        classInfo += '<h5>' + item.course_department + '' + item.course_subject + ' ' + item.course_section + ' ' +
+          item.course_location + '</h5>';
+        }); %>
         <%- classInfo %>
         <% } %>
       </h1>
