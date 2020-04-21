@@ -37,7 +37,7 @@ app.get("/search/class_display", function (req, res) {
   if (course_subject_input == "") course_subject_input = "%";
   var query =
     "SELECT * FROM public.class_info WHERE public.class_info.course_department LIKE '%' || '" +
-    toUpperCase(course_subject_input) +
+    course_subject_input +
     "' || '%' AND (CAST(public.class_info.course_subject AS varchar(5)) LIKE '%' || '" +
     course_code_input +
     "' || '%');";
