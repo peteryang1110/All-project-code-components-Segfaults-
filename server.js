@@ -12,16 +12,28 @@ app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 //Create Database Connection
-var pgp = require("pg-promise")();
-const dbConfig = process.env.DATABASE_URL;
-var db = pgp(dbConfig);
+// var pgp = require("pg-promise")();
+// const dbConfig = process.env.DATABASE_URL;
+// var db = pgp(dbConfig);
 
 // set the view engine to ejs
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/")); //This line is necessary for us to use relative paths and access our resources directory
 
 app.get("/", function (req, res) {
-  res.render("/", {});
+  res.render("pages/schedule", {});
 });
 
-app.listen(process.env.PORT);
+app.get("/search", function (req, res) {
+  res.render("pages/search", {});
+});
+
+app.get("/schedule", function (req, res) {
+  res.render("pages/schedule", {});
+});
+
+app.get("/about", function (req, res) {
+  res.render("pages/about", {});
+});
+
+app.listen(3000);
