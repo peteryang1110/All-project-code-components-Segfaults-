@@ -34,11 +34,11 @@ app.get("/search/class_display", function (req, res) {
   var course_code_input = req.query.class_id;
   var course_subject_input = req.query.class_prefix;
   var query =
-    "SELECT Class_info.Course_department, Class_info.Course_subject, Class_info.Course_start, Class_info.Course_end, Class_info.Course_instructor, Class_info.Course_days, Course_info.Course_name FROM Class_info FULL OUTER JOIN Course_info  ON Class_info.Course_department = Course_info.Course_department AND Class_info.Course_subject = Course_info.Course_subject WHERE Class_info.Course_department LIKE '%' ||" +
-    course_code_input +
-    "|| '%' AND(CAST(Class_info.Course_subject AS VARCHAR(5)) LIKE '%' ||" +
+    "SELECT * FROM public.class_info WHERE public.class_info.course_department LIKE '%' || '" +
     course_subject_input +
-    "|| '%');";
+    "' || '%' AND (CAST(public.class_info.course_subject AS varchar(5)) LIKE '%' || " +
+    course_code_input +
+    " || '%');";
 
   db.any(query)
     .then(function (rows) {
