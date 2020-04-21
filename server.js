@@ -49,7 +49,7 @@ app.get("/search/class_display", function (req, res) {
   db.any(query)
     .then(function (rows) {
       res.render("pages/search", {
-        data: "test",
+        data: rows,
       });
     })
     .catch(function (err) {
