@@ -17,6 +17,7 @@
       }
       newdiv += "<input type=\"submit\" value=\"Submit\"> </form>";
       document.getElementById("searchbox").innerHTML = newdiv;
+      document.getElementById("output").innerHTML = "";
     }
   </script>
   <style>
@@ -236,9 +237,11 @@
 
     <div id="searchbox"></div>
 
-    <% if (data) { %>
-    <p>test: <%=data[0][0].course_department %> </p>
-    <% } %>
+    <div id="output">
+      <% if (data) { %>
+      <p>test: <%=data[0][0].course_department %> </p>
+      <% } %>
+    </div>
   </div>
 </body>
 
