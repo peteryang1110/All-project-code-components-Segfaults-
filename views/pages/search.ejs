@@ -13,13 +13,15 @@
   <link rel="stylesheet" type="text/css" href="../../resources/css/index.css">
   <script>
     function myfunction(num) {
+      var newdiv = document.createElement('div');
+      newdiv.className = "col-sm-4";
+      newdiv.innerHTML += "<form class=\"searcher\" action=\"\" method=\"GET\">";
       for (var i = 0; i < num; i++) {
-        var newdiv = document.createElement('div');
-        newdiv.className = "col-sm-4";
-        newdiv.innerHTML = "<form class=\"searcher\" action=\"\" method=\"GET\"><label for=\"class_id\">Class Id: </label><input type=\"text\" id=\"class_id_" + i + "\" name=\"class_id_" + i + "\"><br><br><label for=\"class_prefix\">Class Prefix:</label><input type=\"text\" id=\"class_prefix_" + i + "\" name=\"class_prefix_" + i + "\"><br><br><input type=\"submit\" value=\"Submit\"></form>";
-        var prevdiv = document.getElementById("searchbox");
-        prevdiv.appendChild(newdiv);
+        newdiv.innerHTML += "<label for=\"class_id\">Class Id: </label><input type=\"text\" id=\"class_id_" + i + "\" name=\"class_id_" + i + "\"><br><br><label for=\"class_prefix\">Class Prefix:</label><input type=\"text\" id=\"class_prefix_" + i + "\" name=\"class_prefix_" + i + "\"><br><br>";
       }
+      newdiv.innerHTML += "<input type=\"submit\" value=\"Submit\"></form>";
+      var prevdiv = document.getElementById("searchbox");
+      prevdiv.appendChild(newdiv);
     }
   </script>
   <style>
