@@ -9,6 +9,16 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <link rel="stylesheet" type="text/css" href="../../resources/css/index.css">
+  <script>
+    function myfunction(num) {
+      var newdiv = "<div class='col-sm-4'><form class=\"searcher\" action=\"/search/class_display\" method=\"GET\">"
+      for (var i = 0; i < num; i++) {
+        newdiv += " <label for=\"class_id_" + (i + 1).toString() + "\">Class " + (i + 1).toString() + " Id: </label><input type=\"text\" id=\"class_id_" + (i + 1).toString() + "\" name=\"class_id_" + (i + 1).toString() + "\"><br><br> <label for=\"class_prefix_" + (i + 1).toString() + "\">Class " + (i + 1).toString() + " Prefix:</label> <input type=\"text\" id=\"class_prefix_" + (i + 1).toString() + "\" name=\"class_prefix_" + (i + 1).toString() + "\"><br><br>";
+      }
+      newdiv += "<input type=\"submit\" value=\"Submit\"> </form>";
+      document.getElementById("searchbox").innerHTML += newdiv;
+    }
+  </script>
 </head>
 
 <body>
@@ -173,61 +183,21 @@
   </div>
 
   <div class="container">
-    <form class="searcher" action="/schedule/scheduler" method="GET">
-      <label for="numberOfClass">Number of class: </label>
-      <input type="text" id="numberOfClass name=" numberOfClass"><br><br>
-
-      <label for="class_id_1">Class 1 Id: </label>
-      <input type="text" id="class_id_1" name="class_id_1"><br><br>
-      <label for="class_prefix_1">Class 1 Prefix:</label>
-      <input type="text" id="class_prefix_1" name="class_prefix_1"><br><br>
-
-      <label for="class_id_2">Class 2 Id: </label>
-      <input type="text" id="class_id_2" name="class_id_2"><br><br>
-      <label for="class_prefix_2">Class 2 Prefix:</label>
-      <input type="text" id="class_prefix_2" name="class_prefix_2"><br><br>
-
-      <label for="class_id_3">Class 3 Id: </label>
-      <input type="text" id="class_id_3" name="class_id_3"><br><br>
-      <label for="class_prefix_3">Class 3 Prefix:</label>
-      <input type="text" id="class_prefix_3" name="class_prefix_3"><br><br>
-
-      <label for="class_id_4">Class 4 Id: </label>
-      <input type="text" id="class_id_4" name="class_id_4"><br><br>
-      <label for="class_prefix_4">Class 4 Prefix:</label>
-      <input type="text" id="class_prefix_4" name="class_prefix_4"><br><br>
-
-      <label for="class_id_5">Class 5 Id: </label>
-      <input type="text" id="class_id_5" name="class_id_5"><br><br>
-      <label for="class_prefix_5">Class 5 Prefix:</label>
-      <input type="text" id="class_prefix_5" name="class_prefix_5"><br><br>
-
-      <label for="class_id_6">Class 6 Id: </label>
-      <input type="text" id="class_id_6" name="class_id_6"><br><br>
-      <label for="class_prefix_6">Class 6 Prefix:</label>
-      <input type="text" id="class_prefix_6" name="class_prefix_6"><br><br>
-
-      <label for="class_id_7">Class 7 Id: </label>
-      <input type="text" id="class_id_7" name="class_id_7"><br><br>
-      <label for="class_prefix_7">Class 7 Prefix:</label>
-      <input type="text" id="class_prefix_7" name="class_prefix_7"><br><br>
-
-      <label for="class_id_8">Class 8 Id: </label>
-      <input type="text" id="class_id_8" name="class_id_8"><br><br>
-      <label for="class_prefix_8">Class 8 Prefix:</label>
-      <input type="text" id="class_prefix_8" name="class_prefix_8"><br><br>
-
-      <label for="class_id_9">Class 9 Id: </label>
-      <input type="text" id="class_id_9" name="class_id_9"><br><br>
-      <label for="class_prefix_9">Class 9 Prefix:</label>
-      <input type="text" id="class_prefix_9" name="class_prefix_9"><br><br>
-
-      <label for="class_id_10">Class 10 Id: </label>
-      <input type="text" id="class_id_10" name="class_id_10"><br><br>
-      <label for="class_prefix_10">Class 10 Prefix:</label>
-      <input type="text" id="class_prefix_10" name="class_prefix_10"><br><br>
-      <input type="submit" value="Submit">
-    </form>
+    <div class="col-lg" style="margin: 2%;">
+      <p>Please choose how many searches you would like to complete:</p>
+      <div class="btn-group">
+        <button value="1" onclick="myfunction(this.value)">1</button>
+        <button value="2" onclick="myfunction(this.value)">2</button>
+        <button value="3" onclick="myfunction(this.value)">3</button>
+        <button value="4" onclick="myfunction(this.value)">4</button>
+        <button value="5" onclick="myfunction(this.value)">5</button>
+        <button value="6" onclick="myfunction(this.value)">6</button>
+        <button value="7" onclick="myfunction(this.value)">7</button>
+        <button value="8" onclick="myfunction(this.value)">8</button>
+        <button value="9" onclick="myfunction(this.value)">9</button>
+        <button value="10" onclick="myfunction(this.value)">10</button>
+      </div>
+    </div>
 
     <% if (data) { %>
     <p>test: <%=data[0][0].course_department %> </p>

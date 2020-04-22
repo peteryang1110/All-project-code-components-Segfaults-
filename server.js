@@ -158,7 +158,7 @@ app.get("/schedule/scheduler", function (req, res) {
 
   var classInput_10 = new Array(2);
   classInput_10[0] = req.query.class_id_10;
-  classInput_10[1] = req.query.class_prefix_11;
+  classInput_10[1] = req.query.class_prefix_10;
   var query10 =
     "SELECT * FROM public.class_info WHERE public.class_info.course_department LIKE '%' || '" +
     classInput_10[1] +
