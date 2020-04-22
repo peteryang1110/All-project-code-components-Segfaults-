@@ -42,9 +42,9 @@
         <% if (data) {
           var classInfo = '';
           data.forEach(function (item) {
-            classInfo += '<div class="card"><div class="container">'
-            classInfo += '<h4><b>' + item.course_department + '' + item.course_subject + '</b></h4>'; 
-            classInfo += '<p>Course section number: ' + item.course_section + '<br>Course start time: ' + item.course_start + '<br>Course end time: ' + item.course_end + '<br>Days: ' + item.course_days + '<br>Buildings: ' +
+            classInfo += '<div class="card"><div class="card-body">'
+            classInfo += '<h5 class="card-title"><b>' + item.course_department + '' + item.course_subject + '</b></h5>'; 
+            classInfo += '<p class="card-text">Course section number: ' + item.course_section + '<br>Course start time: ' + item.course_start + '<br>Course end time: ' + item.course_end + '<br>Days: ' + item.course_days + '<br>Buildings: ' +
               item.course_location + '<br>Instructor name: ' + item.course_instructor + '<br>Campus: ' + item.course_campus + '</p>';
             classInfo += '</div></div>'
           }); %>
