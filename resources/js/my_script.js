@@ -112,4 +112,5 @@ function scheduler(allArray, max) {
     a[i] = new Set();
   }
   schedulerHelper(output, cur, allArray, 0, daySet, max);
+  return output;
 }
