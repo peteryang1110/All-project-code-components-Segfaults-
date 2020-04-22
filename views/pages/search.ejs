@@ -45,14 +45,14 @@
           var classInfo = '';
           data.forEach(function (item) {
             classInfo += '<div class="card"><div class="card-body">'
-            classInfo += '<h3 class="card-title">' + item.course_department + ' ' + item.course_subject + '</h3>'; 
-            classInfo += '<h5 class="card-text">Course section number: ' + item.course_section + 
+            classInfo += '<h2 class="card-title">' + item.course_department + ' ' + item.course_subject + '</h2>'; 
+            classInfo += '<h4 class="card-text">Course section number: ' + item.course_section + 
               '<br>Course start time: ' + item.course_start + 
               '<br>Course end time: ' + item.course_end + 
               '<br>Days: ' + item.course_days + 
               '<br>Buildings: ' + item.course_location + 
               '<br>Instructor name: ' + item.course_instructor + 
-              '<br>Campus: ' + item.course_campus + '</h5>';
+              '<br>Campus: ' + item.course_campus + '</h4>';
             classInfo += '</div></div>'
           }); %>
         <%- classInfo %>
