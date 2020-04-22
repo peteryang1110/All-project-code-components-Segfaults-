@@ -25,7 +25,7 @@
       var newdiv = "<div class='col-sm-4'>";
       newdiv += "<form class=\"searcher\" method=\"GET\">";
       for (let i = 0; i < num; i++) {
-        newdiv += "<label for=\"class_id\">Class " + (i + 1).toString() + "Id: </label><input type=\"text\" id=\"class_id_" + i + "\" name=\"class_id_" + i + "\"><br><br><label for=\"class_prefix\">Class " + (i + 1).toString() + " Prefix:</label><input type=\"text\" id=\"class_prefix_" + i + "\" name=\"class_prefix_" + i + "\"><br><br>";
+        newdiv += "<label for=\"class_id\">Class " + (i + 1).toString() + " Id: </label><input type=\"text\" id=\"class_id_" + i + "\" name=\"class_id_" + i + "\"><br><br><label for=\"class_prefix\">Class " + (i + 1).toString() + " Prefix:</label><input type=\"text\" id=\"class_prefix_" + i + "\" name=\"class_prefix_" + i + "\"><br><br>";
       }
       newdiv += "<input type=\"submit\" value=\"Submit\"></form>";
       document.getElementById("searchbox").innerHTML += newdiv;
