@@ -11,7 +11,7 @@
   <link rel="stylesheet" type="text/css" href="../../resources/css/index.css">
   <script>
     function myfunction(num) {
-      var newdiv = "<div class='col-sm-4'><form class=\"searcher\" action=\"/search/class_display\" method=\"GET\">"
+      var newdiv = "<div class='col-sm-4'><form class=\"searcher\" action=\"/schedule/scheduler\" method=\"GET\">"
       for (var i = 0; i < num; i++) {
         newdiv += " <label for=\"class_id_" + (i + 1).toString() + "\">Class " + (i + 1).toString() + " Id: </label><input type=\"text\" id=\"class_id_" + (i + 1).toString() + "\" name=\"class_id_" + (i + 1).toString() + "\"><br><br> <label for=\"class_prefix_" + (i + 1).toString() + "\">Class " + (i + 1).toString() + " Prefix:</label> <input type=\"text\" id=\"class_prefix_" + (i + 1).toString() + "\" name=\"class_prefix_" + (i + 1).toString() + "\"><br><br>";
       }
