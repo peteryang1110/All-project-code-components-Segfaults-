@@ -229,7 +229,9 @@
       <input type="submit" value="Submit">
     </form>
 
-    <p>test: <%- data[0][0].coure_department %></p>
+    <% if (data) { %>
+    <p>test: <%=data[0][0].course_department %> </p>
+    <% } %>
   </div>
 </body>
 
