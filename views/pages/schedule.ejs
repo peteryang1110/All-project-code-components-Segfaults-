@@ -16,7 +16,7 @@
         newdiv += " <label for=\"class_id_" + (i + 1).toString() + "\">Class " + (i + 1).toString() + " Id: </label><input type=\"text\" id=\"class_id_" + (i + 1).toString() + "\" name=\"class_id_" + (i + 1).toString() + "\"><br><br> <label for=\"class_prefix_" + (i + 1).toString() + "\">Class " + (i + 1).toString() + " Prefix:</label> <input type=\"text\" id=\"class_prefix_" + (i + 1).toString() + "\" name=\"class_prefix_" + (i + 1).toString() + "\"><br><br>";
       }
       newdiv += "<input type=\"submit\" value=\"Submit\"> </form>";
-      document.getElementById("searchbox").innerHTML += newdiv;
+      document.getElementById("searchbox").innerHTML = newdiv;
     }
   </script>
 </head>
