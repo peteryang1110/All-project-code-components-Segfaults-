@@ -67,104 +67,106 @@ app.get("/schedule/scheduler", function (req, res) {
   var classNumber = req.query.numberOfClass;
 
   var classInput_1 = new Array(2);
-  classInput_1[0] = req.query.class_id_1;
-  classInput_1[1] = req.query.class_prefix_1;
+  classInput_1[0] = req.query.class_id_1 ? req.query.class_id_1 : "0";
+  classInput_1[1] = req.query.class_prefix_1 ? req.query.class_prefix_1 : "0";
   var query1 =
-    "SELECT * FROM public.class_info WHERE public.class_info.course_department LIKE '%' || '" +
+    "SELECT * FROM public.class_info WHERE public.class_info.course_department = '" +
     classInput_1[1] +
-    "' || '%' AND (CAST(public.class_info.course_subject AS varchar(5)) LIKE '%' || '" +
+    "' AND public.class_info.course_subject = '" +
     classInput_1[0] +
-    "' || '%');";
+    "';";
 
   var classInput_2 = new Array(2);
-  classInput_2[0] = req.query.class_id_2;
-  classInput_2[1] = req.query.class_prefix_2;
+  classInput_2[0] = req.query.class_id_2 ? req.query.class_id_2 : "0";
+  classInput_2[1] = req.query.class_prefix_2 ? req.query.class_prefix_2 : "0";
   var query2 =
-    "SELECT * FROM public.class_info WHERE public.class_info.course_department LIKE '%' || '" +
+    "SELECT * FROM public.class_info WHERE public.class_info.course_department = '" +
     classInput_2[1] +
-    "' || '%' AND (CAST(public.class_info.course_subject AS varchar(5)) LIKE '%' || '" +
+    "' AND public.class_info.course_subject = '" +
     classInput_2[0] +
-    "' || '%');";
+    "';";
 
   var classInput_3 = new Array(2);
-  classInput_3[0] = req.query.class_id_3;
-  classInput_3[1] = req.query.class_prefix_3;
+  classInput_3[0] = req.query.class_id_3 ? req.query.class_id_3 : "0";
+  classInput_3[1] = req.query.class_prefix_3 ? req.query.class_prefix_3 : "0";
   var query3 =
-    "SELECT * FROM public.class_info WHERE public.class_info.course_department LIKE '%' || '" +
+    "SELECT * FROM public.class_info WHERE public.class_info.course_department = '" +
     classInput_3[1] +
-    "' || '%' AND (CAST(public.class_info.course_subject AS varchar(5)) LIKE '%' || '" +
+    "' AND public.class_info.course_subject = '" +
     classInput_3[0] +
-    "' || '%');";
+    "';";
 
   var classInput_4 = new Array(2);
-  classInput_4[0] = req.query.class_id_4;
-  classInput_4[1] = req.query.class_prefix_4;
+  classInput_4[0] = req.query.class_id_4 ? req.query.class_id_4 : "0";
+  classInput_4[1] = req.query.class_prefix_4 ? req.query.class_prefix_4 : "0";
   var query4 =
-    "SELECT * FROM public.class_info WHERE public.class_info.course_department LIKE '%' || '" +
+    "SELECT * FROM public.class_info WHERE public.class_info.course_department = '" +
     classInput_4[1] +
-    "' || '%' AND (CAST(public.class_info.course_subject AS varchar(5)) LIKE '%' || '" +
+    "' AND public.class_info.course_subject = '" +
     classInput_4[0] +
-    "' || '%');";
+    "';";
 
   var classInput_5 = new Array(2);
-  classInput_5[0] = req.query.class_id_5;
-  classInput_5[1] = req.query.class_prefix_5;
+  classInput_5[0] = req.query.class_id_5 ? req.query.class_id_5 : "0";
+  classInput_5[1] = req.query.class_prefix_5 ? req.query.class_prefix_5 : "0";
   var query5 =
-    "SELECT * FROM public.class_info WHERE public.class_info.course_department LIKE '%' || '" +
+    "SELECT * FROM public.class_info WHERE public.class_info.course_department = '" +
     classInput_5[1] +
-    "' || '%' AND (CAST(public.class_info.course_subject AS varchar(5)) LIKE '%' || '" +
+    "' AND public.class_info.course_subject = '" +
     classInput_5[0] +
-    "' || '%');";
+    "';";
 
   var classInput_6 = new Array(2);
-  classInput_6[0] = req.query.class_id_6;
-  classInput_6[1] = req.query.class_prefix_6;
+  classInput_6[0] = req.query.class_id_6 ? req.query.class_id_6 : "0";
+  classInput_6[1] = req.query.class_prefix_6 ? req.query.class_prefix_6 : "0";
   var query6 =
-    "SELECT * FROM public.class_info WHERE public.class_info.course_department LIKE '%' || '" +
+    "SELECT * FROM public.class_info WHERE public.class_info.course_department = '" +
     classInput_6[1] +
-    "' || '%' AND (CAST(public.class_info.course_subject AS varchar(5)) LIKE '%' || '" +
+    "' AND public.class_info.course_subject = '" +
     classInput_6[0] +
-    "' || '%');";
+    "';";
 
   var classInput_7 = new Array(2);
-  classInput_7[0] = req.query.class_id_7;
-  classInput_7[1] = req.query.class_prefix_7;
+  classInput_7[0] = req.query.class_id_7 ? req.query.class_id_7 : "0";
+  classInput_7[1] = req.query.class_prefix_7 ? req.query.class_prefix_7 : "0";
   var query7 =
-    "SELECT * FROM public.class_info WHERE public.class_info.course_department LIKE '%' || '" +
+    "SELECT * FROM public.class_info WHERE public.class_info.course_department = '" +
     classInput_7[1] +
-    "' || '%' AND (CAST(public.class_info.course_subject AS varchar(5)) LIKE '%' || '" +
+    "' AND public.class_info.course_subject = '" +
     classInput_7[0] +
-    "' || '%');";
+    "';";
 
   var classInput_8 = new Array(2);
-  classInput_8[0] = req.query.class_id_8;
-  classInput_8[1] = req.query.class_prefix_8;
+  classInput_8[0] = req.query.class_id_8 ? req.query.class_id_8 : "0";
+  classInput_8[1] = req.query.class_prefix_8 ? req.query.class_prefix_8 : "0";
   var query8 =
-    "SELECT * FROM public.class_info WHERE public.class_info.course_department LIKE '%' || '" +
+    "SELECT * FROM public.class_info WHERE public.class_info.course_department = '" +
     classInput_8[1] +
-    "' || '%' AND (CAST(public.class_info.course_subject AS varchar(5)) LIKE '%' || '" +
+    "' AND public.class_info.course_subject = '" +
     classInput_8[0] +
-    "' || '%');";
+    "';";
 
   var classInput_9 = new Array(2);
-  classInput_9[0] = req.query.class_id_9;
-  classInput_9[1] = req.query.class_prefix_9;
+  classInput_9[0] = req.query.class_id_9 ? req.query.class_id_9 : "0";
+  classInput_9[1] = req.query.class_prefix_9 ? req.query.class_prefix_9 : "0";
   var query9 =
-    "SELECT * FROM public.class_info WHERE public.class_info.course_department LIKE '%' || '" +
+    "SELECT * FROM public.class_info WHERE public.class_info.course_department = '" +
     classInput_9[1] +
-    "' || '%' AND (CAST(public.class_info.course_subject AS varchar(5)) LIKE '%' || '" +
+    "' AND public.class_info.course_subject = '" +
     classInput_9[0] +
-    "' || '%');";
+    "';";
 
   var classInput_10 = new Array(2);
-  classInput_10[0] = req.query.class_id_10;
-  classInput_10[1] = req.query.class_prefix_10;
+  classInput_10[0] = req.query.class_id_10 ? req.query.class_id_10 : "0";
+  classInput_10[1] = req.query.class_prefix_10
+    ? req.query.class_prefix_10
+    : "0";
   var query10 =
-    "SELECT * FROM public.class_info WHERE public.class_info.course_department LIKE '%' || '" +
+    "SELECT * FROM public.class_info WHERE public.class_info.course_department = '" +
     classInput_10[1] +
-    "' || '%' AND (CAST(public.class_info.course_subject AS varchar(5)) LIKE '%' || '" +
+    "' AND public.class_info.course_subject = '" +
     classInput_10[0] +
-    "' || '%');";
+    "';";
 
   db.task("get-everything", (task) => {
     return task.batch([
