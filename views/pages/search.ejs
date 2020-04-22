@@ -16,7 +16,7 @@
       for (var i = 0; i < num; i++) {
         var newdiv = document.createElement('div');
         newdiv.className = "col-sm-4";
-        newdiv.innerHTML = "<form class=\"searcher\" action=\"/search/class_display\" method=\"GET\"> <label for=\"class_id\">Class Id: </label> <input type=\"text\" id=\"class_id\" name=\"class_id\"><br><br> <label for=\"class_prefix\">Class Prefix:</label> <input type=\"text\" id=\"class_prefix\" name=\"class_prefix\"><br><br> <input type=\"submit\" value=\"Submit\"> </form>";
+        newdiv.innerHTML = "<form class=\"searcher\" action=\"\" method=\"GET\"><label for=\"class_id\">Class Id: </label><input type=\"text\" id=\"class_id_" + i + "\" name=\"class_id_" + i + "\"><br><br><label for=\"class_prefix\">Class Prefix:</label><input type=\"text\" id=\"class_prefix_" + i + "\" name=\"class_prefix_" + i + "\"><br><br><input type=\"submit\" value=\"Submit\"></form>";
         var prevdiv = document.getElementById("searchbox");
         prevdiv.appendChild(newdiv);
       }
