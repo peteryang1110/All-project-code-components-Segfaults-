@@ -8,7 +8,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <script src="../../resources/js/my_script.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="../../resources/css/index.css">
   <script>
     function myfunction(num) {
@@ -239,10 +240,13 @@
     <div id="searchbox"></div>
 
     <div id="output">
+      <% include ../../resources/js/my_script %>
       <% if (data) {
+        data = scheduler(data, number);
         var output = "";
-        data.forEach(function (item1) {
-          item1.forEach(function (item) {
+        data.forEach(function (info) {
+          output += '<div class="card"><div class="card-body">'
+          info.forEach(function (item) {
             var startString = item.course_start.split(":");
             var startTime = "";
             if (parseInt(startString[0]) == 12) startTime = startString[0] + ":" + startString[1] + " PM";
@@ -256,7 +260,6 @@
             else if (parseInt(endString[0]) > 12) endTime = (parseInt(endString[0]) - 12).toString() + ":" + endString[1] +
               " PM";
             else endTime = endString[0] + ":" + endString[1] + " AM";
-            output += '<div class="card"><div class="card-body">'
             output += '<h3 class="card-title">' + item.course_department + ' ' + item.course_subject + '</h3>';
             output += '<p class="card-text">Course section number: ' + item.course_section +
               '<br>Course start time: ' + startTime +
@@ -265,8 +268,8 @@
               '<br>Buildings: ' + item.course_location +
               '<br>Instructor name: ' + item.course_instructor +
               '<br>Campus: ' + item.course_campus + '</p>';
-            output += '</div></div>'
           });
+          output += '</div></div>';
         }); %>
       <%- output %>
       <% } %>
