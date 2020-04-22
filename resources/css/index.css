@@ -71,9 +71,6 @@ a:hover{
   text-decoration: none;
   color: white;
 }
-p{
-  margin-left: 2px;
-}
 li.nostyle{
   text-decoration: none;
 }
@@ -119,4 +116,26 @@ div.maindiv{
 }
 .listscroller{
   list-style-type: none;
+}
+.searcher{
+  margin:2%; 
+  border-radius: 5px; 
+  padding: 5px;
+  box-shadow: 2px 0 5px black,  -2px 0 5px black;
+}
+input[type=text]{
+  border: none;
+  border-bottom: 2px solid #CFB87C;
+}
+input[type=submit]{
+  color: black;
+  background-color: silver;
+  border-radius: 5px;
+}
+.infobox{
+  margin:2%;
+  border-color: #CFB87C;
+  border-radius:5px;
+  padding:2%;
+  box-shadow: 2px 0 5px black,  -2px 0 5px black;
 }

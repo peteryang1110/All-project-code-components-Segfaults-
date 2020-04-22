@@ -11,6 +11,52 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="../../resources/css/index.css">
+  <script>
+    function myfunction(num) {
+      for (var i = 0; i < num; i++) {
+        var newdiv = document.createElement('div');
+        newdiv.className = "col-sm-4";
+        newdiv.innerHTML = "<form class=\"searcher\" action=\"/search/class_display\" method=\"GET\"> <label for=\"class_id\">Class Id: </label> <input type=\"text\" id=\"class_id\" name=\"class_id\"><br><br> <label for=\"class_prefix\">Class Prefix:</label> <input type=\"text\" id=\"class_prefix\" name=\"class_prefix\"><br><br> <input type=\"submit\" value=\"Submit\"> </form>";
+        var prevdiv = document.getElementById("searchbox");
+        prevdiv.appendChild(newdiv);
+      }
+    }
+  </script>
+  <style>
+    .btn-group button {
+      border-radius: 5px;
+      margin-bottom: 5%;
+      background-color: black;
+      /* Green background */
+      border: 1px solid black;
+      /* Green border */
+      color: #CFB87C;
+      /* White text */
+      padding: 10px 24px;
+      /* Some padding */
+      cursor: pointer;
+      /* Pointer/hand icon */
+      float: center;
+      /* Float the buttons side by side */
+    }
+
+    .btn-group button:not(:last-child) {
+      border-right: none;
+      /* Prevent double borders */
+    }
+
+    /* Clear floats (clearfix hack) */
+    .btn-group:after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+
+    /* Add a background color on hover */
+    .btn-group button:hover {
+      background-color: gray;
+    }
+  </style>
 </head>
 
 <body>
@@ -24,12 +70,25 @@
       <li><a href="/about">About Page</a></li>
     </ul>
   </nav>
-  <div class="container" style="background-color: white; border-radius: 10px; padding: 5%;">
-    <div calss="row">
-    </div>
-    <div class="col-lg-10">
-      <div>
-        <form action="/search/class_display" method="GET">
+  <div class="container" style="background-color: white; border-radius: 10px; padding: 1%;">
+    <div class="row" id="searchbox" style="margin: 5px;">
+      <div class="col-lg" style="margin: 2%;">
+        <p>Please choose how many searches you would like to complete:</p>
+        <div class="btn-group">
+          <button value="1" onclick="myfunction(this.value)">1</button>
+          <button value="2" onclick="myfunction(this.value)">2</button>
+          <button value="3" onclick="myfunction(this.value)">3</button>
+          <button value="4" onclick="myfunction(this.value)">4</button>
+          <button value="5" onclick="myfunction(this.value)">5</button>
+          <button value="6" onclick="myfunction(this.value)">6</button>
+          <button value="7" onclick="myfunction(this.value)">7</button>
+          <button value="8" onclick="myfunction(this.value)">8</button>
+          <button value="9" onclick="myfunction(this.value)">9</button>
+          <button value="10" onclick="myfunction(this.value)">10</button>
+        </div>
+      </div>
+      <div class="col-sm-4" id="formbox">
+        <form class="searcher" action="/search/class_display" method="GET">
           <label for="class_id">Class Id: </label>
           <input type="text" id="class_id" name="class_id"><br><br>
           <label for="class_prefix">Class Prefix:</label>
@@ -38,37 +97,37 @@
         </form>
       </div>
     </div>
-    <div class="col-lg-10" style="margin-top:2%;">
-      <h1>
-        Class Info: <br>
-        <% if (data) {
-          var classInfo = '';
-          data.forEach(function (item) {
-            var startString = item.course_start.split(":");
-            var startTime = "";
-            if (parseInt(startString[0]) == 12) startTime = startString[0] + ":" + startString[1] + " PM";
-            else if (parseInt(startString[0]) > 12) startTime = (parseInt(startString[0]) - 12).toString() + ":" + startString[1] + " PM";
-            else startTime = startString[0] + ":" + startString[1] + " AM";
-            var endString = item.course_end.split(":");
-            var endTime = "";
-            if (parseInt(endString[0]) == 12) endTime = endString[0] + ":" + endString[1] + " PM";
-            else if (parseInt(endString[0]) > 12) endTime = (parseInt(endString[0]) - 12).toString() + ":" + endString[1] +
-            " PM";
-            else endTime = endString[0] + ":" + endString[1] + " AM";
-            classInfo += '<div class="card"><div class="card-body">'
-            classInfo += '<h2 class="card-title">' + item.course_department + ' ' + item.course_subject + '</h2>'; 
-            classInfo += '<h4 class="card-text">Course section number: ' + item.course_section + 
-              '<br>Course start time: ' + startTime + 
-              '<br>Course end time: ' + endTime + 
-              '<br>Days: ' + item.course_days + 
-              '<br>Buildings: ' + item.course_location + 
-              '<br>Instructor name: ' + item.course_instructor + 
-              '<br>Campus: ' + item.course_campus + '</h4>';
-            classInfo += '</div></div>'
-          }); %>
-        <%- classInfo %>
-        <% } %>
+    <div class="infobox">
+      <h1 style="color: gray;">
+        Class Info:
       </h1>
+      <% if (data) {
+        var classInfo = '';
+        data.forEach(function (item) {
+          var startString = item.course_start.split(":");
+          var startTime = "";
+          if (parseInt(startString[0]) == 12) startTime = startString[0] + ":" + startString[1] + " PM";
+          else if (parseInt(startString[0]) > 12) startTime = (parseInt(startString[0]) - 12).toString() + ":" + startString[1] + " PM";
+          else startTime = startString[0] + ":" + startString[1] + " AM";
+          var endString = item.course_end.split(":");
+          var endTime = "";
+          if (parseInt(endString[0]) == 12) endTime = endString[0] + ":" + endString[1] + " PM";
+          else if (parseInt(endString[0]) > 12) endTime = (parseInt(endString[0]) - 12).toString() + ":" + endString[1] +
+          " PM";
+          else endTime = endString[0] + ":" + endString[1] + " AM";
+          classInfo += '<div class="card"><div class="card-body">'
+          classInfo += '<h3 class="card-title">' + item.course_department + ' ' + item.course_subject + '</h3>'; 
+          classInfo += '<p class="card-text">Course section number: ' + item.course_section + 
+            '<br>Course start time: ' + startTime + 
+            '<br>Course end time: ' + endTime + 
+            '<br>Days: ' + item.course_days + 
+            '<br>Buildings: ' + item.course_location + 
+            '<br>Instructor name: ' + item.course_instructor + 
+            '<br>Campus: ' + item.course_campus + '</p>';
+          classInfo += '</div></div>'
+        }); %>
+      <%- classInfo %>
+      <% } %>
     </div>
   </div>
   </div>
