@@ -46,9 +46,15 @@
           data.forEach(function (item) {
             var startString = item.course_start.split(":");
             var startTime = "";
-            if (parseInt(startString[0]) == 12) startTime = startString[0] + startString[1] + "PM";
-            else if (parseInt(startString[0]) > 12) startTime = toString(parseInt(startString[0]) - 12) + startString[1] + "PM";
-            else startTime = startString[0] + startString[1] + "AM";
+            if (parseInt(startString[0]) == 12) startTime = startString[0] + ":" + startString[1] + " PM";
+            else if (parseInt(startString[0]) > 12) startTime = (parseInt(startString[0]) - 12).toString() + ":" + startString[1] + " PM";
+            else startTime = startString[0] + ":" + startString[1] + " AM";
+            var endString = item.course_end.split(":");
+            var endTime = "";
+            if (parseInt(endString[0]) == 12) endTime = endString[0] + ":" + endString[1] + " PM";
+            else if (parseInt(endString[0]) > 12) endTime = (parseInt(endString[0]) - 12).toString() + ":" + endString[1] +
+            " PM";
+            else endTime = endString[0] + ":" + endString[1] + " AM";
             classInfo += '<div class="card"><div class="card-body">'
             classInfo += '<h2 class="card-title">' + item.course_department + ' ' + item.course_subject + '</h2>'; 
             classInfo += '<h4 class="card-text">Course section number: ' + item.course_section + 
