@@ -44,10 +44,15 @@
         <% if (data) {
           var classInfo = '';
           data.forEach(function (item) {
+            var startString = item.course_start.split(":");
+            var startTime = "";
+            if (parseInt(startString[0]) == 12) startTime = startString[0] + startString[1] + "PM";
+            else if (parseInt(startString[0]) > 12) startTime = toString(parseInt(startString[0]) - 12) + startString[1] + "PM";
+            else startTime = startString[0] + startString[1] + "AM";
             classInfo += '<div class="card"><div class="card-body">'
             classInfo += '<h2 class="card-title">' + item.course_department + ' ' + item.course_subject + '</h2>'; 
             classInfo += '<h4 class="card-text">Course section number: ' + item.course_section + 
-              '<br>Course start time: ' + item.course_start + 
+              '<br>Course start time: ' + startTime + 
               '<br>Course end time: ' + item.course_end + 
               '<br>Days: ' + item.course_days + 
               '<br>Buildings: ' + item.course_location + 
