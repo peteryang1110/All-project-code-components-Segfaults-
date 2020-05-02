@@ -1,1 +1,2 @@
 # All-project-code-components-Segfaults-
+This project is a proof-of concept class scheduler that helps students at CU Boulder build their schedule. It asks students to select how many classes they want, and then after taking in their classes it gives them conflict-free schedule options that fit their requirements. Ideally, this would be done using future class data so students could plan their schedules, but for the purposes of this demonstration the data we used was from Spring 2019.
