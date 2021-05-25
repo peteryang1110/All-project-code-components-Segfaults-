@@ -14,6 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 //Create Database Connection
 var pgp = require("pg-promise")();
 const dbConfig = process.env.DATABASE_URL;
+console.log(process.env.DATABASE_URL);
 var db = pgp(dbConfig);
 
 // set the view engine to ejs
